@@ -2,13 +2,8 @@
 
 import { useEffect, useRef } from "react"
 import { DitherCanvases, plotRect } from "./canvas-shared"
-import {
-  BAYER,
-  backingSize,
-  easeInOutCubic,
-  OFF_TIER,
-  prefersReducedMotion,
-} from "./dither-paint"
+import { ALPHA_RAMP, ditherCell } from "./dither-cell"
+import { backingSize, easeInOutCubic, prefersReducedMotion } from "./dither-paint"
 import { dimOf, emphasisOf } from "./emphasis"
 import { rgb } from "./palette"
 import { distToPolygonEdge, pointInPolygon, polarX, polarY } from "./polar"
@@ -118,20 +113,20 @@ export function RadarCanvas() {
               continue
             }
             const density = 1 - Math.min(1, dist / band)
-            const bias = variant === "dotted" ? 0.12 : 0
             // Thin each successive (front) layer so overlapping polygons
             // read as distinct layers, not a muddy blend.
-            const sparse = pi * 0.2
-            if (variant === "hatched" && ((x + y) & 3) >= 2) continue
-            const lit =
-              variant === "solid" ||
-              density > BAYER[y & 3][x & 3] - 0.1 * intensity - bias + sparse
-            // Unlit cells: over another layer, stay a real gap (back layer
-            // shows through); over bare background, paint the faint tier so
-            // the page never bleeds in.
-            if (!lit && (variant === "dotted" || covered)) continue
-            const k = (0.32 + density * 0.68) * (1 + 0.22 * intensity)
-            const alpha = Math.min(1, (lit ? k : k * OFF_TIER) * selDim)
+            const alpha = ditherCell({
+              variant,
+              x,
+              y,
+              density,
+              intensity,
+              dim: selDim,
+              ramp: ALPHA_RAMP.radar,
+              bias: pi * 0.2,
+              covered,
+            })
+            if (alpha === null) continue
             c.fillStyle = rgb(seed.fill, 1, alpha)
             c.fillRect(x, y, 1, 1)
             covered = true

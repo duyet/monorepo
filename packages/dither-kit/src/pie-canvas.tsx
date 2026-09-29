@@ -2,13 +2,8 @@
 
 import { useEffect, useRef } from "react"
 import { DitherCanvases, plotRect } from "./canvas-shared"
-import {
-  BAYER,
-  backingSize,
-  easeInOutCubic,
-  OFF_TIER,
-  prefersReducedMotion,
-} from "./dither-paint"
+import { ALPHA_RAMP, ditherCell } from "./dither-cell"
+import { backingSize, easeInOutCubic, prefersReducedMotion } from "./dither-paint"
 import { dimOf, emphasisOf } from "./emphasis"
 import { rgb } from "./palette"
 import { sliceAtAngle, TAU, TOP } from "./polar"
@@ -112,16 +107,16 @@ export function PieCanvas() {
             continue
           }
           const density = (r - innerR) / Math.max(localOuter - innerR, 1)
-          const bias = variant === "dotted" ? 0.12 : 0
-          if (variant === "hatched" && ((x + y) & 3) >= 2) continue
-          const lit =
-            variant === "solid" ||
-            density > BAYER[y & 3][x & 3] - 0.1 * it - bias
-          if (variant === "dotted" && !lit) continue
-          // Density → opacity (see the colour-vs-opacity note in dither-paint);
-          // off cells drop to a faint tier, never a hole to the background.
-          const k = (0.35 + density * 0.65) * (1 + 0.22 * it)
-          const alpha = Math.min(1, (lit ? k : k * OFF_TIER) * selDim)
+          const alpha = ditherCell({
+            variant,
+            x,
+            y,
+            density,
+            intensity: it,
+            dim: selDim,
+            ramp: ALPHA_RAMP.pie,
+          })
+          if (alpha === null) continue
           c.fillStyle = rgb(seed.fill, 1, alpha)
           c.fillRect(x, y, 1, 1)
         }

@@ -1,14 +1,11 @@
 import type { AreaVariant } from "./chart-context"
+import { ALPHA_RAMP, BAYER, clamp01, ditherCell, OFF_TIER } from "./dither-cell"
 import { rgb, type Seed } from "./palette"
 
-// 4×4 ordered (Bayer) matrix, normalized to 0–1 thresholds — the exact matrix
-// the legacy chart dithers with.
-export const BAYER = [
-  [0, 8, 2, 10],
-  [12, 4, 14, 6],
-  [3, 11, 1, 9],
-  [15, 7, 13, 5],
-].map((row) => row.map((v) => (v + 0.5) / 16))
+// The threshold matrix and the off-tier opacity moved to `dither-cell`, which
+// owns the per-cell decision shared by all three canvas painters. Re-exported
+// here because `dither-paint` is the historical entry point for them.
+export { BAYER, OFF_TIER, clamp01 }
 
 export const CELL = 2 // css px per dither cell — chunky enough to read pixelated
 export const MAX_COLS = 520
@@ -16,10 +13,6 @@ export const MAX_ROWS = 200
 // Opacity of the top border outline (just under solid, so it reads as a soft
 // edge rather than a hard line). See the note on colour vs opacity below.
 export const BORDER_ALPHA = 0.72
-// Opacity of a dither "off" cell relative to an "on" cell. The scatter modulates
-// between these two tiers of the *same* colour instead of leaving holes, so the
-// background never shows through as stark white on a light theme.
-export const OFF_TIER = 0.4
 
 export type PaintOpts = {
   variant: AreaVariant
@@ -63,23 +56,26 @@ export function paintColumn(
     octx.fillRect(x, t, 1, 1)
     return
   }
-  const bias = (variant === "dotted" ? 0.12 : 0) + (stacked ? 0.2 : 0) - sparse
+  // A stacked band already has a layer under it, so it leans denser here to
+  // stay legible; `sparse` thins front layers. `ditherCell`'s `bias` *raises*
+  // the threshold, so the stacked term enters negated and `sparse` does not.
+  const bias = sparse - (stacked ? 0.2 : 0)
   for (let y = t; y < f; y++) {
     // Inverted falloff: 0 at the top line, 1 at the floor — dense at the
     // bottom, thinning as it rises toward the outline.
     let density = (y - t) / depth
     if (stacked) density = 0.5 + 0.5 * density
-    if (variant === "hatched" && ((x + y) & 3) >= 2) continue
-    const lit =
-      variant === "solid" ||
-      density > BAYER[y & 3][x & 3] - 0.1 * intensity - bias
-    // "dotted" keeps real gaps for its open look; every other variant covers
-    // the cell and lets the dither ride the alpha (on = full tier, off = a
-    // faint tint) so nothing shows the background through as white.
-    if (variant === "dotted" && !lit) continue
-    // Density → alpha (see the colour-vs-opacity note above).
-    const k = (0.3 + density * 0.7) * (1 + 0.22 * intensity)
-    const alpha = clamp01((lit ? k : k * OFF_TIER) * dim)
+    const alpha = ditherCell({
+      variant,
+      x,
+      y,
+      density,
+      intensity,
+      dim,
+      ramp: ALPHA_RAMP.cartesian,
+      bias,
+    })
+    if (alpha === null) continue
     octx.fillStyle = rgb(seed.fill, 1, alpha)
     octx.fillRect(x, y, 1, 1)
   }
@@ -167,7 +163,8 @@ export function bloomLayerStyle(
 export const easeInOutCubic = (t: number) =>
   t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
 export const easeOutCubic = (t: number) => 1 - (1 - t) ** 3
-export const clamp01 = (t: number) => (t < 0 ? 0 : t > 1 ? 1 : t)
+// `clamp01` moved to `dither-cell` (with the threshold constants that use it)
+// and is re-exported above.
 
 /** Whether the OS asks for reduced motion (snap + steady stars). */
 export function prefersReducedMotion() {
