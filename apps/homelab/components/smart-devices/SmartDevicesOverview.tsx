@@ -2,7 +2,7 @@
 
 import { Badge } from "@duyet/components/ui/badge";
 import { Camera, Lightbulb, Router, WashingMachine } from "lucide-react";
-import { useSmartDevices } from "@/hooks/useDashboard";
+import { useSmartDevices, useSmartDeviceStatus } from "@/hooks/useDashboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BoschWashingMachine } from "./BoschWashingMachine";
 import { DysonAirPurifier } from "./DysonAirPurifier";
@@ -15,10 +15,7 @@ const STATUS_DOT: Record<string, string> = {
 
 export function SmartDevicesOverview() {
   const { devices } = useSmartDevices();
-
-  const onlineCount = devices.filter(
-    (d) => d.status === "online" || d.status === "idle",
-  ).length;
+  const status = useSmartDeviceStatus();
 
   const detailIds = new Set(["bosch-washer", "dyson-purifier"]);
   const otherDevices = devices.filter((d) => !detailIds.has(d.id));
@@ -38,7 +35,7 @@ export function SmartDevicesOverview() {
   return (
     <div className="space-y-3">
       <p className="text-sm text-muted-foreground">
-        {devices.length} devices · {onlineCount} online
+        {status.total} devices · {status.online} online · {status.idle} idle
       </p>
 
       <DysonAirPurifier />

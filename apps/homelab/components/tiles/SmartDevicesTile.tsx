@@ -1,6 +1,6 @@
 import { Badge } from "@duyet/components/ui/badge";
 import { Separator } from "@duyet/components/ui/separator";
-import { useSmartDevices } from "@/hooks/useDashboard";
+import { useSmartDevices, useSmartDeviceStatus } from "@/hooks/useDashboard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 const TYPE_ICONS: Record<string, string> = {
@@ -15,16 +15,13 @@ const TYPE_ICONS: Record<string, string> = {
 
 export function SmartDevicesTile() {
   const { devices, boschWashingMachine, dysonAirPurifier } = useSmartDevices();
-
-  const onlineCount = devices.filter(
-    (d) => d.status === "online" || d.status === "idle",
-  ).length;
+  const status = useSmartDeviceStatus();
 
   const byType = devices.reduce(
     (acc, d) => {
       if (!acc[d.type]) acc[d.type] = { total: 0, online: 0 };
       acc[d.type].total++;
-      if (d.status === "online" || d.status === "idle") acc[d.type].online++;
+      if (d.status === "online") acc[d.type].online++;
       return acc;
     },
     {} as Record<string, { total: number; online: number }>,
@@ -35,7 +32,7 @@ export function SmartDevicesTile() {
       <CardHeader className="flex-row items-center justify-between">
         <CardTitle>Smart devices</CardTitle>
         <Badge variant="secondary" className="font-mono text-[11px] font-normal">
-          {onlineCount}/{devices.length}
+          {status.online}/{status.total}
         </Badge>
       </CardHeader>
       <CardContent className="space-y-0">

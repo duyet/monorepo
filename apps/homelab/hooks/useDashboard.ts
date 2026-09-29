@@ -158,6 +158,35 @@ const _smartDevicesResult = {
   dysonAirPurifier,
 };
 
+export interface SmartDeviceStatus {
+  total: number;
+  online: number;
+  idle: number;
+  offline: number;
+}
+
+/**
+ * Count smart devices by status.
+ *
+ * "online" means `status === "online"` only. `idle` is a distinct state — the
+ * device list gives it its own warning-coloured dot — so folding it into the
+ * online count would report an idle device as online. The Lights card in
+ * `SmartDevicesOverview` already counts only `"online"`; this keeps the headline
+ * counts in step with it.
+ */
+export function countSmartDeviceStatus(
+  devices: typeof smartDevices
+): SmartDeviceStatus {
+  return {
+    total: devices.length,
+    online: devices.filter((d) => d.status === "online").length,
+    idle: devices.filter((d) => d.status === "idle").length,
+    offline: devices.filter((d) => d.status === "offline").length,
+  };
+}
+
+const _smartDeviceStatus = countSmartDeviceStatus(smartDevices);
+
 /**
  * Hook for smart devices data
  */
@@ -167,6 +196,13 @@ export function useSmartDevices(): {
   dysonAirPurifier: typeof dysonAirPurifier;
 } {
   return _smartDevicesResult;
+}
+
+/**
+ * Hook for the smart device status summary
+ */
+export function useSmartDeviceStatus(): SmartDeviceStatus {
+  return _smartDeviceStatus;
 }
 
 /**
