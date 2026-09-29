@@ -1,8 +1,5 @@
 import { describe, expect, test } from "vitest";
-import {
-  getCategoryColorClass,
-  getCategoryMetadata,
-} from "../category-metadata";
+import { getCategoryMetadata } from "../category-metadata";
 
 describe("getCategoryMetadata", () => {
   test("returns object with required fields", () => {
@@ -77,36 +74,5 @@ describe("getCategoryMetadata", () => {
     const withDefault = getCategoryMetadata("Category");
     const withZero = getCategoryMetadata("Category", 0, 0);
     expect(withDefault.description).toBe(withZero.description);
-  });
-});
-
-describe("getCategoryColorClass", () => {
-  test("returns light variant class by default", () => {
-    expect(getCategoryColorClass("cactus")).toBe("bg-cactus-light");
-    expect(getCategoryColorClass("sage")).toBe("bg-sage-light");
-    expect(getCategoryColorClass("lavender")).toBe("bg-lavender-light");
-  });
-
-  test("returns light variant class when variant is 'light'", () => {
-    expect(getCategoryColorClass("ivory", "light")).toBe("bg-ivory");
-    expect(getCategoryColorClass("oat", "light")).toBe("bg-oat-light");
-    expect(getCategoryColorClass("cream", "light")).toBe("bg-cream");
-    expect(getCategoryColorClass("terracotta", "light")).toBe(
-      "bg-terracotta-light"
-    );
-    expect(getCategoryColorClass("coral", "light")).toBe("bg-coral-light");
-  });
-
-  test("returns default variant class when variant is 'default'", () => {
-    expect(getCategoryColorClass("ivory", "default")).toBe("bg-ivory-medium");
-    expect(getCategoryColorClass("oat", "default")).toBe("bg-oat");
-    expect(getCategoryColorClass("cream", "default")).toBe("bg-cream-warm");
-    expect(getCategoryColorClass("cactus", "default")).toBe("bg-cactus");
-    expect(getCategoryColorClass("sage", "default")).toBe("bg-sage");
-    expect(getCategoryColorClass("lavender", "default")).toBe("bg-lavender");
-    expect(getCategoryColorClass("terracotta", "default")).toBe(
-      "bg-terracotta"
-    );
-    expect(getCategoryColorClass("coral", "default")).toBe("bg-coral");
   });
 });

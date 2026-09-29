@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { getTagColorClass, getTagMetadata } from "../tag-metadata";
+import { getTagMetadata } from "../tag-metadata";
 
 describe("getTagMetadata", () => {
   test("returns object with required fields", () => {
@@ -140,32 +140,5 @@ describe("getTagMetadata", () => {
       const meta = getTagMetadata("somecustomtag", 0, 0);
       expect(meta.description).toContain("Deep dive into");
     });
-  });
-});
-
-describe("getTagColorClass", () => {
-  test("returns light variant class by default", () => {
-    expect(getTagColorClass("sage")).toBe("bg-sage-light");
-    expect(getTagColorClass("lavender")).toBe("bg-lavender-light");
-    expect(getTagColorClass("cactus")).toBe("bg-cactus-light");
-  });
-
-  test("returns light variant class when variant is 'light'", () => {
-    expect(getTagColorClass("ivory", "light")).toBe("bg-ivory");
-    expect(getTagColorClass("oat", "light")).toBe("bg-oat-light");
-    expect(getTagColorClass("cream", "light")).toBe("bg-cream");
-    expect(getTagColorClass("coral", "light")).toBe("bg-coral-light");
-    expect(getTagColorClass("terracotta", "light")).toBe("bg-terracotta-light");
-  });
-
-  test("returns default variant class when variant is 'default'", () => {
-    expect(getTagColorClass("ivory", "default")).toBe("bg-ivory-medium");
-    expect(getTagColorClass("oat", "default")).toBe("bg-oat");
-    expect(getTagColorClass("cream", "default")).toBe("bg-cream-warm");
-    expect(getTagColorClass("cactus", "default")).toBe("bg-cactus");
-    expect(getTagColorClass("sage", "default")).toBe("bg-sage");
-    expect(getTagColorClass("lavender", "default")).toBe("bg-lavender");
-    expect(getTagColorClass("terracotta", "default")).toBe("bg-terracotta");
-    expect(getTagColorClass("coral", "default")).toBe("bg-coral");
   });
 });

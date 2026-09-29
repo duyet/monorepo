@@ -2,11 +2,7 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-
-function postParams(post: Post) {
-  const [, year, month, slug] = post.slug.split("/");
-  return { year, month, slug };
-}
+import { postParams } from "@/lib/post-params";
 
 function formatPostDate(date: Date | string): string {
   const d = date instanceof Date ? date : new Date(date);
@@ -63,4 +59,4 @@ function FeaturedPost({ post }: { post: Post }) {
   );
 }
 
-export { FeaturedPost, postParams, formatPostDate };
+export { FeaturedPost, formatPostDate };

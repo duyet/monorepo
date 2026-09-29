@@ -1,17 +1,20 @@
 // Shared tag metadata for consistent styling and descriptions across the blog
 // Fully dynamic with intelligent tag description generation
 
+/** The eight pastel surface variants a tag accent can take. */
+type ColorVariant =
+  | "ivory"
+  | "oat"
+  | "cream"
+  | "cactus"
+  | "sage"
+  | "lavender"
+  | "terracotta"
+  | "coral";
+
 export interface TagMetadata {
   description: string;
-  color:
-    | "ivory"
-    | "oat"
-    | "cream"
-    | "cactus"
-    | "sage"
-    | "lavender"
-    | "terracotta"
-    | "coral";
+  color: ColorVariant;
   illustration: "wavy" | "geometric" | "blob" | "none";
 }
 
@@ -100,15 +103,14 @@ function generateTagDescription(tagName: string, postCount: number): string {
       {
         regex:
           /(postgres|mysql|mongodb|redis|elasticsearch|clickhouse|cassandra)/i,
-        template: (tag) =>
-          `${countText} ${tag} optimization and design patterns`,
+        template: (tag) => `${countText} ${tag} optimization and design patterns`,
       },
       // Tools & Practices
       {
         regex: /(git|ci\/cd|testing|monitoring|observability|performance)/i,
         template: (tag) => `${countText} ${tag} techniques and workflows`,
       },
-      // Career & Soft Skills
+      // Career / Soft Skills
       {
         regex: /(career|interview|leadership|management|productivity)/i,
         template: (tag) => `${countText} ${tag} insights and experiences`,
@@ -124,25 +126,4 @@ function generateTagDescription(tagName: string, postCount: number): string {
 
   // Default fallback description
   return `${countText} ${tagName.toLowerCase()}`;
-}
-
-/**
- * Get color class for Tailwind CSS based on context (light/default)
- */
-export function getTagColorClass(
-  color: TagMetadata["color"],
-  variant: "light" | "default" = "light"
-): string {
-  const colorMap = {
-    ivory: variant === "light" ? "bg-ivory" : "bg-ivory-medium",
-    oat: variant === "light" ? "bg-oat-light" : "bg-oat",
-    cream: variant === "light" ? "bg-cream" : "bg-cream-warm",
-    cactus: variant === "light" ? "bg-cactus-light" : "bg-cactus",
-    sage: variant === "light" ? "bg-sage-light" : "bg-sage",
-    lavender: variant === "light" ? "bg-lavender-light" : "bg-lavender",
-    terracotta: variant === "light" ? "bg-terracotta-light" : "bg-terracotta",
-    coral: variant === "light" ? "bg-coral-light" : "bg-coral",
-  };
-
-  return colorMap[color];
 }

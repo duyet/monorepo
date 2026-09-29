@@ -37,11 +37,7 @@ import {
   ogCardPath,
   ogNoteCardPath,
 } from "../lib/og";
-import {
-  parseFrontmatter,
-  shortformId,
-  toExcerpt,
-} from "../lib/shortform-parse";
+import { isShortformFile, parseShortform } from "../lib/shortform-parse";
 
 const APP_DIR = join(import.meta.dirname!, "..");
 const PUBLIC_DIR = join(APP_DIR, "public");
@@ -219,20 +215,16 @@ function readPosts(): RawPost[] {
 type Note = { id: string; title: string; date: string; excerpt: string };
 
 /**
- * Quick notes, read straight from `_shortforms/` with the same parser the
- * static-file generator uses — so note ids match the live `/note/$id` routes
- * without depending on `public/notes-data.json` having been generated first.
- *
- * The filtering mirrors `lib/shortforms.ts` exactly (`*.md` at the top level,
- * skip `README.md`, skip anything without a valid `date:`): a note the live
- * router 404s on must not get a card.
+ * Quick notes, read straight from `_shortforms/` with the same parser and
+ * file filter the static-file generator and the live `/note/$id` routes use —
+ * so note ids match without depending on `public/notes-data.json` having been
+ * generated first. A note the live router 404s on must not get a card, so the
+ * invalid-date filter is the same one.
  */
 async function readNotes(): Promise<Note[]> {
   let files: string[];
   try {
-    files = (await readdir(SHORTFORMS_DIR)).filter(
-      (f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md",
-    );
+    files = (await readdir(SHORTFORMS_DIR)).filter(isShortformFile);
   } catch {
     return [];
   }
@@ -240,14 +232,13 @@ async function readNotes(): Promise<Note[]> {
   const notes: Note[] = [];
   for (const file of files) {
     const raw = await readFile(join(SHORTFORMS_DIR, file), "utf-8");
-    const { date, title, slug, body } = parseFrontmatter(raw);
-    if (Number.isNaN(new Date(date).getTime())) continue;
-    const id = shortformId(file.replace(/\.md$/, ""), slug);
+    const note = parseShortform(file, raw, () => undefined);
+    if (Number.isNaN(new Date(note.date).getTime())) continue;
     notes.push({
-      id,
-      title: title?.trim() || id.replace(/-/g, " "),
-      date,
-      excerpt: toExcerpt(body),
+      id: note.id,
+      title: note.title?.trim() || note.id.replace(/-/g, " "),
+      date: note.date,
+      excerpt: note.excerpt,
     });
   }
   return notes.sort((a, b) => b.date.localeCompare(a.date));

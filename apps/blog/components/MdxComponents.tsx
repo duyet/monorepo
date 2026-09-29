@@ -124,10 +124,3 @@ export const mdxComponents: MDXComponents = {
     </div>
   ),
 };
-
-export function useMDXComponents(components: MDXComponents): MDXComponents {
-  return {
-    ...mdxComponents,
-    ...components,
-  };
-}

@@ -4,6 +4,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { yearColor } from "@/lib/colors";
 import { getPostsByAllYear } from "@/lib/posts";
+import { postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/archives")({
   head: () => ({
@@ -25,11 +26,6 @@ export const Route = createFileRoute("/archives")({
   },
   component: Archives,
 });
-
-function postParams(post: Post) {
-  const [, year, month, slug] = post.slug.split("/");
-  return { year, month, slug };
-}
 
 function Archives(): ReactElement {
   const { postsByYear } = Route.useLoaderData() as {

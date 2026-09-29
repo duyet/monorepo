@@ -3,7 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
 import { CatChip } from "./CatChip";
-import { postParams } from "./FeaturedPost";
+import { postParams } from "@/lib/post-params";
 import { Eyebrow } from "@duyet/components";
 
 interface ChildParamsResult {
@@ -19,6 +19,9 @@ function childParams(post: Post): ChildParamsResult {
   return {
     year: parts[0],
     month: parts[1],
+    // Everything between the month and the last segment is the parent path.
+    // The router's `/$year/$month/$slug/$child` only has room for one parent
+    // segment, so this collapses deeper nesting rather than dropping it.
     slug: parts.slice(2, -1).join("/"),
     child: parts[parts.length - 1],
   };

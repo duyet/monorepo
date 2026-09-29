@@ -3,6 +3,7 @@ import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { getPostsByAllYear } from "@/lib/posts";
+import { postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/featured")({
   head: () => ({
@@ -23,11 +24,6 @@ export const Route = createFileRoute("/featured")({
   },
   component: Featured,
 });
-
-function postParams(post: Post) {
-  const [, year, month, slug] = post.slug.split("/");
-  return { year, month, slug };
-}
 
 function Featured(): ReactElement {
   const { postsByYear } = Route.useLoaderData() as {

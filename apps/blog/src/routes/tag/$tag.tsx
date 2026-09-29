@@ -4,19 +4,14 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { getAllTags, getPostsByTag } from "@/lib/posts";
+import { postParams } from "@/lib/post-params";
+import { slugToDisplay } from "@/lib/slug-display";
 
 function findTagBySlug(tags: TagCount, slug: string): string | undefined {
   return (
     Object.keys(tags).find((t) => getSlug(t) === slug) ||
     Object.keys(tags).find((t) => getSlug(t).endsWith(`-${slug}`))
   );
-}
-
-function slugToDisplay(slug: string): string {
-  return slug
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
 }
 
 export const Route = createFileRoute("/tag/$tag")({
@@ -40,11 +35,6 @@ export const Route = createFileRoute("/tag/$tag")({
   },
   component: PostsByTag,
 });
-
-function postParams(post: Post) {
-  const [, year, month, slug] = post.slug.split("/");
-  return { year, month, slug };
-}
 
 function PostsByTag(): ReactElement {
   const { tag } = Route.useParams();

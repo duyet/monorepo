@@ -1,4 +1,4 @@
 // Barrel export for custom hooks
 
 export * from "./useClipboard";
-export * from "./useOutsideClick";
+export * from "./use-search-history";

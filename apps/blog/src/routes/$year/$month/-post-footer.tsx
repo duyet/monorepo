@@ -6,55 +6,10 @@ import type { Post, Series } from "@duyet/interfaces";
 import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
 import type { LoadedPost } from "./-types";
+import { buildTree } from "@/lib/post-tree";
+import { childParams, postParams } from "@/lib/post-params";
 import { useEffect, useState } from "react";
 import { cn } from "@duyet/libs/utils";
-
-function postParams(post: Post) {
-  const [, year, month, slug] = post.slug.split("/");
-  return { year, month, slug };
-}
-
-function childParams(post: Post) {
-  const segments = post.slug.replace(/^\//, "").split("/");
-  return {
-    year: segments[0],
-    month: segments[1],
-    slug: segments[2],
-    child: segments[3],
-  };
-}
-
-type TreeNode = {
-  post: Post;
-  children: Post[];
-};
-
-function buildTree(posts: Post[]): TreeNode[] {
-  const childrenByParent = new Map<string, Post[]>();
-  const parents: Post[] = [];
-
-  for (const post of posts) {
-    const segments = post.slug.split("/").filter(Boolean);
-    if (segments.length >= 4) {
-      const parentSlug = `/${segments.slice(0, 3).join("/")}`;
-      if (!childrenByParent.has(parentSlug)) {
-        childrenByParent.set(parentSlug, []);
-      }
-      childrenByParent.get(parentSlug)!.push(post);
-    } else {
-      parents.push(post);
-    }
-  }
-
-  parents.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-
-  return parents.map((post) => ({
-    post,
-    children: childrenByParent.get(post.slug) ?? [],
-  }));
-}
 
 export function PostFooter({
   post,

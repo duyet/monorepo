@@ -5,6 +5,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { getCategoryMetadata } from "@/lib/category-metadata";
 import { getAllCategories, getPostsByCategory } from "@/lib/posts";
+import { postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/category/$category")({
   head: ({ params }) => {
@@ -33,11 +34,6 @@ export const Route = createFileRoute("/category/$category")({
   },
   component: PostsByCategory,
 });
-
-function postParams(post: Post) {
-  const [, year, month, slug] = post.slug.split("/");
-  return { year, month, slug };
-}
 
 function PostsByCategory(): ReactElement {
   const { category } = Route.useParams();

@@ -295,21 +295,9 @@ describe("CSP", () => {
   });
 });
 
-describe("post page widgets.js", () => {
-  test("widgets.js is loaded on post pages", () => {
-    const route = readFileSync(
-      join(
-        import.meta.dirname!,
-        "../../src/routes/$year/$month/$slug/index.tsx"
-      ),
-      "utf8"
-    );
-    const content = readFileSync(
-      join(import.meta.dirname!, "../../src/routes/$year/$month/-content.tsx"),
-      "utf8"
-    );
-    expect(route).toContain("TWITTER_WIDGETS_SRC");
-    expect(content).toContain("TWITTER_WIDGETS_SRC");
-    expect(content).toContain("useTwitterWidgets");
-  });
-});
+// "widgets.js is loaded on post pages" used to be asserted here by matching
+// `TWITTER_WIDGETS_SRC` against the route and body *source text*, which broke on
+// any rename and never checked behaviour. It is now covered where the behaviour
+// lives: `src/routes/$year/$month/$slug/post-head.test.ts` calls the post
+// route's own `head()` and checks the emitted `scripts`, and `-content.test.tsx`
+// renders the body and checks the script tag it injects.

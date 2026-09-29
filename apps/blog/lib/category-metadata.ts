@@ -1,17 +1,20 @@
 // Shared category metadata for consistent styling and descriptions across the blog
 // Fully dynamic - no hardcoded category descriptions
 
+/** The eight pastel surface variants a category accent can take. */
+type ColorVariant =
+  | "ivory"
+  | "oat"
+  | "cream"
+  | "cactus"
+  | "sage"
+  | "lavender"
+  | "terracotta"
+  | "coral";
+
 export interface CategoryMetadata {
   description: string;
-  color:
-    | "ivory"
-    | "oat"
-    | "cream"
-    | "cactus"
-    | "sage"
-    | "lavender"
-    | "terracotta"
-    | "coral";
+  color: ColorVariant;
   illustration: "wavy" | "geometric" | "blob" | "none";
 }
 
@@ -72,25 +75,4 @@ function generateCategoryDescription(
       : "";
 
   return `Explore${countText} ${lowerName}`;
-}
-
-/**
- * Get color class for Tailwind CSS based on context (light/default)
- */
-export function getCategoryColorClass(
-  color: CategoryMetadata["color"],
-  variant: "light" | "default" = "light"
-): string {
-  const colorMap = {
-    ivory: variant === "light" ? "bg-ivory" : "bg-ivory-medium",
-    oat: variant === "light" ? "bg-oat-light" : "bg-oat",
-    cream: variant === "light" ? "bg-cream" : "bg-cream-warm",
-    cactus: variant === "light" ? "bg-cactus-light" : "bg-cactus",
-    sage: variant === "light" ? "bg-sage-light" : "bg-sage",
-    lavender: variant === "light" ? "bg-lavender-light" : "bg-lavender",
-    terracotta: variant === "light" ? "bg-terracotta-light" : "bg-terracotta",
-    coral: variant === "light" ? "bg-coral-light" : "bg-coral",
-  };
-
-  return colorMap[color];
 }

@@ -16,9 +16,8 @@ import { getAllCategories, getAllPosts } from "@duyet/libs/getPost";
 import { getSlug } from "@duyet/libs/getSlug";
 import RSS from "rss";
 import {
-  parseFrontmatter,
-  shortformId,
-  toExcerpt,
+  isShortformFile,
+  parseShortform,
 } from "../lib/shortform-parse";
 
 const PUBLIC_DIR = join(import.meta.dirname!, "..", "public");
@@ -26,10 +25,31 @@ const SHORTFORMS_DIR = join(import.meta.dirname!, "..", "_shortforms");
 const ATTACHMENTS_DIR = join(SHORTFORMS_DIR, "attachments");
 const SITE_URL = "https://blog.duyet.net";
 
+/**
+ * `YYYY-MM-DD` for a date, in UTC — the format every consumer below wants
+ * (llms.txt, sitemap `<lastmod>`, and the frontmatter of the generated `.md`
+ * exports). UTC so a post dated `2026-01-01` never renders as `2025-12-31`
+ * west of Greenwich.
+ *
+ * Throws on an unparseable value, exactly as the inline
+ * `new Date(x).toISOString()` did: an unparseable frontmatter date is a
+ * content bug the build should surface, not paper over.
+ */
+function isoDate(value: Date | string): string {
+  return new Date(value).toISOString().slice(0, 10);
+}
+
+/** `isoDate` for "now", for the static pages whose `<lastmod>` is build time. */
+function today(): string {
+  return isoDate(new Date());
+}
+
 // ── shortform notes ───────────────────────────────────────────────────────────
-// Obsidian `![[file.png]]` embeds need resolution to markdown images. The static
-// generator runs in Bun (no Vite import.meta.glob), so we read attachments from
-// the filesystem and map them to public/media/ URLs.
+// Obsidian `![[file.png]]` embeds need resolution to markdown images. This
+// generator runs outside Vite (no import.meta.glob), so attachments are read
+// from the filesystem and mapped to the /media/notes/ URLs they are copied to
+// below. The embed *rewriting* is shared with the browser loader via
+// `parseShortform`; only the filename→URL lookup differs between the two.
 const ATTACHMENTS_CACHE = new Map<string, string>();
 try {
   const files = readdirSync(ATTACHMENTS_DIR);
@@ -40,22 +60,12 @@ try {
   // attachments dir may not exist
 }
 
-/** Convert Obsidian embeds `![[file.png]]` / `![[file.png|alt]]` to markdown images. */
-function resolveEmbeds(body: string): string {
-  return body.replace(
-    /!\[\[([^\]|]+?)(?:\|([^\]]+))?\]\]/g,
-    (whole, file: string, alt?: string) => {
-      const url = ATTACHMENTS_CACHE.get(file.trim());
-      if (!url) return whole;
-      return `![${(alt ?? file).trim()}](${url})`;
-    }
-  );
-}
-
 // ── shortform notes ───────────────────────────────────────────────────────────
 // Read the Obsidian-style notes straight off disk (the Vite loader in
-// lib/shortforms.ts uses import.meta.glob, which isn't available in this Bun
-// script) using the shared parser so ids match the live /note/$id routes.
+// lib/shortforms.ts uses import.meta.glob, which isn't available in this
+// script) using the shared helpers so ids and embed URLs match the live
+// /note/$id routes. A note this filter drops is a note the live router 404s
+// on, so it must not get a generated .md, sitemap entry, or llms.txt line.
 interface NoteEntry {
   id: string;
   title?: string;
@@ -67,24 +77,17 @@ interface NoteEntry {
 function getNotes(): NoteEntry[] {
   let files: string[];
   try {
-    files = readdirSync(SHORTFORMS_DIR).filter(
-      (f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md"
-    );
+    files = readdirSync(SHORTFORMS_DIR).filter(isShortformFile);
   } catch {
     return [];
   }
   return files
     .map((file) => {
       const raw = readFileSync(join(SHORTFORMS_DIR, file), "utf-8");
-      const { date, title, slug, body } = parseFrontmatter(raw);
-      const resolved = resolveEmbeds(body);
-      return {
-        id: shortformId(file.replace(/\.md$/, ""), slug),
-        title,
-        date: new Date(date),
-        body: resolved,
-        excerpt: toExcerpt(resolved),
-      };
+      const note = parseShortform(file, raw, (name) =>
+        ATTACHMENTS_CACHE.get(name)
+      );
+      return { ...note, date: new Date(note.date) };
     })
     .filter((n) => !Number.isNaN(n.date.getTime()))
     .sort((a, b) => b.date.getTime() - a.date.getTime());
@@ -187,7 +190,7 @@ ${allPosts
   .slice(0, 20)
   .map((post: Post) => {
     const url = `${SITE_URL}${post.slug}`;
-    const date = new Date(post.date).toISOString().split("T")[0];
+    const date = isoDate(post.date);
     const tags = post.tags?.join(", ") || "";
 
     return `### [${post.title}](${url})
@@ -217,7 +220,7 @@ ${Object.entries(
 ${yearPosts
   .map((post: Post) => {
     const url = `${SITE_URL}${post.slug}`;
-    const date = new Date(post.date).toISOString().split("T")[0];
+    const date = isoDate(post.date);
     return `- [${post.title}](${url}) - ${date}`;
   })
   .join("\n")}
@@ -231,7 +234,7 @@ Short-form thoughts and notes. Full list: ${SITE_URL}/notes
 
 ${notes
   .map((note) => {
-    const date = note.date.toISOString().split("T")[0];
+    const date = isoDate(note.date);
     const url = `${SITE_URL}/note/${note.id}`;
     return `### [${note.title || note.id}](${url})
 - **Date**: ${date}
@@ -273,7 +276,7 @@ const llmsFullContent = `# Duyet Le - Technical Blog (Full Content)
 ${fullPosts
   .map((post: Post) => {
     const url = `${SITE_URL}${post.slug}`;
-    const date = new Date(post.date).toISOString().split("T")[0];
+    const date = isoDate(post.date);
     const tags = post.tags?.join(", ") || "";
 
     return `# ${(post.title || "").replace(/\n/g, " ")}
@@ -292,7 +295,7 @@ ${post.content || ""}
 ${notes
   .map((note) => {
     const url = `${SITE_URL}/note/${note.id}`;
-    const date = note.date.toISOString().split("T")[0];
+    const date = isoDate(note.date);
     return `# ${(note.title || note.id).replace(/\n/g, " ")}
 
 - **URL**: ${url}
@@ -319,7 +322,7 @@ for (const post of fullPosts) {
   const frontmatter = [
     "---",
     `title: "${(post.title || "").replace(/"/g, '\\"')}"`,
-    `date: ${new Date(post.date).toISOString().split("T")[0]}`,
+    `date: ${isoDate(post.date)}`,
     `category: ${post.category || ""}`,
     `tags: [${(post.tags || []).join(", ")}]`,
     `url: ${SITE_URL}${post.slug}`,
@@ -344,7 +347,7 @@ for (const note of notes) {
   const frontmatter = [
     "---",
     `title: "${(note.title || "").replace(/"/g, '\\"')}"`,
-    `date: ${note.date.toISOString().split("T")[0]}`,
+    `date: ${isoDate(note.date)}`,
     `url: ${SITE_URL}/note/${note.id}`,
     "---",
   ].join("\n");
@@ -369,7 +372,7 @@ ${sitemapPosts
   .map(
     (post: Post) => `  <url>
     <loc>${SITE_URL}${post.slug}</loc>
-    <lastmod>${new Date(post.date).toISOString().split("T")[0]}</lastmod>
+    <lastmod>${isoDate(post.date)}</lastmod>
   </url>`
   )
   .join("\n")}
@@ -377,47 +380,47 @@ ${categories
   .map(
     (category) => `  <url>
     <loc>${SITE_URL}/category/${getSlug(category)}</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>`
   )
   .join("\n")}
   <url>
     <loc>${SITE_URL}/</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/feed</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/categories</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/tags</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/archives</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/featured</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/series</loc>
-    <lastmod>${new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${today()}</lastmod>
   </url>
   <url>
     <loc>${SITE_URL}/notes</loc>
-    <lastmod>${notes[0] ? notes[0].date.toISOString().split("T")[0] : new Date().toISOString().split("T")[0]}</lastmod>
+    <lastmod>${notes[0] ? isoDate(notes[0].date) : today()}</lastmod>
   </url>
 ${notes
   .map(
     (note) => `  <url>
     <loc>${SITE_URL}/note/${note.id}</loc>
-    <lastmod>${note.date.toISOString().split("T")[0]}</lastmod>
+    <lastmod>${isoDate(note.date)}</lastmod>
   </url>`
   )
   .join("\n")}
@@ -439,7 +442,7 @@ console.log("  ✓ ping.json");
 const notesData = notes.map((n) => ({
   id: n.id,
   title: n.title || n.id,
-  date: n.date.toISOString().split("T")[0],
+  date: isoDate(n.date),
   excerpt: n.excerpt,
 }));
 writeFileSync(

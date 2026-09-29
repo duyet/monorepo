@@ -12,6 +12,7 @@ import {
   writeFileSync,
 } from "node:fs";
 import { join } from "node:path";
+import { slugToDisplay } from "../lib/slug-display";
 
 const DIST_TAG_DIR = join(import.meta.dirname!, "..", "dist", "client", "tag");
 const PUBLIC_DATA = join(import.meta.dirname!, "..", "public", "posts-data.json");
@@ -46,14 +47,10 @@ for (const [shortSlug, fullSlug] of aliases) {
 
   let html = readFileSync(sourceFile, "utf-8");
 
-  const fullName = fullSlug
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
-  const shortName = shortSlug
-    .split("-")
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(" ");
+  // Both names come from the same function the `/tag/$tag` page titles itself
+  // with, so the substituted heading always matches the alias URL.
+  const fullName = slugToDisplay(fullSlug);
+  const shortName = slugToDisplay(shortSlug);
 
   html = html.replaceAll(fullName, shortName);
   html = html.replaceAll(`/${fullSlug}`, `/${shortSlug}`);

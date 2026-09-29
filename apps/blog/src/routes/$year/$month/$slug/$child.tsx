@@ -3,14 +3,15 @@ import { extractHeadings } from "@duyet/libs/extractHeadings";
 import { createFileRoute, notFound } from "@tanstack/react-router";
 import { ReadingProgress } from "@/components/post/ReadingProgress";
 import { buildArticleHead } from "@/lib/head";
+import type { ChildNavItem } from "@/lib/posts";
 import { ogAbsolute, ogCardPath } from "@/lib/og";
 import {
-  type ChildNavItem,
   fetchAllPosts,
   getChildren,
   getPostBySlug,
   getRelatedPosts,
   getSeries,
+  toChildNavItem,
 } from "@/lib/posts";
 import { resolveArticleHtml } from "@/lib/resolve-article-html";
 
@@ -91,18 +92,6 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
       ? await getChildren(postWithContent.parent)
       : [];
 
-    function toNavItem(p: Post): ChildNavItem {
-      const parts = p.slug.replace(/^\//, "").split("/");
-      return {
-        slug: p.slug,
-        title: p.title,
-        year: parts[0],
-        month: parts[1],
-        parent: parts.slice(2, -1).join("/"),
-        child: parts[parts.length - 1],
-      };
-    }
-
     const post: LoadedPost = {
       ...postWithContent,
       content: htmlContent,
@@ -115,7 +104,7 @@ export const Route = createFileRoute("/$year/$month/$slug/$child")({
     return {
       post,
       parentTitle,
-      siblings: siblings.map(toNavItem),
+      siblings: siblings.map(toChildNavItem),
       series,
       related,
     };

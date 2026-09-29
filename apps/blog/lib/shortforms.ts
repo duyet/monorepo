@@ -1,8 +1,4 @@
-import {
-  parseFrontmatter,
-  shortformId,
-  toExcerpt,
-} from '@/lib/shortform-parse'
+import { parseShortform } from '@/lib/shortform-parse'
 
 const FILES = import.meta.glob('/_shortforms/*.md', {
   query: '?raw',
@@ -26,18 +22,6 @@ function attachmentUrl(name: string): string | undefined {
   return entry?.[1]
 }
 
-/** Convert Obsidian embeds `![[file.png]]` / `![[file.png|alt]]` to markdown images. */
-function resolveEmbeds(body: string): string {
-  return body.replace(
-    /!\[\[([^\]|]+?)(?:\|([^\]]+))?\]\]/g,
-    (whole, file: string, alt?: string) => {
-      const url = attachmentUrl(file)
-      if (!url) return whole
-      return `![${(alt ?? file).trim()}](${url})`
-    }
-  )
-}
-
 export interface Shortform {
   id: string
   date: Date
@@ -47,16 +31,8 @@ export interface Shortform {
 }
 
 function toShortform(path: string, raw: string): Shortform {
-  const filename = path.split('/').pop()!.replace(/\.md$/, '')
-  const { date, title, slug, body } = parseFrontmatter(raw)
-  const resolved = resolveEmbeds(body)
-  return {
-    id: shortformId(filename, slug),
-    date: new Date(date),
-    title,
-    body: resolved,
-    excerpt: toExcerpt(resolved),
-  }
+  const note = parseShortform(path.split('/').pop()!, raw, attachmentUrl)
+  return { ...note, date: new Date(note.date) }
 }
 
 export function getShortformById(id: string): Shortform | null {

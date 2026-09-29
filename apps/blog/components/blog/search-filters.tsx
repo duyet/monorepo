@@ -199,11 +199,16 @@ export function SearchFilters({
     [customFromDate, customToDate, updateFilters]
   );
 
-  // Determine active preset for styling
-  const activePreset: DateRangePreset = (() => {
-    if (!currentFromDate && !currentToDate) return "all";
-    return isCustomDateRange ? "custom" : "all";
-  })();
+  // Which preset button (if any) reads as selected.
+  //
+  // `activePreset` used to be an IIFE that could only ever resolve to "all" or
+  // "custom". The preset row filters the "custom" option out — it has its own
+  // button and its own panel — so "custom" could never match a rendered
+  // button, and a preset lit up only when the active preset was "all".
+  // `isAllTimeActive` is that condition written out: no from/to range at all,
+  // or the custom panel is not the one on screen.
+  const isAllTimeActive =
+    (!currentFromDate && !currentToDate) || !isCustomDateRange;
 
   const datePresetButtons = useMemo(
     () =>
@@ -216,8 +221,7 @@ export function SearchFilters({
             onClick={() => handleDatePresetChange(option.value)}
             className={cn(
               "px-3 py-2 rounded-md text-sm font-medium transition-colors text-left",
-              activePreset === option.value ||
-                (!activePreset && option.value === "all")
+              option.value === "all" && isAllTimeActive
                 ? "bg-[#1a1a1a] text-white dark:bg-white dark:text-[#0d0e0c]"
                 : "bg-[#f7f7f7] text-[#1a1a1a]/70 hover:bg-[#f7f7f7] dark:bg-[#1a1a1a] dark:text-[#f8f8f2]/70 dark:hover:bg-[#1a1a1a]"
             )}
@@ -225,7 +229,7 @@ export function SearchFilters({
             {option.label}
           </button>
         )),
-    [activePreset, handleDatePresetChange, dateRangeOptions]
+    [isAllTimeActive, handleDatePresetChange, dateRangeOptions]
   );
 
   const clearAllFilters = useCallback(() => {

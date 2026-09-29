@@ -69,14 +69,6 @@ export interface PostContent {
   html?: string;
 }
 
-/** Navigation item within a series (prev/next). */
-export interface SeriesNavItem {
-  slug: string;
-  title: string;
-  year: string;
-  month: string;
-}
-
 // ── Module-level caches (avoid re-fetching during one page load) ──────────────
 
 let postsCache: Post[] | null = null;
@@ -204,11 +196,6 @@ export async function getPostsByAllYear(
   }, {});
 }
 
-export async function getPostsByYear(year: number): Promise<Post[]> {
-  const posts = await fetchAllPosts();
-  return posts.filter((p) => new Date(p.date).getFullYear() === year);
-}
-
 export async function getPostsByCategory(category: string): Promise<Post[]> {
   const posts = await fetchAllPosts();
   return posts.filter(
@@ -243,44 +230,6 @@ export async function getSeries(opts: {
   if (opts.slug) return all.find((s) => s.slug === opts.slug) ?? null;
   if (opts.name) return all.find((s) => s.name === opts.name) ?? null;
   return null;
-}
-
-export async function getSeriesNavigation(
-  currentSlug: string,
-  seriesName: string
-): Promise<{ prev: SeriesNavItem | null; next: SeriesNavItem | null }> {
-  const all = await fetchAllSeries();
-  const series = all.find((s) => s.name === seriesName);
-  if (!series) return { prev: null, next: null };
-
-  const sorted = [...series.posts].sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
-
-  const fullSlug = currentSlug.startsWith("/")
-    ? currentSlug
-    : `/${currentSlug}`;
-  const currentIndex = sorted.findIndex((p) => p.slug === fullSlug);
-  if (currentIndex === -1) return { prev: null, next: null };
-
-  function toNavItem(post: Post): SeriesNavItem {
-    const clean = post.slug.replace(/^\//, "").replace(/\.md$/, "");
-    const parts = clean.split("/");
-    return {
-      slug: parts[2],
-      title: post.title,
-      year: parts[0],
-      month: parts[1],
-    };
-  }
-
-  return {
-    prev: currentIndex > 0 ? toNavItem(sorted[currentIndex - 1]) : null,
-    next:
-      currentIndex < sorted.length - 1
-        ? toNavItem(sorted[currentIndex + 1])
-        : null,
-  };
 }
 
 export async function getRelatedPosts(post: Post, limit = 4): Promise<Post[]> {
@@ -344,6 +293,7 @@ export async function getChildren(parentSlug: string): Promise<Post[]> {
   );
 }
 
+/** One entry of a child post's sibling dropdown. */
 export interface ChildNavItem {
   slug: string;
   title: string;
@@ -354,36 +304,18 @@ export interface ChildNavItem {
 }
 
 /**
- * Previous / next siblings for a child post, following the parent's `parts`
- * order (same ordering as {@link getChildren}).
+ * Flatten a child post's slug into the shape the breadcrumb dropdown consumes:
+ * `/2026/01/coding-agent/claude-code` -> year `2026`, month `01`, parent
+ * `coding-agent`, child `claude-code`.
  */
-export async function getChildNavigation(
-  childSlug: string
-): Promise<{ prev: ChildNavItem | null; next: ChildNavItem | null }> {
-  const fullSlug = childSlug.startsWith("/") ? childSlug : `/${childSlug}`;
-  const posts = await fetchAllPosts();
-  const child = posts.find((p) => p.slug === fullSlug);
-  if (!child?.parent) return { prev: null, next: null };
-
-  const siblings = await getChildren(child.parent);
-  const index = siblings.findIndex((p) => p.slug === fullSlug);
-  if (index === -1) return { prev: null, next: null };
-
-  function toNavItem(post: Post): ChildNavItem {
-    const parts = post.slug.replace(/^\//, "").split("/");
-    // e.g. ["2026", "01", "coding-agent", "claude-code"]
-    return {
-      slug: post.slug,
-      title: post.title,
-      year: parts[0],
-      month: parts[1],
-      parent: parts.slice(2, -1).join("/"),
-      child: parts[parts.length - 1],
-    };
-  }
-
+export function toChildNavItem(post: Post): ChildNavItem {
+  const parts = post.slug.replace(/^\//, "").split("/");
   return {
-    prev: index > 0 ? toNavItem(siblings[index - 1]) : null,
-    next: index < siblings.length - 1 ? toNavItem(siblings[index + 1]) : null,
+    slug: post.slug,
+    title: post.title,
+    year: parts[0],
+    month: parts[1],
+    parent: parts.slice(2, -1).join("/"),
+    child: parts[parts.length - 1],
   };
 }
