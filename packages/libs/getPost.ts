@@ -129,6 +129,181 @@ function countBy(values: string[]): Record<string, number> {
   );
 }
 
+/** Matches the `/yyyy/mm/slug(.html)` shape every post slug must have. */
+const SLUG_REGEX = /^\/(\d{4})\/(\d{2})\/(.+)$/;
+/** A trailing markdown/HTML file extension, used by `parent` and `parts`. */
+const MARKDOWN_EXTENSION_REGEX = /\.(md|mdx|html)$/;
+
+type Frontmatter = { [key: string]: any };
+
+/**
+ * Projects one requested field onto the post being built. Each handler only
+ * touches its own key, so a field's result never depends on the order the
+ * caller listed the fields in.
+ */
+type FieldHandler = (
+  post: Post,
+  data: Frontmatter,
+  content: string,
+  fullPath: string
+) => void;
+
+/**
+ * The shape shared by `thumbnail`, `video`, `x` and `hackerNews`: a trimmed
+ * non-empty string, otherwise undefined. Non-strings and whitespace-only
+ * values collapse to undefined.
+ */
+const trimmedString = (value: unknown): string | undefined =>
+  typeof value === "string" && value.trim().length > 0
+    ? value.trim()
+    : undefined;
+
+/**
+ * One handler per projectable field, replacing what used to be a 21-branch
+ * `if (field === …)` chain.
+ *
+ * Two properties are load-bearing and covered by `getPost.test.ts`:
+ *
+ * 1. Unknown field names are silently ignored — see `defineFieldHandlers`.
+ * 2. Handlers are order-independent. `tags` also writes `tags_slug`, and
+ *    `category_slug` reads `data.category` rather than the value `category`
+ *    wrote, so no handler can observe another. Each field is still applied
+ *    once per entry in `fields`, so duplicate names stay idempotent as before.
+ */
+const defineFieldHandlers = (
+  handlers: Record<string, FieldHandler>
+): Record<string, FieldHandler | undefined> => {
+  // The old chain compared `field === "…"` against literals, so a caller
+  // passing `constructor`, `toString` or `__proto__` did nothing. On a plain
+  // object literal those names resolve to callable `Object.prototype`
+  // members, and `__proto__` resolves to a non-function that `?.()` would
+  // still try to call. A null prototype keeps every unknown name absent.
+  const map: Record<string, FieldHandler | undefined> = Object.create(null);
+
+  return Object.assign(map, handlers);
+};
+
+const FIELD_HANDLERS = defineFieldHandlers({
+  slug(post, data, _content, fullPath) {
+    post.slug = data.slug || fullPath;
+
+    const match = post.slug.match(SLUG_REGEX);
+    if (!match) {
+      throw new ValidationError(
+        `Invalid slug format: ${post.slug}. Please use the format /yyyy/mm/slug(.html)`,
+        { slug: post.slug, path: fullPath }
+      );
+    }
+  },
+
+  title(post, data) {
+    post.title = data.title;
+  },
+
+  path(post, _data, _content, fullPath) {
+    post.path = fullPath;
+  },
+
+  date(post, data) {
+    const dateValue = data.date;
+    post.date = dateValue instanceof Date ? dateValue : new Date(dateValue);
+  },
+
+  content(post, _data, content) {
+    post.content = content;
+  },
+
+  category(post, data) {
+    // Some posts have a category of "null" so we need to handle that
+    post.category = data.category || post.category;
+  },
+
+  category_slug(post, data) {
+    post.category_slug = getSlug(data.category || post.category_slug);
+  },
+
+  tags(post, data) {
+    post.tags = (data.tags || []).map(normalizeTag);
+    // `tags_slug` has no handler of its own: it is a side effect of `tags`.
+    post.tags_slug = post.tags.map((tag: string) => getSlug(tag));
+  },
+
+  excerpt(post, data, content) {
+    post.excerpt =
+      data.description || `${content.split(" ").slice(0, 20).join(" ")}...`;
+  },
+
+  snippet(post, data) {
+    post.snippet = data.snippet || "";
+  },
+
+  featured(post, data) {
+    post.featured = Boolean(data.featured) || false;
+  },
+
+  series(post, data) {
+    post.series = data.series || undefined;
+  },
+
+  parent(post, data) {
+    if (typeof data.parent === "string") {
+      const normalizedParent = data.parent
+        .trim()
+        .replace(MARKDOWN_EXTENSION_REGEX, "")
+        .replace(/\/+$/, "");
+      post.parent = normalizedParent.length > 0 ? normalizedParent : undefined;
+    } else {
+      post.parent = undefined;
+    }
+  },
+
+  parts(post, data) {
+    post.parts = Array.isArray(data.parts)
+      ? data.parts
+          .filter((p): p is string => typeof p === "string")
+          .map((p) => p.trim().replace(MARKDOWN_EXTENSION_REGEX, ""))
+          .filter((p) => p.length > 0)
+      : undefined;
+  },
+
+  thumbnail(post, data) {
+    post.thumbnail = trimmedString(data.thumbnail);
+  },
+
+  video(post, data) {
+    post.video = trimmedString(data.video);
+  },
+
+  isMDX(post, _data, _content, fullPath) {
+    post.isMDX = fullPath.endsWith(".mdx");
+  },
+
+  readingTime(post, _data, content) {
+    // Calculate word count from content
+    const wordCount = content.split(/\s+/).filter((w) => w.length > 0).length;
+
+    // Count code blocks for more accurate reading time
+    // Fast path: skip expensive regex if no code blocks present
+    const codeBlockCount = content.includes("```")
+      ? (content.match(/```[\s\S]*?```/g) || []).length
+      : 0;
+
+    post.readingTime = getReadingTime(wordCount, codeBlockCount);
+  },
+
+  x(post, data) {
+    post.x = trimmedString(data.x);
+  },
+
+  hackerNews(post, data) {
+    post.hackerNews = trimmedString(data.hackerNews);
+  },
+
+  changelog(post, data) {
+    post.changelog = Array.isArray(data.changelog) ? data.changelog : undefined;
+  },
+});
+
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   let fileContent: string;
 
@@ -164,144 +339,9 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   };
 
   // Ensure only the minimal needed data is exposed
-  fields.forEach((field) => {
-    if (field === "slug") {
-      post[field] = data.slug || fullPath;
-
-      // Validate slug format /yyyy/mm/slug(.html)
-      const slugRegex = /^\/(\d{4})\/(\d{2})\/(.+)$/;
-      const match = post[field].match(slugRegex);
-      if (!match) {
-        throw new ValidationError(
-          `Invalid slug format: ${post[field]}. Please use the format /yyyy/mm/slug(.html)`,
-          { slug: post[field], path: fullPath }
-        );
-      }
-    }
-
-    if (field === "title") {
-      post.title = data.title;
-    }
-
-    if (field === "path") {
-      post.path = fullPath;
-    }
-
-    if (field === "date") {
-      const dateValue = data[field];
-      post.date = dateValue instanceof Date ? dateValue : new Date(dateValue);
-    }
-
-    if (field === "content") {
-      post.content = content;
-    }
-
-    if (field === "category") {
-      // Some posts have a category of "null" so we need to handle that
-      post.category = data.category || post[field];
-    }
-
-    if (field === "category_slug") {
-      post.category_slug = getSlug(data.category || post[field]);
-    }
-
-    if (field === "tags") {
-      post.tags = (data.tags || []).map(normalizeTag);
-      post.tags_slug = post[field].map((tag: string) => getSlug(tag));
-    }
-
-    if (field === "excerpt") {
-      post[field] =
-        data.description || `${content.split(" ").slice(0, 20).join(" ")}...`;
-    }
-
-    if (field === "snippet") {
-      post.snippet = data.snippet || "";
-    }
-
-    if (field === "featured") {
-      post.featured = Boolean(data.featured) || false;
-    }
-
-    if (field === "series") {
-      post.series = data.series || undefined;
-    }
-
-    if (field === "parent") {
-      if (typeof data.parent === "string") {
-        const normalizedParent = data.parent
-          .trim()
-          .replace(/\.(md|mdx|html)$/, "")
-          .replace(/\/+$/, "");
-        post.parent =
-          normalizedParent.length > 0 ? normalizedParent : undefined;
-      } else {
-        post.parent = undefined;
-      }
-    }
-
-    if (field === "parts") {
-      post.parts = Array.isArray(data.parts)
-        ? data.parts
-            .filter((p): p is string => typeof p === "string")
-            .map((p) => p.trim().replace(/\.(md|mdx|html)$/, ""))
-            .filter((p) => p.length > 0)
-        : undefined;
-    }
-
-    if (field === "thumbnail") {
-      const thumbnail = data.thumbnail;
-      post.thumbnail =
-        typeof thumbnail === "string" && thumbnail.trim().length > 0
-          ? thumbnail.trim()
-          : undefined;
-    }
-
-    if (field === "video") {
-      const video = data.video;
-      post.video =
-        typeof video === "string" && video.trim().length > 0
-          ? video.trim()
-          : undefined;
-    }
-
-    if (field === "isMDX") {
-      post.isMDX = fullPath.endsWith(".mdx");
-    }
-
-    if (field === "readingTime") {
-      // Calculate word count from content
-      const wordCount = content.split(/\s+/).filter((w) => w.length > 0).length;
-
-      // Count code blocks for more accurate reading time
-      // Fast path: skip expensive regex if no code blocks present
-      const codeBlockCount = content.includes("```")
-        ? (content.match(/```[\s\S]*?```/g) || []).length
-        : 0;
-
-      post.readingTime = getReadingTime(wordCount, codeBlockCount);
-    }
-
-    if (field === "x") {
-      post.x =
-        typeof data.x === "string" && data.x.trim().length > 0
-          ? data.x.trim()
-          : undefined;
-    }
-
-    if (field === "hackerNews") {
-      post.hackerNews =
-        typeof data.hackerNews === "string" && data.hackerNews.trim().length > 0
-          ? data.hackerNews.trim()
-          : undefined;
-    }
-
-    if (field === "changelog") {
-      post.changelog = Array.isArray(data.changelog)
-        ? data.changelog
-        : undefined;
-    }
-  });
+  for (const field of fields) {
+    FIELD_HANDLERS[field]?.(post, data, content, fullPath);
+  }
 
   return post;
 }
