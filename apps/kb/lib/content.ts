@@ -11,6 +11,7 @@
 
 import yaml from "js-yaml";
 import { splitFrontmatter } from "@duyet/libs/frontmatter";
+import { fmString, fmStringList } from "./frontmatter-fields";
 import { extractWikilinks, normalizeRelatedRefs } from "./wikilinks";
 
 // Browser-safe basename: `node:path` is undefined in the client bundle, so the
@@ -27,25 +28,14 @@ function slugFromPath(filePath: string): string {
 // app's own `stripFrontmatter`, which had drifted into three different regexes
 // — see `@duyet/libs/frontmatter` for what differed. YAML parsing stays here
 // because the engine choice is app-specific.
-// Frontmatter shape is dynamic; the accessors below guard every field.
+// Frontmatter shape is dynamic; the shared accessors in
+// `./frontmatter-fields` guard every field.
 type Frontmatter = Record<string, any>;
 function parseFrontmatter(raw: string): { data: Frontmatter; content: string } {
   const split = splitFrontmatter(raw);
   if (!split) return { data: {}, content: raw };
   const data = (yaml.load(split.frontmatter) as Frontmatter) ?? {};
   return { data, content: split.body };
-}
-
-/** Frontmatter string field, falling back when absent or the wrong type. */
-function fmString(data: Frontmatter, key: string, fallback: string): string {
-  const value = data[key];
-  return typeof value === "string" ? value : fallback;
-}
-
-/** Frontmatter list field, stringified, or `[]` when absent or not a list. */
-function fmStringList(data: Frontmatter, key: string): string[] {
-  const value = data[key];
-  return Array.isArray(value) ? value.map(String) : [];
 }
 
 // ── Types ─────────────────────────────────────────────────────────────────────

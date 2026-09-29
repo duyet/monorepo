@@ -13,10 +13,11 @@
  * - public/d/<date>.md        (raw markdown for every inbox daily note)
  * - public/graph-data.json    (nodes + edges for the knowledge graph)
  *
- * This script is self-contained — it does NOT import lib/content.ts so
- * the runtime loader can stay Vite-only (import.meta.glob). The two lib/ imports
- * it does have (`graph-types.ts`, `wikilinks.ts`) carry zero runtime code or
- * `node:*` dependencies, so they evaluate identically under plain Node.
+ * This script does NOT import lib/content.ts — the runtime loader is
+ * `import.meta.glob`-based and cannot be evaluated outside Vite. The three
+ * lib/ modules it does share (`graph-types.ts`, `wikilinks.ts`,
+ * `frontmatter-fields.ts`) are dependency-free, so they evaluate identically
+ * under plain Node.
  */
 
 import {
@@ -30,6 +31,7 @@ import { basename, extname, join } from "node:path";
 import matter from "gray-matter";
 import { kbSlugify } from "@duyet/libs/slugify";
 import type { GraphEdge, GraphNode } from "../lib/graph-types";
+import { fmString, fmStringList } from "../lib/frontmatter-fields";
 import { extractWikilinks, normalizeRelatedRefs } from "../lib/wikilinks";
 
 const SCRIPT_DIR = import.meta.dirname!;
@@ -111,26 +113,6 @@ function walkMd(dir: string): string[] {
 
 const slugify = kbSlugify;
 
-/**
- * Frontmatter field accessors. `matter` types `data` as `{[key: string]: any}`,
- * so every field needs a runtime type guard; these keep the guard in one place
- * instead of inline at each of the ~25 read sites below. The two accessors are
- * deliberately NOT the same shape as the ones in `lib/content.ts` — see the
- * `memoryType` comment in the memory walk below, which spells out the one field
- * where the two must disagree.
- */
-type Frontmatter = Record<string, any>;
-
-function fmString(data: Frontmatter, key: string, fallback: string): string {
-  const value = data[key];
-  return typeof value === "string" ? value : fallback;
-}
-
-function fmStringList(data: Frontmatter, key: string): string[] {
-  const value = data[key];
-  return Array.isArray(value) ? value.map(String) : [];
-}
-
 /** Comparator shared with `lib/content.ts`: newest `updated` first, title as tiebreak. */
 function byUpdatedThenTitle(
   a: { updated: string; title: string },
@@ -189,6 +171,11 @@ for (const filePath of walkMd(MEMORY_DIR)) {
     // falls back to "reference", while the generator passes any string through
     // so the emitted `/m/<slug>.md` frontmatter and `graph-data.json` keep the
     // author's raw value. Do not "unify" these two.
+    //
+    // This divergence lives HERE, at the call site — not in the shared
+    // accessors. `fmString` is a plain type guard and is shared; only what is
+    // done with its result differs. That is why the accessors could be
+    // deduplicated without losing this.
     memoryType: fmString(data, "type", "reference"),
     category: fmString(data, "category", "general"),
     tags: fmStringList(data, "tags"),
