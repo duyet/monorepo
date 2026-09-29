@@ -1,50 +1,8 @@
 import { describe, expect, test } from "vitest";
-import { appConfig, getVarsForApp, parseEnvContent } from "./sync-app-secrets";
+import { appConfig, getVarsForApp } from "./sync-app-secrets";
 
-describe("parseEnvContent", () => {
-  test("parses basic key=value pairs", () => {
-    const result = parseEnvContent("FOO=bar\nBAZ=qux");
-    expect(result).toEqual({ FOO: "bar", BAZ: "qux" });
-  });
-
-  test("strips double-quoted values", () => {
-    const result = parseEnvContent('KEY="hello world"');
-    expect(result).toEqual({ KEY: "hello world" });
-  });
-
-  test("strips single-quoted values", () => {
-    const result = parseEnvContent("KEY='hello world'");
-    expect(result).toEqual({ KEY: "hello world" });
-  });
-
-  test("ignores comment lines", () => {
-    const result = parseEnvContent("# this is a comment\nKEY=value");
-    expect(result).toEqual({ KEY: "value" });
-  });
-
-  test("ignores blank lines", () => {
-    const result = parseEnvContent("\nKEY=value\n");
-    expect(result).toEqual({ KEY: "value" });
-  });
-
-  test("ignores lines without equals sign", () => {
-    const result = parseEnvContent("NOVALUE\nKEY=value");
-    expect(result).toEqual({ KEY: "value" });
-  });
-
-  test("handles values containing equals signs", () => {
-    const result = parseEnvContent(
-      "DATABASE_URL=postgres://user:pass@host/db?ssl=true"
-    );
-    expect(result).toEqual({
-      DATABASE_URL: "postgres://user:pass@host/db?ssl=true",
-    });
-  });
-
-  test("returns empty object for empty content", () => {
-    expect(parseEnvContent("")).toEqual({});
-  });
-});
+// parseEnvContent moved to ./parse-env.ts (shared by all three deploy
+// scripts); its coverage lives in parse-env.test.ts.
 
 describe("getVarsForApp", () => {
   const env = {

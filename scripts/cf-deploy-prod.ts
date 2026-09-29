@@ -1,41 +1,14 @@
 #!/usr/bin/env tsx
 
 import { spawnSync } from "node:child_process";
-import { existsSync, readFileSync, renameSync } from "node:fs";
+import { existsSync, renameSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { parseEnvFile } from "./parse-env.ts";
+import { readPagesOutputDir } from "./wrangler-toml.ts";
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const rootDir = join(scriptDir, "..");
-
-function parseEnvFile(filePath: string): Record<string, string> {
-  if (!existsSync(filePath)) return {};
-
-  const env: Record<string, string> = {};
-  const content = readFileSync(filePath, "utf-8");
-
-  for (const line of content.split("\n")) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-
-    const equalsIndex = trimmed.indexOf("=");
-    if (equalsIndex === -1) continue;
-
-    const key = trimmed.slice(0, equalsIndex).trim();
-    let value = trimmed.slice(equalsIndex + 1).trim();
-
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-
-    env[key] = value;
-  }
-
-  return env;
-}
 
 function loadDeployEnv(): Record<string, string> {
   return {
@@ -51,13 +24,7 @@ function loadDeployEnv(): Record<string, string> {
 
 function readOutputDir(appDir: string, explicitOutputDir?: string): string {
   if (explicitOutputDir) return explicitOutputDir;
-
-  const wranglerPath = join(rootDir, "apps", appDir, "wrangler.toml");
-  if (!existsSync(wranglerPath)) return "dist";
-
-  const wrangler = readFileSync(wranglerPath, "utf-8");
-  const outputDir = wrangler.match(/pages_build_output_dir\s*=\s*"([^"]+)"/);
-  return outputDir?.[1] ?? "dist";
+  return readPagesOutputDir(join(rootDir, "apps", appDir)) ?? "dist";
 }
 
 /** Carries a child process's exit code out so the top level can mirror it. */

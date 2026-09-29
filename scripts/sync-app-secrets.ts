@@ -23,6 +23,8 @@ import os from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
+import { parseEnvContent } from "./parse-env.ts";
+import { isPagesProject } from "./wrangler-toml.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -232,34 +234,6 @@ export const appConfig: Record<
   },
 };
 
-export function parseEnvContent(content: string): Record<string, string> {
-  const result: Record<string, string> = {};
-  const lines = content.split("\n");
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith("#")) continue;
-
-    const eqIndex = trimmed.indexOf("=");
-    if (eqIndex === -1) continue;
-
-    const key = trimmed.substring(0, eqIndex).trim();
-    let value = trimmed.substring(eqIndex + 1).trim();
-
-    // Remove quotes if present
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-
-    result[key] = value;
-  }
-
-  return result;
-}
-
 function loadEnvFiles(): Record<string, string> {
   const env: Record<string, string> = {};
 
@@ -389,12 +363,8 @@ async function setSecretsBulk(
       writeFileSync(tmpFile, JSON.stringify(secrets, null, 2));
 
       // Check if this is a Pages project (has pages_build_output_dir) or Workers project
-      const wranglerTomlPath = join(appDir, "wrangler.toml");
-      const wranglerToml = readFileSync(wranglerTomlPath, "utf-8");
-      const isPagesProject = wranglerToml.includes("pages_build_output_dir");
-
       // Use different commands for Pages vs Workers
-      const cmd = isPagesProject
+      const cmd = isPagesProject(appDir)
         ? ["pnpm", "dlx", "wrangler", "pages", "secret", "bulk", tmpFile]
         : ["pnpm", "dlx", "wrangler", "secret", "bulk", tmpFile, "--env="];
 
@@ -504,8 +474,7 @@ async function main() {
     console.error(`  [ERROR] wrangler.toml not found at ${wranglerTomlPath}`);
     process.exit(1);
   }
-  const wranglerToml = readFileSync(wranglerTomlPath, "utf-8");
-  const isPagesProject = wranglerToml.includes("pages_build_output_dir");
+  const appIsPages = isPagesProject(appDir);
 
   // Sync secrets
   const secretKeys = Object.keys(secrets);
@@ -529,7 +498,7 @@ async function main() {
   }
 
   // Sync build vars for Pages projects
-  if (isPagesProject && Object.keys(buildVars).length > 0) {
+  if (appIsPages && Object.keys(buildVars).length > 0) {
     console.log(
       `  [INFO] Syncing ${Object.keys(buildVars).length} build vars for Pages:`
     );
@@ -543,7 +512,7 @@ async function main() {
       process.exit(1);
     }
     console.log(`  [OK] Synced ${Object.keys(buildVars).length} build vars`);
-  } else if (isPagesProject) {
+  } else if (appIsPages) {
     console.log(`  [INFO] No build vars to sync`);
   }
 

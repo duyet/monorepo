@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 // Relative import: cf-deploy-matrix runs via `node --experimental-strip-types`
 // in CI without `pnpm install`, so workspace aliases like @duyet/urls are unavailable.
 import { PAGES_DOMAIN_OVERRIDES } from "../packages/urls/src/app-registry.ts";
+import { firstTomlString } from "./wrangler-toml.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -26,11 +27,6 @@ export interface PagesApp {
 
 export function domainForApp(appName: string): string {
   return DOMAIN_OVERRIDES[appName] ?? `${appName}.duyet.net`;
-}
-
-function firstTomlString(content: string, key: string): string | undefined {
-  const match = content.match(new RegExp(`^${key}\\s*=\\s*"([^"]+)"`, "m"));
-  return match?.[1];
 }
 
 /**
@@ -83,18 +79,12 @@ export function discoverPagesApps(
   return config;
 }
 
-export function pagesAppNames(appsDir?: string): string[] {
-  return Object.keys(discoverPagesApps(appsDir)).sort();
-}
-
 const SHARED_CHANGE_PREFIXES = [
   "packages/",
   "package.json",
   "pnpm-lock.yaml",
   ".npmrc",
 ];
-
-
 
 export function selectAppsToDeploy(opts: {
   apps: Record<string, PagesApp>;

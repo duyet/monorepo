@@ -25,52 +25,20 @@
  * - Domain convention: <app>.duyet.net (see scripts/cf-pages-apps.ts overrides)
  */
 
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
 import { discoverPagesApps } from "./cf-pages-apps.ts";
+import {
+  CHANGE_DETECTION_PATHS,
+  selectAppsToBuild,
+} from "./deploy-change-detection.ts";
+import { parseEnvFile } from "./parse-env.ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, "..");
-
-/**
- * Parse a .env file and return key-value pairs
- * Handles comments, empty lines, and quoted values
- */
-function parseEnvFile(filePath: string): Record<string, string> {
-  if (!existsSync(filePath)) {
-    return {};
-  }
-
-  const content = readFileSync(filePath, "utf-8");
-  const env: Record<string, string> = {};
-
-  for (const line of content.split("\n")) {
-    const trimmed = line.trim();
-    // Skip empty lines and comments
-    if (!trimmed || trimmed.startsWith("#")) continue;
-
-    const eqIndex = trimmed.indexOf("=");
-    if (eqIndex === -1) continue;
-
-    const key = trimmed.slice(0, eqIndex).trim();
-    let value = trimmed.slice(eqIndex + 1).trim();
-
-    // Remove surrounding quotes if present
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-
-    env[key] = value;
-  }
-
-  return env;
-}
 
 function loadEnvFiles(paths: string[]): Record<string, string> {
   const merged: Record<string, string> = {};
@@ -264,6 +232,9 @@ async function preflightCloudflareAuth(): Promise<boolean> {
  * 2. Changes to shared packages (affects all apps)
  * 3. Changes to shared config files (affects all apps)
  *
+ * The decision itself lives in `selectAppsToBuild` so it is unit-testable;
+ * this wrapper only does the git call and the force/dry-run short circuits.
+ *
  * @param baseBranch - The git branch to compare against (default: origin/main)
  * @returns Array of app names that need to be built
  */
@@ -278,23 +249,21 @@ function getChangedApps(baseBranch = "origin/main"): string[] {
   }
 
   // Get all changed files including deletions and renames
-  const gitResult = spawnSync("git", [
-    "diff",
-    "--name-only",
-    "--diff-filter=d", // Exclude deleted files from triggering rebuilds
-    `${baseBranch}...HEAD`,
-    "--",
-    "apps/",
-    "packages/",
-    "turbo.json",
-    "package.json",
-    "pnpm-lock.yaml",
-    ".env.production",
-    "scripts/",
-  ], {
-    cwd: rootDir,
-    encoding: "utf-8",
-  });
+  const gitResult = spawnSync(
+    "git",
+    [
+      "diff",
+      "--name-only",
+      "--diff-filter=d", // Exclude deleted files from triggering rebuilds
+      `${baseBranch}...HEAD`,
+      "--",
+      ...CHANGE_DETECTION_PATHS,
+    ],
+    {
+      cwd: rootDir,
+      encoding: "utf-8",
+    },
+  );
 
   if (gitResult.status !== 0) {
     console.warn(
@@ -304,95 +273,17 @@ function getChangedApps(baseBranch = "origin/main"): string[] {
   }
 
   const changedFiles = (gitResult.stdout ?? "").split("\n").filter(Boolean);
+  const { apps, logLines } = selectAppsToBuild({
+    changedFiles,
+    requestedApps: appsToDeployList,
+    targetApp,
+  });
 
-  // Extract app names from changed files
-  const changedAppsSet = new Set<string>();
-
-  for (const file of changedFiles) {
-    if (file.startsWith("apps/")) {
-      const parts = file.split("/");
-      const appName = parts[1]; // apps/{appName}/...
-      if (appsToDeployList.includes(appName)) {
-        changedAppsSet.add(appName);
-      }
-    }
+  for (const line of logLines) {
+    console.log(line);
   }
 
-  // Check for changes in shared packages that affect all apps
-  const sharedPackageChanges = changedFiles.filter((file) =>
-    file.startsWith("packages/")
-  );
-
-  // Check for changes in critical config files
-  const configChanges = changedFiles.filter((file) =>
-    [
-      "turbo.json",
-      "package.json",
-      "pnpm-lock.yaml",
-      ".env.production",
-      "scripts/cf-deploy.ts",
-    ].includes(file)
-  );
-
-  // Determine if we need to build all apps
-  const buildAllApps =
-    sharedPackageChanges.length > 0 ||
-    configChanges.some(
-      (file) =>
-        file === "turbo.json" || file === "package.json" || file === "pnpm-lock.yaml"
-    );
-
-  if (buildAllApps) {
-    const reasons = [];
-    if (sharedPackageChanges.length > 0) {
-      reasons.push(
-        `shared packages changed (${sharedPackageChanges.length} files)`
-      );
-    }
-    if (
-      configChanges.some((f) =>
-        ["turbo.json", "package.json", "pnpm-lock.yaml"].includes(f)
-      )
-    ) {
-      reasons.push("core config changed");
-    }
-    console.log(`[INFO] Building all apps: ${reasons.join(", ")}`);
-    return appsToDeployList;
-  }
-
-  const result = Array.from(changedAppsSet);
-
-  // Log what we found
-  if (result.length > 0) {
-    console.log(`[INFO] Changed apps detected: ${result.join(", ")}`);
-  } else {
-    console.log(`[INFO] No app changes detected`);
-  }
-
-  // Log config changes that don't require full rebuild
-  if (configChanges.length > 0) {
-    console.log(
-      `[INFO] Config changes (deployment only): ${configChanges.join(", ")}`
-    );
-  }
-
-  // If no specific app changes detected but we have a target, build it
-  if (result.length === 0 && targetApp) {
-    console.log(
-      `[INFO] No changes detected, but building requested app: ${targetApp}`
-    );
-    return [targetApp];
-  }
-
-  // If deploying all and no changes, build all for safety
-  if (result.length === 0 && !targetApp) {
-    console.log(
-      "[INFO] No app changes detected. Building all apps for safety."
-    );
-    return appsToDeployList;
-  }
-
-  return result;
+  return apps;
 }
 
 /**
