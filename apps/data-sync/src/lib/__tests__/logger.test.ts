@@ -97,8 +97,19 @@ describe("output format", () => {
 
     expect(vi.mocked(console.log)).toHaveBeenCalledOnce();
     const [line, ...rest] = vi.mocked(console.log).mock.calls[0];
+    // The ANSI escapes are built here rather than written into a regex
+    // literal: a control character inside a regex is a lint error, and
+    // constructing the expected line as a string keeps the assertion exact
+    // about the whole format instead of just the timestamp shape.
+    const ESC = "\u001b";
+    expect(line).toBe(
+      `[${new Date().toISOString().replace("T", " ").substring(0, 19)}] ` +
+        `${ESC}[32m[INFO ]${ESC}[0m [wakatime] Inserting batch`,
+    );
     expect(line).toMatch(
-      /^\[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\] \x1b\[32m\[INFO \]\x1b\[0m \[wakatime\] Inserting batch$/,
+      new RegExp(
+        `^\\[\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\\] ${ESC}\\[32m`,
+      ),
     );
     expect(rest).toEqual([extra]);
   });

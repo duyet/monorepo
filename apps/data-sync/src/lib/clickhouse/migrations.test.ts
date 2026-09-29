@@ -2,7 +2,7 @@ import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterAll, beforeAll, describe, expect, test } from "vitest";
-import { MigrationRunner, sqlString } from "./migrations";
+import { type Migration, MigrationRunner, sqlString } from "./migrations";
 
 /**
  * Covers the two things about `MigrationRunner` that are pure enough to test
@@ -30,6 +30,17 @@ function write(name: string, contents: string): void {
   writeFileSync(join(dir, name), contents);
 }
 
+/**
+ * `loadMigrations` is private — the migration parser has no public entry point
+ * that does not need a live ClickHouse connection, and its behavior is exactly
+ * what these tests are about. Typed alias so the calls read as method calls
+ * rather than bracket access.
+ */
+type WithLoad = { loadMigrations(): Migration[] };
+
+const load = (r: MigrationRunner): Migration[] =>
+  (r as unknown as WithLoad).loadMigrations();
+
 describe("loadMigrations", () => {
   test("reads the name, version and UP section", () => {
     write(
@@ -39,7 +50,7 @@ describe("loadMigrations", () => {
       ),
     );
 
-    const [migration] = runner["loadMigrations"]();
+    const [migration] = load(runner);
 
     expect(migration.version).toBe(1);
     expect(migration.name).toBe("first");
@@ -52,7 +63,7 @@ describe("loadMigrations", () => {
   test("skips a file with no version, rather than guessing one", () => {
     write("002_noversion.sql", ["-- @name: noversion", "-- UP", "SELECT 1;", ""].join("\n"));
 
-    const names = runner["loadMigrations"]().map((m) => m.name);
+    const names = load(runner).map((m) => m.name);
 
     // A file with no @version parses to null and is dropped, so the
     // version-1 file from the previous test is the only survivor.
@@ -65,7 +76,7 @@ describe("loadMigrations", () => {
       ["-- @name: noup", "-- @version: 3", "", "-- DOWN", "DROP TABLE a;", ""].join("\n"),
     );
 
-    const names = runner["loadMigrations"]().map((m) => m.name);
+    const names = load(runner).map((m) => m.name);
 
     expect(names).not.toContain("noup");
   });
@@ -82,7 +93,7 @@ describe("loadMigrations", () => {
       write(file, `-- @name: ${name}\n-- @version: ${version}\n\n-- UP\nSELECT 1;\n`);
     }
 
-    const versions = runner["loadMigrations"]().map((m) => m.version);
+    const versions = load(runner).map((m) => m.version);
 
     expect(versions).toEqual([...versions].sort((a, b) => a - b));
     expect(versions.at(-1)).toBe(20250109);
@@ -93,14 +104,14 @@ describe("loadMigrations", () => {
     // like "no migrations pending" and let `up()` report success having applied
     // nothing. Asserted here so the behavior is pinned rather than assumed.
     expect(() =>
-      new MigrationRunner(join(dir, "does-not-exist"))["loadMigrations"](),
+      load(new MigrationRunner(join(dir, "does-not-exist"))),
     ).toThrow(/ENOENT/);
   });
 
   test("returns an empty list for a directory with no .sql files", () => {
     write("notes.txt", "not a migration");
-    expect(new MigrationRunner(dir)["loadMigrations"]().length).toBeGreaterThan(0);
-    expect(runner["loadMigrations"]().every((m) => m.name !== "not a migration")).toBe(
+    expect(load(new MigrationRunner(dir)).length).toBeGreaterThan(0);
+    expect(load(runner).every((m) => m.name !== "not a migration")).toBe(
       true,
     );
   });
@@ -112,13 +123,13 @@ describe("checksum", () => {
       `-- @name: cks\n-- @version: 10\n\n-- UP\n${up}\n-- DOWN\n${down}\n`;
 
     write("010_checksum.sql", withBody("SELECT 1;", "SELECT 1;"));
-    const before = runner["loadMigrations"]().find((m) => m.version === 10);
+    const before = load(runner).find((m) => m.version === 10);
 
     write("010_checksum.sql", withBody("SELECT 2;", "SELECT 1;"));
-    const afterUpChanged = runner["loadMigrations"]().find((m) => m.version === 10);
+    const afterUpChanged = load(runner).find((m) => m.version === 10);
 
     write("010_checksum.sql", withBody("SELECT 2;", "SELECT 9;"));
-    const afterDownChanged = runner["loadMigrations"]().find((m) => m.version === 10);
+    const afterDownChanged = load(runner).find((m) => m.version === 10);
 
     // The checksum is `md5(up + down)`, so it covers both halves. That is
     // intentional and is what `verify()` relies on: it detects an *already
@@ -132,8 +143,8 @@ describe("checksum", () => {
       "011_stable.sql",
       "-- @name: stable\n-- @version: 11\n\n-- UP\nSELECT 1;\n",
     );
-    const first = runner["loadMigrations"]().find((m) => m.version === 11);
-    const second = runner["loadMigrations"]().find((m) => m.version === 11);
+    const first = load(runner).find((m) => m.version === 11);
+    const second = load(runner).find((m) => m.version === 11);
     expect(second?.checksum).toBe(first?.checksum);
   });
 });
@@ -173,7 +184,11 @@ describe("re-entrancy guard", () => {
   test("is a declared field, not an undeclared one reached through `as any`", () => {
     // The guard used to be `(this as any)._running`, which meant nothing
     // type-checked it and a typo would have silently disabled it.
-    expect(Object.getOwnPropertyDescriptor(MigrationRunner.prototype, "running")).toBeUndefined();
-    expect(new MigrationRunner(dir)["running"]).toBe(false);
+    expect(
+      Object.getOwnPropertyDescriptor(MigrationRunner.prototype, "running"),
+    ).toBeUndefined();
+    expect((new MigrationRunner(dir) as unknown as { running: boolean }).running).toBe(
+      false,
+    );
   });
 });
