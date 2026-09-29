@@ -322,14 +322,55 @@ function fitText(
  * Pure: no filesystem access, so it is trivially testable. `image` is a Buffer
  * or undefined — resolve remote/local sources with `loadCardImage` first.
  */
-export function cardToSvg(
-  input: CardInput,
-  options: RenderCardOptions = {},
-  ditherSvg?: string
-): string {
-  const theme = { ...LIGHT_THEME, ...options.theme };
-  const { panelWidth = 0.62, logoSvg } = options;
+/**
+ * Where everything on the card goes.
+ *
+ * Extracted from `cardToSvg` because layout and emission are two different
+ * concerns that were interleaved: the geometry is a pure function of the input
+ * (no SVG, no theme, no string building), while the emission is a walk over the
+ * result. Separating them makes the geometry directly assertable — a test can
+ * check that a 1-line title lifts by exactly 34px without parsing an SVG
+ * string, and the "does the title overflow the panel" question becomes
+ * arithmetic rather than a regex over output.
+ */
+export interface CardLayout {
+  /** Inset from every edge, in px. */
+  pad: number;
+  /** Width of the solid type panel over the dither, in px. */
+  panelW: number;
+  /** Left edge of the text column, in px. */
+  textX: number;
+  titleLines: string[];
+  /** Baseline origin for the first title line, in px. */
+  titleY: number;
+  titleSize: number;
+  descLines: string[];
+  descSize: number;
+  /** Baseline origin for the first description line, in px. */
+  descY: number;
+  /** Baseline for the meta line (date · read time), in px. */
+  metaY: number;
+  /** Top edge of the accent hairline, in px. */
+  accentRuleY: number;
+  /** Baseline for the footer, in px. */
+  footY: number;
+  /** Height reserved for the meta band; 0 when there is no meta. */
+  metaH: number;
+  /** True when the title fitted on one line. */
+  singleLine: boolean;
+}
 
+/**
+ * Compute the card geometry.
+ *
+ * Layout runs bottom-up: the footer and meta line are anchored to the bottom
+ * edge, then the description is stacked above them, then the title, so a card
+ * with a long title grows upward and never collides with the footer.
+ */
+export function computeCardLayout(
+  input: CardInput,
+  panelWidth = 0.62
+): CardLayout {
   const pad = OG_WIDTH * 0.055;
   const panelW = OG_WIDTH * panelWidth;
 
@@ -349,19 +390,16 @@ export function cardToSvg(
   // poster rather than a footnote in a sea of white. Capped so a mid-length
   // title never balloons past the 70px base size.
   const singleLine = titleLines.length === 1;
-  const targetWidth = titleMaxWidth;
   const atBase = serifWidth(title, 70);
   const titleScale =
     singleLine && atBase > 0
-      ? Math.max(1, Math.min(1.6, targetWidth / atBase))
+      ? Math.max(1, Math.min(1.6, titleMaxWidth / atBase))
       : 1;
   const renderedTitleSize = Math.round(titleSize * titleScale);
 
   const descFit = description
     ? fitText(description, titleMaxWidth, descSize, 3, sansWidth)
     : { lines: [] as string[], size: descSize };
-  const descLines = descFit.lines;
-  const renderedDescSize = descFit.size;
 
   // A short title gets a little more presence: lift the baseline above the very
   // bottom so the card reads as a poster rather than a footnote.
@@ -373,13 +411,49 @@ export function cardToSvg(
   let y = OG_HEIGHT - pad - footH - shortTitleLift;
   const metaY = y;
   y -= metaH;
-  if (descLines.length) {
-    y -= descLines.length * renderedDescSize * 1.42 + 24;
+  if (descFit.lines.length) {
+    y -= descFit.lines.length * descFit.size * 1.42 + 24;
   }
   y -= titleLines.length * renderedTitleSize * 1.06;
   const titleY = y;
 
-  const accentRuleY = metaY - (metaH ? 34 : 26);
+  return {
+    pad,
+    panelW,
+    textX: pad,
+    titleLines,
+    titleY,
+    titleSize: renderedTitleSize,
+    descLines: descFit.lines,
+    descSize: descFit.size,
+    descY: titleY + titleLines.length * renderedTitleSize * 1.06 + 24,
+    metaY,
+    accentRuleY: metaY - (metaH ? 34 : 26),
+    footY: OG_HEIGHT - pad,
+    metaH,
+    singleLine,
+  };
+}
+
+/**
+ * Render a 1200×630 OG card as SVG.
+ *
+ * Geometry comes from {@link computeCardLayout}; this function only emits.
+ * Output is byte-stable for a given input, which is what lets generated cards
+ * be committed to `public/og/` and referenced from prerendered HTML.
+ */
+export function cardToSvg(
+  input: CardInput,
+  options: RenderCardOptions = {},
+  ditherSvg?: string
+): string {
+  const theme = { ...LIGHT_THEME, ...options.theme };
+  const { panelWidth = 0.62, logoSvg } = options;
+
+  const layout = computeCardLayout(input, panelWidth);
+  const { pad, panelW, titleLines, titleY, descLines } = layout;
+  const renderedTitleSize = layout.titleSize;
+  const renderedDescSize = layout.descSize;
 
   const parts: string[] = [];
 
@@ -414,24 +488,24 @@ export function cardToSvg(
   // Description.
   descLines.forEach((line, i) => {
     parts.push(
-      `<text x="${pad}" y="${titleY + titleLines.length * renderedTitleSize * 1.06 + 24 + renderedDescSize * (i + 0.85)}" font-family="${esc(theme.sansFont)}" font-size="${renderedDescSize}" fill="${theme.muted}">${esc(line)}</text>`
+      `<text x="${pad}" y="${layout.descY + renderedDescSize * (i + 0.85)}" font-family="${esc(theme.sansFont)}" font-size="${renderedDescSize}" fill="${theme.muted}">${esc(line)}</text>`
     );
   });
 
   // Accent hairline.
   parts.push(
-    `<rect x="${pad}" y="${accentRuleY}" width="72" height="5" rx="2.5" fill="${theme.accent}"/>`
+    `<rect x="${pad}" y="${layout.accentRuleY}" width="72" height="5" rx="2.5" fill="${theme.accent}"/>`
   );
 
   // Meta line (date · read time).
   if (input.meta) {
     parts.push(
-      `<text x="${pad}" y="${metaY}" font-family="${esc(theme.monoFont)}" font-size="18" fill="${theme.muted}">${esc(input.meta)}</text>`
+      `<text x="${pad}" y="${layout.metaY}" font-family="${esc(theme.monoFont)}" font-size="18" fill="${theme.muted}">${esc(input.meta)}</text>`
     );
   }
 
   // Footer: site name + optional logo.
-  const footY = OG_HEIGHT - pad;
+  const footY = layout.footY;
   if (logoSvg) {
     parts.push(
       `<g transform="translate(${pad} ${footY - 26}) scale(0.41)">${logoSvg
