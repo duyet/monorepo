@@ -11,8 +11,6 @@ import type {
 import { anonymizeProjects, distributePercentages } from "./data-processing";
 import {
   buildDateCondition,
-  getCreatedAtCondition,
-  getDateCondition,
   validateDaysParameter,
 } from "./queries";
 
@@ -96,8 +94,78 @@ async function executeAnalyticsQuery(
   return cacheResults;
 }
 
+/**
+ * DuckDB date filter for a column.
+ *
+ * Exported for `insight-metrics.ts`, which builds its own DuckDB statements
+ * from it. Expressed through {@link DIALECT} so the `current_date` spelling
+ * has exactly one home.
+ */
 export function getDuckDBDateCondition(days: DateRangeDays, column: string): string {
-  return buildDateCondition(column, days, "current_date");
+  return dateFilter("duckdb", days, column);
+}
+
+/**
+ * The analytics dialect axis, in one place.
+ *
+ * The app serves these queries from ClickHouse and falls back to a DuckDB
+ * cache when ClickHouse is unavailable, so **the same logical query is emitted
+ * twice**. That only works if the two spellings are provably the same query,
+ * which is the property the duplication kept quietly breaking — see
+ * `getCCUsageModels`, which counted rows with `COUNT()` on one side and
+ * `COUNT(*)` on the other.
+ *
+ * Only three things actually differ between the dialects:
+ *
+ * 1. how "now" is spelled — `today()` vs `current_date`;
+ * 2. how a timestamp is truncated to a date and rendered as a string;
+ * 3. one interval filter that ClickHouse needs table-qualified, because its
+ *    `MAX(last_activity) AS last_activity` alias shadows the raw column and
+ *    the engine resolves an unqualified `WHERE` reference to the aggregate.
+ *
+ * Everything else — column list, aggregation, `GROUP BY`, `ORDER BY`, `LIMIT`
+ * — must be identical, and that is enforced by `data-fetchers.test.ts`.
+ */
+const DIALECT = {
+  clickhouse: {
+    now: "today()",
+    /** Truncate a timestamp to a date, rendered as a string. */
+    toDate: (column: string) => `toDate(${column})`,
+  },
+  duckdb: {
+    now: "current_date",
+    toDate: (column: string) => `CAST(${column} AS DATE)::VARCHAR`,
+  },
+} as const;
+
+type Dialect = keyof typeof DIALECT;
+
+/** The date filter for one dialect, on one column. */
+function dateFilter(
+  dialect: Dialect,
+  days: DateRangeDays,
+  column: string,
+): string {
+  return buildDateCondition(column, days, DIALECT[dialect].now);
+}
+
+/**
+ * Inclusive interval filter that survives a shadowing select alias.
+ *
+ * `getCCUsageProjects` selects `MAX(last_activity) AS last_activity`, so
+ * ClickHouse resolves an unqualified `WHERE last_activity` to that aggregate
+ * and rejects the query ("aggregate function ... found in WHERE"). Qualifying
+ * the column forces it to the raw one. Returns `""` for an unbounded range,
+ * matching `buildDateCondition`.
+ */
+function qualifiedIntervalFilter(
+  dialect: Dialect,
+  days: DateRangeDays,
+  column: string,
+): string {
+  const safeDays = validateDaysParameter(days);
+  if (safeDays === "all") return "";
+  return `WHERE ${column} >= ${DIALECT[dialect].now} - INTERVAL ${safeDays} DAY`;
 }
 
 // Single in-flight promise prevents concurrent callers from running duplicate checks
@@ -185,13 +253,12 @@ export async function pingClickHouse(): Promise<{
  * Get overview metrics for the specified time period
  *
  * The ClickHouse and DuckDB statements differ only in how the date filter
- * spells "now", so the body is written once and rendered per dialect — the
- * same shape `fetchDailyUsage` uses below.
+ * spells "now", so the body is written once and rendered per dialect.
  */
 export async function getCCUsageMetrics(
   days: DateRangeDays = 30
 ): Promise<CCUsageMetricsData> {
-  const buildMetricsQuery = (dateCondition: string) => `
+  const buildMetricsQuery = (dialect: Dialect) => `
     SELECT
       SUM(total_tokens) as total_tokens,
       SUM(input_tokens) as input_tokens,
@@ -200,12 +267,12 @@ export async function getCCUsageMetrics(
       SUM(total_cost) as total_cost,
       COUNT(DISTINCT date) as active_days
     FROM ccusage_usage_daily
-    ${dateCondition}
+    ${dateFilter(dialect, days, "date")}
   `;
 
   const [query, duckDBQuery] = [
-    buildMetricsQuery(getDateCondition(days)),
-    buildMetricsQuery(getDuckDBDateCondition(days, "date")),
+    buildMetricsQuery("clickhouse"),
+    buildMetricsQuery("duckdb"),
   ];
 
   const results = await executeAnalyticsQuery(query, duckDBQuery);
@@ -228,21 +295,24 @@ export async function getCCUsageMetrics(
   const totalCost = Number(data.total_cost) || 0;
 
   // Get top model separately
-  // `trailing` carries the two spaces the ClickHouse statement has always had
-  // after its filter; DuckDB's copy has none, and the emitted SQL must not
-  // change.
-  const buildTopModelQuery = (dateCondition: string, trailing: string) => `
+  const buildTopModelQuery = (dialect: Dialect) => `
     SELECT model_name, SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
     FROM ccusage_model_breakdowns
-    ${dateCondition}${trailing}
+    ${dateFilter(dialect, days, "created_at")}
     GROUP BY model_name
     ORDER BY total_tokens DESC
     LIMIT 1
   `;
 
+  // This query used to take a `trailing` whitespace argument so that the
+  // ClickHouse copy kept two spaces the DuckDB copy did not, on the grounds
+  // that "the emitted SQL must not change". Nothing consumes the whitespace of
+  // a build-time analytics query, and carrying it as a parameter meant the two
+  // dialect variants of the *same* query differed for no reason — which is
+  // precisely the signal that made real drift hard to spot.
   const [modelQuery, modelDuckDBQuery] = [
-    buildTopModelQuery(getCreatedAtCondition(days), "  "),
-    buildTopModelQuery(getDuckDBDateCondition(days, "created_at"), ""),
+    buildTopModelQuery("clickhouse"),
+    buildTopModelQuery("duckdb"),
   ];
 
   const modelResults = await executeAnalyticsQuery(
@@ -267,17 +337,17 @@ export async function getCCUsageMetrics(
  * getCCUsageActivityRaw (exact counts) — both hit the same query and differ
  * only in how the returned token columns are scaled.
  */
-function buildDailyUsageQuery(dateCondition: string, dateSelect: string) {
+function buildDailyUsageQuery(dialect: Dialect, days: DateRangeDays) {
   return `
     SELECT
-      ${dateSelect},
+      ${dialect === "clickhouse" ? "date" : "CAST(date AS VARCHAR)"} as date,
       SUM(total_tokens) as "Total Tokens",
       SUM(input_tokens) as "Input Tokens",
       SUM(output_tokens) as "Output Tokens",
       SUM(cache_creation_tokens + cache_read_tokens) as "Cache Tokens",
       SUM(total_cost) as "Total Cost"
     FROM ccusage_usage_daily
-    ${dateCondition}
+    ${dateFilter(dialect, days, "date")}
     GROUP BY date
     ORDER BY date ASC
   `;
@@ -287,11 +357,8 @@ async function fetchDailyUsage(
   days: DateRangeDays
 ): Promise<Record<string, unknown>[]> {
   return executeAnalyticsQuery(
-    buildDailyUsageQuery(getDateCondition(days), "date"),
-    buildDailyUsageQuery(
-      getDuckDBDateCondition(days, "date"),
-      "CAST(date AS VARCHAR) as date"
-    )
+    buildDailyUsageQuery("clickhouse", days),
+    buildDailyUsageQuery("duckdb", days)
   );
 }
 
@@ -346,32 +413,25 @@ export async function getCCUsageActivityRaw(
 export async function getCCUsageModels(
   days: DateRangeDays = 30
 ): Promise<CCUsageModelData[]> {
-  const dateCondition = getCreatedAtCondition(days);
-  const query = `
-    SELECT 
-      model_name,
-      SUM(cost) as total_cost,
-      SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens,
-      COUNT() as usage_count
-    FROM ccusage_model_breakdowns
-    ${dateCondition}  
-    GROUP BY model_name
-    ORDER BY total_tokens DESC
-    LIMIT 10
-  `;
-
-  const duckDBQuery = `
+  const buildModelsQuery = (dialect: Dialect) => `
     SELECT
       model_name,
       SUM(cost) as total_cost,
       SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens,
       COUNT(*) as usage_count
     FROM ccusage_model_breakdowns
-    ${getDuckDBDateCondition(days, "created_at")}
+    ${dateFilter(dialect, days, "created_at")}
     GROUP BY model_name
     ORDER BY total_tokens DESC
     LIMIT 10
   `;
+
+  // `COUNT(*)`, not the `COUNT()` this used to emit for ClickHouse. Both count
+  // rows in a `GROUP BY`, so the result is the same — but `COUNT()` with no
+  // argument is ClickHouse-only syntax, and one of the two copies was the only
+  // thing preventing the obvious "just use COUNT(*)" from being a
+  // cross-dialect fix.
+  const [query, duckDBQuery] = [buildModelsQuery("clickhouse"), buildModelsQuery("duckdb")];
 
   const results = await executeAnalyticsQuery(query, duckDBQuery);
 
@@ -425,16 +485,7 @@ export async function getCCUsageModels(
 export async function getCCUsageProjects(
   days: DateRangeDays = 30
 ): Promise<CCUsageProjectData[]> {
-  const safeDays = validateDaysParameter(days);
-  // Table-qualify the column: the SELECT aliases MAX(last_activity) AS
-  // last_activity, which shadows the raw column. ClickHouse resolves an
-  // unqualified WHERE reference to that aggregate alias and rejects it
-  // ("aggregate function ... found in WHERE"). Qualifying forces the column.
-  const intervalClause =
-    safeDays === "all"
-      ? ""
-      : `WHERE ccusage_usage_sessions.last_activity >= today() - INTERVAL ${safeDays} DAY`;
-  const query = `
+  const buildProjectsQuery = (dialect: Dialect) => `
     SELECT
       session_id,
       project_path,
@@ -442,25 +493,20 @@ export async function getCCUsageProjects(
       SUM(total_cost) as total_cost,
       MAX(last_activity) as last_activity
     FROM ccusage_usage_sessions
-    ${intervalClause}
+    ${qualifiedIntervalFilter(
+      dialect,
+      days,
+      "ccusage_usage_sessions.last_activity",
+    )}
     GROUP BY session_id, project_path
     ORDER BY total_tokens DESC
     LIMIT 15
   `;
 
-  const duckDBQuery = `
-    SELECT
-      session_id,
-      project_path,
-      SUM(total_tokens) as total_tokens,
-      SUM(total_cost) as total_cost,
-      MAX(last_activity) as last_activity
-    FROM ccusage_usage_sessions
-    ${getDuckDBDateCondition(days, "ccusage_usage_sessions.last_activity")}
-    GROUP BY session_id, project_path
-    ORDER BY total_tokens DESC
-    LIMIT 15
-  `;
+  const [query, duckDBQuery] = [
+    buildProjectsQuery("clickhouse"),
+    buildProjectsQuery("duckdb"),
+  ];
 
   const results = await executeAnalyticsQuery(query, duckDBQuery);
 
@@ -525,34 +571,25 @@ export async function getCCUsageEfficiency(): Promise<CCUsageEfficiencyData[]> {
 export async function getCCUsageCosts(
   days: DateRangeDays = 30
 ): Promise<CCUsageCostData[]> {
-  const dateCondition = getDateCondition(days);
-  const query = `
-    SELECT 
-      date,
-      SUM(total_cost) as total_cost,
-      SUM(input_tokens) as input_tokens,
-      SUM(output_tokens) as output_tokens,
-      SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
-      SUM(total_tokens) as total_tokens
-    FROM ccusage_usage_daily 
-    ${dateCondition}
-    GROUP BY date 
-    ORDER BY date ASC
-  `;
-
-  const duckDBQuery = `
+  const buildCostsQuery = (dialect: Dialect) => `
     SELECT
-      CAST(date AS VARCHAR) as date,
+      ${dialect === "clickhouse" ? "date" : "CAST(date AS VARCHAR)"} as date,
       SUM(total_cost) as total_cost,
       SUM(input_tokens) as input_tokens,
       SUM(output_tokens) as output_tokens,
       SUM(cache_creation_tokens + cache_read_tokens) as cache_tokens,
       SUM(total_tokens) as total_tokens
     FROM ccusage_usage_daily
-    ${getDuckDBDateCondition(days, "date")}
+    ${dateFilter(dialect, days, "date")}
     GROUP BY date
     ORDER BY date ASC
   `;
+
+  // `CAST(date AS VARCHAR)` is the one place the *selected* expression differs
+  // and not just the filter: the column is already a `Date` in ClickHouse but
+  // a string in the DuckDB cache, and the mapper downstream expects a string
+  // in both cases.
+  const [query, duckDBQuery] = [buildCostsQuery("clickhouse"), buildCostsQuery("duckdb")];
 
   const results = await executeAnalyticsQuery(query, duckDBQuery);
 
@@ -656,28 +693,28 @@ function normalizeModelName(rawName: string): string {
 export async function getCCUsageActivityByModel(
   days: DateRangeDays = 30
 ): Promise<CCUsageActivityByModelData[]> {
-  const dateCondition = getCreatedAtCondition(days);
-  const query = `
+  const buildByModelQuery = (dialect: Dialect) => {
+    const day = DIALECT[dialect].toDate("created_at");
+    return `
     SELECT
-      toDate(created_at) as date,
+      ${day} as date,
       model_name,
       SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
     FROM ccusage_model_breakdowns
-    ${dateCondition}
-    GROUP BY toDate(created_at), model_name
+    ${dateFilter(dialect, days, "created_at")}
+    GROUP BY ${day}, model_name
     ORDER BY date ASC
   `;
+  };
 
-  const duckDBQuery = `
-    SELECT
-      CAST(created_at AS DATE)::VARCHAR as date,
-      model_name,
-      SUM(input_tokens + output_tokens + cache_creation_tokens + cache_read_tokens) as total_tokens
-    FROM ccusage_model_breakdowns
-    ${getDuckDBDateCondition(days, "created_at")}
-    GROUP BY CAST(created_at AS DATE), model_name
-    ORDER BY date ASC
-  `;
+  // The `SELECT` and the `GROUP BY` must truncate with the *same* expression:
+  // ClickHouse's `toDate(x)` and DuckDB's `CAST(x AS DATE)::VARCHAR` are
+  // different functions, and grouping by one while selecting the other is how
+  // a per-day series silently collapses into a single row.
+  const [query, duckDBQuery] = [
+    buildByModelQuery("clickhouse"),
+    buildByModelQuery("duckdb"),
+  ];
 
   const results = await executeAnalyticsQuery(query, duckDBQuery);
 
