@@ -18,7 +18,8 @@ export interface ScheduleHandle {
     input: Date | number | string,
     description: string
   ): Promise<unknown>;
-  cancelSchedule(taskId: string): Promise<unknown>;
+  /** Resolves `false` when no such task exists; it does not throw. */
+  cancelSchedule(taskId: string): Promise<boolean>;
 }
 
 export function getLocalTime(timezone: string): string {
@@ -150,7 +151,13 @@ export function cancelScheduledTaskTool(schedules: ScheduleHandle) {
     }),
     execute: async ({ taskId }) => {
       try {
-        await schedules.cancelSchedule(taskId);
+        // Agent.cancelSchedule resolves `false` for an unknown id instead of
+        // throwing, so the result has to be read — otherwise the model is told
+        // a task was cancelled when nothing was.
+        const cancelled = await schedules.cancelSchedule(taskId);
+        if (cancelled === false) {
+          return `No scheduled task with id ${taskId} was found; nothing was cancelled.`;
+        }
         return `Task ${taskId} cancelled.`;
       } catch (error) {
         return `Error cancelling task: ${String(error)}`;

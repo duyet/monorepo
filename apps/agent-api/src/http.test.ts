@@ -95,6 +95,32 @@ describe("createHttp withCors", () => {
   });
 });
 
+describe("createHttp withRateLimitHeaders on an upgrade", () => {
+  // index.ts composes withCors *then* withRateLimitHeaders on the /agents/
+  // route. A WebSocket handshake must survive both steps: rebuilding the
+  // Response throws (or, on workerd, silently drops response.webSocket, so the
+  // socket never opens). Same contract as withCors: 101 passes through.
+  test("passes a 101 upgrade through untouched", () => {
+    const upgrade = {
+      headers: new Headers({ Upgrade: "websocket" }),
+      status: 101,
+      webSocket: { readyState: 1 },
+    } as unknown as Response;
+
+    const res = createHttp(
+      request("https://agents.duyet.net"),
+      BASE_ENV
+    ).withRateLimitHeaders(
+      upgrade,
+      new Headers({ "RateLimit-Limit": "30", "RateLimit-Remaining": "29" })
+    );
+
+    expect(res).toBe(upgrade);
+    expect((res as unknown as { webSocket: unknown }).webSocket).toBeDefined();
+    expect(res.headers.get("Upgrade")).toBe("websocket");
+  });
+});
+
 describe("createHttp json and text", () => {
   test("json sets the JSON content type and status", async () => {
     const res = createHttp(request(), BASE_ENV).json({ ok: true }, 201);

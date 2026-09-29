@@ -8,7 +8,7 @@
 import { Hono, type Context } from "hono";
 import type { Env } from "../env.js";
 import {
-  EMPTY_OVERVIEW,
+  emptyOverview,
   getAiOverview,
   getCloudflareOverview,
   getPostHogOverview,
@@ -46,7 +46,7 @@ insightsRouter.get("/overview", async (c) => {
       "public, max-age=300, stale-while-revalidate=3600"
     );
     return c.json({
-      ...EMPTY_OVERVIEW,
+      ...emptyOverview(),
       ...(ai.status === "fulfilled" ? ai.value : {}),
       ...(waka.status === "fulfilled" ? waka.value : {}),
       ...(cloudflare.status === "fulfilled" ? cloudflare.value : {}),
@@ -55,7 +55,7 @@ insightsRouter.get("/overview", async (c) => {
   } catch (error) {
     console.error("Error fetching insights overview:", error);
     setCors(c);
-    return c.json(EMPTY_OVERVIEW);
+    return c.json(emptyOverview());
   }
 });
 

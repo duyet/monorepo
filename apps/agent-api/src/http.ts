@@ -26,8 +26,14 @@ function getCorsOrigin(request: Request, env: Env): string | null {
   return getAuthorizedParties(env).includes(origin) ? origin : null;
 }
 
+const WEBSOCKET_UPGRADE_STATUS = 101;
+
+function isWebSocketUpgrade(response: Response): boolean {
+  return response.status === WEBSOCKET_UPGRADE_STATUS;
+}
+
 function withCors(request: Request, env: Env, response: Response): Response {
-  if (response.status === 101) return response;
+  if (isWebSocketUpgrade(response)) return response;
 
   const origin = getCorsOrigin(request, env);
   const headers = new Headers(response.headers);
@@ -86,6 +92,11 @@ export function createHttp(request: Request, env: Env): Http {
       rateLimitHeaders: Headers
     ): Response {
       const corsed = cors(response);
+      // Rebuilding a Response drops `webSocket` (and its 101 status), so an
+      // upgraded connection would never open. Same rule as withCors: pass the
+      // handshake through untouched, header bookkeeping included.
+      if (isWebSocketUpgrade(corsed)) return corsed;
+
       const headers = new Headers(corsed.headers);
       for (const [key, value] of rateLimitHeaders) {
         headers.set(key, value);

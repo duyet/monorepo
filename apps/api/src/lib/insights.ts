@@ -63,6 +63,20 @@ export const EMPTY_OVERVIEW = {
   wakaTrend: [],
 };
 
+/**
+ * The base payload the route spreads under its sources.
+ *
+ * `EMPTY_OVERVIEW` is a module constant, so its `generatedAt` froze at import
+ * time. Spreading it directly made a degraded response advertise the isolate's
+ * boot time as the data timestamp, so refresh that one field per request.
+ */
+export function emptyOverview() {
+  return {
+    ...EMPTY_OVERVIEW,
+    cloudflare: { ...EMPTY_OVERVIEW.cloudflare, generatedAt: new Date().toISOString() },
+  };
+}
+
 function emptyPostHog(env: Env) {
   return {
     posthog: {
@@ -188,7 +202,7 @@ export async function getWakaOverview(env: Env) {
     return emptyWaka();
   }
 
-  const json = (await response.json()) as {
+  const json = (await response.json().catch(() => null)) as {
     data?: {
       daily_average?: number;
       days_minus_holidays?: number;
@@ -199,10 +213,14 @@ export async function getWakaOverview(env: Env) {
       }>;
       total_seconds?: number;
     };
-  };
-  const data = json.data;
+  } | null;
+  const data = json?.data;
   const languages = data?.languages ?? [];
 
+  // The trend is a second, independent request. It must never be able to
+  // discard the stats we just fetched, and it must never reject: the route
+  // merges a rejected source as EMPTY_OVERVIEW, so throwing here would report
+  // zero coding time whenever only the trend endpoint is unhealthy.
   const trend = await getWakaMonthlyTrend(auth);
 
   return {
@@ -224,13 +242,17 @@ async function getWakaMonthlyTrend(auth: string) {
       headers: { Authorization: auth },
       signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
     }
-  );
+  ).catch((error) => {
+    console.error("WakaTime trend request failed:", error);
+    return null;
+  });
 
-  if (!response.ok) return [];
+  if (!response?.ok) return [];
 
-  const json = (await response.json()) as {
+  const json = (await response.json().catch(() => null)) as {
     data?: { days?: Array<{ date?: string; total?: number }> };
-  };
+  } | null;
+  if (!json) return [];
 
   const monthly = new Map<string, number>();
   for (const day of json.data?.days ?? []) {
@@ -303,7 +325,13 @@ export async function getCloudflareOverview(env: Env) {
     return emptyCloudflare();
   }
 
-  const data = (await response.json()) as { data?: CloudflareData };
+  const data = (await response.json().catch(() => null)) as
+    | { data?: CloudflareData }
+    | null;
+  if (!data) {
+    return emptyCloudflare();
+  }
+
   const groups =
     data.data?.viewer.zones[0]?.httpRequests1dGroups ??
     EMPTY_OVERVIEW.cloudflare.data.viewer.zones[0].httpRequests1dGroups;
@@ -361,10 +389,14 @@ export async function getPostHogOverview(env: Env) {
     return emptyPostHog(env);
   }
 
-  const data = (await response.json()) as {
+  const data = (await response.json().catch(() => null)) as {
     columns?: string[];
     results?: (string | number | [number])[][];
-  };
+  } | null;
+  if (!data) {
+    return emptyPostHog(env);
+  }
+
   const columns = data.columns ?? [];
   const pathIndex = columns.findIndex((column) => {
     const normalized = column.toLowerCase();
