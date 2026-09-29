@@ -1,4 +1,21 @@
-import { wakatimeConfig } from "@duyet/config";
+/**
+ * Imported from the `@duyet/config/api` subpath rather than the
+ * `@duyet/config` barrel, and that is load-bearing — see
+ * `src/lib/__tests__/config-imports.test.ts`.
+ *
+ * `@duyet/config` has no `"type": "module"`, so `tsx` loads it as CJS. Node's
+ * `cjs-module-lexer` can enumerate a single module's named exports but not an
+ * `export * from` re-export chain, so a *static named* import from the barrel
+ * resolves to `undefined` names and throws at module instantiation:
+ *
+ *     SyntaxError: The requested module '@duyet/config' does not provide
+ *     an export named 'wakatimeConfig'
+ *
+ * The barrel works fine from Vite (insights, homelab) and fine via `require()`.
+ * It is only static named ESM imports from a tsx-run app that break, which is
+ * why the whole data-sync CLI failed to start while `vitest` stayed green.
+ */
+import { wakatimeConfig } from "@duyet/config/api";
 
 /**
  * Shared WakaTime transport helpers.

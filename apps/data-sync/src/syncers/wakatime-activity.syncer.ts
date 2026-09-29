@@ -1,5 +1,5 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { wakatimeConfig } from "@duyet/config";
+import { wakatimeConfig } from "@duyet/config/api";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 import { daysBefore, daysBetween, isoDateOf } from "../lib/clickhouse/format";
