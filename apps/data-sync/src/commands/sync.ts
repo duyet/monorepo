@@ -104,7 +104,7 @@ async function main() {
         continue;
       }
 
-      const client = getClient();
+      const client = await getClient();
       if (!client) {
         throw new Error("ClickHouse client not available");
       }
@@ -179,7 +179,7 @@ async function main() {
   console.log(`${"=".repeat(60)}\n`);
 
   // Write GitHub Actions job summary if available
-  const client = getClient();
+  const client = await getClient();
   if (client) {
     try {
       const tableStatuses = await getTableStatus(client);

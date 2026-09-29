@@ -83,21 +83,10 @@ export interface ModelChartData extends ChartDataPoint {
   name: string;
   percent: number;
 }
-// ============================================================================
-// Utility Function Types
-// ============================================================================
-
-export interface ClickHouseConfig {
-  host: string;
-  port: string;
-  username: string;
-  password: string;
-  database: string;
-  protocol?: string;
-}
-
-export interface QueryResult {
-  success: boolean;
-  data: Record<string, unknown>[];
-  error?: string;
-}
+// `ClickHouseConfig` and `QueryResult` used to live here and are now defined
+// once in `@duyet/config/clickhouse`, which both insights and data-sync bind to.
+// Re-exported so existing `@/app/ai/types` importers keep resolving.
+export type {
+  ClickHouseConfig,
+  QueryResult,
+} from "@duyet/config/clickhouse";

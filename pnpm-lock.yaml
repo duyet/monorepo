@@ -1515,6 +1515,10 @@ importers:
         version: 6.0.3
 
   packages/config:
+    dependencies:
+      '@clickhouse/client':
+        specifier: ^1.12.1
+        version: 1.23.1
     devDependencies:
       '@duyet/tsconfig':
         specifier: '*'
