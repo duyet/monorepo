@@ -407,7 +407,9 @@ export function createClickHouseClient(
       protocol: explicitProtocol,
     });
 
-    const missing: ClickHouseEnvField[] = [...required];
+    const missing: ClickHouseEnvField[] = required.filter(
+      (field) => !present[field]
+    );
     if (!host && !missing.includes("HOST")) missing.push("HOST");
     if (!password && !missing.includes("PASSWORD")) missing.push("PASSWORD");
 
@@ -446,8 +448,9 @@ export function createClickHouseClient(
   }
 
   let clientInstance: ClickHouseClient | null = null;
-  // Only held while a `createClient` call is in flight, and dropped again if it
-  // fails, so a later call can retry the way both shipped clients did.
+  // Held only while a `createClient` call is in flight, then dropped again
+  // either way: a success is remembered in `clientInstance`, and a failure has
+  // to stay retryable the way both shipped clients were.
   let pending: Promise<ClickHouseClient | null> | null = null;
 
   async function getClient(): Promise<ClickHouseClient | null> {
@@ -463,7 +466,7 @@ export function createClickHouseClient(
       return null;
     }
 
-    pending = (async () => {
+    const created = (async () => {
       try {
         // Imported lazily: `@clickhouse/client` is a Node-only package and
         // insights bundles this module for the browser, where the `serverOnly`
@@ -498,9 +501,15 @@ export function createClickHouseClient(
       }
     })();
 
-    const created = await pending;
-    if (!created) pending = null;
-    return created;
+    pending = created;
+    try {
+      return await created;
+    } finally {
+      // Never leave a settled promise cached: a later `close()` resets
+      // `clientInstance`, and a stale `pending` would hand the closed client
+      // back instead of building a fresh one.
+      if (pending === created) pending = null;
+    }
   }
 
   /**
@@ -847,6 +856,7 @@ export function createClickHouseClient(
   }
 
   async function close(): Promise<void> {
+    pending = null;
     if (!clientInstance) return;
     try {
       debug("[ClickHouse Client] Closing connection...");

@@ -303,6 +303,20 @@ describe("connection target", () => {
     expect(first).toBe(second);
     expect(createClient).toHaveBeenCalledTimes(1);
   });
+
+  test("close drops the instance so the next call builds a fresh one", async () => {
+    const dataSync = createClickHouseClient(DATA_SYNC);
+    process.env.CH_HOST = "ch.example.com";
+    process.env.CH_PASSWORD = "s3cret";
+
+    const first = await dataSync.getClient();
+    await dataSync.close();
+    const second = await dataSync.getClient();
+
+    expect(second).not.toBe(first);
+    expect(close).toHaveBeenCalledTimes(1);
+    expect(createClient).toHaveBeenCalledTimes(2);
+  });
 });
 
 describe("executeQuery", () => {

@@ -142,6 +142,7 @@ describe("ClickHouse Client", () => {
     consoleLogSpy.mockRestore();
     consoleWarnSpy.mockRestore();
     consoleErrorSpy.mockRestore();
+    vi.doUnmock("@clickhouse/client");
 
     for (const key of [
       "CH_HOST",
@@ -189,5 +190,48 @@ describe("ClickHouse Client", () => {
     const client = await getClient();
 
     expect(client).toBeNull();
+  });
+
+  /**
+   * data-sync used to retry *every* failure, so a migration with a typo cost
+   * 1s + 2s of backoff before the runner saw an error it could never fix.
+   * Retries are now transient-only, which is the point of this block: if the
+   * policy is widened again, this fails.
+   */
+  test("should not retry a non-transient error", async () => {
+    const query = vi.fn().mockRejectedValue(
+      new Error("Code: 62. DB::Exception: Syntax error: failed at position 1")
+    );
+    vi.doMock("@clickhouse/client", () => ({
+      createClient: () => ({ query, command: vi.fn(), close: vi.fn() }),
+    }));
+
+    const { executeQuery } = await import("../../lib/clickhouse/client");
+    const result = await executeQuery("SELECT bogus", 60_000, 3);
+
+    expect(result.success).toBe(false);
+    expect(result.error).toMatch(/^QUERY_ERROR: /);
+    expect(query).toHaveBeenCalledTimes(1);
+  });
+
+  test("should retry a transient error and succeed", async () => {
+    const query = vi
+      .fn()
+      .mockRejectedValueOnce(new Error("connect ECONNREFUSED 10.0.0.1:8123"))
+      .mockResolvedValueOnce({
+        json: async () => [{ repo: "duyet/monorepo" }],
+      });
+    vi.doMock("@clickhouse/client", () => ({
+      createClient: () => ({ query, command: vi.fn(), close: vi.fn() }),
+    }));
+
+    const { executeQuery } = await import("../../lib/clickhouse/client");
+    const result = await executeQuery("SELECT repo FROM github_commits", 60_000, 3);
+
+    expect(result).toEqual({
+      success: true,
+      data: [{ repo: "duyet/monorepo" }],
+    });
+    expect(query).toHaveBeenCalledTimes(2);
   });
 });
