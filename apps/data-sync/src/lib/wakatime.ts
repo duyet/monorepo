@@ -21,9 +21,14 @@ import { wakatimeConfig } from "@duyet/config/api";
  * Shared WakaTime transport helpers.
  *
  * The six WakaTime syncers each inlined the same
- * `withRetry(fetch) -> !res.ok -> status ladder -> res.json()` block, the same
- * `?api_key=` URL assembly, and two copies of the same day-count -> range
- * ladder. This module is the single implementation of those blocks.
+ * `withRetry(fetch) -> !res.ok -> status ladder -> res.json()` block and the
+ * same `?api_key=` URL assembly. This module is the single implementation of
+ * those blocks.
+ *
+ * The day-count -> range ladder is *not* here: it lives beside the endpoint
+ * definitions in `@duyet/config/api` as `getWakaTimeRangeForElapsedDays`, so
+ * the backfill syncers and the reader-facing selector share one source of
+ * truth for the range strings.
  *
  * Two invariants, because this is a data path:
  *
@@ -115,20 +120,6 @@ export async function fetchWakaTimeJson<T>(
 export function wakaTimeApiUrl(path: string, apiKey: string): string {
   const separator = path.includes("?") ? "&" : "?";
   return `${wakatimeConfig.baseUrl}${path}${separator}api_key=${apiKey}`;
-}
-
-/**
- * The day-count -> WakaTime range ladder, shared by the stats and activity
- * syncers. Note this is a threshold ladder, not the exact-day lookup in
- * `wakatimeConfig.rangeMapping` / `getWakaTimeRange`.
- */
-export function wakaTimeRangeForDays(days: number): string {
-  const { ranges } = wakatimeConfig;
-  if (days <= 7) return ranges.last_7_days;
-  if (days <= 30) return ranges.last_30_days;
-  if (days <= 180) return ranges.last_6_months;
-  if (days <= 365) return ranges.last_year;
-  return ranges.all_time;
 }
 
 /**

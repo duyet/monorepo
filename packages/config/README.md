@@ -54,10 +54,33 @@ const response = await fetch(
 );
 
 // Use helper functions
-import { getWakaTimeRange, calculateBackoffDelay } from "@duyet/config";
+import {
+  getWakaTimeRange,
+  getWakaTimeRangeForElapsedDays,
+  calculateBackoffDelay,
+} from "@duyet/config";
 const range = getWakaTimeRange(30); // 'last_30_days'
+getWakaTimeRange("all"); // 'all_time' — unbounded, the period switcher's "All time"
+getWakaTimeRangeForElapsedDays(400); // 'all_time' — rounds up to cover the window
 const delay = calculateBackoffDelay(2); // exponential backoff
 ```
+
+### WakaTime range mapping
+
+There is exactly one implementation of "days → `range`", in
+`@duyet/config/api`, and it has two entry points because there are two distinct
+inputs:
+
+- `getWakaTimeRange(days)` — a value a reader picked in the period switcher
+  (`PERIODS` in this package, mirrored by `apps/insights/lib/periods.ts`).
+  Exact-key lookup against `wakatimeConfig.rangeMapping`; `"all"` is the
+  unbounded `all_time`. Every user-facing `?range=` goes through this, so
+  `/users/current/stats/{range}` and `/users/current/insights?range=` can never
+  disagree about the window a selection means.
+- `getWakaTimeRangeForElapsedDays(days)` — an arbitrary day count, e.g. a
+  data-sync backfill window. A threshold ladder that rounds *up* to the smallest
+  range containing the window, because an under-covering range silently drops
+  rows. It has no `"all"` input; pass a large day count instead.
 
 ### UI Configuration
 

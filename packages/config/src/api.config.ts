@@ -52,6 +52,22 @@ export const githubConfig = {
   },
 };
 
+/**
+ * The range values WakaTime accepts on `/users/current/stats/{range}` and on
+ * `/users/current/insights/{type}?range=`. Both resources document the same
+ * list, so a value that is valid for one is valid for the other — which is what
+ * makes "one selector, one window" enforceable.
+ *
+ * @see https://wakatime.com/developers#stats
+ * @see https://wakatime.com/developers#insights
+ */
+export type WakaTimeRange =
+  | "last_7_days"
+  | "last_30_days"
+  | "last_6_months"
+  | "last_year"
+  | "all_time";
+
 // WakaTime API Configuration
 export const wakatimeConfig = {
   baseUrl: "https://wakatime.com/api/v1",
@@ -73,14 +89,22 @@ export const wakatimeConfig = {
     last_6_months: "last_6_months",
     last_year: "last_year",
     all_time: "all_time",
-  },
+  } satisfies Record<WakaTimeRange, WakaTimeRange>,
+  /**
+   * Selector mapping: the `days` value a reader picks in the period switcher
+   * (see `PERIODS` in `apps/insights/lib/periods.ts`) -> the range on the wire.
+   *
+   * `"all"` is unbounded, not `last_year`. The switcher already offers `365`
+   * for the bounded year, so mapping `"all"` to `last_year` as well would make
+   * two distinct options request the identical window.
+   */
   rangeMapping: {
     7: "last_7_days",
     30: "last_30_days",
     90: "last_6_months",
     365: "last_year",
-    all: "last_year",
-  } as Record<number | "all", string>,
+    all: "all_time",
+  } as Record<number | "all", WakaTimeRange>,
   cache: DEFAULT_CACHE_CONFIG,
   dataStartYear: 2025, // Only show data from 2025 onwards
   topLanguagesLimit: 8,
@@ -133,14 +157,47 @@ export const clickhouseConfig = {
   },
 };
 
-// Helper function to get WakaTime range from days
-export function getWakaTimeRange(days: number | "all"): string {
+/**
+ * Selector mapping: the `days` value a reader picks in the period switcher ->
+ * the `range` sent to WakaTime.
+ *
+ * This is the **only** mapping a user-facing `?range=` may use, so
+ * `/users/current/stats/{range}` and `/users/current/insights?range=` can never
+ * describe two different windows for one selection. It used to have three
+ * diverged copies alongside it, one of which sent `all_time` here and
+ * `last_year` on the same page.
+ *
+ * Use {@link getWakaTimeRangeForElapsedDays} instead when the input is an
+ * arbitrary day count rather than a selectable option.
+ */
+export function getWakaTimeRange(days: number | "all"): WakaTimeRange {
   if (typeof days === "number") {
     return (
       wakatimeConfig.rangeMapping[days] || wakatimeConfig.ranges.last_30_days
     );
   }
-  return wakatimeConfig.ranges.last_year;
+  return wakatimeConfig.rangeMapping.all;
+}
+
+/**
+ * Elapsed-day mapping: an arbitrary day count -> the smallest WakaTime range
+ * that *contains* it.
+ *
+ * Deliberately different from {@link getWakaTimeRange}, which resolves a
+ * selectable option exactly and falls back to `last_30_days` for anything
+ * unrecognised. Backfills must round *up*, because an under-covering range
+ * silently drops rows the caller asked for, so the thresholds step through
+ * `last_7_days` / `last_30_days` / `last_6_months` / `last_year` and end at the
+ * unbounded `all_time`. There is no `"all"` input: a caller that wants
+ * everything passes a day count large enough to land on `all_time`.
+ */
+export function getWakaTimeRangeForElapsedDays(days: number): WakaTimeRange {
+  const { ranges } = wakatimeConfig;
+  if (days <= 7) return ranges.last_7_days;
+  if (days <= 30) return ranges.last_30_days;
+  if (days <= 180) return ranges.last_6_months;
+  if (days <= 365) return ranges.last_year;
+  return ranges.all_time;
 }
 
 // Helper function to calculate exponential backoff delay
@@ -164,6 +221,7 @@ export const apiConfig = {
   },
   helpers: {
     getWakaTimeRange,
+    getWakaTimeRangeForElapsedDays,
     calculateBackoffDelay,
   },
 };

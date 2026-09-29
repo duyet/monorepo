@@ -4,6 +4,7 @@ import {
   calculateBackoffDelay,
   getPeriodDays,
   getWakaTimeRange,
+  getWakaTimeRangeForElapsedDays,
   githubConfig,
   homelabConfig,
   ogHeadLinks,
@@ -171,11 +172,71 @@ describe("@duyet/config", () => {
         expect(getWakaTimeRange(30)).toBe("last_30_days");
         expect(getWakaTimeRange(90)).toBe("last_6_months");
         expect(getWakaTimeRange(365)).toBe("last_year");
-        expect(getWakaTimeRange("all")).toBe("last_year");
+      });
+
+      /**
+       * `"all"` is the unbounded window, and it is *not* the same as `365`.
+       *
+       * `PERIODS` (the period switcher both in this package and in
+       * `apps/insights/lib/periods.ts`) offers `365` and `"all"` as two
+       * separate options. If they resolved to the same range the switcher would
+       * be offering the same data twice under two labels, so `"all"` must be
+       * `all_time` — the value WakaTime documents for both `/stats/{range}` and
+       * `/insights?range=`.
+       *
+       * This assertion is the regression guard for the shipped bug: the stats
+       * path used to send `last_year` here while the insights path sent
+       * `all_time` for the same selection.
+       */
+      test('maps "all" to the unbounded all_time, not to last_year', () => {
+        expect(getWakaTimeRange("all")).toBe("all_time");
+        expect(getWakaTimeRange("all")).not.toBe(getWakaTimeRange(365));
+      });
+
+      /**
+       * The switcher and this mapping must stay in step, or a visible option
+       * silently falls through to the `last_30_days` default.
+       */
+      test("resolves every day value the period switcher offers", () => {
+        // No fall-through: a day value with no `rangeMapping` entry would be
+        // served the `last_30_days` default and quietly show the wrong window.
+        for (const period of PERIODS) {
+          expect(wakatimeConfig.rangeMapping[period.days]).toBeDefined();
+        }
       });
 
       test("should fallback to last_30_days for unknown values", () => {
         expect(getWakaTimeRange(999)).toBe("last_30_days");
+      });
+    });
+
+    describe("getWakaTimeRangeForElapsedDays", () => {
+      test("rounds up to the smallest range that covers the day count", () => {
+        expect(getWakaTimeRangeForElapsedDays(0)).toBe("last_7_days");
+        expect(getWakaTimeRangeForElapsedDays(7)).toBe("last_7_days");
+        expect(getWakaTimeRangeForElapsedDays(8)).toBe("last_30_days");
+        expect(getWakaTimeRangeForElapsedDays(30)).toBe("last_30_days");
+        expect(getWakaTimeRangeForElapsedDays(31)).toBe("last_6_months");
+        expect(getWakaTimeRangeForElapsedDays(180)).toBe("last_6_months");
+        expect(getWakaTimeRangeForElapsedDays(181)).toBe("last_year");
+        expect(getWakaTimeRangeForElapsedDays(365)).toBe("last_year");
+        expect(getWakaTimeRangeForElapsedDays(366)).toBe("all_time");
+        expect(getWakaTimeRangeForElapsedDays(10_000)).toBe("all_time");
+      });
+
+      test("never resolves to a shorter window than the day count asks for", () => {
+        // The reason this is a separate function: under-covering a backfill
+        // silently drops rows, so every ladder step has to round up.
+        const cover: Record<string, number> = {
+          last_7_days: 7,
+          last_30_days: 30,
+          last_6_months: 180,
+          last_year: 365,
+        };
+        for (const days of [1, 7, 8, 30, 31, 90, 180, 181, 365, 366, 5000]) {
+          const range = getWakaTimeRangeForElapsedDays(days);
+          expect(cover[range] ?? Infinity).toBeGreaterThanOrEqual(days);
+        }
       });
     });
 

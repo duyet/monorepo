@@ -1,3 +1,4 @@
+import { getWakaTimeRangeForElapsedDays } from "@duyet/config/api";
 import { describe, expect, test, vi } from "vitest";
 import {
   fetchWakaTimeJson,
@@ -7,14 +8,13 @@ import {
   WAKA_TIME_INSIGHTS_STYLE,
   wakaTimeApiError,
   wakaTimeApiUrl,
-  wakaTimeRangeForDays,
 } from "../wakatime";
 
 /**
- * The WakaTime transport and range ladder were duplicated across six syncers.
- * These tests pin the shared implementations to the exact URLs and error
- * strings the individual syncers produced before, so the deduplication cannot
- * change which API is called or how a failure is reported.
+ * The WakaTime transport was duplicated across six syncers. These tests pin the
+ * shared implementations to the exact URLs and error strings the individual
+ * syncers produced before, so the deduplication cannot change which API is
+ * called or how a failure is reported.
  */
 
 const WAKATIME_BASE_URL = "https://wakatime.com/api/v1";
@@ -74,18 +74,20 @@ describe("wakaTimeApiUrl", () => {
   });
 });
 
-describe("wakaTimeRangeForDays", () => {
+describe("getWakaTimeRangeForElapsedDays, as the backfill syncers call it", () => {
+  // The ladder itself now lives in `@duyet/config`; what matters here is that
+  // moving it there did not shift a single threshold the syncers depended on.
   test("preserves the threshold ladder shared by wakatime and wakatime-activity", () => {
-    expect(wakaTimeRangeForDays(0)).toBe("last_7_days");
-    expect(wakaTimeRangeForDays(7)).toBe("last_7_days");
-    expect(wakaTimeRangeForDays(8)).toBe("last_30_days");
-    expect(wakaTimeRangeForDays(30)).toBe("last_30_days");
-    expect(wakaTimeRangeForDays(31)).toBe("last_6_months");
-    expect(wakaTimeRangeForDays(180)).toBe("last_6_months");
-    expect(wakaTimeRangeForDays(181)).toBe("last_year");
-    expect(wakaTimeRangeForDays(365)).toBe("last_year");
-    expect(wakaTimeRangeForDays(366)).toBe("all_time");
-    expect(wakaTimeRangeForDays(10000)).toBe("all_time");
+    expect(getWakaTimeRangeForElapsedDays(0)).toBe("last_7_days");
+    expect(getWakaTimeRangeForElapsedDays(7)).toBe("last_7_days");
+    expect(getWakaTimeRangeForElapsedDays(8)).toBe("last_30_days");
+    expect(getWakaTimeRangeForElapsedDays(30)).toBe("last_30_days");
+    expect(getWakaTimeRangeForElapsedDays(31)).toBe("last_6_months");
+    expect(getWakaTimeRangeForElapsedDays(180)).toBe("last_6_months");
+    expect(getWakaTimeRangeForElapsedDays(181)).toBe("last_year");
+    expect(getWakaTimeRangeForElapsedDays(365)).toBe("last_year");
+    expect(getWakaTimeRangeForElapsedDays(366)).toBe("all_time");
+    expect(getWakaTimeRangeForElapsedDays(10000)).toBe("all_time");
   });
 });
 

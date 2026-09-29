@@ -1,5 +1,8 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { wakatimeConfig } from "@duyet/config/api";
+import {
+  getWakaTimeRangeForElapsedDays,
+  wakatimeConfig,
+} from "@duyet/config/api";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 import { daysBefore, daysBetween, isoDateOf } from "../lib/clickhouse/format";
@@ -7,7 +10,6 @@ import {
   fetchWakaTimeJson,
   WAKA_TIME_ACTIVITY_STYLE,
   wakaTimeApiUrl,
-  wakaTimeRangeForDays,
 } from "../lib/wakatime";
 
 /**
@@ -85,8 +87,9 @@ export class WakaTimeActivitySyncer extends BaseSyncer<
     const endDate = options.endDate || new Date();
     const startDate = options.startDate || daysBefore(endDate, 30);
 
-    // Choose appropriate range for the API
-    const range = wakaTimeRangeForDays(daysBetween(startDate, endDate));
+    // Elapsed-day mapping, not the reader-facing selector mapping: the input is
+    // an arbitrary backfill window, so the range has to round *up* to cover it.
+    const range = getWakaTimeRangeForElapsedDays(daysBetween(startDate, endDate));
     this.logger.info(`Fetching WakaTime activity for range: ${range}`);
 
     const url = wakaTimeApiUrl(

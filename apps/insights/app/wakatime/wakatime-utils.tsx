@@ -347,16 +347,6 @@ async function getActivityFromDurations(
   });
 }
 
-// Map days to WakaTime range parameter
-function getInsightsRange(days: number | "all"): string {
-  if (days === "all") return wakatimeConfig.ranges.all_time;
-  if (days <= 7) return wakatimeConfig.ranges.last_7_days;
-  if (days <= 30) return wakatimeConfig.ranges.last_30_days;
-  if (days <= 180) return wakatimeConfig.ranges.last_6_months;
-  if (days <= 365) return wakatimeConfig.ranges.last_year;
-  return wakatimeConfig.ranges.all_time;
-}
-
 // Get activity from insights endpoint (total hours only) for larger periods
 async function getActivityFromInsights(
   days: number | "all"
@@ -367,8 +357,11 @@ async function getActivityFromInsights(
     return [];
   }
 
-  // Use appropriate range for the requested days
-  const range = getInsightsRange(days);
+  // The same mapping the stats path uses, deliberately: the reader picked one
+  // option in the period switcher, so `/stats/` and `/insights/days?range=` must
+  // describe the same window. This used to be a second ladder that sent
+  // `all_time` here while `/stats/` received `last_year` for the same selection.
+  const range = getWakaTimeRange(days);
 
   const url = `${wakatimeConfig.baseUrl}${wakatimeConfig.endpoints.insights.days(range)}`;
 
@@ -609,6 +602,9 @@ function groupSumBy<T>(
 
 // Monthly totals from the all_time insights feed, oldest first. Shared by the
 // chart and the trend views, which only differ in how they label each row.
+// The hard-coded `all_time` is the same value `getWakaTimeRange("all")`
+// resolves to, so this "All time" view and the `/stats/` overview it sits next
+// to cover one window.
 async function getMonthlyTotals(): Promise<Array<[string, number]>> {
   const startYear = wakatimeConfig.dataStartYear;
 

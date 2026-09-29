@@ -1,13 +1,12 @@
 import type { ClickHouseClient } from "@clickhouse/client";
-import { wakatimeConfig } from "@duyet/config/api";
+import {
+  getWakaTimeRangeForElapsedDays,
+  wakatimeConfig,
+} from "@duyet/config/api";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 import { daysBefore, daysBetween, isoDate } from "../lib/clickhouse/format";
-import {
-  fetchWakaTimeJson,
-  wakaTimeApiUrl,
-  wakaTimeRangeForDays,
-} from "../lib/wakatime";
+import { fetchWakaTimeJson, wakaTimeApiUrl } from "../lib/wakatime";
 
 interface WakaTimeCategory {
   name: string;
@@ -169,15 +168,17 @@ export class WakaTimeSyncer extends BaseSyncer<
   }
 
   private determineRange(options: SyncOptions): string {
-    // If date range specified, use appropriate range
+    // Elapsed-day mapping, not the reader-facing selector mapping: the input is
+    // an arbitrary backfill window, so the range has to round *up* to cover it.
+    // A larger-than-needed range just re-reads rows the upsert already has.
     if (options.startDate || options.endDate) {
       const now = new Date();
       const start = options.startDate || daysBefore(now, 7);
 
-      return wakaTimeRangeForDays(daysBetween(start, now));
+      return getWakaTimeRangeForElapsedDays(daysBetween(start, now));
     }
 
     // Default to last 7 days for frequent syncing
-    return wakaTimeRangeForDays(7);
+    return getWakaTimeRangeForElapsedDays(7);
   }
 }

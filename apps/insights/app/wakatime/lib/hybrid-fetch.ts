@@ -5,7 +5,7 @@
  * This reduces API calls and improves performance for larger date ranges.
  */
 
-import { wakatimeConfig } from "@duyet/config";
+import { getWakaTimeRangeForElapsedDays, wakatimeConfig } from "@duyet/config";
 import { getClickHouseActivity, hasActivityData } from "./clickhouse";
 import {
   DEFAULT_HYBRID_CONFIG,
@@ -32,6 +32,11 @@ function toHours(seconds: number): number {
 
 /**
  * Fetch fresh activity data from WakaTime API (last N days)
+ *
+ * @param days - Size of the *fresh tail*, i.e. `HybridFetchConfig.freshDataDays`
+ *   — not the reader's selected period. Everything older comes from ClickHouse,
+ *   so this window is deliberately bounded rather than following the selector,
+ *   and it uses the elapsed-day mapping so the range always covers the tail.
  */
 async function fetchFreshActivityFromAPI(
   days: number
@@ -43,11 +48,7 @@ async function fetchFreshActivityFromAPI(
     return [];
   }
 
-  // Use insights endpoint for daily data
-  const range =
-    days <= 7
-      ? wakatimeConfig.ranges.last_7_days
-      : wakatimeConfig.ranges.last_30_days;
+  const range = getWakaTimeRangeForElapsedDays(days);
 
   const endpoint = wakatimeConfig.endpoints.insights.days(range);
   const url = `${wakatimeConfig.baseUrl}${endpoint}`;
