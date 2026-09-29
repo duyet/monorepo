@@ -88,6 +88,47 @@ export function getPostBySlug(slug: string, fields: string[] = []): Post {
   return getPostByPath(mdPath, fields);
 }
 
+/** Read every post on disk, projecting only the requested frontmatter fields. */
+function readPosts(fields: string[]): Post[] {
+  return getPostPaths().map((path) => getPostByPath(path, fields));
+}
+
+/**
+ * Newest first, extracted verbatim from the three call sites that shared it.
+ *
+ * The tie case returns 1 rather than 0, so this is not a stable sort — two
+ * same-dated posts can come out in either order. That is pre-existing behavior
+ * and `getAllPosts` deliberately keeps its own title tiebreak; do not "fix"
+ * this without checking what callers depend on the current ordering.
+ */
+const byNewest = (post1: Post, post2: Post) =>
+  post1.date > post2.date ? -1 : 1;
+
+/**
+ * Tally how many times each value occurs.
+ *
+ * The accumulator is truthiness-based rather than `?? 0` on purpose: `acc[value]`
+ * on a plain `{}` returns an inherited `Object.prototype` member for values like
+ * `"constructor"`, so `?? 0` would make the count the string
+ * `"function Object() {…}1"` where the original produced `NaN`. Both are wrong,
+ * but keeping the original keeps this a behavior-preserving refactor. Fixing it
+ * properly means seeding the accumulator with a null prototype.
+ */
+function countBy(values: string[]): Record<string, number> {
+  return values.reduce(
+    (acc, value) => {
+      if (acc[value]) {
+        acc[value]++;
+      } else {
+        acc[value] = 1;
+      }
+
+      return acc;
+    },
+    {} as Record<string, number>
+  );
+}
+
 export function getPostByPath(fullPath: string, fields: string[] = []): Post {
   let fileContent: string;
 
@@ -192,7 +233,8 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
           .trim()
           .replace(/\.(md|mdx|html)$/, "")
           .replace(/\/+$/, "");
-        post.parent = normalizedParent.length > 0 ? normalizedParent : undefined;
+        post.parent =
+          normalizedParent.length > 0 ? normalizedParent : undefined;
       } else {
         post.parent = undefined;
       }
@@ -265,16 +307,11 @@ export function getPostByPath(fullPath: string, fields: string[] = []): Post {
 }
 
 export function getAllPosts(fields: string[] = [], limit = 0): Post[] {
-  const paths = getPostPaths();
-
-  const posts = paths
-    .map((path) => getPostByPath(path, fields))
-    // sort posts by date in descending order, then by title for stability
-    .sort((post1, post2) => {
-      if (post1.date > post2.date) return -1;
-      if (post1.date < post2.date) return 1;
-      return (post1.title || "").localeCompare(post2.title || "");
-    });
+  const posts = readPosts(fields).sort((post1, post2) => {
+    if (post1.date > post2.date) return -1;
+    if (post1.date < post2.date) return 1;
+    return (post1.title || "").localeCompare(post2.title || "");
+  });
 
   if (limit > 0) {
     return posts.slice(0, limit);
@@ -284,37 +321,16 @@ export function getAllPosts(fields: string[] = [], limit = 0): Post[] {
 }
 
 export function getAllCategories(): CategoryCount {
-  const paths = getPostPaths();
-  const posts = paths.map((path) => getPostByPath(path, ["category"]));
-
-  return posts
-    .map((post) => post.category)
-    .reduce(
-      (acc, cat) => {
-        if (acc[cat]) {
-          acc[cat]++;
-        } else {
-          acc[cat] = 1;
-        }
-
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+  return countBy(readPosts(["category"]).map((post) => post.category));
 }
 
 export function getPostsByCategory(
   category: string,
   fields: string[] = []
 ): Post[] {
-  const paths = getPostPaths();
-
-  const extraFields = [...fields, "category_slug"];
-  const posts = paths.map((path) => getPostByPath(path, extraFields));
-
-  return posts
+  return readPosts([...fields, "category_slug"])
     .filter((post) => post.category_slug === category)
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+    .sort(byNewest);
 }
 
 /**
@@ -328,23 +344,7 @@ export function getPostsByCategory(
  * is defined as Record<string, number>.
  */
 export function getAllTags(): TagCount {
-  const paths = getPostPaths();
-  const posts = paths.map((path) => getPostByPath(path, ["tags"]));
-
-  return posts
-    .flatMap((post) => post.tags || [])
-    .reduce(
-      (acc, tag) => {
-        if (acc[tag]) {
-          acc[tag]++;
-        } else {
-          acc[tag] = 1;
-        }
-
-        return acc;
-      },
-      {} as Record<string, number>
-    );
+  return countBy(readPosts(["tags"]).flatMap((post) => post.tags || []));
 }
 
 /**
@@ -358,14 +358,9 @@ export function getAllTags(): TagCount {
  * @throws Will throw an error if the tag format is invalid.
  */
 export function getPostsByTag(tag: string, fields: string[] = []): Post[] {
-  const paths = getPostPaths();
-
-  const extraFields = [...fields, "tags"];
-  const posts = paths.map((path) => getPostByPath(path, extraFields));
-
-  return posts
+  return readPosts([...fields, "tags"])
     .filter((post) => post.tags.includes(tag) || post.tags_slug.includes(tag))
-    .sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+    .sort(byNewest);
 }
 
 export function getPostsByAllYear(
@@ -398,9 +393,7 @@ export function getPostsByAllYear(
 
   // Sort posts by year
   Object.keys(postsByYear).forEach((year: string) => {
-    postsByYear[Number.parseInt(year, 10)].sort((post1: Post, post2: Post) =>
-      post1.date > post2.date ? -1 : 1
-    );
+    postsByYear[Number.parseInt(year, 10)].sort(byNewest);
   });
 
   // Limit the number of years

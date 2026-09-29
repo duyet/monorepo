@@ -22,11 +22,7 @@ export { DuyetLogo, DuyetMark } from "./brand/DuyetLogo";
 export type { DuyetLogoProps } from "./brand/DuyetLogo";
 export { AppCommandPalette } from "./AppCommandPalette";
 export type { Area } from "./AreasOfExpertise";
-export {
-  AreasOfExpertise,
-  DEFAULT_AREAS,
-  default as AreasOfExpertiseDefault,
-} from "./AreasOfExpertise";
+export { AreasOfExpertise, DEFAULT_AREAS } from "./AreasOfExpertise";
 // AI Components
 export * from "./ai";
 export * from "./auto-designed-badge";
@@ -42,7 +38,7 @@ export {
   useErrorBoundary,
 } from "./ErrorBoundary";
 export type { ExploreAppKey, ExploreAppsProps } from "./ExploreApps";
-export { default as ExploreAppsDefault, ExploreApps } from "./ExploreApps";
+export { ExploreApps } from "./ExploreApps";
 export { default as Feed } from "./Feed";
 export { default as Footer } from "./Footer";
 export { default as Head } from "./Head";
@@ -64,11 +60,7 @@ export {
 } from "./LoadingState";
 export { default as Menu } from "./Menu";
 export type { Repo } from "./OpenSourceGrid";
-export {
-  default as OpenSourceGridDefault,
-  fetchGitHubRepos,
-  OpenSourceGrid,
-} from "./OpenSourceGrid";
+export { fetchGitHubRepos, OpenSourceGrid } from "./OpenSourceGrid";
 // SVG chart primitives (sparkline also re-exported from redesign)
 export { BarList, Donut, Heatmap } from "./charts";
 export type {
@@ -83,15 +75,12 @@ export type {
 // Redesign components (2026 duyet.net redesign)
 export * from "./redesign";
 export type { SiteFooterLink, SiteFooterProps } from "./SiteFooter";
-export { default as SiteFooterDefault, SiteFooter } from "./SiteFooter";
+export { SiteFooter } from "./SiteFooter";
 export type { SiteHeaderProps } from "./SiteHeader";
-export { default as SiteHeaderDefault, SiteHeader } from "./SiteHeader";
+export { SiteHeader } from "./SiteHeader";
 export type { SiteSubnavLink, SiteSubnavProps } from "./SiteSubnav";
-export { default as SiteSubnavDefault, SiteSubnav } from "./SiteSubnav";
-export {
-  default as SocialHandlesDefault,
-  SocialHandles,
-} from "./SocialHandles";
+export { SiteSubnav } from "./SiteSubnav";
+export { SocialHandles } from "./SocialHandles";
 export * from "./site-nav";
 export { default as ThemeProvider } from "./ThemeProvider";
 export { default as ThemeToggle } from "./ThemeToggle";

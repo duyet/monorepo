@@ -2,14 +2,17 @@ import type { Series } from "@duyet/interfaces";
 import { getPostByPath, getPostPaths } from "./getPost";
 import getSlug from "./getSlug";
 
-export function getAllSeries(): Series[] {
-  const paths = getPostPaths();
-  const posts = paths.map((path) =>
-    getPostByPath(path, ["slug", "title", "series", "date", "excerpt"])
-  );
+const SERIES_FIELDS = ["slug", "title", "series", "date", "excerpt"];
 
+function loadSeriesPosts() {
+  return getPostPaths().map((path) => getPostByPath(path, SERIES_FIELDS));
+}
+
+export function getAllSeries(): Series[] {
   // Sort posts by date
-  posts.sort((post1, post2) => (post1.date > post2.date ? -1 : 1));
+  const posts = loadSeriesPosts().sort((post1, post2) =>
+    post1.date > post2.date ? -1 : 1
+  );
 
   return posts.reduce((acc, post) => {
     // If the post doesn't have a series, skip it
@@ -49,10 +52,7 @@ export function getSeries({
   }
 
   // Load all posts
-  const paths = getPostPaths();
-  const posts = paths.map((path) =>
-    getPostByPath(path, ["slug", "title", "series", "date", "excerpt"])
-  );
+  const posts = loadSeriesPosts();
 
   // Series slug
   const _slug = slug ? slug : getSlug(name as string);
