@@ -54,6 +54,13 @@ const KNOWN_UNREACHABLE: Record<string, string> = {
     "The entry doubles as a tripwire: if a production file ever imports it, " +
     "the file becomes reachable, this entry goes stale, and the guard " +
     "surfaces the change.",
+  "apps/insights/components/overview/fixture.ts":
+    "Test-only loader-data fixture for the overview route's golden-render " +
+    "test and for `model.test.ts`. Sits in the production component " +
+    "directory for the same reason as the api entry above: it is the " +
+    "component's own data, and colocating it keeps the two in step. " +
+    "Tripwire applies — a production import makes it reachable and retires " +
+    "this entry.",
 };
 
 /** Apps that have at least one positive control, so the walk is validated. */
