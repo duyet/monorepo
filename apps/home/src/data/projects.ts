@@ -63,7 +63,7 @@ const projectUrls = {
   templatebot: "https://templatebot.lol",
   clickhouseMonitoring: "https://chmonitor.dev",
   llmTimeline: "https://llm-timeline.duyet.net",
-  agents: "https://agents.duyet.net/agents",
+  agents: "https://agents.duyet.net",
   claw: "https://claw.duyet.net",
   claudePlugins: "https://github.com/duyet/claude-plugins",
   stamp: "https://stamp.duyet.net",
@@ -247,7 +247,11 @@ export const apps: AppItem[] = [
   },
   {
     name: "LLM Timeline",
-    href: "/",
+    // Was `"/"`, which linked the card back to the homepage it was on while
+    // displaying `llm-timeline.duyet.net` underneath it. `domain` and
+    // `projectUrls.llmTimeline` both already said the external app, so this was
+    // drift in the one field the click actually uses.
+    href: projectUrls.llmTimeline,
     host: hostOf(projectUrls.llmTimeline),
     utmContent: "llm_timeline_bento",
     description: "Interactive timeline of LLM models from 2017-2025",
