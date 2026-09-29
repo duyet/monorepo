@@ -49,6 +49,20 @@ function calculateChecksum(content: string): string {
 }
 
 /**
+ * Quote a value for a single-quoted ClickHouse SQL string literal.
+ *
+ * `up()` and `down()` build their `INSERT`/`DELETE` statements by template
+ * interpolation, and `migration.name` comes from the `-- @name:` header of a file
+ * on disk. Every current name is a safe identifier and the checksum is hex, so
+ * nothing is broken today — but a name containing an apostrophe would produce
+ * invalid SQL at the worst possible moment (halfway through applying a
+ * migration), and this is a two-line guard against that.
+ */
+export function sqlString(value: string): string {
+  return `'${value.replace(/\\/g, "\\\\").replace(/'/g, "\\'")}'`;
+}
+
+/**
  * Parse SQL migration file
  * Format:
  * -- @name: migration_name
@@ -190,6 +204,14 @@ function splitStatements(sql: string): string[] {
 export class MigrationRunner {
   private migrationsDir: string;
 
+  /**
+   * Re-entrancy guard for `up()`/`down()`. Previously an undeclared field
+   * reached through `(this as any)._running`, which meant nothing type-checked
+   * it: a typo would have silently disabled the guard and let two concurrent
+   * runs apply migrations on top of each other. It is a real private field now.
+   */
+  private running = false;
+
   constructor(migrationsDir: string) {
     this.migrationsDir = migrationsDir;
   }
@@ -307,61 +329,65 @@ export class MigrationRunner {
     console.log("[Migration Runner] Running UP migrations...");
 
     // Simple guard: only one concurrent migration run per process
-    if ((this as any)._running) {
-      console.warn("[Migration Runner] Migration already in progress, skipping");
+    if (this.running) {
+      console.warn(
+        "[Migration Runner] Migration already in progress, skipping"
+      );
       return;
     }
-    (this as any)._running = true;
+    this.running = true;
 
     try {
       const pending = await this.getPending();
 
-    if (pending.length === 0) {
-      console.log("[Migration Runner] No pending migrations");
-      return;
-    }
+      if (pending.length === 0) {
+        console.log("[Migration Runner] No pending migrations");
+        return;
+      }
 
-    for (const migration of pending) {
-      console.log(
-        `[Migration Runner] Applying migration ${migration.version}: ${migration.name}`
-      );
+      for (const migration of pending) {
+        console.log(
+          `[Migration Runner] Applying migration ${migration.version}: ${migration.name}`
+        );
 
-      try {
-        // Execute UP statements
-        const statements = splitStatements(migration.up);
-        const result = await executeStatements(statements);
+        try {
+          // Execute UP statements
+          const statements = splitStatements(migration.up);
+          const result = await executeStatements(statements);
 
-        if (!result.success) {
-          throw new Error(`Migration failed: ${result.error}`);
-        }
+          if (!result.success) {
+            throw new Error(`Migration failed: ${result.error}`);
+          }
 
-        // Record migration using executeCommand (not executeQuery)
-        const insertQuery = `
+          // Record migration using executeCommand (not executeQuery)
+          const insertQuery = `
           INSERT INTO monorepo_migrations (version, name, checksum)
-          VALUES (${migration.version}, '${migration.name}', '${migration.checksum}')
+          VALUES (${migration.version}, ${sqlString(migration.name)}, ${sqlString(migration.checksum)})
         `;
 
-        const insertResult = await executeCommand(insertQuery);
+          const insertResult = await executeCommand(insertQuery);
 
-        if (!insertResult.success) {
-          throw new Error(`Failed to record migration: ${insertResult.error}`);
+          if (!insertResult.success) {
+            throw new Error(
+              `Failed to record migration: ${insertResult.error}`
+            );
+          }
+
+          console.log(
+            `[Migration Runner] Successfully applied migration ${migration.version}`
+          );
+        } catch (error) {
+          console.error(
+            `[Migration Runner] Failed to apply migration ${migration.version}:`,
+            error
+          );
+          throw error;
         }
-
-        console.log(
-          `[Migration Runner] Successfully applied migration ${migration.version}`
-        );
-      } catch (error) {
-        console.error(
-          `[Migration Runner] Failed to apply migration ${migration.version}:`,
-          error
-        );
-        throw error;
       }
-    }
 
-    console.log("[Migration Runner] All migrations applied successfully");
+      console.log("[Migration Runner] All migrations applied successfully");
     } finally {
-      (this as any)._running = false;
+      this.running = false;
     }
   }
 
@@ -371,87 +397,89 @@ export class MigrationRunner {
   async down(count = 1): Promise<void> {
     console.log(`[Migration Runner] Rolling back ${count} migration(s)...`);
 
-    if ((this as any)._running) {
-      console.warn("[Migration Runner] Migration already in progress, skipping");
+    if (this.running) {
+      console.warn(
+        "[Migration Runner] Migration already in progress, skipping"
+      );
       return;
     }
-    (this as any)._running = true;
+    this.running = true;
 
     try {
       const applied = await this.getApplied();
 
-    if (applied.length === 0) {
-      console.log("[Migration Runner] No migrations to rollback");
-      return;
-    }
-
-    const toRollback = applied
-      .sort((a, b) => b.version - a.version)
-      .slice(0, count);
-
-    const allMigrations = this.loadMigrations();
-
-    for (const appliedMigration of toRollback) {
-      const migration = allMigrations.find(
-        (m) => m.version === appliedMigration.version
-      );
-
-      if (!migration) {
-        console.error(
-          `[Migration Runner] Migration file not found for version ${appliedMigration.version}`
-        );
-        continue;
+      if (applied.length === 0) {
+        console.log("[Migration Runner] No migrations to rollback");
+        return;
       }
 
-      if (!migration.down) {
-        console.error(
-          `[Migration Runner] No DOWN section for migration ${migration.version}`
+      const toRollback = applied
+        .sort((a, b) => b.version - a.version)
+        .slice(0, count);
+
+      const allMigrations = this.loadMigrations();
+
+      for (const appliedMigration of toRollback) {
+        const migration = allMigrations.find(
+          (m) => m.version === appliedMigration.version
         );
-        continue;
-      }
 
-      console.log(
-        `[Migration Runner] Rolling back migration ${migration.version}: ${migration.name}`
-      );
-
-      try {
-        // Execute DOWN statements
-        const statements = splitStatements(migration.down);
-        const result = await executeStatements(statements);
-
-        if (!result.success) {
-          throw new Error(`Rollback failed: ${result.error}`);
+        if (!migration) {
+          console.error(
+            `[Migration Runner] Migration file not found for version ${appliedMigration.version}`
+          );
+          continue;
         }
 
-        // Remove migration record
-        const deleteQuery = `
+        if (!migration.down) {
+          console.error(
+            `[Migration Runner] No DOWN section for migration ${migration.version}`
+          );
+          continue;
+        }
+
+        console.log(
+          `[Migration Runner] Rolling back migration ${migration.version}: ${migration.name}`
+        );
+
+        try {
+          // Execute DOWN statements
+          const statements = splitStatements(migration.down);
+          const result = await executeStatements(statements);
+
+          if (!result.success) {
+            throw new Error(`Rollback failed: ${result.error}`);
+          }
+
+          // Remove migration record
+          const deleteQuery = `
           ALTER TABLE monorepo_migrations
           DELETE WHERE version = ${migration.version}
         `;
 
-        const deleteResult = await executeQuery(deleteQuery);
+          const deleteResult = await executeQuery(deleteQuery);
 
-        if (!deleteResult.success) {
-          throw new Error(
-            `Failed to remove migration record: ${deleteResult.error}`
+          if (!deleteResult.success) {
+            throw new Error(
+              `Failed to remove migration record: ${deleteResult.error}`
+            );
+          }
+
+          console.log(
+            `[Migration Runner] Successfully rolled back migration ${migration.version}`
           );
+        } catch (error) {
+          console.error(
+            `[Migration Runner] Failed to rollback migration ${migration.version}:`,
+            error
+          );
+          throw error;
         }
-
-        console.log(
-          `[Migration Runner] Successfully rolled back migration ${migration.version}`
-        );
-      } catch (error) {
-        console.error(
-          `[Migration Runner] Failed to rollback migration ${migration.version}:`,
-          error
-        );
-        throw error;
       }
-    }
 
-    console.log("[Migration Runner] Rollback completed");
+      console.log("[Migration Runner] Rollback completed");
     } finally {
-      (this as any)._running = false;
+      this.running = false;
     }
   }
 
