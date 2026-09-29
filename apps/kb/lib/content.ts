@@ -10,6 +10,7 @@
  */
 
 import yaml from "js-yaml";
+import { splitFrontmatter } from "@duyet/libs/frontmatter";
 import { extractWikilinks, normalizeRelatedRefs } from "./wikilinks";
 
 // Browser-safe basename: `node:path` is undefined in the client bundle, so the
@@ -21,13 +22,18 @@ function slugFromPath(filePath: string): string {
 // Browser-safe frontmatter parser. Replaces `gray-matter`, which pulls in
 // Node's `Buffer` and crashes during client-side navigation. js-yaml is the
 // same engine gray-matter uses, so parsed output is identical.
+//
+// The fence split itself is shared with the blog's shortform loader and this
+// app's own `stripFrontmatter`, which had drifted into three different regexes
+// — see `@duyet/libs/frontmatter` for what differed. YAML parsing stays here
+// because the engine choice is app-specific.
 // Frontmatter shape is dynamic; the accessors below guard every field.
 type Frontmatter = Record<string, any>;
 function parseFrontmatter(raw: string): { data: Frontmatter; content: string } {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
-  if (!match) return { data: {}, content: raw };
-  const data = (yaml.load(match[1]) as Frontmatter) ?? {};
-  return { data, content: match[2] };
+  const split = splitFrontmatter(raw);
+  if (!split) return { data: {}, content: raw };
+  const data = (yaml.load(split.frontmatter) as Frontmatter) ?? {};
+  return { data, content: split.body };
 }
 
 /** Frontmatter string field, falling back when absent or the wrong type. */

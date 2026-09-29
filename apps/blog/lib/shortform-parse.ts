@@ -12,6 +12,8 @@
  * an OG card for a page that 404s.
  */
 
+import { splitFrontmatter } from "@duyet/libs/frontmatter";
+
 export interface ParsedFrontmatter {
   date: string
   title?: string
@@ -29,13 +31,26 @@ export interface RawShortform {
   excerpt: string;
 }
 
-/** Parse the minimal frontmatter used in shortforms (`date:`, optional `title:`/`slug:`). */
+/**
+ * Parse the minimal frontmatter used in shortforms (`date:`, optional `title:`/`slug:`).
+ *
+ * The fence split is shared with `apps/kb` (`lib/content.ts` and
+ * `lib/markdown.ts`), which had two more copies that had drifted. YAML
+ * parsing stays inline: shortforms are a documented three-key shape, and
+ * pulling in an engine for them would add weight to the Vite bundle.
+ *
+ * The three `^key:` matches below handle the documented shape only — a quoted
+ * value keeps its quotes, and a list or nested key is not a match. That is
+ * unchanged behaviour, not an oversight; the shared fence is what guarantees
+ * *where* the block starts and ends, which is the part that used to disagree
+ * between apps.
+ */
 export function parseFrontmatter(raw: string): ParsedFrontmatter {
-  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/)
-  if (!match) {
+  const split = splitFrontmatter(raw)
+  if (!split) {
     return { date: '', body: raw.trim() }
   }
-  const [, fm, content] = match
+  const fm = split.frontmatter
   const dateMatch = fm.match(/^date:\s*(.+)$/m)
   const titleMatch = fm.match(/^title:\s*(.+)$/m)
   const slugMatch = fm.match(/^slug:\s*(.+)$/m)
@@ -43,7 +58,7 @@ export function parseFrontmatter(raw: string): ParsedFrontmatter {
     date: dateMatch ? dateMatch[1].trim() : '',
     title: titleMatch ? titleMatch[1].trim() : undefined,
     slug: slugMatch ? slugMatch[1].trim() : undefined,
-    body: content.trim(),
+    body: split.body.trim(),
   }
 }
 

@@ -59,10 +59,13 @@ export function preprocessObsidian(
     .replace(/==([^=\n]+)==/g, "**$1**");
 }
 
-/** Strip YAML frontmatter (handles CRLF, BOM, and missing trailing newline). */
-export function stripFrontmatter(markdown: string): string {
-  return markdown.replace(
-    /^\uFEFF?---\r?\n[\s\S]*?\r?\n---(?:\r?\n|(?=\S)|$)/,
-    ""
-  );
-}
+/**
+ * Strip YAML frontmatter (handles CRLF, BOM, and missing trailing newline).
+ *
+ * Re-exported rather than reimplemented: this was the third copy of the fence
+ * regex (the others are this app's `content.ts` and the blog's shortform
+ * loader) and the three had drifted — this one handled a BOM, the two parsers
+ * did not, so the same file could be stripped for display while its metadata
+ * was read as absent. All three now share `@duyet/libs/frontmatter`.
+ */
+export { stripFrontmatter } from "@duyet/libs/frontmatter";

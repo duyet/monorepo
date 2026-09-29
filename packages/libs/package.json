@@ -9,6 +9,7 @@
     ".": "./index.ts",
     "./date": "./date.ts",
     "./extractHeadings": "./extractHeadings.ts",
+    "./frontmatter": "./frontmatter.ts",
     "./getPost": "./getPost.ts",
     "./getRelatedPosts": "./getRelatedPosts.ts",
     "./getSeries": "./getSeries.ts",
