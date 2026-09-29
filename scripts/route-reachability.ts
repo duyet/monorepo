@@ -345,7 +345,7 @@ export function analyzeApp(app: string): ReachabilityReport {
     }
     if (existsSync(base) && statSync(base).isDirectory()) {
       // Directory prefix: every module beneath it is a root.
-      const prefix = relative(REPO_ROOT, base) + "/";
+      const prefix = `${relative(REPO_ROOT, base)}/`;
       for (const file of source.keys()) {
         if (file.startsWith(prefix)) roots.push(file);
       }
