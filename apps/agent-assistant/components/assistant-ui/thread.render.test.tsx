@@ -90,11 +90,16 @@ const SUGGESTIONS = [
   { prompt: "Anything else" },
 ];
 
-function renderThread(messages: ThreadMessage[], suggestions: SUGGESTION[]) {
+function renderThread(
+  messages: ThreadMessage[],
+  suggestions: SUGGESTION[],
+  isRunning?: boolean
+) {
   function Harness() {
     const runtime = useExternalStoreRuntime({
       messages,
       suggestions,
+      isRunning,
       // Required by `ExternalStoreAdapterBase`, and the one callback a render
       // golden cannot exercise: sending needs a real backend. Recording the
       // attempts would be dead weight until a test asserts on it.
@@ -112,19 +117,46 @@ function renderThread(messages: ThreadMessage[], suggestions: SUGGESTION[]) {
 type SUGGESTION = { prompt: string };
 
 /**
+ * Replace the one thing in the markup that is genuinely random.
+ *
+ * While a thread is running, the runtime mounts a placeholder assistant message
+ * with a **randomly generated id** — `y2n6Cls` on one run, `EFuVGnJ` on the
+ * next. Nothing else in the output varies: three consecutive renders of the
+ * running fixture differ on that attribute and nothing else, 6 characters wide.
+ *
+ * So the normalisation is deliberately narrow rather than a general scrub: it
+ * only touches `data-message-id` values that are *not* ids this file supplied.
+ * A general "replace anything that looks random" pass would also hide a real
+ * change — a message losing its id, or a new random-looking attribute — which
+ * is the failure mode that makes people distrust golden files and then delete
+ * them.
+ */
+function normalise(html: string, knownIds: readonly string[]): string {
+  const known = new Set(knownIds);
+  return html.replace(/data-message-id="([^"]*)"/g, (match, id: string) =>
+    known.has(id) ? match : 'data-message-id="<generated>"'
+  );
+}
+
+/**
  * Compare against the committed golden, or rewrite it under `UPDATE_GOLDEN=1`.
  *
  * The rewrite is a full file write, not an append: a golden that only grows
  * accumulates the output of a bug that once ran and no longer reproduces.
  */
-function expectGolden(name: string, html: string) {
+function expectGolden(
+  name: string,
+  html: string,
+  knownIds: readonly string[] = []
+) {
   const path = join(goldenDir, `${name}.html`);
+  const actual = normalise(html, knownIds);
   if (process.env.UPDATE_GOLDEN === "1") {
     mkdirSync(goldenDir, { recursive: true });
-    writeFileSync(path, html);
+    writeFileSync(path, actual);
     return;
   }
-  expect(html, "run with UPDATE_GOLDEN=1 to re-record").toBe(
+  expect(actual, "run with UPDATE_GOLDEN=1 to re-record").toBe(
     readFileSync(path, "utf8")
   );
 }
@@ -135,6 +167,46 @@ describe("thread golden render", () => {
   });
 
   it("populated thread shows the messages and hides the welcome", () => {
-    expectGolden("conversation", renderThread(conversation(), []));
+    expectGolden("conversation", renderThread(conversation(), []), [
+      "m1",
+      "m2",
+    ]);
+  });
+
+  it("running thread swaps send for cancel", () => {
+    // `isRunning` on the adapter is not enough on its own: the runtime ANDs it
+    // with `lastMessage.role !== "assistant"`
+    // (`_getEffectiveIsRunning` in external-store-thread-runtime-core.ts). Set
+    // it on a thread whose last turn *is* an assistant message and the flag is
+    // silently ignored, which is what made the first attempt at this fixture
+    // render the idle composer and match the `conversation` golden exactly.
+    //
+    // A trailing user message with no reply is the shape that actually reaches
+    // the running state, and it is the only way to cover the send/cancel swap
+    // — `!s.thread.isRunning` and `s.thread.isRunning` both agree on every other
+    // fixture, so mutating either one there changes nothing.
+    expectGolden("running", renderThread([conversation()[0]], [], true), [
+      "m1",
+    ]);
   });
 });
+
+/**
+ * What these goldens do not reach, recorded so a later reader does not assume
+ * the whole thread is covered.
+ *
+ * Both gaps need an interaction, and driving them would mean reaching past the
+ * public API:
+ *
+ * - **`EditComposer`.** `s.message.composer.isEditing` is set by `beginEdit`,
+ *   which is on `ThreadRuntimeCore`, not on the public `ThreadRuntime`. A
+ *   swapped order in `ThreadMessage`'s dispatch — the edit state losing to the
+ *   role check — compiles, leaves no trace in the DOM, and is not caught.
+ * - **The copied state of the assistant action bar.** `s.message.isCopied` only
+ *   flips after a successful `ActionBarPrimitive.Copy` click.
+ *
+ * A third gap is narrower: the fixtures carry no branched message, so
+ * `BranchPicker`'s `hideWhenSingleBranch` is only ever exercised in the state
+ * where it renders nothing. Removing the prop is caught; changing what it
+ * renders when a branch does exist is not.
+ */
