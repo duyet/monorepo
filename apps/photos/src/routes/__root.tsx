@@ -16,7 +16,6 @@ import {
   Link,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 
 const SITE_URL = "https://photos.duyet.net";
@@ -114,7 +113,6 @@ export const Route = createRootRoute({
 });
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
   return (
     <html lang="en" suppressHydrationWarning>
       <head>

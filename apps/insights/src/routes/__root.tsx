@@ -15,7 +15,6 @@ import {
   HeadContent,
   Outlet,
   Scripts,
-  useRouterState,
 } from "@tanstack/react-router";
 
 function NotFoundComponent() {
@@ -24,7 +23,9 @@ function NotFoundComponent() {
       <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
         404
       </p>
-      <h1 className="mt-4 text-5xl font-semibold tracking-tight">Page not found.</h1>
+      <h1 className="mt-4 text-5xl font-semibold tracking-tight">
+        Page not found.
+      </h1>
       <a
         href="/"
         className="mt-6 text-sm underline underline-offset-4 hover:text-foreground"
@@ -44,18 +45,13 @@ export const Route = createRootRoute({
       { title: "Insights | duyet.net" },
       { name: "description", content: "Insights for duyet.net" },
     ],
-    links: [
-      ...duyetFontHeadLinks(),
-      ...duyetFaviconHeadLinks(),
-    ],
+    links: [...duyetFontHeadLinks(), ...duyetFaviconHeadLinks()],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,
 });
 
 function RootComponent() {
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
