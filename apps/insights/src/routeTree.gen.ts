@@ -10,35 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as WakatimeIndexRouteImport } from './routes/wakatime/index'
-import { Route as GithubIndexRouteImport } from './routes/github/index'
-import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as AiIndexRouteImport } from './routes/ai/index'
-import { Route as WakatimePeriodRouteImport } from './routes/wakatime/$period'
-import { Route as GithubPeriodRouteImport } from './routes/github/$period'
-import { Route as BlogPeriodRouteImport } from './routes/blog/$period'
 import { Route as AiPeriodRouteImport } from './routes/ai/$period'
-import { Route as CompareWakatimePeriod1Period2RouteImport } from './routes/compare/wakatime/$period1.$period2'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogPeriodRouteImport } from './routes/blog/$period'
+import { Route as GithubIndexRouteImport } from './routes/github/index'
+import { Route as GithubPeriodRouteImport } from './routes/github/$period'
+import { Route as WakatimeIndexRouteImport } from './routes/wakatime/index'
+import { Route as WakatimePeriodRouteImport } from './routes/wakatime/$period'
 import { Route as CompareAiPeriod1Period2RouteImport } from './routes/compare/ai/$period1.$period2'
+import { Route as CompareWakatimePeriod1Period2RouteImport } from './routes/compare/wakatime/$period1.$period2'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WakatimeIndexRoute = WakatimeIndexRouteImport.update({
-  id: '/wakatime/',
-  path: '/wakatime/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GithubIndexRoute = GithubIndexRouteImport.update({
-  id: '/github/',
-  path: '/github/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const BlogIndexRoute = BlogIndexRouteImport.update({
-  id: '/blog/',
-  path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AiIndexRoute = AiIndexRouteImport.update({
@@ -46,14 +31,14 @@ const AiIndexRoute = AiIndexRouteImport.update({
   path: '/ai/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WakatimePeriodRoute = WakatimePeriodRouteImport.update({
-  id: '/wakatime/$period',
-  path: '/wakatime/$period',
+const AiPeriodRoute = AiPeriodRouteImport.update({
+  id: '/ai/$period',
+  path: '/ai/$period',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GithubPeriodRoute = GithubPeriodRouteImport.update({
-  id: '/github/$period',
-  path: '/github/$period',
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BlogPeriodRoute = BlogPeriodRouteImport.update({
@@ -61,9 +46,29 @@ const BlogPeriodRoute = BlogPeriodRouteImport.update({
   path: '/blog/$period',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AiPeriodRoute = AiPeriodRouteImport.update({
-  id: '/ai/$period',
-  path: '/ai/$period',
+const GithubIndexRoute = GithubIndexRouteImport.update({
+  id: '/github/',
+  path: '/github/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GithubPeriodRoute = GithubPeriodRouteImport.update({
+  id: '/github/$period',
+  path: '/github/$period',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WakatimeIndexRoute = WakatimeIndexRouteImport.update({
+  id: '/wakatime/',
+  path: '/wakatime/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WakatimePeriodRoute = WakatimePeriodRouteImport.update({
+  id: '/wakatime/$period',
+  path: '/wakatime/$period',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareAiPeriod1Period2Route = CompareAiPeriod1Period2RouteImport.update({
+  id: '/compare/ai/$period1/$period2',
+  path: '/compare/ai/$period1/$period2',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompareWakatimePeriod1Period2Route =
@@ -72,11 +77,6 @@ const CompareWakatimePeriod1Period2Route =
     path: '/compare/wakatime/$period1/$period2',
     getParentRoute: () => rootRouteImport,
   } as any)
-const CompareAiPeriod1Period2Route = CompareAiPeriod1Period2RouteImport.update({
-  id: '/compare/ai/$period1/$period2',
-  path: '/compare/ai/$period1/$period2',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -183,53 +183,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wakatime/': {
-      id: '/wakatime/'
-      path: '/wakatime'
-      fullPath: '/wakatime/'
-      preLoaderRoute: typeof WakatimeIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/github/': {
-      id: '/github/'
-      path: '/github'
-      fullPath: '/github/'
-      preLoaderRoute: typeof GithubIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog/'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/ai/': {
       id: '/ai/'
       path: '/ai'
       fullPath: '/ai/'
       preLoaderRoute: typeof AiIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/wakatime/$period': {
-      id: '/wakatime/$period'
-      path: '/wakatime/$period'
-      fullPath: '/wakatime/$period'
-      preLoaderRoute: typeof WakatimePeriodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/github/$period': {
-      id: '/github/$period'
-      path: '/github/$period'
-      fullPath: '/github/$period'
-      preLoaderRoute: typeof GithubPeriodRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/blog/$period': {
-      id: '/blog/$period'
-      path: '/blog/$period'
-      fullPath: '/blog/$period'
-      preLoaderRoute: typeof BlogPeriodRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ai/$period': {
@@ -239,11 +197,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AiPeriodRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/compare/wakatime/$period1/$period2': {
-      id: '/compare/wakatime/$period1/$period2'
-      path: '/compare/wakatime/$period1/$period2'
-      fullPath: '/compare/wakatime/$period1/$period2'
-      preLoaderRoute: typeof CompareWakatimePeriod1Period2RouteImport
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$period': {
+      id: '/blog/$period'
+      path: '/blog/$period'
+      fullPath: '/blog/$period'
+      preLoaderRoute: typeof BlogPeriodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/github/': {
+      id: '/github/'
+      path: '/github'
+      fullPath: '/github/'
+      preLoaderRoute: typeof GithubIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/github/$period': {
+      id: '/github/$period'
+      path: '/github/$period'
+      fullPath: '/github/$period'
+      preLoaderRoute: typeof GithubPeriodRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wakatime/': {
+      id: '/wakatime/'
+      path: '/wakatime'
+      fullPath: '/wakatime/'
+      preLoaderRoute: typeof WakatimeIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wakatime/$period': {
+      id: '/wakatime/$period'
+      path: '/wakatime/$period'
+      fullPath: '/wakatime/$period'
+      preLoaderRoute: typeof WakatimePeriodRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/compare/ai/$period1/$period2': {
@@ -251,6 +244,13 @@ declare module '@tanstack/react-router' {
       path: '/compare/ai/$period1/$period2'
       fullPath: '/compare/ai/$period1/$period2'
       preLoaderRoute: typeof CompareAiPeriod1Period2RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/wakatime/$period1/$period2': {
+      id: '/compare/wakatime/$period1/$period2'
+      path: '/compare/wakatime/$period1/$period2'
+      fullPath: '/compare/wakatime/$period1/$period2'
+      preLoaderRoute: typeof CompareWakatimePeriod1Period2RouteImport
       parentRoute: typeof rootRouteImport
     }
   }
