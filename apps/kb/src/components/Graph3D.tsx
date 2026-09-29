@@ -1,6 +1,7 @@
-import { type ReactElement, useEffect, useMemo, useRef } from "react";
+import type { GraphEdge, GraphNode } from "../../lib/graph-types";
+import { useEffect, useMemo, useRef, type ReactElement } from "react";
 import type { GraphTheme } from "./graph-theme";
-import { nodeColor as resolveNodeColor } from "./graph-theme";
+import { nodeColor } from "./graph-theme";
 
 /**
  * 3D view of the knowledge graph (3d-force-graph / three.js).
@@ -11,37 +12,24 @@ import { nodeColor as resolveNodeColor } from "./graph-theme";
  * Mount follows topology (node/edge ids). Theme and search highlight update
  * in place via refs + refresh — remounting on every keystroke was dropping
  * the camera and re-running the force layout.
+ *
+ * Takes the shared `GraphNode`/`GraphEdge` wire shape rather than a narrower
+ * local copy of it, so the 3D view cannot drift from the `graph-data.json` it
+ * is handed.
  */
-
-interface Graph3DNode {
-  id: string;
-  label: string;
-  kind: "article" | "memory" | "inbox" | "tag";
-  memoryType?: string;
-  href: string;
-}
-
-interface Graph3DEdge {
-  source: string;
-  target: string;
-}
 
 type Graph3DTheme = GraphTheme;
 
 interface Graph3DProps {
-  nodes: Graph3DNode[];
-  edges: Graph3DEdge[];
+  nodes: GraphNode[];
+  edges: GraphEdge[];
   degree: Record<string, number>;
   theme: Graph3DTheme;
   highlightIds?: Set<string>;
   onSelect: (id: string) => void;
 }
 
-function nodeColor3d(node: Graph3DNode, theme: Graph3DTheme): string {
-  return resolveNodeColor(node.kind, node.memoryType, theme);
-}
-
-function topologyKey(nodes: Graph3DNode[], edges: Graph3DEdge[]): string {
+function topologyKey(nodes: GraphNode[], edges: GraphEdge[]): string {
   const ids = nodes.map((n) => n.id).join("\n");
   const links = edges.map((e) => `${e.source}\t${e.target}`).join("\n");
   return `${ids}\n#\n${links}`;
@@ -79,13 +67,13 @@ export function Graph3D({
     let resizeObserver: ResizeObserver | null = null;
 
     const colorOf = (raw: unknown): string => {
-      const node = raw as Graph3DNode;
+      const node = raw as GraphNode;
       const hits = highlightRef.current;
       const currentTheme = themeRef.current;
       if (hits && hits.size > 0 && !hits.has(node.id)) {
         return currentTheme.bg === "#0a0a0a" ? "#1c1c1f" : "#e4e4e7";
       }
-      return nodeColor3d(node, currentTheme);
+      return nodeColor(node.kind, node.memoryType, currentTheme);
     };
 
     (async () => {
@@ -107,14 +95,12 @@ export function Graph3D({
         .graphData(data)
         .backgroundColor(themeRef.current.bg)
         .showNavInfo(false)
-        .nodeLabel((n) => (n as unknown as Graph3DNode).label)
+        .nodeLabel((n) => (n as unknown as GraphNode).label)
         .nodeColor(colorOf)
         .nodeVal(
           (n) =>
             1 +
-            Math.sqrt(
-              degreeRef.current[(n as unknown as Graph3DNode).id] ?? 0
-            ) *
+            Math.sqrt(degreeRef.current[(n as unknown as GraphNode).id] ?? 0) *
               1.5
         )
         .nodeOpacity(0.95)
@@ -127,7 +113,7 @@ export function Graph3D({
         .warmupTicks(80)
         .cooldownTime(4000)
         .onNodeClick((raw) => {
-          const n = raw as unknown as Graph3DNode & {
+          const n = raw as unknown as GraphNode & {
             x?: number;
             y?: number;
             z?: number;

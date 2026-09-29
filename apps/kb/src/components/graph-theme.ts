@@ -11,6 +11,7 @@
  * dimmed state, labels) flips.
  */
 
+import { memoryTypeOfKey } from "./graph-kinds";
 import { MEMORY_PALETTE } from "./graph-palette";
 
 /** The subset of theme colors `nodeColor` needs. */
@@ -76,11 +77,13 @@ export function nodeColor(
  * Filter keys are the `nodeKind` attribute Sigma indexes on: memory nodes are
  * keyed `memory:<type>` so each memory type is separately filterable, everything
  * else uses the bare kind. This is the same resolution `nodeColor` does, just
- * taking the pre-flattened key instead of a node.
+ * taking the pre-flattened key instead of a node — so the prefix is parsed by
+ * `graph-kinds` and both halves of the module agree on it.
  */
 export function kindSwatch(key: string, colors: NodeColors): string {
-  if (key.startsWith("memory:")) {
-    return MEMORY_PALETTE[key.slice("memory:".length)] ?? colors.article;
+  const memoryType = memoryTypeOfKey(key);
+  if (memoryType !== undefined) {
+    return MEMORY_PALETTE[memoryType] ?? colors.article;
   }
   return nodeColor(key, undefined, colors);
 }

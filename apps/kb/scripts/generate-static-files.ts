@@ -114,8 +114,10 @@ const slugify = kbSlugify;
 /**
  * Frontmatter field accessors. `matter` types `data` as `{[key: string]: any}`,
  * so every field needs a runtime type guard; these keep the guard in one place
- * instead of inline at each of the ~25 read sites below. `fmStringList` is
- * deliberately NOT the same shape as `lib/content.ts` — see MEMORY_TYPE_NOTE.
+ * instead of inline at each of the ~25 read sites below. The two accessors are
+ * deliberately NOT the same shape as the ones in `lib/content.ts` — see the
+ * `memoryType` comment in the memory walk below, which spells out the one field
+ * where the two must disagree.
  */
 type Frontmatter = Record<string, any>;
 
