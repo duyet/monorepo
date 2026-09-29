@@ -87,6 +87,23 @@ export function executeStatements(statements: string[]) {
   return clickhouse.executeStatements(statements);
 }
 
+/**
+ * Insert rows into a table as `JSONEachRow`.
+ *
+ * Separate from {@link executeCommand} because the rows go in the request
+ * *body*; `client.command()` sends only the query text. This is the path
+ * `unsplash-photos.syncer.ts` used to hand-roll with raw `fetch` + Basic auth,
+ * which left it with no timeout, no retry and no `query_id`.
+ */
+export function insertJsonEachRow(
+  table: string,
+  rows: readonly string[],
+  timeoutMs?: number,
+  maxRetries?: number
+) {
+  return clickhouse.insertJsonEachRow(table, rows, timeoutMs, maxRetries);
+}
+
 /** Ping the server with a trivial query. */
 export function ping() {
   return clickhouse.ping();

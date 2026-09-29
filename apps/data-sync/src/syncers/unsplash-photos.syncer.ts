@@ -2,6 +2,10 @@ import type { ClickHouseClient } from "@clickhouse/client";
 import { BaseSyncer } from "../lib/base";
 import type { SyncOptions } from "../lib/base/types";
 import { clickHouseDateTime } from "../lib/clickhouse/format";
+import {
+  getClickHouseConfig,
+  insertJsonEachRow,
+} from "../lib/clickhouse/client";
 
 /**
  * Full Unsplash API response types (complete photo metadata)
@@ -360,19 +364,25 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
     const currentTimestamp = clickHouseDateTime(now.toISOString());
     const syncVersion = Math.floor(now.getTime() / 1000);
 
-    // Get ClickHouse connection info from environment
-    const host = process.env.CLICKHOUSE_HOST;
-    const port = process.env.CLICKHOUSE_PORT || "8123";
-    const protocol = ["443", "8443", "9440"].includes(port) ? "https" : "http";
-    const database = process.env.CLICKHOUSE_DATABASE;
-    const user = process.env.CLICKHOUSE_USER || "default";
-    const password = process.env.CLICKHOUSE_PASSWORD;
-
-    if (!host || !password || !database) {
+    // ClickHouse connectivity is resolved by the shared client rather than
+    // read from `process.env` here. This block used to build its own URL, pick
+    // its own protocol from a three-port list, and send Basic auth — which
+    // meant **this was a second, divergent write path into the same database**:
+    // no timeout, no retry, no `query_id`, a different HTTPS port list than the
+    // rest of data-sync, and a different credential behaviour.
+    //
+    // The credential change is real and deliberate: this path authenticated as
+    // `CLICKHOUSE_USER || "default"`, while every other data-sync insert sends
+    // no credentials at all and the server accepts that (see `credentials` in
+    // `lib/clickhouse/client.ts`). Consolidating means rows from this syncer
+    // are now attributed the same way as every other insert. If `CH_USER` is
+    // set in production *and* per-user permissions differ from `default`, this
+    // is the commit that would surface it — it needs a live check, not a
+    // refactor.
+    const clickhouse = getClickHouseConfig();
+    if (!clickhouse) {
       throw new Error("Missing ClickHouse configuration");
     }
-
-    const auth = btoa(`${user}:${password}`);
 
     for (let i = 0; i < records.length; i += batchSize) {
       const batch = records.slice(i, i + batchSize);
@@ -432,29 +442,18 @@ export class UnsplashPhotosSyncer extends BaseSyncer<
             synced_at: currentTimestamp,
           };
           return JSON.stringify(r);
-        })
-        .join("\n");
+        });
 
-      // Use ClickHouse HTTP API with POST body
-      const query = `INSERT INTO ${tableName} FORMAT JSONEachRow`;
-      const url = `${protocol}://${host}:${port}/?query=${encodeURIComponent(query)}&database=${database}`;
-
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          Authorization: `Basic ${auth}`,
-          "Content-Type": "application/json; charset=utf-8",
-        },
-        body: jsonRows,
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
+      const result = await insertJsonEachRow(tableName, jsonRows);
+      if (!result.success) {
+        // The preview used to be logged here. The shared client already logs
+        // the statement it attempted (truncated), and duplicating that would
+        // risk putting row contents in the log twice.
         this.logger.error(
-          `ClickHouse HTTP error. JSON preview: ${jsonRows.substring(0, 500)}...`
+          `ClickHouse insert failed: ${result.error ?? "unknown error"}`
         );
         throw new Error(
-          `ClickHouse HTTP error: ${response.status} ${response.statusText} - ${errorText}`
+          `ClickHouse insert failed: ${result.error ?? "unknown error"}`
         );
       }
 

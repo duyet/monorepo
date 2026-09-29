@@ -165,6 +165,22 @@ export interface ClickHouseClientHandle {
     timeoutMs?: number,
     maxRetries?: number
   ): Promise<QueryResult>;
+  /**
+   * Insert rows into a table as `JSONEachRow`.
+   *
+   * Distinct from {@link executeCommand} because an `INSERT … FORMAT
+   * JSONEachRow` needs the **rows in the request body**, not appended to the
+   * query string. `client.command()` sends only the query, so it cannot express
+   * this — the alternative is the raw `fetch` + Basic-auth block that
+   * `unsplash-photos.syncer.ts` used to hand-roll, which is how an insert path
+   * ended up with no timeout, no retry, and no `query_id`.
+   */
+  insertJsonEachRow(
+    table: string,
+    rows: readonly string[],
+    timeoutMs?: number,
+    maxRetries?: number
+  ): Promise<QueryResult>;
   executeStatements(statements: string[]): Promise<QueryResult>;
   testConnection(): Promise<ClickHouseConnectionTest>;
   ping(): Promise<boolean>;
@@ -544,7 +560,7 @@ export function createClickHouseClient(
    */
   async function runWithRetries<T>(
     client: ClickHouseClient | null,
-    label: "query" | "command",
+    label: "query" | "command" | "insert",
     run: (queryId: string, signal: AbortSignal) => Promise<T>,
     onSuccess: (value: T) => QueryResult,
     query: string,
@@ -741,6 +757,51 @@ export function createClickHouseClient(
     );
   }
 
+  async function insertJsonEachRow(
+    table: string,
+    rows: readonly string[],
+    timeoutMs = requestTimeoutMs,
+    maxRetries = DEFAULT_MAX_RETRIES
+  ): Promise<QueryResult> {
+    const client = await getClient();
+    if (!client) {
+      return {
+        success: false,
+        data: [],
+        error: "ClickHouse client not available",
+      };
+    }
+    if (rows.length === 0) {
+      // An empty insert is a no-op, not an error. Callers batch, and a short
+      // final batch is normal; making it fail would turn a clean pagination
+      // tail into a sync failure.
+      return { success: true, data: [] };
+    }
+
+    return runWithRetries(
+      client,
+      "insert",
+      async (queryId, signal) => {
+        await client!.insert({
+          table,
+          values: [...rows],
+          format: "JSONEachRow",
+          query_id: queryId,
+          abort_signal: signal,
+        });
+      },
+      () => {
+        debug(
+          `[ClickHouse Insert] Inserted ${rows.length} row(s) into ${table}`
+        );
+        return { success: true, data: [] };
+      },
+      `INSERT INTO ${table} FORMAT JSONEachRow (${rows.length} rows)`,
+      timeoutMs,
+      maxRetries
+    );
+  }
+
   async function executeStatements(statements: string[]): Promise<QueryResult> {
     if (!(await getClient())) {
       return {
@@ -873,6 +934,7 @@ export function createClickHouseClient(
     getClient,
     executeQuery,
     executeCommand,
+    insertJsonEachRow,
     executeStatements,
     testConnection,
     ping,

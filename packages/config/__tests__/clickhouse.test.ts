@@ -25,8 +25,9 @@ const ENV_KEYS = [
 
 const query = vi.fn();
 const command = vi.fn();
+const insert = vi.fn();
 const close = vi.fn();
-const createClient = vi.fn(() => ({ query, command, close }));
+const createClient = vi.fn(() => ({ query, command, insert, close }));
 
 vi.mock("@clickhouse/client", () => ({
   createClient: (...args: unknown[]) => createClient(...(args as [])),
@@ -71,6 +72,7 @@ beforeEach(() => {
   process.env.CI = "1";
   query.mockReset();
   command.mockReset();
+  insert.mockReset();
   close.mockReset();
   createClient.mockClear();
   // data-sync's binding logs unconditionally; keep the suite output readable.
@@ -542,5 +544,87 @@ describe("serverOnly", () => {
     expect(await insights.getClient()).toBeNull();
     expect(createClient).not.toHaveBeenCalled();
     vi.unstubAllGlobals();
+  });
+});
+
+describe("insertJsonEachRow", () => {
+  /**
+   * An `INSERT ... FORMAT JSONEachRow` needs the rows in the request *body*,
+   * so it cannot go through `client.command()` — which is why
+   * `unsplash-photos.syncer.ts` used to hand-roll a raw `fetch` with Basic
+   * auth, and ended up with no timeout, no retry and no `query_id`.
+   */
+  test("sends the rows in the body, with a query_id and the JSONEachRow format", async () => {
+    setDataSyncEnv();
+    const dataSync = createClickHouseClient(DATA_SYNC);
+
+    const result = await dataSync.insertJsonEachRow("ccusage_photos", [
+      '{"id":"a"}',
+      '{"id":"b"}',
+    ]);
+
+    expect(result.success).toBe(true);
+    expect(insert).toHaveBeenCalledTimes(1);
+    const call = insert.mock.calls[0]![0];
+    expect(call.table).toBe("ccusage_photos");
+    expect(call.format).toBe("JSONEachRow");
+    expect(call.values).toEqual(['{"id":"a"}', '{"id":"b"}']);
+    // The rows go in `values`, never appended to the query string.
+    expect(JSON.stringify(call)).not.toContain("INSERT INTO");
+    // A query_id is what makes the insert findable in the server's query log.
+    expect(call.query_id).toMatch(/^q_\d+_[a-z0-9]{6}$/);
+  });
+
+  test("an empty batch is a no-op, not a failure", async () => {
+    setDataSyncEnv();
+    const dataSync = createClickHouseClient(DATA_SYNC);
+
+    // Callers batch, so a short final batch is normal. Failing here would turn
+    // a clean pagination tail into a sync failure.
+    const result = await dataSync.insertJsonEachRow("t", []);
+    expect(result).toEqual({ success: true, data: [] });
+    expect(insert).not.toHaveBeenCalled();
+  });
+
+  test("fails without a client when ClickHouse is unconfigured", async () => {
+    for (const key of ENV_KEYS) delete process.env[key];
+    const dataSync = createClickHouseClient(DATA_SYNC);
+
+    const result = await dataSync.insertJsonEachRow("t", ['{"a":1}']);
+    expect(result.success).toBe(false);
+    expect(insert).not.toHaveBeenCalled();
+  });
+
+  test("retries a transient insert failure and reports failure on a permanent one", async () => {
+    setDataSyncEnv();
+    vi.useFakeTimers();
+
+    try {
+      // Transient: retried, then succeeds. The classifier matches on the error
+      // *message*, not a `code` property, so the message has to be realistic.
+      const transient = createClickHouseClient(DATA_SYNC);
+      insert
+        .mockRejectedValueOnce(new Error("ECONNREFUSED 127.0.0.1:8123"))
+        .mockResolvedValueOnce(undefined);
+
+      const promise = transient.insertJsonEachRow("t", ['{"a":1}'], 60_000, 2);
+      await vi.advanceTimersByTimeAsync(5_000);
+      const ok = await promise;
+      expect(ok.success).toBe(true);
+      expect(insert).toHaveBeenCalledTimes(2);
+
+      // Non-transient: fails fast, no retry.
+      const permanent = createClickHouseClient(DATA_SYNC);
+      insert.mockClear();
+      insert.mockRejectedValue(
+        new Error("Code: 62. DB::Exception: Syntax error")
+      );
+
+      const failed = await permanent.insertJsonEachRow("t", ['{"a":1}'], 60_000, 2);
+      expect(failed.success).toBe(false);
+      expect(insert).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
