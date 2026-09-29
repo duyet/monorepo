@@ -16,6 +16,28 @@ export function formatPhotoDate(dateString: string): string {
   });
 }
 
+/**
+ * Normalize a provider timestamp to an ISO 8601 instant.
+ *
+ * ClickHouse `DateTime64` and DuckDB `TIMESTAMP` reach us as a bare
+ * "YYYY-MM-DD HH:MM:SS" with no zone designator. The syncer writes UTC and
+ * strips the "Z" on the way in, so the missing designator means UTC — but V8
+ * reads a zone-less string as *local* time, which silently shifts the instant
+ * by the reader's offset. `datePublished` in schema.org markup must be ISO
+ * 8601, so the raw stored form is not usable there either.
+ */
+export function toIsoTimestamp(dateString: string): string {
+  const naive = /^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2}:\d{2})$/.exec(
+    dateString.trim()
+  );
+  const parsed = naive
+    ? new Date(`${naive[1]}T${naive[2]}Z`)
+    : new Date(dateString);
+  // Leave anything unrecognisable alone rather than inventing a date.
+  if (Number.isNaN(parsed.getTime())) return dateString;
+  return parsed.toISOString();
+}
+
 export interface PhotoMetadata {
   dateFormatted: string;
   dimensions: string;

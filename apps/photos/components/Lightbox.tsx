@@ -160,14 +160,17 @@ export default function Lightbox({
     setSlideshowProgress(0);
   };
 
-  // Start slideshow
-  const startSlideshow = () => {
+  // Start slideshow. The speed is a parameter rather than read from state
+  // because handleSpeedChange has not re-rendered yet when it restarts the
+  // timer, so reading `playbackSpeed` there would still yield the old value
+  // and the control would apply its setting one change late.
+  const startSlideshow = (speed: PlaybackSpeed) => {
     cleanupSlideshow();
     setIsSlideshowPlaying(true);
 
     // Update progress every 50ms for smooth animation
     const progressUpdateInterval = 50;
-    const totalProgressSteps = (playbackSpeed * 1000) / progressUpdateInterval;
+    const totalProgressSteps = (speed * 1000) / progressUpdateInterval;
     let currentStep = 0;
 
     progressIntervalRef.current = setInterval(() => {
@@ -200,7 +203,7 @@ export default function Lightbox({
     if (isSlideshowPlaying) {
       stopSlideshow();
     } else {
-      startSlideshow();
+      startSlideshow(playbackSpeed);
     }
   };
 
@@ -209,7 +212,7 @@ export default function Lightbox({
     setPlaybackSpeed(speed);
     // Restart slideshow if playing with new speed
     if (isSlideshowPlaying) {
-      startSlideshow();
+      startSlideshow(speed);
     }
   };
 

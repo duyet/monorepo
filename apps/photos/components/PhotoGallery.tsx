@@ -12,8 +12,11 @@ interface PhotoGalleryProps {
  */
 export default function PhotoGallery({ photos }: PhotoGalleryProps) {
   const totalPhotos = photos.length;
+  // `fallback-provider` marks the built-in samples explicitly. Matching on an
+  // id prefix cannot work: the samples reuse real Unsplash ids, several of
+  // which also appear in a healthy dataset.
   const isFallback =
-    photos.length > 0 && photos.some((p) => p.id.startsWith("fallback-"));
+    photos.length > 0 && photos.every((p) => p.isFallback === true);
 
   return (
     <>

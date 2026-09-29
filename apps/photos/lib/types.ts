@@ -223,4 +223,9 @@ export interface Photo {
   };
   // Original data from the provider
   originalData?: UnsplashPhoto | CloudinaryPhoto;
+  // Set on the built-in sample photos `fallback-provider` returns when every
+  // real provider has failed. It is a plain field rather than a symbol or an id
+  // prefix so it survives the trip through `public/photos-data.json`, and it is
+  // not derived from the id because a sample id can also be a real Unsplash id.
+  isFallback?: boolean;
 }

@@ -228,6 +228,7 @@ export async function getFallbackPhotos(): Promise<Photo[]> {
 
   return FALLBACK_PHOTOS.map((photo) => ({
     ...photo,
+    isFallback: true,
     provider: "unsplash" as const,
   }));
 }

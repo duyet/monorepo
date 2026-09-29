@@ -1,5 +1,5 @@
 import { generateBlurDataURL } from "@/lib/ImageOptimization";
-import { formatFeedCaption } from "@/lib/MetadataFormatters";
+import { formatFeedCaption, toIsoTimestamp } from "@/lib/MetadataFormatters";
 import type { Photo } from "@/lib/photo-provider";
 import PhotoMetadata from "./PhotoMetadata";
 
@@ -71,7 +71,10 @@ export default function PhotoFeed({ photos }: PhotoFeedProps) {
                 <meta itemProp="copyrightNotice" content={photo.user.name} />
               </>
             )}
-            <meta itemProp="datePublished" content={photo.created_at} />
+            <meta
+              itemProp="datePublished"
+              content={toIsoTimestamp(photo.created_at)}
+            />
           </figure>
         );
       })}
