@@ -7,7 +7,12 @@
 import { Hono } from "hono";
 import type { Env } from "./env.js";
 import { openApiDocument } from "./lib/openapi.js";
-import { consumeRateLimit, GLOBAL_RATE_LIMIT, secondsUntil } from "./lib/rate-limit.js";
+import {
+  clientIp,
+  consumeRateLimit,
+  GLOBAL_RATE_LIMIT,
+  rateLimitHeaders,
+} from "./lib/rate-limit.js";
 import aiPercentageRouter from "./routes/ai-percentage.js";
 import cardDescriptionStreamingRouter from "./routes/card-description-streaming.js";
 import insightsRouter from "./routes/insights.js";
@@ -44,7 +49,7 @@ app.use("*", async (c, next) => {
  * Separate bucket namespace ("global:") from the stricter generate limiter.
  */
 app.use("*", async (c, next) => {
-  const ip = c.req.header("CF-Connecting-IP") || "anonymous";
+  const ip = clientIp(c.req.raw);
   const now = Date.now();
   const limit = consumeRateLimit(
     `global:${ip}`,
@@ -53,12 +58,15 @@ app.use("*", async (c, next) => {
     GLOBAL_RATE_LIMIT.windowMs
   );
 
-  c.header("RateLimit-Limit", String(GLOBAL_RATE_LIMIT.max));
-  c.header("RateLimit-Remaining", String(limit.remaining));
-  c.header("RateLimit-Reset", String(secondsUntil(limit.resetAt, now)));
+  for (const [key, value] of rateLimitHeaders(
+    limit,
+    GLOBAL_RATE_LIMIT.max,
+    now
+  )) {
+    c.header(key, value);
+  }
 
   if (!limit.allowed) {
-    c.header("Retry-After", String(secondsUntil(limit.resetAt, now)));
     return c.json({ error: "rate limited" }, 429);
   }
 

@@ -3,9 +3,11 @@ import type { Env } from "../env.js";
 import app from "../index.js";
 import {
   buildClickHouseRequest,
-  clampHistoryDays,
   executeClickHouseQuery,
   getClickHouseConfig,
+} from "../lib/clickhouse.js";
+import {
+  clampHistoryDays,
   getDateCondition,
   parseHistoryDays,
 } from "./ai-percentage.js";

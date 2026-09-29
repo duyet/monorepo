@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import {
+  clientIp,
   consumeRateLimit,
+  rateLimitHeaders,
   resetRateLimits,
   secondsUntil,
 } from "./rate-limit.js";
@@ -58,9 +60,9 @@ describe("consumeRateLimit", () => {
     expect(consumeRateLimit("global:1.2.3.4", now, 1, 60_000).allowed).toBe(
       false
     );
-    expect(consumeRateLimit("llm-generate:1.2.3.4", now, 1, 60_000).allowed).toBe(
-      true
-    );
+    expect(
+      consumeRateLimit("llm-generate:1.2.3.4", now, 1, 60_000).allowed
+    ).toBe(true);
   });
 });
 
@@ -70,5 +72,59 @@ describe("secondsUntil", () => {
     expect(secondsUntil(now + 60_000, now)).toBe(60);
     expect(secondsUntil(now + 500, now)).toBe(1);
     expect(secondsUntil(now - 5_000, now)).toBe(0);
+  });
+});
+
+describe("clientIp", () => {
+  it("uses only CF-Connecting-IP", () => {
+    const request = new Request("https://api.duyet.net/api/llm/generate", {
+      headers: {
+        "CF-Connecting-IP": "203.0.113.1",
+        "True-Client-IP": "198.51.100.1",
+        "X-Forwarded-For": "192.0.2.1",
+      },
+    });
+
+    expect(clientIp(request)).toBe("203.0.113.1");
+  });
+
+  it("falls back to unknown when CF-Connecting-IP is absent", () => {
+    const request = new Request("https://api.duyet.net/api/llm/generate", {
+      headers: {
+        "True-Client-IP": "198.51.100.1",
+        "X-Forwarded-For": "192.0.2.1",
+      },
+    });
+
+    expect(clientIp(request)).toBe("unknown");
+  });
+});
+
+describe("rateLimitHeaders", () => {
+  it("advertises the window without Retry-After while allowed", () => {
+    const now = 5_000_000;
+    const headers = rateLimitHeaders(
+      { allowed: true, remaining: 4, resetAt: now + 60_000 },
+      10,
+      now
+    );
+
+    expect(headers.get("RateLimit-Limit")).toBe("10");
+    expect(headers.get("RateLimit-Remaining")).toBe("4");
+    expect(headers.get("RateLimit-Reset")).toBe("60");
+    expect(headers.get("Retry-After")).toBeNull();
+  });
+
+  it("adds Retry-After once the bucket is exhausted", () => {
+    const now = 6_000_000;
+    const headers = rateLimitHeaders(
+      { allowed: false, remaining: 0, resetAt: now + 30_000 },
+      10,
+      now
+    );
+
+    expect(headers.get("RateLimit-Remaining")).toBe("0");
+    expect(headers.get("RateLimit-Reset")).toBe("30");
+    expect(headers.get("Retry-After")).toBe("30");
   });
 });

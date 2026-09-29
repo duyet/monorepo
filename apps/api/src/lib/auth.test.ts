@@ -1,9 +1,9 @@
-import { describe, expect, it } from "vitest";
 import {
   getBearerToken,
-  isAuthorizedApiRequest,
-  timingSafeEqual,
-} from "./auth.js";
+  timingSafeEqualStrings as timingSafeEqual,
+} from "@duyet/libs/workers-auth";
+import { describe, expect, it } from "vitest";
+import { isAuthorizedApiRequest } from "./auth.js";
 
 describe("API auth helpers", () => {
   it("extracts bearer tokens", () => {

@@ -2,7 +2,6 @@ import { getAgentByName, routeAgentRequest } from "agents";
 import { z } from "zod";
 import {
   authenticateRequest,
-  getAuthorizedParties,
   getScopedSessionName,
   normalizeSessionPart,
   type AuthContext,
@@ -13,14 +12,10 @@ import {
   type Env,
   type SubmitApiMessageResult,
 } from "./agent";
+import { createHttp, type Http } from "./http";
 import { toPublicMessageMetadata } from "./public-messages";
+import { applyIpRateLimit } from "./rate-limit";
 import { scopedAgentRequest } from "./routing";
-import {
-  CHAT_RATE_LIMIT,
-  clientIp,
-  consumeRateLimit,
-  secondsUntil,
-} from "./lib/rate-limit";
 
 export { ChatAgent };
 export type { Env };
@@ -30,83 +25,6 @@ const chatRequestSchema = z.object({
   sessionId: z.string().trim().min(1).max(128).optional(),
   timezone: z.string().trim().min(1).max(128).optional(),
 });
-
-function allowedOrigins(env: Env): string[] {
-  return getAuthorizedParties(env);
-}
-
-function getCorsOrigin(request: Request, env: Env): string | null {
-  const origin = request.headers.get("Origin");
-  if (!origin) return null;
-
-  return allowedOrigins(env).includes(origin) ? origin : null;
-}
-
-function withCors(request: Request, env: Env, response: Response): Response {
-  if (response.status === 101) return response;
-
-  const origin = getCorsOrigin(request, env);
-  const headers = new Headers(response.headers);
-  headers.set("Vary", "Origin");
-  headers.set("Access-Control-Allow-Methods", "GET,POST,OPTIONS");
-  headers.set(
-    "Access-Control-Allow-Headers",
-    "Authorization,Content-Type,X-Requested-With"
-  );
-  headers.set("Access-Control-Max-Age", "86400");
-  headers.set("X-Content-Type-Options", "nosniff");
-  headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-
-  if (origin) {
-    headers.set("Access-Control-Allow-Origin", origin);
-  }
-
-  return new Response(response.body, {
-    headers,
-    status: response.status,
-    statusText: response.statusText,
-  });
-}
-
-function json(
-  request: Request,
-  env: Env,
-  data: unknown,
-  status = 200
-): Response {
-  return withCors(
-    request,
-    env,
-    Response.json(data, {
-      status,
-      headers: { "Content-Type": "application/json" },
-    })
-  );
-}
-
-function text(
-  request: Request,
-  env: Env,
-  body: string,
-  status = 200
-): Response {
-  return withCors(
-    request,
-    env,
-    new Response(body, {
-      status,
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
-    })
-  );
-}
-
-function preflight(request: Request, env: Env): Response {
-  if (request.headers.get("Origin") && !getCorsOrigin(request, env)) {
-    return new Response(null, { status: 403 });
-  }
-
-  return withCors(request, env, new Response(null, { status: 204 }));
-}
 
 function apiInfo() {
   return {
@@ -144,7 +62,10 @@ function llmsText(): string {
   ].join("\n");
 }
 
-function getApiSessionId(auth: AuthContext, requestedSessionId?: string): string {
+function getApiSessionId(
+  auth: AuthContext,
+  requestedSessionId?: string
+): string {
   if (auth.mode === "api-token") {
     return normalizeSessionPart(requestedSessionId ?? "");
   }
@@ -152,9 +73,7 @@ function getApiSessionId(auth: AuthContext, requestedSessionId?: string): string
   return normalizeSessionPart(requestedSessionId ?? "default");
 }
 
-function hasSubmitApiMessage(
-  agent: unknown
-): agent is {
+function hasSubmitApiMessage(agent: unknown): agent is {
   submitApiMessage: (input: {
     authMode: AuthContext["mode"];
     message: string;
@@ -180,15 +99,18 @@ function isSessionOwnerMismatchError(error: unknown): boolean {
   );
 }
 
-async function handleChat(request: Request, env: Env, auth: AuthContext) {
+async function handleChat(
+  request: Request,
+  env: Env,
+  http: Http,
+  auth: AuthContext
+) {
   const parsed = chatRequestSchema.safeParse(
     await request.json().catch(() => null)
   );
 
   if (!parsed.success) {
-    return json(
-      request,
-      env,
+    return http.json(
       {
         error: "Invalid request body",
         issues: parsed.error.issues.map((issue) => ({
@@ -201,9 +123,7 @@ async function handleChat(request: Request, env: Env, auth: AuthContext) {
   }
 
   if (auth.mode === "api-token" && !parsed.data.sessionId) {
-    return json(
-      request,
-      env,
+    return http.json(
       { error: "sessionId is required for AGENT_API_TOKEN requests" },
       400
     );
@@ -213,7 +133,7 @@ async function handleChat(request: Request, env: Env, auth: AuthContext) {
   const agentSessionId = getScopedSessionName(auth, sessionId);
   const agent: unknown = await getAgentByName(env.ChatAgent, agentSessionId);
   if (!hasSubmitApiMessage(agent)) {
-    return json(request, env, { error: "Agent request failed" }, 500);
+    return http.json({ error: "Agent request failed" }, 500);
   }
 
   try {
@@ -224,12 +144,14 @@ async function handleChat(request: Request, env: Env, auth: AuthContext) {
       timezone: parsed.data.timezone,
     });
 
-    return json(request, env, {
+    return http.json({
       ok: true,
       authMode: auth.mode,
       sessionId,
       agentSessionId,
-      status: result.interactionRequired ? "interaction_required" : result.status,
+      status: result.interactionRequired
+        ? "interaction_required"
+        : result.status,
       assistantText: result.assistantText,
       interactionRequired: result.interactionRequired,
       pendingInteractions: result.pendingInteractions,
@@ -237,9 +159,7 @@ async function handleChat(request: Request, env: Env, auth: AuthContext) {
     });
   } catch (error) {
     const status = isSessionOwnerMismatchError(error) ? 403 : 500;
-    return json(
-      request,
-      env,
+    return http.json(
       { error: status === 403 ? "Forbidden" : "Agent request failed" },
       status
     );
@@ -248,112 +168,56 @@ async function handleChat(request: Request, env: Env, auth: AuthContext) {
 
 async function requireAuth(
   request: Request,
-  env: Env
+  env: Env,
+  http: Http
 ): Promise<AuthContext | Response> {
   const auth = await authenticateRequest(request, env);
   if (auth) return auth;
 
-  return json(
-    request,
-    env,
-    { error: "Unauthorized. Provide a Clerk session token or AGENT_API_TOKEN." },
+  return http.json(
+    {
+      error: "Unauthorized. Provide a Clerk session token or AGENT_API_TOKEN.",
+    },
     401
   );
 }
 
-function withRateLimitHeaders(
+export async function handleRequest(
   request: Request,
-  env: Env,
-  response: Response,
-  rateLimitHeaders: Headers
-): Response {
-  const corsed = withCors(request, env, response);
-  const headers = new Headers(corsed.headers);
-  for (const [key, value] of rateLimitHeaders) {
-    headers.set(key, value);
-  }
-  return new Response(corsed.body, {
-    headers,
-    status: corsed.status,
-    statusText: corsed.statusText,
-  });
-}
-
-type IpRateLimitResult =
-  | { allowed: true; headers: Headers }
-  | { allowed: false; response: Response };
-
-function applyIpRateLimit(
-  request: Request,
-  env: Env,
-  routeKey: string
-): IpRateLimitResult {
-  const now = Date.now();
-  const limit = consumeRateLimit(
-    `${routeKey}:${clientIp(request)}`,
-    now,
-    CHAT_RATE_LIMIT.max,
-    CHAT_RATE_LIMIT.windowMs
-  );
-
-  const headers = new Headers({
-    "RateLimit-Limit": String(CHAT_RATE_LIMIT.max),
-    "RateLimit-Remaining": String(limit.remaining),
-    "RateLimit-Reset": String(secondsUntil(limit.resetAt, now)),
-  });
-
-  if (!limit.allowed) {
-    headers.set("Retry-After", String(secondsUntil(limit.resetAt, now)));
-    return {
-      allowed: false,
-      response: withCors(
-        request,
-        env,
-        new Response(JSON.stringify({ error: "rate limited" }), {
-          status: 429,
-          headers: {
-            ...Object.fromEntries(headers),
-            "Content-Type": "application/json",
-          },
-        })
-      ),
-    };
-  }
-
-  return { allowed: true, headers };
-}
-
-export async function handleRequest(request: Request, env: Env): Promise<Response> {
+  env: Env
+): Promise<Response> {
   if (request.method === "OPTIONS") {
-    return preflight(request, env);
+    return createHttp(request, env).preflight();
   }
 
+  const http = createHttp(request, env);
   const url = new URL(request.url);
 
-  if (request.method === "GET" && (url.pathname === "/" || url.pathname === "/agents")) {
-    return json(request, env, apiInfo());
+  if (
+    request.method === "GET" &&
+    (url.pathname === "/" || url.pathname === "/agents")
+  ) {
+    return http.json(apiInfo());
   }
 
   if (request.method === "GET" && url.pathname === "/health") {
-    return json(request, env, { ok: true, service: "duyet-agents-api" });
+    return http.json({ ok: true, service: "duyet-agents-api" });
   }
 
   if (request.method === "GET" && url.pathname === "/llms.txt") {
-    return text(request, env, llmsText());
+    return http.text(llmsText());
   }
 
   if (request.method === "POST" && url.pathname === "/api/v1/chat") {
     const rateLimit = applyIpRateLimit(request, env, "chat");
     if (!rateLimit.allowed) return rateLimit.response;
 
-    const auth = await requireAuth(request, env);
+    const auth = await requireAuth(request, env, http);
     if (auth instanceof Response) {
-      return withRateLimitHeaders(request, env, auth, rateLimit.headers);
+      return http.withRateLimitHeaders(auth, rateLimit.headers);
     }
-    return withRateLimitHeaders(
-      request,
-      env,
-      await handleChat(request, env, auth),
+    return http.withRateLimitHeaders(
+      await handleChat(request, env, http, auth),
       rateLimit.headers
     );
   }
@@ -362,33 +226,27 @@ export async function handleRequest(request: Request, env: Env): Promise<Respons
     const rateLimit = applyIpRateLimit(request, env, "agents");
     if (!rateLimit.allowed) return rateLimit.response;
 
-    const auth = await requireAuth(request, env);
+    const auth = await requireAuth(request, env, http);
     if (auth instanceof Response) {
-      return withRateLimitHeaders(request, env, auth, rateLimit.headers);
+      return http.withRateLimitHeaders(auth, rateLimit.headers);
     }
 
     const scopedRequest = scopedAgentRequest(request, auth);
     if (!scopedRequest) {
-      return withRateLimitHeaders(
-        request,
-        env,
-        json(request, env, { error: "Unknown agent route" }, 404),
+      return http.withRateLimitHeaders(
+        http.json({ error: "Unknown agent route" }, 404),
         rateLimit.headers
       );
     }
 
     const routed = await routeAgentRequest(scopedRequest, env);
-    return withRateLimitHeaders(
-      request,
-      env,
-      routed
-        ? withCors(request, env, routed)
-        : json(request, env, { error: "Not Found" }, 404),
+    return http.withRateLimitHeaders(
+      routed ? http.withCors(routed) : http.json({ error: "Not Found" }, 404),
       rateLimit.headers
     );
   }
 
-  return json(request, env, { error: "Not Found" }, 404);
+  return http.json({ error: "Not Found" }, 404);
 }
 
 export default {

@@ -24,8 +24,6 @@ export interface AuthContext {
   sessionId?: string;
 }
 
-export { getBearerToken, timingSafeEqual };
-
 export function getAuthorizedParties(env: AuthEnv): string[] {
   const configured =
     env.CLERK_AUTHORIZED_PARTIES?.split(",")

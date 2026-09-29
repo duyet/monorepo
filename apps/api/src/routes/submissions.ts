@@ -1,7 +1,11 @@
 import { type Context, Hono } from "hono";
 import type { Env } from "../env.js";
 import { getPostSlugs } from "../lib/blog-posts.js";
-import { consumeRateLimit, secondsUntil } from "../lib/rate-limit.js";
+import {
+  clientIp,
+  consumeRateLimit,
+  rateLimitHeaders,
+} from "../lib/rate-limit.js";
 import {
   type Accepted,
   ERROR_BODY,
@@ -18,7 +22,6 @@ import {
   type SubmissionKind,
   toRow,
 } from "../lib/submissions.js";
-import { clientIp } from "./card-description-streaming.js";
 
 type SubmissionContext = Context<{ Bindings: Env }>;
 
@@ -40,11 +43,14 @@ function handler<K extends SubmissionKind>(kind: K) {
       SUBMISSION_RATE_LIMIT.max,
       SUBMISSION_RATE_LIMIT.windowMs
     );
-    c.header("RateLimit-Limit", String(SUBMISSION_RATE_LIMIT.max));
-    c.header("RateLimit-Remaining", String(limit.remaining));
-    c.header("RateLimit-Reset", String(secondsUntil(limit.resetAt, now)));
+    for (const [key, value] of rateLimitHeaders(
+      limit,
+      SUBMISSION_RATE_LIMIT.max,
+      now
+    )) {
+      c.header(key, value);
+    }
     if (!limit.allowed) {
-      c.header("Retry-After", String(secondsUntil(limit.resetAt, now)));
       logOutcome(kind, "rate_limited");
       return c.json(ERROR_BODY[429], 429);
     }

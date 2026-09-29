@@ -6,105 +6,16 @@
 
 import { Hono } from "hono";
 import type { Env } from "../env.js";
+import {
+  executeClickHouseQuery,
+  getClickHouseConfig,
+} from "../lib/clickhouse.js";
 
 const AI_PERCENTAGE_CACHE_CONTROL =
   "public, max-age=3600, stale-while-revalidate=86400";
 
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
-const FETCH_TIMEOUT_MS = 10_000;
 const MAX_HISTORY_DAYS = 3650;
-const MAX_CLICKHOUSE_RESPONSE_BYTES = 1_048_576;
-
-export interface ClickHouseRequestConfig {
-  headers: Record<string, string>;
-  url: string;
-}
-
-/**
- * Build a ClickHouse HTTP target without embedding credentials in the URL.
- */
-export function getClickHouseConfig(env: Env): ClickHouseRequestConfig | null {
-  const host = env.CLICKHOUSE_HOST;
-  const password = env.CLICKHOUSE_PASSWORD;
-  const user = env.CLICKHOUSE_USER || "default";
-  const protocol = env.CLICKHOUSE_PROTOCOL || "https";
-  const port = env.CLICKHOUSE_PORT || "443";
-
-  if (!host || !password) {
-    return null;
-  }
-
-  return {
-    headers: {
-      "X-ClickHouse-Key": password,
-      "X-ClickHouse-User": user,
-    },
-    url: `${protocol}://${host}:${port}`,
-  };
-}
-
-/**
- * Request builder used by executeClickHouseQuery and tests.
- * The returned URL must never include userinfo.
- */
-export function buildClickHouseRequest(
-  env: Env,
-  query: string,
-  database = "default"
-): { headers: Record<string, string>; url: string; body: string } | null {
-  const config = getClickHouseConfig(env);
-  if (!config) {
-    return null;
-  }
-
-  return {
-    body: query,
-    headers: {
-      ...config.headers,
-      Accept: "application/json",
-      "Content-Type": "text/plain",
-    },
-    url: `${config.url}?database=${database}`,
-  };
-}
-
-/**
- * Execute ClickHouse query using native fetch and header-based auth.
- */
-export async function executeClickHouseQuery(
-  env: Env,
-  query: string,
-  database = "default"
-): Promise<any[]> {
-  const request = buildClickHouseRequest(env, query, database);
-  if (!request) {
-    throw new Error("ClickHouse not configured");
-  }
-
-  const response = await fetch(request.url, {
-    body: request.body,
-    headers: request.headers,
-    method: "POST",
-    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-  });
-
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(
-      `ClickHouse query failed: ${response.status} - ${errorText}`
-    );
-  }
-
-  const text = await response.text();
-  if (text.length > MAX_CLICKHOUSE_RESPONSE_BYTES) {
-    throw new Error(
-      `[REDACTED] response exceeded ${MAX_CLICKHOUSE_RESPONSE_BYTES} bytes`
-    );
-  }
-
-  const lines = text.trim().split("\n").filter(Boolean);
-  return lines.map((line) => JSON.parse(line));
-}
 
 export function clampHistoryDays(rawDays: number): number {
   if (!Number.isFinite(rawDays) || rawDays <= 0) {

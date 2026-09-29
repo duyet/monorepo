@@ -1,38 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import app from "../index.js";
 import { GENERATE_RATE_LIMIT, resetRateLimits } from "../lib/rate-limit.js";
-import { clientIp } from "./card-description-streaming.js";
 
 const TEST_TOKEN = "test-api-token";
 const AUTH_ENV = {
   API_TOKEN: TEST_TOKEN,
   OPENROUTER_API_KEY: "test-mock-key",
 };
-
-describe("clientIp", () => {
-  it("uses only CF-Connecting-IP", () => {
-    const request = new Request("https://api.duyet.net/api/llm/generate", {
-      headers: {
-        "CF-Connecting-IP": "203.0.113.1",
-        "True-Client-IP": "198.51.100.1",
-        "X-Forwarded-For": "192.0.2.1",
-      },
-    });
-
-    expect(clientIp(request)).toBe("203.0.113.1");
-  });
-
-  it("falls back to unknown when CF-Connecting-IP is absent", () => {
-    const request = new Request("https://api.duyet.net/api/llm/generate", {
-      headers: {
-        "True-Client-IP": "198.51.100.1",
-        "X-Forwarded-For": "192.0.2.1",
-      },
-    });
-
-    expect(clientIp(request)).toBe("unknown");
-  });
-});
 
 describe("card-description rate limit keying", () => {
   beforeEach(() => {

@@ -1,12 +1,14 @@
+import {
+  getBearerToken,
+  timingSafeEqualStrings as timingSafeEqual,
+} from "@duyet/libs/workers-auth";
 import { describe, expect, test } from "vitest";
 import {
   getAuthorizedParties,
-  getBearerToken,
   getScopedSessionName,
   normalizeSessionPart,
   SCOPED_SESSION_MAX_LENGTH,
   SESSION_PART_MAX_LENGTH,
-  timingSafeEqual,
   type AuthContext,
 } from "./auth";
 

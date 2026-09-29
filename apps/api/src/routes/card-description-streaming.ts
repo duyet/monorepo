@@ -7,7 +7,9 @@
 import { Hono } from "hono";
 import type { Env } from "../env.js";
 import { isAuthorizedApiRequest } from "../lib/auth.js";
+import { generateCardDescription } from "../lib/openrouter.js";
 import {
+  clientIp,
   consumeRateLimit,
   GENERATE_RATE_LIMIT,
   secondsUntil,
@@ -39,14 +41,6 @@ async function getLlmsHead(): Promise<string> {
   const body = (await response.text()).slice(0, MAX_CONTENT_LENGTH);
   llmsCache = { body, at: now };
   return body;
-}
-
-/**
- * Cloudflare sets this at the edge; client-controlled fallbacks would allow
- * bucket rotation when the header is absent (e.g. direct workers.dev access).
- */
-export function clientIp(request: Request): string {
-  return request.headers.get("CF-Connecting-IP") ?? "unknown";
 }
 
 cardDescriptionRouter.use("*", async (c, next) => {
@@ -184,43 +178,11 @@ cardDescriptionRouter.post("/", async (c) => {
       return c.json({ error: "OPENROUTER_API_KEY not configured" }, 500);
     }
 
-    const response = await fetch(
-      "https://openrouter.ai/api/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-          "Content-Type": "application/json",
-          "HTTP-Referer": "https://api.duyet.net",
-        },
-        body: JSON.stringify({
-          model: "z-ai/glm-4.5-air:free",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: `Content to describe:\n\n${content}` },
-          ],
-          max_tokens: 200,
-        }),
-      }
-    );
-
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`OpenRouter error: ${response.status} - ${errorText}`);
-    }
-
-    const data = (await response.json()) as any;
-
-    // Handle different response formats
-    let description = "";
-    if (data.choices?.[0]?.message?.content) {
-      description = data.choices[0].message.content;
-    } else if (data.content) {
-      description = data.content;
-    }
-
-    // Clean up the description (remove special tokens)
-    description = description.replace(/<s>|\[OUT\]|<INS>/g, "").trim();
+    const description = await generateCardDescription({
+      apiKey,
+      content,
+      systemPrompt,
+    });
 
     // Return JSON response with description
     return c.json({

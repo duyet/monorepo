@@ -73,6 +73,37 @@ export function secondsUntil(resetAt: number, now = Date.now()): number {
   return Math.max(0, Math.ceil((resetAt - now) / 1000));
 }
 
+/**
+ * Cloudflare sets this at the edge; client-controlled fallbacks would allow
+ * bucket rotation when the header is absent (e.g. direct workers.dev access).
+ */
+export function clientIp(request: Request): string {
+  return request.headers.get("CF-Connecting-IP") ?? "unknown";
+}
+
+/**
+ * IETF draft RateLimit-* headers plus Retry-After once the bucket is exhausted.
+ * Shared by every limiter so all routes advertise the same header set.
+ */
+export function rateLimitHeaders(
+  result: RateLimitResult,
+  max: number,
+  now: number
+): Headers {
+  const retryAfter = secondsUntil(result.resetAt, now);
+  const headers = new Headers({
+    "RateLimit-Limit": String(max),
+    "RateLimit-Remaining": String(result.remaining),
+    "RateLimit-Reset": String(retryAfter),
+  });
+
+  if (!result.allowed) {
+    headers.set("Retry-After", String(retryAfter));
+  }
+
+  return headers;
+}
+
 export function resetRateLimits(): void {
   buckets.clear();
 }

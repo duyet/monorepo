@@ -8,8 +8,6 @@ export interface ApiAuthEnv {
   API_TOKEN?: string;
 }
 
-export { getBearerToken, timingSafeEqual };
-
 export function getConfiguredApiTokens(env: ApiAuthEnv): string[] {
   return [env.API_TOKEN, env.AGENT_API_TOKEN].filter((token): token is string =>
     Boolean(token)
