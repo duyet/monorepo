@@ -33,3 +33,13 @@ if ! pnpm run test:scripts > "$TMPOUT" 2>&1; then
   exit 1
 fi
 rm -f "$TMPOUT"
+
+# The lockfile has to match the workspace manifests, because every workflow in
+# .github/workflows installs with --frozen-lockfile. A plain `pnpm install`
+# silently repairs drift locally, so a package.json change without a matching
+# pnpm-lock.yaml looks perfectly healthy on a dev machine and then fails all
+# 18 workflows at once. `pnpm run check-lockfile` is the cheapest gate for
+# that: it reports, and never repairs.
+if ! pnpm run check-lockfile; then
+  exit 1
+fi
