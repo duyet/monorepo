@@ -6,6 +6,7 @@ import { PromptForm } from "~/components/chatbot/prompt-form";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { App } from "./App";
+import { AGENT_ACTIVE_HREF, AGENT_APP_ID, AGENT_NAV } from "./lib/app-nav";
 import "./styles.css";
 
 const publishableKey = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -27,12 +28,9 @@ function AuthUnavailable() {
   return (
     <div className="flex min-h-dvh flex-col bg-background text-foreground">
       <SiteHeader
-        currentApp="agents"
-        localNav={[
-          { label: "Chat", href: "/" },
-          { label: "API", href: "https://api.duyet.net", external: true },
-        ]}
-        activeHref="/"
+        currentApp={AGENT_APP_ID}
+        localNav={AGENT_NAV}
+        activeHref={AGENT_ACTIVE_HREF}
       />
       <main className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col">
         <ChatConversation

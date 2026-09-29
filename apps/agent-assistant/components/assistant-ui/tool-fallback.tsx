@@ -1,9 +1,8 @@
 "use client";
 
-import {
-  type ToolCallMessagePartComponent,
-  type ToolCallMessagePartStatus,
-  useScrollLock,
+import type {
+  ToolCallMessagePartComponent,
+  ToolCallMessagePartStatus,
 } from "@assistant-ui/react";
 import {
   AlertCircleIcon,
@@ -12,15 +11,19 @@ import {
   LoaderIcon,
   XCircleIcon,
 } from "lucide-react";
-import { memo, useCallback, useRef, useState } from "react";
+import { memo } from "react";
+import {
+  collapseAnimationStyle,
+  collapsibleChevronClassName,
+  collapsibleContentClassName,
+  useCollapseState,
+} from "@/components/assistant-ui/collapsible-primitives";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
-
-const ANIMATION_DURATION = 200;
 
 export type ToolFallbackRootProps = Omit<
   React.ComponentProps<typeof Collapsible>,
@@ -39,25 +42,11 @@ function ToolFallbackRoot({
   children,
   ...props
 }: ToolFallbackRootProps) {
-  const collapsibleRef = useRef<HTMLDivElement>(null);
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const lockScroll = useScrollLock(collapsibleRef, ANIMATION_DURATION);
-
-  const isControlled = controlledOpen !== undefined;
-  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
-
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (!open) {
-        lockScroll();
-      }
-      if (!isControlled) {
-        setUncontrolledOpen(open);
-      }
-      controlledOnOpenChange?.(open);
-    },
-    [lockScroll, isControlled, controlledOnOpenChange]
-  );
+  const { collapsibleRef, handleOpenChange, isOpen } = useCollapseState({
+    defaultOpen,
+    onOpenChange: controlledOnOpenChange,
+    open: controlledOpen,
+  });
 
   return (
     <Collapsible
@@ -69,11 +58,7 @@ function ToolFallbackRoot({
         "aui-tool-fallback-root group/tool-fallback-root w-full rounded-lg border py-3",
         className
       )}
-      style={
-        {
-          "--animation-duration": `${ANIMATION_DURATION}ms`,
-        } as React.CSSProperties
-      }
+      style={collapseAnimationStyle}
       {...props}
     >
       {children}
@@ -156,9 +141,7 @@ function ToolFallbackTrigger({
         data-slot="tool-fallback-trigger-chevron"
         className={cn(
           "aui-tool-fallback-trigger-chevron size-4 shrink-0",
-          "transition-transform duration-(--animation-duration) ease-out",
-          "group-data-[state=closed]/trigger:-rotate-90",
-          "group-data-[state=open]/trigger:rotate-0"
+          ...collapsibleChevronClassName
         )}
       />
     </CollapsibleTrigger>
@@ -175,13 +158,7 @@ function ToolFallbackContent({
       data-slot="tool-fallback-content"
       className={cn(
         "aui-tool-fallback-content relative overflow-hidden text-sm outline-none",
-        "group/collapsible-content ease-out",
-        "data-[state=closed]:animate-collapsible-up",
-        "data-[state=open]:animate-collapsible-down",
-        "data-[state=closed]:fill-mode-forwards",
-        "data-[state=closed]:pointer-events-none",
-        "data-[state=open]:duration-(--animation-duration)",
-        "data-[state=closed]:duration-(--animation-duration)",
+        ...collapsibleContentClassName,
         className
       )}
       {...props}

@@ -17,14 +17,10 @@ import {
   AgentApiTransport,
   type AgentChatResponse,
 } from "./agent-api-transport";
+import { AGENT_ACTIVE_HREF, AGENT_APP_ID, AGENT_NAV } from "./lib/app-nav";
 import { userFacingChatError } from "./lib/chat-error";
 
 const SESSION_STORAGE_KEY = "duyet-agent-ui-session-id";
-
-const AGENT_NAV = [
-  { label: "Chat", href: "/" },
-  { label: "API", href: "https://api.duyet.net", external: true },
-];
 
 function createSessionId(): string {
   return `web-${crypto.randomUUID()}`;
@@ -93,7 +89,11 @@ function ChatScreen() {
 
   return (
       <div className="flex min-h-dvh flex-col overflow-x-hidden bg-background text-foreground">
-      <SiteHeader currentApp="agents" localNav={AGENT_NAV} activeHref="/" />
+      <SiteHeader
+        currentApp={AGENT_APP_ID}
+        localNav={AGENT_NAV}
+        activeHref={AGENT_ACTIVE_HREF}
+      />
 
       <main className="mx-auto flex min-h-0 w-full max-w-2xl flex-1 flex-col">
         <ChatConversation

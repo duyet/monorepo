@@ -1,24 +1,20 @@
 "use client";
 
-import { useScrollLock } from "@assistant-ui/react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { ChevronDownIcon, LoaderIcon } from "lucide-react";
+import { type FC, memo, type PropsWithChildren } from "react";
 import {
-  type FC,
-  memo,
-  type PropsWithChildren,
-  useCallback,
-  useRef,
-  useState,
-} from "react";
+  collapseAnimationStyle,
+  collapsibleChevronClassName,
+  collapsibleContentClassName,
+  useCollapseState,
+} from "@/components/assistant-ui/collapsible-primitives";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import { cn } from "@/lib/utils";
-
-const ANIMATION_DURATION = 200;
 
 const toolGroupVariants = cva("aui-tool-group-root group/tool-group w-full", {
   variants: {
@@ -50,25 +46,11 @@ function ToolGroupRoot({
   children,
   ...props
 }: ToolGroupRootProps) {
-  const collapsibleRef = useRef<HTMLDivElement>(null);
-  const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
-  const lockScroll = useScrollLock(collapsibleRef, ANIMATION_DURATION);
-
-  const isControlled = controlledOpen !== undefined;
-  const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
-
-  const handleOpenChange = useCallback(
-    (open: boolean) => {
-      if (!open) {
-        lockScroll();
-      }
-      if (!isControlled) {
-        setUncontrolledOpen(open);
-      }
-      controlledOnOpenChange?.(open);
-    },
-    [lockScroll, isControlled, controlledOnOpenChange]
-  );
+  const { collapsibleRef, handleOpenChange, isOpen } = useCollapseState({
+    defaultOpen,
+    onOpenChange: controlledOnOpenChange,
+    open: controlledOpen,
+  });
 
   return (
     <Collapsible
@@ -82,11 +64,7 @@ function ToolGroupRoot({
         "group/tool-group-root",
         className
       )}
-      style={
-        {
-          "--animation-duration": `${ANIMATION_DURATION}ms`,
-        } as React.CSSProperties
-      }
+      style={collapseAnimationStyle}
       {...props}
     >
       {children}
@@ -145,9 +123,7 @@ function ToolGroupTrigger({
         data-slot="tool-group-trigger-chevron"
         className={cn(
           "aui-tool-group-trigger-chevron size-4 shrink-0",
-          "transition-transform duration-(--animation-duration) ease-out",
-          "group-data-[state=closed]/trigger:-rotate-90",
-          "group-data-[state=open]/trigger:rotate-0"
+          ...collapsibleChevronClassName
         )}
       />
     </CollapsibleTrigger>
@@ -164,13 +140,7 @@ function ToolGroupContent({
       data-slot="tool-group-content"
       className={cn(
         "aui-tool-group-content relative overflow-hidden text-sm outline-none",
-        "group/collapsible-content ease-out",
-        "data-[state=closed]:animate-collapsible-up",
-        "data-[state=open]:animate-collapsible-down",
-        "data-[state=closed]:fill-mode-forwards",
-        "data-[state=closed]:pointer-events-none",
-        "data-[state=open]:duration-(--animation-duration)",
-        "data-[state=closed]:duration-(--animation-duration)",
+        ...collapsibleContentClassName,
         className
       )}
       {...props}
