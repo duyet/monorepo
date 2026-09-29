@@ -29,8 +29,10 @@ CH_PROTOCOL=https              # Optional: http/https, auto-detected from port
 ```typescript
 import { getClient, ping } from './lib/clickhouse'
 
-// Get client instance (singleton)
-const client = getClient()
+// Get client instance (singleton). Async: the ClickHouse SDK is imported
+// lazily, because the shared client in @duyet/config/clickhouse is also
+// bundled by apps/insights for the browser.
+const client = await getClient()
 
 // Test connection
 const isConnected = await ping()
@@ -263,6 +265,14 @@ All functions implement comprehensive error handling:
 - Detailed error logging for debugging
 - Graceful fallbacks for non-critical operations
 
+Retries are **transient-only**: a connection or timeout failure gets another
+attempt, but a syntax error, a missing table or a rejected password fails on
+the first try. It used to retry everything, which meant a migration with a typo
+paid 1s + 2s of backoff before the runner saw an error it could never fix. The
+client now lives in `@duyet/config/clickhouse` and is shared with
+`apps/insights`; see `ClickHouseClientOptions` there for the full list of
+per-app settings.
+
 ### Query Safety
 
 Built-in safety mechanisms:
@@ -278,12 +288,12 @@ Built-in safety mechanisms:
 
 ```typescript
 // ✅ CORRECT: Reuse singleton client
-const client = getClient()
+const client = await getClient()
 const result1 = await executeQuery('SELECT 1')
 const result2 = await executeQuery('SELECT 2')
 
 // ❌ WRONG: Don't close client after each query
-const client = getClient()
+const client = await getClient()
 const result = await executeQuery('SELECT 1')
 await closeClient() // Don't do this!
 ```

@@ -9,6 +9,7 @@
     ".": "./src/index.ts",
     "./app": "./src/app.config.ts",
     "./api": "./src/api.config.ts",
+    "./clickhouse": "./src/clickhouse.ts",
     "./og": "./src/og.ts",
     "./og-card": "./src/og-card.ts",
     "./ui": "./src/ui.config.ts"
@@ -23,6 +24,7 @@
     "typescript": "^6.0.0"
   },
   "dependencies": {
+    "@clickhouse/client": "^1.12.1",
     "@duyet/dither-kit": "*"
   }
 }

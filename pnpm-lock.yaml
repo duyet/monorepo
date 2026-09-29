@@ -1525,6 +1525,9 @@ importers:
 
   packages/config:
     dependencies:
+      '@clickhouse/client':
+        specifier: ^1.12.1
+        version: 1.23.1
       '@duyet/dither-kit':
         specifier: '*'
         version: link:../dither-kit
