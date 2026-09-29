@@ -48,6 +48,8 @@
     "./y-axis": "./src/y-axis.tsx"
   },
   "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest",
     "lint": "tsc --noEmit",
     "check-types": "tsc --noEmit"
   },
