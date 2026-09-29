@@ -44,6 +44,12 @@ function gitChangedFiles(base?: string, head?: string): string[] {
     .filter(Boolean);
 }
 
+// This script is a GitHub Actions step, never a turbo task, so these two vars
+// are intentionally absent from `globalEnv` in turbo.json: turbo hashes
+// globalEnv for every task, and `GITHUB_OUTPUT` holds a per-run file path, so
+// declaring it would bust the build cache on every CI run to protect a task
+// that never reads it.
+// biome-ignore lint/suspicious/noUndeclaredEnvVars: see turbo.json note above
 const event = argValue("--event") ?? process.env.GITHUB_EVENT_NAME ?? "push";
 const inputApp = argValue("--input-app") ?? "";
 const base = argValue("--base");
@@ -83,7 +89,9 @@ if (selected.length === 0) {
 
 const encoded = JSON.stringify(matrix);
 process.stdout.write(`${encoded}\n`);
+// biome-ignore lint/suspicious/noUndeclaredEnvVars: see turbo.json note above
 if (process.env.GITHUB_OUTPUT) {
   const { appendFileSync } = await import("node:fs");
+  // biome-ignore lint/suspicious/noUndeclaredEnvVars: see turbo.json note above
   appendFileSync(process.env.GITHUB_OUTPUT, `matrix=${encoded}\n`);
 }
