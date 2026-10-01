@@ -2,7 +2,9 @@ import type { Post } from "@duyet/interfaces";
 import { ArrowRight } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import { yearColor } from "@/lib/colors";
+import { useCommentCounts } from "@/lib/hooks/use-comment-counts";
 import { CatChip } from "./CatChip";
+import { CommentCount } from "./CommentCount";
 import { postParams } from "./FeaturedPost";
 import { Eyebrow } from "@duyet/components";
 
@@ -41,6 +43,9 @@ function PostList({
   setActiveCategory,
   totalPosts,
 }: PostListProps) {
+  // Discussion totals land after hydration; rows render without them first.
+  const commentCounts = useCommentCounts(filteredPosts);
+
   return (
     <section
       id="latest"
@@ -116,6 +121,7 @@ function PostList({
                   <span className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[11px] w-[52px] text-right">
                     {tokenLabel} tok
                   </span>
+                  <CommentCount count={commentCounts[post.slug]} />
                 </span>
               </Link>
 
