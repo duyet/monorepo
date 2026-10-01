@@ -42,18 +42,22 @@ export interface Shortform {
   id: string
   date: Date
   title?: string
+  x?: string
+  hackerNews?: string
   body: string
   excerpt: string
 }
 
 function toShortform(path: string, raw: string): Shortform {
   const filename = path.split('/').pop()!.replace(/\.md$/, '')
-  const { date, title, slug, body } = parseFrontmatter(raw)
+  const { date, title, slug, x, hackerNews, body } = parseFrontmatter(raw)
   const resolved = resolveEmbeds(body)
   return {
     id: shortformId(filename, slug),
     date: new Date(date),
     title,
+    ...(x ? { x } : {}),
+    ...(hackerNews ? { hackerNews } : {}),
     body: resolved,
     excerpt: toExcerpt(resolved),
   }

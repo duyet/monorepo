@@ -11,6 +11,8 @@ export interface ParsedFrontmatter {
   date: string
   title?: string
   slug?: string
+  x?: string
+  hackerNews?: string
   body: string
 }
 
@@ -24,10 +26,14 @@ export function parseFrontmatter(raw: string): ParsedFrontmatter {
   const dateMatch = fm.match(/^date:\s*(.+)$/m)
   const titleMatch = fm.match(/^title:\s*(.+)$/m)
   const slugMatch = fm.match(/^slug:\s*(.+)$/m)
+  const xMatch = fm.match(/^x:\s*(.+)$/m)
+  const hnMatch = fm.match(/^hackerNews:\s*(.+)$/m)
   return {
     date: dateMatch ? dateMatch[1].trim() : '',
     title: titleMatch ? titleMatch[1].trim() : undefined,
     slug: slugMatch ? slugMatch[1].trim() : undefined,
+    ...(xMatch ? { x: xMatch[1].trim() } : {}),
+    ...(hnMatch ? { hackerNews: hnMatch[1].trim() } : {}),
     body: content.trim(),
   }
 }
