@@ -1,6 +1,4 @@
 import type { Series } from "@duyet/interfaces";
-import { Card, CardContent } from "@duyet/components";
-import { cn } from "@duyet/libs/utils";
 import {
   createFileRoute,
   Link,
@@ -24,25 +22,6 @@ export const Route = createFileRoute("/series")({
   component: SeriesPage,
 });
 
-const SERIES_COLORS = [
-  "text-rose-600 dark:text-rose-400",
-  "text-amber-600 dark:text-amber-400",
-  "text-emerald-600 dark:text-emerald-400",
-  "text-blue-600 dark:text-blue-400",
-  "text-violet-600 dark:text-violet-400",
-  "text-cyan-600 dark:text-cyan-400",
-  "text-orange-600 dark:text-orange-400",
-  "text-teal-600 dark:text-teal-400",
-  "text-pink-600 dark:text-pink-400",
-  "text-sky-600 dark:text-sky-400",
-  "text-lime-600 dark:text-lime-400",
-  "text-fuchsia-600 dark:text-fuchsia-400",
-  "text-indigo-600 dark:text-indigo-400",
-  "text-green-600 dark:text-green-400",
-  "text-red-600 dark:text-red-400",
-  "text-yellow-600 dark:text-yellow-400",
-];
-
 function SeriesPage(): ReactElement {
   const hasChild = useMatches().some(
     (match) => match.routeId === "/series/$slug"
@@ -53,22 +32,21 @@ function SeriesPage(): ReactElement {
   return (
     <div className="mx-auto w-full max-w-5xl px-4 sm:px-6 lg:px-8">
       <header className="pt-24 md:pt-28 pb-10 mx-auto">
-        <span className="inline-block text-[0.6875rem] font-medium tracking-[0.16em] uppercase text-muted-foreground mb-3.5">
-          Reading paths
-        </span>
         <h1 className="text-[clamp(2.25rem,4.5vw,3.25rem)] font-semibold leading-[1.08] tracking-[-0.018em] text-foreground m-0">
           Series
         </h1>
         <p className="mt-4 text-base leading-[1.6] text-muted-foreground max-w-xl">
-          Longer threads and linked notes grouped into focused reading paths.
+          Posts grouped by subject.
         </p>
       </header>
 
       <div
-        className="grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2 lg:grid-cols-3"
+        className="mb-16 grid grid-cols-1 gap-px border border-border bg-border sm:grid-cols-2"
         aria-label="All series"
       >
         {seriesList.map((series, i) => {
+          const latest = series.posts[0];
+          const count = series.posts.length;
           const style: CSSProperties = {
             animationDelay: `${Math.min(i, 12) * 40}ms`,
           };
@@ -77,48 +55,22 @@ function SeriesPage(): ReactElement {
               key={series.slug}
               to="/series/$slug/"
               params={{ slug: series.slug }}
-              className="editorial-enter group block bg-background transition-colors hover:bg-muted/60 focus-visible:bg-muted/60 focus-visible:outline-none"
+              className="editorial-enter group block bg-background px-5 py-5 no-underline text-inherit transition-colors hover:bg-muted/60 focus-visible:bg-muted/60 focus-visible:outline-none"
               style={style}
             >
-              <Card className="h-full rounded-none border-0 bg-transparent">
-                <CardContent className="flex h-full flex-col gap-3 p-5">
-                  <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                    Series
-                  </span>
-                  <h3 className={cn("text-base font-semibold tracking-tight", SERIES_COLORS[i % SERIES_COLORS.length])}>
-                    {series.name}
-                  </h3>
-                  {series.posts.length > 0 && (
-                    <ul className="list-none p-0 m-0 flex flex-col gap-1.5 mt-1">
-                      {series.posts.slice(0, 4).map((post, pi) => (
-                        <li
-                          key={post.slug}
-                          className="text-[13px] text-muted-foreground truncate flex items-center gap-1.5"
-                        >
-                          <span className="font-mono text-[10px] text-muted-foreground/50 tabular-nums">
-                            {String(pi + 1).padStart(2, "0")}
-                          </span>
-                          {post.title}
-                        </li>
-                      ))}
-                      {series.posts.length > 4 && (
-                        <li className="text-[11px] text-muted-foreground/60 font-mono">
-                          +{series.posts.length - 4} more
-                        </li>
-                      )}
-                    </ul>
-                  )}
-                  <div className="mt-auto flex items-center justify-between pt-2 text-xs text-muted-foreground">
-                    <span className="font-mono tabular-nums">
-                      {String(series.posts.length).padStart(2, "0")}{" "}
-                      {series.posts.length === 1 ? "post" : "posts"}
-                    </span>
-                    <span className="opacity-60 transition-opacity group-hover:opacity-100">
-                      →
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="flex items-baseline justify-between gap-3">
+                <h2 className="m-0 min-w-0 text-base font-semibold leading-tight tracking-[-0.01em] text-foreground">
+                  {series.name}
+                </h2>
+                <span className="shrink-0 font-mono text-xs tabular-nums text-muted-foreground">
+                  {count} {count === 1 ? "post" : "posts"}
+                </span>
+              </div>
+              {latest && (
+                <p className="mt-2 truncate text-sm leading-[1.55] text-muted-foreground">
+                  {latest.title}
+                </p>
+              )}
             </Link>
           );
         })}
