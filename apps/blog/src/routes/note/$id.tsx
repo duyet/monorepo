@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from '@tanstack/react-router'
 import { type ReactElement, Suspense } from 'react'
 import { Markdown } from '@/components/Markdown'
 import { getShortformById, getShortforms } from '@/lib/shortforms'
+import { MarkdownMenuWrapper } from '@/src/routes/$year/$month/-markdown-menu-wrapper'
 import type { Shortform } from '@/lib/shortforms'
 
 
@@ -17,8 +18,12 @@ interface NoteData {
 export const Route = createFileRoute('/note/$id')({
   head: ({ loaderData }) => {
     const note = (loaderData as NoteData | undefined)?.note
+    const id = note?.id
     return {
-      meta: [{ title: `${note?.title ?? note?.id ?? 'Note'} | Quick Notes` }],
+      meta: [{ title: `${note?.title ?? id ?? 'Note'} | Quick Notes` }],
+      links: id
+        ? [{ rel: 'alternate', type: 'text/markdown', href: `/note/${id}.md` }]
+        : [],
     }
   },
   loader: ({ params }) => {
@@ -86,6 +91,33 @@ function NotePage(): ReactElement {
               {dateFormat(note.date, 'MMM d, yyyy')}
             </p>
           </div>
+        </div>
+        <div className="mt-4 flex items-center gap-4 flex-wrap">
+          {note.hackerNews ? (
+            <a
+              href={note.hackerNews}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+            >
+              Comment on HN ↗
+            </a>
+          ) : null}
+          {note.x ? (
+            <a
+              href={note.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+            >
+              Comment on X ↗
+            </a>
+          ) : null}
+          <MarkdownMenuWrapper
+            markdownUrl={`/note/${note.id}.md`}
+            markdownContent={note.body}
+            dropUp={false}
+          />
         </div>
         {note.title ? (
           <h1 className="mt-8 text-2xl font-bold tracking-tight">{note.title}</h1>
