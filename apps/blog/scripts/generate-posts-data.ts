@@ -145,6 +145,7 @@ const metaFields = [
   "video",
   "author",
   "x",
+  "hackerNews",
   "changelog",
   "parent",
   "parts",
