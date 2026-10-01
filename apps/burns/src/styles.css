@@ -201,6 +201,15 @@ body {
   color: var(--ink);
 }
 
+/* Legend left, period total right, on one line that wraps as a unit. */
+.burns-legend-line {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 10px;
+}
+
 .burns-legend {
   display: flex;
   flex-wrap: wrap;
@@ -210,6 +219,40 @@ body {
   list-style: none;
   font-size: 11px;
   color: var(--muted);
+}
+
+/* The period total, doubling as the trigger for its own breakdown dialog. */
+.burns-period-total {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 11px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.burns-period-total:hover .burns-period-scope {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.burns-period-scope {
+  color: var(--muted-soft);
+}
+
+@media (width <= 480px) {
+  .burns-legend-line {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
 }
 
 .burns-legend li {
