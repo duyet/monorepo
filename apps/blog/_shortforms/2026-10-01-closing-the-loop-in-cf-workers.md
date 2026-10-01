@@ -8,6 +8,10 @@ Cloudflare shipped [Issues](https://blog.cloudflare.com/real-time-issue-detectio
 
 ![[closing-the-loop-cf-1.jpeg]]
 
+<div></div>
+
 ![[closing-the-loop-cf-2.jpeg]]
+
+<div></div>
 
 ![[closing-the-loop-cf-3.jpeg]]
