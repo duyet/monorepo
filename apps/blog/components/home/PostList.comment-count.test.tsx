@@ -1,7 +1,16 @@
 import type { Post } from "@duyet/interfaces";
 import { render, waitFor } from "@testing-library/react";
+import type { ReactNode } from "react";
 import { afterEach, describe, expect, test, vi } from "vitest";
 import { PostList } from "./PostList";
+
+// The `@duyet/components` barrel re-exports `@duyet/libs`, whose `string.ts`
+// dynamically imports the built `@duyet/wasm` output, and the unit-test job
+// does not build WASM. PostList only wants `Eyebrow` from the barrel and
+// nothing below asserts on its markup, so stub just that.
+vi.mock("@duyet/components", () => ({
+  Eyebrow: ({ children }: { children: ReactNode }) => <div>{children}</div>,
+}));
 
 function post(
   slug: string,
