@@ -1,7 +1,46 @@
+import { useEffect, useState } from "react";
 import { SubscribeCapture } from "@duyet/components/subscribe/SubscribeCapture";
 import { formatReadingTime } from "@duyet/libs/date";
 import { MarkdownMenuWrapper } from "./-markdown-menu-wrapper";
 import type { LoadedPost } from "./-types";
+
+const commentLinkClass =
+  "font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors";
+
+function HackerNewsLink({ href }: { href: string }) {
+  const id = href.match(/item\?id=(\d+)/)?.[1];
+  const [count, setCount] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (!id) return;
+    const controller = new AbortController();
+    fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`, {
+      signal: controller.signal,
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((item: { descendants?: number } | null) => {
+        if (typeof item?.descendants === "number") setCount(item.descendants);
+      })
+      .catch(() => {});
+    return () => controller.abort();
+  }, [id]);
+
+  const label =
+    count === null
+      ? "Comment on HN ↗"
+      : `Comment on HN · ${count} ${count === 1 ? "comment" : "comments"} ↗`;
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={commentLinkClass}
+    >
+      {label}
+    </a>
+  );
+}
 
 export function PostHero({ post }: { post: LoadedPost }) {
   const date = new Date(post.date).toLocaleDateString("en-US", {
@@ -36,22 +75,13 @@ export function PostHero({ post }: { post: LoadedPost }) {
             {post.changelog.length} updates · updated {post.changelog[0].date}
           </span>
         )}
-        {post.hackerNews && (
-          <a
-            href={post.hackerNews}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
-          >
-            Comment on HN ↗
-          </a>
-        )}
+        {post.hackerNews && <HackerNewsLink href={post.hackerNews} />}
         {post.x && (
           <a
             href={post.x}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+            className={commentLinkClass}
           >
             Comment on X ↗
           </a>
