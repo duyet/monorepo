@@ -54,6 +54,7 @@ interface RawPost {
   series?: string;
   snippet?: string;
   x?: string;
+  hackerNews?: string;
   readingTime?: number;
   isMDX?: boolean;
   parent?: string;

@@ -22,6 +22,8 @@ export type Post = {
   snippet?: string;
   /** X (Twitter) status URL for commenting on this post. */
   x?: string;
+  /** Hacker News thread for this post. */
+  hackerNews?: string;
   path?: string;
   isMDX?: boolean;
   mdxCode?: string;
