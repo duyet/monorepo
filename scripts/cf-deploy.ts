@@ -769,9 +769,56 @@ function printSummary(success: boolean) {
 }
 
 /**
- * Main execution
+ * Production on Cloudflare Pages is whatever GitHub `main` last built.
+ * A local `--prod` from an unpushed commit publishes that commit, and the
+ * next push to `main` builds GitHub's older tree and rolls the site back.
  */
+function refuseUnpushedProductionDeploy(): void {
+  if (!isProd || dryRun || process.env.GITHUB_ACTIONS) return;
+
+  const git = (args: string[]) =>
+    spawnSync("git", args, { cwd: rootDir, encoding: "utf-8" });
+
+  const head = git(["rev-parse", "HEAD"]);
+  const origin = git(["rev-parse", "origin/main"]);
+  if (head.status !== 0 || origin.status !== 0) {
+    console.error(
+      "\n[ERROR] Refusing --prod: cannot resolve HEAD or origin/main. Fetch origin, then deploy from a commit that is already on GitHub main."
+    );
+    process.exit(1);
+  }
+
+  const onOriginMain = git([
+    "merge-base",
+    "--is-ancestor",
+    head.stdout.trim(),
+    "origin/main",
+  ]);
+  if (onOriginMain.status !== 0) {
+    console.error(
+      "\n[ERROR] Refusing --prod: HEAD is not on origin/main."
+    );
+    console.error(
+      "  Push and merge first. A later CI deploy of GitHub main would roll production back over this build."
+    );
+    process.exit(1);
+  }
+
+  const dirty = git(["status", "--porcelain", "--", "apps", "packages"]);
+  if ((dirty.stdout ?? "").trim()) {
+    console.error(
+      "\n[ERROR] Refusing --prod: apps/ or packages/ have uncommitted changes."
+    );
+    console.error(
+      "  Commit and land them on origin/main first, or they will be missing from the next CI deploy."
+    );
+    process.exit(1);
+  }
+}
+
 async function main() {
+  refuseUnpushedProductionDeploy();
+
   console.log("\n┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
   console.log("┃     Cloudflare Pages Deployment Orchestrator   ┃");
   console.log("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
