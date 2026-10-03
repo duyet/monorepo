@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.1.10](https://github.com/duyet/monorepo/compare/v0.1.9...v0.1.10) (2026-10-03)
+
+
+### ✨ Features
+
+* **blog:** link notes to markdown and discussions ([#1525](https://github.com/duyet/monorepo/issues/1525)) ([39a7f2d](https://github.com/duyet/monorepo/commit/39a7f2d7ff677e1f408de2efb299220c3b84d59c))
+* **blog:** simplify the series index ([#1531](https://github.com/duyet/monorepo/issues/1531)) ([c368234](https://github.com/duyet/monorepo/commit/c36823471d9c105430f9d6a825fc012f464f113e))
+* **blog:** total comment count beside the recent-posts metadata ([#1534](https://github.com/duyet/monorepo/issues/1534)) ([3627193](https://github.com/duyet/monorepo/commit/3627193525a20f842c81a9eb0671a63c81e655a0))
+* **burns:** a 30-day range, and the period total on the legend line ([#1532](https://github.com/duyet/monorepo/issues/1532)) ([67bada1](https://github.com/duyet/monorepo/commit/67bada1278a9c165c490ce5cc84fccdd6dba7194))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** show the Hacker News thread on posts ([#1529](https://github.com/duyet/monorepo/issues/1529)) ([fdc4322](https://github.com/duyet/monorepo/commit/fdc4322187db3901e5517c3dc31587ce7683943a))
+* **deploy:** refuse production deploys that GitHub lacks ([#1528](https://github.com/duyet/monorepo/issues/1528)) ([d5ac7c7](https://github.com/duyet/monorepo/commit/d5ac7c7d22307b940d4f33322be5ab236fa53ab9))
+
 ## [0.1.9](https://github.com/duyet/monorepo/compare/v0.1.8...v0.1.9) (2026-09-28)
 
 
