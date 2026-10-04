@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getOrgInitials, getOrgLogoUrl } from "./org-logos";
+import { getOrgInitials, getOrgLogoUrl, getOrgColor } from "./org-logos";
 
 describe("getOrgInitials", () => {
   it("takes the first letter of each of the first two words", () => {
@@ -28,5 +28,16 @@ describe("getOrgLogoUrl", () => {
       "https://cdn.simpleicons.org/anthropic/ffffff",
     );
     expect(getOrgLogoUrl("No Such Lab")).toBeNull();
+  });
+});
+
+describe("getOrgColor", () => {
+  it("picks a stable class pair from the org name", () => {
+    expect(getOrgColor("OpenAI")).toBe(
+      "bg-[color-mix(in_srgb,var(--rd-accent)_10%,var(--rd-surface))] text-[var(--rd-accent-ink)]",
+    );
+    expect(getOrgColor("Google")).toBe(
+      "bg-[var(--rd-surface-2)] text-[var(--rd-text-2)]",
+    );
   });
 });
