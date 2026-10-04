@@ -72,10 +72,17 @@ describe("discoverPagesApps", () => {
 describe("selectAppsToDeploy", () => {
   const apps = discoverPagesApps(DEFAULT_APPS_DIR);
 
-  it("deploys only burns on schedule", () => {
+  it("deploys the data-baked apps on schedule", () => {
     expect(
       selectAppsToDeploy({ apps, event: "schedule" }).map((app) => app.name),
-    ).toEqual(["burns"]);
+    ).toEqual([
+      "ai-percentage",
+      "burns",
+      "home",
+      "insights",
+      "llm-timeline",
+      "photos",
+    ]);
   });
 
   it("deploys a named app or all apps on workflow_dispatch", () => {
