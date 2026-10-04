@@ -21,9 +21,9 @@ I have the [herdr-desk](https://github.com/duyet/herdr-desk) plugin, which is sc
 
 This is also the best for working across repos, one integrated with another, and one agent can raise an issue for another one to fix, and both keep improving.
 
-You can launch Herdr on multiple machines as well, and have one Herdr dashboard in one place, even on your phone. Install Tailscale on all of them. You should design the Tailscale ACL groups carefully, to isolate them for security.
+You can launch Herdr on multiple machines and keep one Herdr dashboard, even on your phone. Install Tailscale on all of them. You should design the Tailscale ACL groups carefully, to isolate them for security.
 
-If you are using Grok Bot or Cue or Muse or Dot, install Tailscale and Herdr on their computer as well, working the same way. They can control it as well, and you can see what is actually running from your Mac.
+If you are using Grok Bot or Cue or Muse or Dot, install Tailscale and Herdr on their computer, working the same way. They can control it, and you can see what is actually running from your Mac.
 
 ![Herdr sessions across repos](/media/2026/10/herdr/herdr-1.jpeg)
 
