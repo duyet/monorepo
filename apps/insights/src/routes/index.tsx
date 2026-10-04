@@ -23,6 +23,7 @@ import {
   compactName,
   formatNumber,
   formatCompact,
+  formatSnapshotTime,
 } from "@/components/overview/helpers";
 
 export const Route = createFileRoute("/")({
@@ -180,13 +181,7 @@ function IndexPage() {
   const pageViews =
     data.cloudflare.totalPageviews || data.posthog.totalViews;
 
-  const generatedAt = data.cloudflare.generatedAt
-    ? new Date(data.cloudflare.generatedAt).toLocaleDateString("en-US", {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      })
-    : null;
+  const snapshotTime = formatSnapshotTime(data.cloudflare.generatedAt);
 
   /* ---- KPI data ----
    * Trend is a real period-over-period delta: mean of the second half of the
@@ -272,8 +267,8 @@ function IndexPage() {
       <div
         className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-xs mt-4"
       >
-        {generatedAt
-          ? `Last updated ${generatedAt}`
+        {snapshotTime
+          ? `Snapshot ${snapshotTime}`
           : `Last 30 days`}{" "}
         · sources: Cloudflare, PostHog, ClickHouse, WakaTime
       </div>
