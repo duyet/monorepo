@@ -81,7 +81,9 @@ describe("dataLabel", () => {
 });
 
 describe("formatMonth", () => {
-  test("labels a YYYY-MM-DD value as its month", () => {
+  test("labels a YYYY-MM(-DD) value with month and year", () => {
+    expect(formatMonth("2026-08")).toBe("Aug 2026");
     expect(formatMonth("2026-08-15")).toBe("Aug 2026");
+    expect(formatMonth("2025-01")).toBe("Jan 2025");
   });
 });
