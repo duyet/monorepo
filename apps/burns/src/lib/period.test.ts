@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { rangeScope, summarizePeriod } from "./period";
+import { rangeScope, stackedTokens, summarizePeriod } from "./period";
 import type { DailyEntry } from "./types";
 
 /** Newest-first, matching what `scripts/fetch-burns-data.ts` writes. */
@@ -35,6 +35,19 @@ const DAILY: DailyEntry[] = [
   }),
   day("2026-03-01", 10, { "claude-code": [10, 5] }, { cost: 5 }),
 ];
+
+describe("stackedTokens", () => {
+  test("sums the painted stack when it disagrees with total_tokens", () => {
+    const fixture = day("2026-03-04", 99, { Codex: [12, 1], gemini: [8, 1] });
+    expect(stackedTokens(fixture)).toBe(20);
+  });
+
+  test("falls back to total_tokens when the stack is empty", () => {
+    const fixture = day("2026-03-04", 42, {});
+    fixture.by_source = [];
+    expect(stackedTokens(fixture)).toBe(42);
+  });
+});
 
 describe("summarizePeriod", () => {
   test("slices the newest days, since daily is newest-first", () => {
