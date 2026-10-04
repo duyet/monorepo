@@ -25,6 +25,28 @@ const models: Model[] = [
     source: "curated",
     domain: "Language, Vision",
   },
+  {
+    name: "Meta Closed",
+    date: "2024-07-01",
+    org: "Meta",
+    params: "70B",
+    type: "model",
+    license: "closed",
+    desc: "closed weights",
+    source: "curated",
+    domain: "Language",
+  },
+  {
+    name: "Mistral Open",
+    date: "2024-07-15",
+    org: "Mistral",
+    params: "7B",
+    type: "model",
+    license: "open",
+    desc: "open weights",
+    source: "curated",
+    domain: "Language",
+  },
 ];
 
 describe("filterModels", () => {
