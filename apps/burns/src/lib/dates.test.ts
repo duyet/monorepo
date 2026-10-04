@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { formatDay, parseDay } from "./dates";
+import { dataLabel, formatDay, parseDay } from "./dates";
 
 describe("parseDay", () => {
   test("reads YYYY-MM-DD as a local calendar day", () => {
@@ -36,5 +36,46 @@ describe("formatDay", () => {
   test("formats without shifting the calendar day", () => {
     expect(formatDay("2025-08-02", true)).toBe("2 Aug 2025");
     expect(formatDay("2025-08-02")).toBe("2 Aug");
+  });
+});
+
+describe("dataLabel", () => {
+  test("puts the snapshot day right after the latest tracked day", () => {
+    // A daily rebuild on the 4th whose data still ends on the 3rd has to be
+    // readable at a glance, so the two days sit side by side.
+    expect(
+      dataLabel("2025-08-02", "2026-10-03", "2026-10-04T10:58:28.266Z")
+    ).toBe("2 Aug 2025 — 3 Oct 2026 · Updated 4 Oct 2026");
+  });
+
+  test("reads the generation day in UTC, matching the snapshot", () => {
+    // 23:00 UTC is still "4 Oct" for the label, no matter the build machine's
+    // timezone — the snapshot's own clock is UTC.
+    expect(
+      dataLabel("2025-08-02", "2026-10-03", "2026-10-04T23:00:00.000Z")
+    ).toContain("Updated 4 Oct 2026");
+  });
+
+  test("keeps the range when generatedAt is missing or invalid", () => {
+    expect(dataLabel("2025-08-02", "2026-10-03", "")).toBe(
+      "2 Aug 2025 — 3 Oct 2026"
+    );
+    expect(dataLabel("2025-08-02", "2026-10-03", "not-a-date")).toBe(
+      "2 Aug 2025 — 3 Oct 2026"
+    );
+  });
+
+  test("keeps Updated when the range is incomplete", () => {
+    expect(dataLabel(null, null, "2026-10-04T10:58:28.266Z")).toBe(
+      "Updated 4 Oct 2026"
+    );
+    expect(dataLabel("2025-08-02", null, "2026-10-04T10:58:28.266Z")).toBe(
+      "Updated 4 Oct 2026"
+    );
+  });
+
+  test("returns null when neither piece is known", () => {
+    expect(dataLabel(null, null, "")).toBeNull();
+    expect(dataLabel(null, null, "garbage")).toBeNull();
   });
 });
