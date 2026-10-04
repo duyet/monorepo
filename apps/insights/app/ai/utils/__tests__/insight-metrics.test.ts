@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest";
+import { describe, expect, test, vi, beforeEach } from "vitest";
 import { executeDuckDBQuery } from "../duckdb-cache";
 import { getActivityByHour } from "../insight-metrics";
 
@@ -71,5 +71,28 @@ describe("getActivityByHour", () => {
     expect(
       buckets.reduce((sum, b) => sum + b.tokens, 0),
     ).toBe(100);
+  });
+});
+
+describe("getCacheRatioTrend", () => {
+  beforeEach(() => {
+    executeDuckDBQuery.mockReset();
+  });
+
+  test("maps one cache row to its ratio point", async () => {
+    executeDuckDBQuery.mockResolvedValue([
+      { date: "2026-01-02", total_tokens: 200, cache_tokens: 50 },
+    ]);
+
+    const { getCacheRatioTrend } = await import("../insight-metrics");
+
+    await expect(getCacheRatioTrend(7)).resolves.toEqual([
+      {
+        date: "2026-01-02",
+        totalTokens: 200,
+        cacheTokens: 50,
+        pct: 25,
+      },
+    ]);
   });
 });
