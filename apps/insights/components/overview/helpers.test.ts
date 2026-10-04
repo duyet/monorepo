@@ -1,5 +1,19 @@
 import { describe, expect, it } from "vitest";
-import { formatSnapshotTime } from "./helpers";
+import { compactName, formatSnapshotTime } from "./helpers";
+
+describe("compactName", () => {
+  it("strips the claude- prefix and spaces out hyphens", () => {
+    expect(compactName("claude-sonnet-4-5")).toBe("sonnet 4 5");
+    expect(compactName("gemini-2.5-pro")).toBe("gemini 2.5 pro");
+  });
+
+  it("keeps gpt- as a readable prefix and truncates at 24 chars", () => {
+    expect(compactName("gpt-4o-mini")).toBe("gpt 4o mini");
+    expect(compactName("claude-opus-4-20250514-something")).toBe(
+      "opus 4 20250514 somethin",
+    );
+  });
+});
 
 describe("formatSnapshotTime", () => {
   it("shows the UTC date and clock time of a baked payload stamp", () => {
