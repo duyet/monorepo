@@ -1,7 +1,16 @@
 ---
-date: 2026-10-04
 title: Herdr
-slug: herdr
+date: 2026-10-04
+author: Duyet
+category: AI
+series: AI Harness Engineering
+tags:
+  - AI
+  - Agents
+  - Herdr
+slug: /2026/10/herdr
+description: "I landed 1000+ PRs this week, and this is how I use Herdr these days."
+thumbnail: /media/2026/10/herdr/herdr-1.jpeg
 ---
 
 I landed 1000+ PRs this week, and this is how I use [Herdr](https://herdr.dev) these days.
@@ -16,8 +25,8 @@ You can launch Herdr on multiple machines as well, and have one Herdr dashboard 
 
 If you are using Grok Bot or Cue or Muse or Dot, install Tailscale and Herdr on their computer as well, working the same way. They can control it as well, and you can see what is actually running from your Mac.
 
-![[herdr-1.jpeg]]
+![Herdr sessions across repos](/media/2026/10/herdr/herdr-1.jpeg)
 
 <div></div>
 
-![[herdr-2.jpeg]]
+![Herdr agent integrations](/media/2026/10/herdr/herdr-2.jpeg)
