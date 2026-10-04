@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getOrgInitials } from "./org-logos";
+import { getOrgInitials, getOrgLogoUrl } from "./org-logos";
 
 describe("getOrgInitials", () => {
   it("takes the first letter of each of the first two words", () => {
@@ -19,5 +19,14 @@ describe("getOrgInitials", () => {
 
   it("ignores words beyond the first two", () => {
     expect(getOrgInitials("Hugging Face Research Lab")).toBe("HF");
+  });
+});
+
+describe("getOrgLogoUrl", () => {
+  it("returns the CDN URL for a mapped org and null otherwise", () => {
+    expect(getOrgLogoUrl("Anthropic", true)).toBe(
+      "https://cdn.simpleicons.org/anthropic/ffffff",
+    );
+    expect(getOrgLogoUrl("No Such Lab")).toBeNull();
   });
 });
