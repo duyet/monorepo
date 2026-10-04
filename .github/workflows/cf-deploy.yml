@@ -25,8 +25,11 @@ on:
         required: false
         type: string
 
+# Push deploys cancel each other. A scheduled or manual bake (burns, and
+# the other data apps) must not be cancelled by an unrelated app push, or
+# the public snapshot stays on yesterday.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}-${{ github.event.inputs.app || 'auto' }}
   cancel-in-progress: true
 
 env:
