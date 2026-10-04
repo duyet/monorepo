@@ -2,7 +2,12 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
-import { normalizeSource, SOURCE_COLORS, sourceSwatch } from "./sources";
+import {
+  fmtTokens,
+  normalizeSource,
+  SOURCE_COLORS,
+  sourceSwatch,
+} from "./sources";
 
 const burnsRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -41,6 +46,12 @@ describe("normalizeSource", () => {
 
   test("gemini stays Gemini even when the model looks like GLM", () => {
     expect(normalizeSource("gemini", "glm-4.6")).toBe("Gemini CLI");
+  });
+});
+
+describe("fmtTokens", () => {
+  test("formats a small token count with the burns locale grouping", () => {
+    expect(fmtTokens(1234)).toBe("1,234");
   });
 });
 
