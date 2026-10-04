@@ -37,6 +37,7 @@ env:
 permissions:
   contents: read
   deployments: write
+  actions: read
 
 jobs:
   detect-changes:
@@ -62,6 +63,15 @@ jobs:
             --input-app "${{ github.event.inputs.app || '' }}" \
             --base "${{ github.event.before || github.event.pull_request.base.sha || '' }}" \
             --head "${{ github.sha }}"
+
+      # Schedule republishes the last good snapshot even when a collector
+      # could not reach ClickHouse. Name that workflow; never fail the job.
+      - name: Collector failure summary
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node --experimental-strip-types scripts/sync-failure-summary.ts >> "$GITHUB_STEP_SUMMARY"
 
   checks:
     uses: ./.github/workflows/checks.yml
