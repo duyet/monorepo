@@ -10,7 +10,7 @@ tags:
   - Herdr
 slug: /2026/10/herdr
 description: "I landed 1000+ PRs this week, and this is how I use Herdr these days."
-thumbnail: /media/2026/10/herdr/herdr-1.jpeg
+thumbnail: /media/2026/10/herdr/thumbnail.jpeg
 ---
 
 I landed 1000+ PRs this week, and this is how I use [Herdr](https://herdr.dev) these days.
