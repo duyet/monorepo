@@ -14,8 +14,10 @@ on:
       - 'scripts/cf-pages-apps.ts'
       - 'scripts/cf-deploy-matrix.ts'
   schedule:
-    # Daily at midnight UTC to rebuild and update data-driven apps (like burns)
-    - cron: '0 0 * * *'
+    # After the day's collectors: WakaTime 00:00, Cloudflare 01:00,
+    # PostHog 03:00, LLM Timeline 06:00 UTC. The matrix schedule event
+    # republishes the data-baked Pages apps.
+    - cron: '0 8 * * *'
   workflow_dispatch:
     inputs:
       app:

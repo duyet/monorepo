@@ -7,7 +7,7 @@ behavior change without a real `pnpm run cf:deploy -- --dry-run`.
 
 | Train | Workflow | Trigger | What it ships |
 | --- | --- | --- | --- |
-| Pages | `.github/workflows/cf-deploy.yml` (prod) and `cf-deploy-preview.yml` (PRs) | push to `main`, PRs, daily cron for `burns` | Any `apps/*` with `pages_build_output_dir` in `wrangler.toml` **and** a `cf:deploy:prod` script. Discovery is `scripts/cf-pages-apps.ts` — do not hardcode the app list. |
+| Pages | `.github/workflows/cf-deploy.yml` (prod) and `cf-deploy-preview.yml` (PRs) | push to `main`, PRs, daily 08:00 UTC cron for the data-baked apps | Any `apps/*` with `pages_build_output_dir` in `wrangler.toml` **and** a `cf:deploy:prod` script. Discovery is `scripts/cf-pages-apps.ts` — do not hardcode the app list. The schedule event republishes `ai-percentage`, `burns`, `home`, `insights`, `llm-timeline`, and `photos`. |
 | Workers | `.github/workflows/cf-worker-deploy.yml` | path filters on `apps/agent-api`, `apps/api`, `apps/news-redirect`, `packages/**` | `duyet-agents-api`, `duyet-api`, `duyet-news` |
 
 Orchestration locally / in CI Pages jobs: `scripts/cf-deploy.ts`. App-level `cf:deploy:prod` scripts remain authoritative when present.

@@ -96,6 +96,20 @@ const SHARED_CHANGE_PREFIXES = [
 
 
 
+/**
+ * Pages apps that bake tracking data at build time. The daily schedule
+ * republishes this set after the collectors have run. Keep it sorted so the
+ * matrix CLI and the unit test agree.
+ */
+export const SCHEDULED_DATA_APPS = [
+  "ai-percentage",
+  "burns",
+  "home",
+  "insights",
+  "llm-timeline",
+  "photos",
+] as const;
+
 export function selectAppsToDeploy(opts: {
   apps: Record<string, PagesApp>;
   event: string;
@@ -108,7 +122,9 @@ export function selectAppsToDeploy(opts: {
     list.filter((name) => opts.apps[name]).map((name) => opts.apps[name]);
 
   if (opts.event === "schedule") {
-    return pick([opts.scheduledApp ?? "burns"]);
+    return pick(
+      opts.scheduledApp ? [opts.scheduledApp] : [...SCHEDULED_DATA_APPS],
+    );
   }
 
   if (opts.event === "workflow_dispatch") {
