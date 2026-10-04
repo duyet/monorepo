@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  categoryOf,
   groupKey,
   groupProjects,
   listingPath,
@@ -20,6 +21,13 @@ function sample(overrides: Partial<AppItem> = {}): AppItem {
     ...overrides,
   };
 }
+
+describe("categoryOf", () => {
+  it("returns OSS for a GitHub host and Live otherwise", () => {
+    expect(categoryOf(sample({ host: "github.com" }))).toBe("OSS");
+    expect(categoryOf(sample({ host: "anyrouter.dev" }))).toBe("Live");
+  });
+});
 
 describe("project listing helpers", () => {
   it("uses the first tag as the directory group", () => {
