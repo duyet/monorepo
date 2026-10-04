@@ -11,6 +11,8 @@ tags:
 slug: /2026/10/herdr
 description: "I landed 1000+ PRs this week, and this is how I use Herdr these days to achieve that."
 thumbnail: /media/2026/10/herdr/thumbnail.jpeg
+hackerNews: https://news.ycombinator.com/item?id=49956251
+x: https://x.com/_duyet/status/2106806706525409669
 ---
 
 I landed 1000+ PRs this week, and this is how I use [Herdr](https://herdr.dev) these days to achieve that.
