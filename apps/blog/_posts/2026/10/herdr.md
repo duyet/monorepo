@@ -9,11 +9,11 @@ tags:
   - Agents
   - Herdr
 slug: /2026/10/herdr
-description: "I landed 1000+ PRs this week, and this is how I use Herdr these days."
+description: "I landed 1000+ PRs this week, and this is how I use Herdr these days to achieve that."
 thumbnail: /media/2026/10/herdr/thumbnail.jpeg
 ---
 
-I landed 1000+ PRs this week, and this is how I use [Herdr](https://herdr.dev) these days.
+I landed 1000+ PRs this week, and this is how I use [Herdr](https://herdr.dev) these days to achieve that.
 
 I am starting the master agent session as the manager (for each repo), with the smart models, asking it to take that role: manage and spawn the child Herdr worktree sessions, prompting them, checking their progress, more agents to review, merge, etc. Each child worktree can run any coding agent. I can spawn 50 sessions at a time across Pi, Claude, Grok, OpenCode, and Devin, etc., to keep them planning, implementing, and doing PR reviews. You can see they communicate via Herdr ([Herdr Agent Automation](https://herdr.dev/docs/agent-automation/)), sending prompts to each other, inspecting their state, collecting their results, etc., and keep them all busy day and night. Create skills to teach your master agent which is the best for which task.
 
