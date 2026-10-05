@@ -122,7 +122,7 @@ jobs:
       # any app pulling in @duyet/libs fails to build without it — not just
       # blog. Build it for every app in the matrix.
       - name: Setup Rust toolchain (WASM markdown)
-        uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
         with:
           targets: wasm32-unknown-unknown
 
