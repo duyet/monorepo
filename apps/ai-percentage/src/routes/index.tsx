@@ -3,7 +3,7 @@ import { useState } from "react";
 import { AIPercentageChart } from "../../components/AIPercentageChart";
 import { AIPercentageHero } from "../../components/AIPercentageHero";
 import { AIPercentageTrend } from "../../components/AIPercentageTrend";
-import { DATE_RANGES } from "../../lib/utils";
+import { DATE_RANGES, formatSnapshotTime, SNAPSHOT_AT } from "../../lib/utils";
 
 export const Route = createFileRoute("/")({
   component: Page,
@@ -52,10 +52,7 @@ function Page() {
 
           <p className="border-t border-border px-4 py-4 text-center text-sm text-muted-foreground">
             Data Source: GitHub + ClickHouse | Detection: Co-author & email
-            patterns | Last updated:{" "}
-            <span suppressHydrationWarning>
-              {new Date().toLocaleDateString()}
-            </span>
+            patterns | Snapshot: {formatSnapshotTime(SNAPSHOT_AT)}
           </p>
         </div>
       </div>
