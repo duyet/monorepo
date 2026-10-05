@@ -1,48 +1,31 @@
-import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { DuckDBInstance } from "@duckdb/node-api";
-import { afterAll, beforeAll, describe, expect, test } from "vitest";
+import { describe, expect, test, vi } from "vitest";
+
+// `executeDuckDBQuery` shells out to `bun` to read the cache file. A runner
+// without bun on PATH gets [] back, so the real DuckDB fixture made this test
+// pass locally and fail in CI. Mock both transports and feed the DuckDB one the
+// rows the query returns: what is under test is the share arithmetic.
+vi.mock("../duckdb-cache", () => ({
+  executeDuckDBQuery: vi.fn(async () => [
+    { model_name: "alpha", total_cost: 3, total_tokens: 10, usage_count: 1 },
+    { model_name: "beta", total_cost: 1, total_tokens: 4, usage_count: 1 },
+  ]),
+}));
+
+vi.mock("../database", () => ({
+  // No rows, so executeAnalyticsQuery falls through to the DuckDB cache.
+  executeClickHouseQuery: vi.fn(async () => ({ success: true, data: [] })),
+  testClickHouseConnection: vi.fn(async () => ({
+    success: true,
+    message: "",
+    details: {},
+  })),
+}));
 
 describe("getCCUsageModels", () => {
-  let dir = "";
-
-  beforeAll(async () => {
-    dir = await mkdtemp(join(tmpdir(), "ccusage-models-"));
-    const dbPath = join(dir, "analytics-cache.duckdb");
-    const instance = await DuckDBInstance.create(dbPath);
-    const connection = await instance.connect();
-    await connection.run(`
-      CREATE TABLE ccusage_model_breakdowns (
-        created_at TIMESTAMP,
-        model_name VARCHAR,
-        input_tokens DOUBLE,
-        output_tokens DOUBLE,
-        cache_creation_tokens DOUBLE,
-        cache_read_tokens DOUBLE,
-        cost DOUBLE
-      )
-    `);
-    await connection.run(`
-      INSERT INTO ccusage_model_breakdowns VALUES
-        ('2026-10-05', 'alpha', 8, 2, 0, 0, 3),
-        ('2026-10-05', 'beta', 4, 0, 0, 0, 1)
-    `);
-    connection.closeSync();
-    instance.closeSync();
-    process.env.ANALYTICS_CACHE_PATH = dbPath;
-  });
-
-  afterAll(async () => {
-    delete process.env.ANALYTICS_CACHE_PATH;
-    if (dir) await rm(dir, { recursive: true, force: true });
-  });
-
   test("returns token and cost shares for the fixture", async () => {
     const { getCCUsageModels } = await import("../data-fetchers");
-    const models = await getCCUsageModels("all");
 
-    expect(models).toEqual([
+    await expect(getCCUsageModels("all")).resolves.toEqual([
       {
         name: "alpha",
         tokens: 10,
