@@ -1,6 +1,10 @@
-import { describe, expect, test, vi, beforeEach } from "vitest";
+import { beforeEach, describe, expect, test, vi } from "vitest";
 import { executeDuckDBQuery } from "../duckdb-cache";
-import { getActivityByHour, getActivityByWeekday } from "../insight-metrics";
+import {
+  getActivityByHour,
+  getActivityByWeekday,
+  getCacheRatioTrend,
+} from "../insight-metrics";
 
 vi.mock("../duckdb-cache", () => ({
   executeDuckDBQuery: vi.fn(),
@@ -90,15 +94,13 @@ describe("getActivityByWeekday", () => {
 
 describe("getCacheRatioTrend", () => {
   beforeEach(() => {
-    executeDuckDBQuery.mockReset();
+    query.mockReset();
   });
 
   test("maps one cache row to its ratio point", async () => {
-    executeDuckDBQuery.mockResolvedValue([
+    query.mockResolvedValue([
       { date: "2026-01-02", total_tokens: 200, cache_tokens: 50 },
     ]);
-
-    const { getCacheRatioTrend } = await import("../insight-metrics");
 
     await expect(getCacheRatioTrend(7)).resolves.toEqual([
       {
