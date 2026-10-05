@@ -22,6 +22,19 @@ async function load() {
   return api;
 }
 
+describe.skipIf(!wasmReady)("normalizeBatch", () => {
+  it("returns native results in order and maps empty strings to null", async () => {
+    const results = (await load()).normalizeBatch([
+      { fn: "normalize_date", args: ["2024-01"] },
+      { fn: "normalize_license", args: ["Apache 2.0"] },
+      { fn: "normalize_text", args: ["hello\nworld"] },
+      { fn: "normalize_date", args: ["TBA"] },
+    ]);
+
+    expect(results).toEqual(["2024-01-01", "open", "hello world", null]);
+  });
+});
+
 describe.skipIf(!wasmReady)("normalizeDate", () => {
   it("returns the real normalized date for a small fixture", async () => {
     expect((await load()).normalizeDate("2024-01-15")).toBe("2024-01-15");
