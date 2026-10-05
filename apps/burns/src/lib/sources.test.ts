@@ -4,6 +4,7 @@ import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
 import {
   fmtTokens,
+  fmtCost,
   normalizeSource,
   SOURCE_COLORS,
   sourceSwatch,
@@ -66,6 +67,14 @@ describe("source colors", () => {
 
   test("Z.AI and Grok use distinct swatches", () => {
     expect(sourceSwatch("Z.AI")).not.toBe(sourceSwatch("Grok"));
+  });
+});
+
+describe("fmtCost", () => {
+  test("renders a dollar sign with grouping and two decimals", () => {
+    expect(fmtCost(12.5)).toBe("$12.50");
+    expect(fmtCost(0)).toBe("$0.00");
+    expect(fmtCost(319041.45)).toBe("$319,041.45");
   });
 });
 
