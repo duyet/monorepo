@@ -230,7 +230,7 @@ export function DailyChart({
                           className="burns-swatch"
                           style={{ background: sourceSwatch(s.name) }}
                         />
-                        <span>{s.name}</span>
+                        <span className="burns-tooltip-name">{s.name}</span>
                         <span
                           style={{ color: "var(--muted)", textAlign: "right" }}
                         >
