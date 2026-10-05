@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { getOrgInitials, getOrgLogoUrl, getOrgColor } from "./org-logos";
+import {
+  getOrgInitials,
+  getOrgLogoUrl,
+  getOrgColor,
+  isPerceivedDark,
+} from "./org-logos";
 
 describe("getOrgInitials", () => {
   it("takes the first letter of each of the first two words", () => {
@@ -39,5 +44,14 @@ describe("getOrgColor", () => {
     expect(getOrgColor("Google")).toBe(
       "bg-[var(--rd-surface-2)] text-[var(--rd-text-2)]",
     );
+  });
+});
+
+describe("isPerceivedDark", () => {
+  it("returns the real luminance check for a small hex fixture", () => {
+    expect(isPerceivedDark("000000")).toBe(true);
+    expect(isPerceivedDark("ffffff")).toBe(false);
+    expect(isPerceivedDark("808080")).toBe(false);
+    expect(isPerceivedDark("#000000")).toBe(false);
   });
 });

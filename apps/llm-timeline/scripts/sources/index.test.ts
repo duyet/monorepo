@@ -5,9 +5,11 @@ import { describe, expect, it } from "vitest";
 
 // Importing ./index pulls in the source adapters, which import
 // lib/normalizers → the wasm-pack bundle. That artifact only exists after
-// `pnpm run wasm:build`, so where it is absent (CI does not build it) the
+// `pnpm run wasm:build`, which CI runs before the tests (#1793),
+// so where it is absent — a local checkout that never ran the Rust build — the
 // static import would fail at collection. Guard on the artifact and load
-// the module dynamically inside the test instead.
+// the module dynamically inside the test instead. Same guard as
+// lib/normalizers.test.ts.
 const wasmReady = existsSync(
   join(
     dirname(fileURLToPath(import.meta.url)),
