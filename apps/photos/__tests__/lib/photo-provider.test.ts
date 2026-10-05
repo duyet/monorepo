@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { filterByEXIF } from "@/lib/photo-provider";
+import { filterByEXIF, getEXIFOptions } from "@/lib/photo-provider";
 import type { Photo } from "@/lib/types";
 
 function photo(id: string, exif?: Photo["exif"]): Photo {
@@ -27,6 +27,38 @@ const PHOTOS: Photo[] = [
 ];
 
 const ids = (photos: Photo[]) => photos.map((p) => p.id);
+
+const exifOptionPhotos = [
+  {
+    exif: {
+      make: "Fujifilm",
+      model: "X100V",
+      focal_length: "35",
+      iso: 200,
+      aperture: "f/2",
+    },
+  },
+  {
+    exif: {
+      name: "Leica Q2",
+      focal_length: "28",
+      iso: 100,
+      aperture: "1.7",
+    },
+  },
+  {},
+] as Photo[];
+
+describe("getEXIFOptions", () => {
+  test("collects sorted cameras and exposure values, skipping photos without exif", () => {
+    expect(getEXIFOptions(exifOptionPhotos)).toEqual({
+      cameras: ["Fujifilm X100V", "Leica Q2"],
+      focalLengths: [28, 35],
+      isos: [100, 200],
+      apertures: [1.7, 2],
+    });
+  });
+});
 
 describe("filterByEXIF", () => {
   test("drops photos without EXIF even with no filters", () => {

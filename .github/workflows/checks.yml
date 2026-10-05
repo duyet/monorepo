@@ -40,11 +40,54 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # Three suites guard on artifacts that only exist after a Rust build:
+      # markdownToHtml + sources/index.test.ts need the wasm-pack bundle,
+      # deduplicator.test.ts needs the duyet-cli release binary. Without
+      # these steps the describe.skipIf guards resolve false and the suites
+      # assert nothing. Build the same artifacts the deploy jobs build.
+      - name: Setup Rust toolchain (wasm32 + native)
+        uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo registry & build
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-checks-${{ hashFiles('Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-checks-
+
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@0d096b08b4e5a7de8c28de67e11e945404e9eefa # v0.4.0
+        with:
+          version: v0.15.0
+
+      - name: Build WASM packages
+        run: pnpm run wasm:build
+
+      - name: Build duyet-cli
+        run: pnpm run rust:build
+
       - name: Type check
         run: pnpm exec turbo check-types
 
+      # The two suites that read these artifacts are excluded from the cached
+      # run and re-run with --force below: the wasm-pack bundle and the
+      # duyet-cli binary are gitignored, so they are not part of turbo's test
+      # hash. Without the split, turbo replays the cache entry recorded when
+      # the artifacts were absent and those suites silently stay skipped.
       - name: Test
-        run: pnpm run test
+        run: pnpm exec dotenv -- turbo test --filter='!@duyet/libs' --filter='!llm-timeline'
+        env:
+          NODE_ENV: test
+          CI: true
+
+      - name: Test (artifact-dependent suites, uncached)
+        run: pnpm exec dotenv -- turbo test --force --filter=@duyet/libs --filter=llm-timeline
         env:
           NODE_ENV: test
           CI: true
