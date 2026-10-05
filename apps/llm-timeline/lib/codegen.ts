@@ -18,9 +18,12 @@ export function singleQuote(s: string): string {
 export function generateDataTs(
   models: Model[],
   sources: DataSourceAdapter[],
-  syncDate: string,
+  syncedAt: string,
   stats: MergeStats
 ): string {
+  const syncDate = /^\d{4}-\d{2}-\d{2}/.test(syncedAt)
+    ? syncedAt.slice(0, 10)
+    : syncedAt;
   // Build merge stats line: "771 curated + 3156 epoch - 1 duplicates = 3926 total"
   const statsLine = Object.entries(stats.sources)
     .map(([name, count]) => `${count} ${name}`)
@@ -91,7 +94,7 @@ export function generateDataTs(
 ${sourcesBlock}
  *
  * Merge stats: ${statsLine}
- * Last synced: ${syncDate}
+ * Last synced: ${syncedAt}
  * ============================================================================
  */
 
@@ -127,6 +130,7 @@ export const domains: string[] = Array.from(
 export const years: number[] = Array.from(new Set(models.map((m) => new Date(m.date).getFullYear()))).sort(
   (a, b) => b - a,
 )
-export const lastSynced = '${syncDate}'
+export const lastSynced = '${singleQuote(syncDate)}'
+export const syncedAt = '${singleQuote(syncedAt)}'
 `;
 }

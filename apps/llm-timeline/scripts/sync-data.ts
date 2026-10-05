@@ -105,8 +105,8 @@ async function main() {
   }
 
   // Generate
-  const syncDate = new Date().toISOString().slice(0, 10);
-  const output = generateDataTs(models, sources, syncDate, stats);
+  const syncedAt = new Date().toISOString();
+  const output = generateDataTs(models, sources, syncedAt, stats);
 
   const orgs = Array.from(new Set(models.map((m) => m.org))).sort();
   const years = Array.from(

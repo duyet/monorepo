@@ -1,5 +1,6 @@
 import { Eyebrow } from "@duyet/components";
-import { lastSynced } from "@/lib/data";
+import { syncedAt } from "@/lib/data";
+import { formatSyncTime } from "@/lib/sync-time";
 
 interface PageLayoutProps {
   children: React.ReactNode;
@@ -16,7 +17,7 @@ export function PageLayout({ children, description }: PageLayoutProps) {
             {description}
           </p>
           <p className="mt-2 font-[family-name:var(--font-mono)] text-xs text-[var(--rd-text-3)]">
-            Updated {lastSynced}
+            Updated {formatSyncTime(syncedAt)}
           </p>
         </header>
       )}

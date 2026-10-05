@@ -23,10 +23,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
-    "@cloudflare/workers-types": "^4.20241227.0",
+    "@cloudflare/workers-types": "^5.0.0",
     "@duyet/tsconfig": "*",
     "@types/node": "^25.0.0",
     "esbuild": "^0.28.0",
-    "typescript": "^6.0.0"
+    "typescript": "^7.0.0"
   }
 }
