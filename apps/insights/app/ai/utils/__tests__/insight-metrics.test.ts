@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { executeDuckDBQuery } from "../duckdb-cache";
-import { getActivityByHour } from "../insight-metrics";
+import { getActivityByHour, getActivityByWeekday } from "../insight-metrics";
 
 vi.mock("../duckdb-cache", () => ({
   executeDuckDBQuery: vi.fn(),
@@ -68,8 +68,22 @@ describe("getActivityByHour", () => {
 
     expect(buckets).toHaveLength(24);
     expect(buckets[5].tokens).toBe(100);
-    expect(
-      buckets.reduce((sum, b) => sum + b.tokens, 0),
-    ).toBe(100);
+    expect(buckets.reduce((sum, b) => sum + b.tokens, 0)).toBe(100);
+  });
+});
+
+describe("getActivityByWeekday", () => {
+  test("maps a small weekday fixture to labels and numbers", async () => {
+    query.mockResolvedValue([
+      { dow: 0, tokens: "3", cost: 0, days: 1 },
+      { dow: 1, tokens: 10, cost: 1.5, days: 2 },
+    ]);
+
+    const rows = await getActivityByWeekday(7);
+
+    expect(rows).toEqual([
+      { label: "Sun", key: 0, tokens: 3, cost: 0, days: 1 },
+      { label: "Mon", key: 1, tokens: 10, cost: 1.5, days: 2 },
+    ]);
   });
 });
