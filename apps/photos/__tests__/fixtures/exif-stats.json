@@ -1,0 +1,18 @@
+{
+  "photos": [
+    { "exif": { "name": "FUJIFILM X100V" } },
+    { "exif": { "name": "FUJIFILM X100V" } },
+    { "exif": { "name": "FUJIFILM X-T5" } },
+    {}
+  ],
+  "stats": {
+    "totalPhotos": 4,
+    "photosWithEXIF": 3,
+    "photosWithoutEXIF": 1,
+    "uniqueCameras": 2,
+    "topCameras": [
+      { "camera": "FUJIFILM X100V", "count": 2 },
+      { "camera": "FUJIFILM X-T5", "count": 1 }
+    ]
+  }
+}
