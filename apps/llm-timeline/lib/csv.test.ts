@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { detectColumns } from "./csv";
+import { detectColumns, parseCsv } from "./csv";
 
 const aliases = {
   name: ["model", "name"],
@@ -7,6 +7,17 @@ const aliases = {
   org: ["organization", "org"],
   params: ["parameters (b)", "parameters"],
 };
+
+describe("parseCsv", () => {
+  test("returns rows from a small RFC 4180 fixture", () => {
+    const rows = parseCsv('name,desc\n"hello, world",test\n');
+
+    expect(rows).toEqual([
+      ["name", "desc"],
+      ["hello, world", "test"],
+    ]);
+  });
+});
 
 describe("detectColumns", () => {
   test("maps a small header fixture to column indexes", () => {
