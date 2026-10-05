@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
 import type { Model } from "./data";
 import {
+  DEFAULT_FILTERS,
+  filterModels,
   formatDate,
   getLicenseBadgeVariant,
   getLicenseBarColor,
@@ -148,5 +150,76 @@ describe("getSourceBadgeVariant", () => {
     expect(getSourceBadgeVariant("epoch")).toBe("epoch");
     expect(getSourceBadgeVariant("papers")).toBe("default");
     expect(getSourceBadgeVariant(undefined)).toBe("default");
+  });
+});
+
+describe("filterModels", () => {
+  const filterFixture: Model[] = [
+    {
+      name: "GPT-4o",
+      date: "2024-05-13",
+      org: "OpenAI",
+      params: "200B",
+      type: "model",
+      license: "closed",
+      desc: "flagship",
+      source: "curated",
+      domain: "Language",
+    },
+    {
+      name: "Llama 3",
+      date: "2024-04-18",
+      org: "Meta",
+      params: "8B",
+      type: "model",
+      license: "open",
+      desc: "open weights",
+      source: "curated",
+      domain: "Language, Vision",
+    },
+    {
+      // Meta but closed: matches the org filter alone, fails the license one.
+      name: "Meta Closed",
+      date: "2024-07-01",
+      org: "Meta",
+      params: "70B",
+      type: "model",
+      license: "closed",
+      desc: "closed weights",
+      source: "curated",
+      domain: "Language",
+    },
+    {
+      // Open but not Meta: matches the license filter alone.
+      name: "Mistral Open",
+      date: "2024-07-15",
+      org: "Mistral",
+      params: "7B",
+      type: "model",
+      license: "open",
+      desc: "open weights",
+      source: "curated",
+      domain: "Language",
+    },
+  ];
+
+  it("returns the models matching both the org and the license", () => {
+    expect(
+      filterModels(filterFixture, {
+        ...DEFAULT_FILTERS,
+        org: "Meta",
+        license: "open",
+      }),
+    ).toEqual([filterFixture[1]]);
+  });
+
+  it("excludes a same-org model once the license filter rules it out", () => {
+    expect(
+      filterModels(filterFixture, { ...DEFAULT_FILTERS, org: "Meta" }),
+    ).toEqual([filterFixture[1], filterFixture[2]]);
+
+    expect(
+      filterModels(filterFixture, { ...DEFAULT_FILTERS, license: "open" }),
+    ).toEqual([filterFixture[1], filterFixture[3]]);
   });
 });
