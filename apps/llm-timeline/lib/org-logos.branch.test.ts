@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getOrgInitials, getOrgLogoUrl, getOrgColor } from "./org-logos";
+import { getOrgInitials, getOrgLogoUrl, isPerceivedDark } from "./org-logos";
 
 describe("getOrgInitials", () => {
   it("takes the first letter of each of the first two words", () => {
@@ -31,13 +31,11 @@ describe("getOrgLogoUrl", () => {
   });
 });
 
-describe("getOrgColor", () => {
-  it("picks a stable class pair from the org name", () => {
-    expect(getOrgColor("OpenAI")).toBe(
-      "bg-[color-mix(in_srgb,var(--rd-accent)_10%,var(--rd-surface))] text-[var(--rd-accent-ink)]",
-    );
-    expect(getOrgColor("Google")).toBe(
-      "bg-[var(--rd-surface-2)] text-[var(--rd-text-2)]",
-    );
+describe("isPerceivedDark", () => {
+  it("returns the real luminance check for a small hex fixture", () => {
+    expect(isPerceivedDark("000000")).toBe(true);
+    expect(isPerceivedDark("ffffff")).toBe(false);
+    expect(isPerceivedDark("808080")).toBe(false);
+    expect(isPerceivedDark("#000000")).toBe(false);
   });
 });

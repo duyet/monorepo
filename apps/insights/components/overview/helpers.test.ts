@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { compactName, formatSnapshotTime } from "./helpers";
+import { compactName, formatSnapshotTime, formatCompact } from "./helpers";
 
 describe("compactName", () => {
   it("strips the claude- prefix and spaces out hyphens", () => {
@@ -27,5 +27,12 @@ describe("formatSnapshotTime", () => {
     expect(formatSnapshotTime(null)).toBeNull();
     expect(formatSnapshotTime(undefined)).toBeNull();
     expect(formatSnapshotTime("not-a-date")).toBeNull();
+  });
+});
+
+describe("formatCompact", () => {
+  it("returns the compact en-US form of a small fixture", () => {
+    expect(formatCompact(0)).toBe("0");
+    expect(formatCompact(1500)).toBe("1.5K");
   });
 });
