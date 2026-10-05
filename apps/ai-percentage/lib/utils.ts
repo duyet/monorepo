@@ -15,6 +15,25 @@ export function getDateCondition(days: DateRangeDays): string {
   return `WHERE date > today() - INTERVAL ${days} DAY`;
 }
 
+export const SNAPSHOT_AT: string = import.meta.env.VITE_SNAPSHOT_AT;
+
+export function formatSnapshotTime(iso: string): string {
+  const date = new Date(iso);
+  if (Number.isNaN(date.getTime())) {
+    return "unknown";
+  }
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "UTC",
+    timeZoneName: "short",
+  }).format(date);
+}
+
 export function formatPercentage(value: number): string {
   if (value === 0) return "0%";
   if (value < 1) return `${value.toFixed(1)}%`;
