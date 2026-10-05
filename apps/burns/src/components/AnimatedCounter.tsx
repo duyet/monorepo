@@ -87,8 +87,16 @@ export function AnimatedCounter({
     observer.observe(frame);
     // Inter arrives after first paint and it is the font that has to fit, so
     // the measured size waits for it rather than trusting the fallback.
-    void document.fonts.ready.then(fit);
-    return () => observer.disconnect();
+    let cancelled = false;
+    void document.fonts.ready.then(() => {
+      // The effect can already have been cleaned up (a target change unmounts
+      // and remounts the count), and `frame`/`ruler` would be stale by then.
+      if (!cancelled) fit();
+    });
+    return () => {
+      cancelled = true;
+      observer.disconnect();
+    };
   }, [finalText]);
 
   return (
