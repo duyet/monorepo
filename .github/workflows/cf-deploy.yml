@@ -25,8 +25,11 @@ on:
         required: false
         type: string
 
+# Push deploys cancel each other. A scheduled or manual bake (burns, and
+# the other data apps) must not be cancelled by an unrelated app push, or
+# the public snapshot stays on yesterday.
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name }}-${{ github.event.inputs.app || 'auto' }}
   cancel-in-progress: true
 
 env:
@@ -37,6 +40,7 @@ env:
 permissions:
   contents: read
   deployments: write
+  actions: read
 
 jobs:
   detect-changes:
@@ -62,6 +66,15 @@ jobs:
             --input-app "${{ github.event.inputs.app || '' }}" \
             --base "${{ github.event.before || github.event.pull_request.base.sha || '' }}" \
             --head "${{ github.sha }}"
+
+      # Schedule republishes the last good snapshot even when a collector
+      # could not reach ClickHouse. Name that workflow; never fail the job.
+      - name: Collector failure summary
+        if: github.event_name == 'schedule'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node --experimental-strip-types scripts/sync-failure-summary.ts >> "$GITHUB_STEP_SUMMARY"
 
   checks:
     uses: ./.github/workflows/checks.yml
@@ -109,7 +122,7 @@ jobs:
       # any app pulling in @duyet/libs fails to build without it — not just
       # blog. Build it for every app in the matrix.
       - name: Setup Rust toolchain (WASM markdown)
-        uses: dtolnay/rust-toolchain@6bed0761d98439e5a578e2877258200ad565ba87 # stable
+        uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
         with:
           targets: wasm32-unknown-unknown
 
@@ -134,7 +147,7 @@ jobs:
 
       - name: Tailscale
         continue-on-error: true
-        uses: tailscale/github-action@780049a30b6ff5c378a9e7b389d15ece7a204888  # v4.1.3
+        uses: tailscale/github-action@d1b6cd204f8dceda5b3eaad7f1f767be390056cd  # v4.2.0
         with:
           oauth-client-id: ${{ secrets.TS_OAUTH_CLIENT_ID }}
           oauth-secret: ${{ secrets.TS_OAUTH_SECRET }}
