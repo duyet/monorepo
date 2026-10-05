@@ -27,6 +27,6 @@
     "@duyet/tsconfig": "*",
     "@types/node": "^25.0.0",
     "esbuild": "^0.28.0",
-    "typescript": "^6.0.0"
+    "typescript": "^7.0.0"
   }
 }

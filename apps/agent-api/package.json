@@ -27,6 +27,6 @@
     "@cloudflare/workers-types": "^5.0.0",
     "@duyet/tsconfig": "*",
     "@types/node": "^25.7.0",
-    "typescript": "^6.0.3"
+    "typescript": "^7.0.0"
   }
 }
