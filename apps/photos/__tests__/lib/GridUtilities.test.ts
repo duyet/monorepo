@@ -1,7 +1,9 @@
 import { describe, expect, test } from "vitest";
+import type { UnsplashPhoto } from "@/lib/types";
 import {
   calculateGridItemDimensions,
   filterPhotos,
+  generateSSRGridLayout,
   getColumnsForViewport,
   getMasonryClasses,
   groupPhotosByYear,
@@ -182,7 +184,17 @@ describe("GridUtilities", () => {
     });
   });
 
-  describe("MASONRY_CONFIG", () => {
+  describe("generateSSRGridLayout", () => {
+  test("places a small photo in the first column", () => {
+    const photo = { id: "p1", width: 300, height: 150 } as UnsplashPhoto;
+    expect(generateSSRGridLayout([photo])).toEqual({
+      columnHeights: [174, 0, 0],
+      photoColumns: [[photo], [], []],
+    });
+  });
+});
+
+describe("MASONRY_CONFIG", () => {
     test("has correct breakpoints", () => {
       expect(MASONRY_CONFIG.breakpoints.default).toBe(7);
       expect(MASONRY_CONFIG.breakpoints["1920"]).toBe(6);
