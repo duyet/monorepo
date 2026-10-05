@@ -30,6 +30,7 @@ function Page(): JSX.Element {
   const [rangeKey, setRangeKey] = useState<RangeKey>("90d");
   const [granularity, setGranularity] = useState<Granularity>("daily");
   const label = dataLabel(data.firstDate, data.lastDate, data.generatedAt);
+  const labelParts = label ? label.split(" · ") : [];
   const selectedRange = RANGES.find((r) => r.key === rangeKey) ?? RANGES[0];
 
   return (
@@ -39,7 +40,7 @@ function Page(): JSX.Element {
           <p className="burns-eyebrow">Burns</p>
           <h1 className="burns-title">Token usage</h1>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div className="burns-header-actions">
           <BreakdownDialog
             sourceTotals={data.source_totals ?? []}
             totals={data.totals}
@@ -53,7 +54,16 @@ function Page(): JSX.Element {
         <p className="burns-hero-kicker">tokens all-time</p>
         <p className="burns-hero-meta">
           {fmtCost(data.totals.total_cost)}
-          {label ? ` · ${label}` : ""}
+          {/*
+            Each part of the label is its own nowrap span, so the line breaks
+            at the " · " separators and never inside a date.
+          */}
+          {labelParts.map((part) => (
+            <span key={part}>
+              {" · "}
+              <span className="burns-nowrap">{part}</span>
+            </span>
+          ))}
         </p>
         <SourceIcons
           sources={data.sources}
@@ -64,7 +74,7 @@ function Page(): JSX.Element {
       </section>
 
       <section className="burns-section burns-section-chart">
-        <div className="burns-section-head">
+        <div className="burns-section-head burns-section-head-switches">
           <div className="burns-switch">
             {GRANULARITIES.map((g) => (
               <button
