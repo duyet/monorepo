@@ -1,12 +1,30 @@
-import { describe, expect, it } from "vitest";
-import { normalizeParams } from "./normalizers";
+import { existsSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
+import { describe, expect, it, test } from "vitest";
 
-describe("normalizeParams", () => {
-  it("compacts a worded parameter count", () => {
-    expect(normalizeParams("175 billion")).toBe("175B");
+// lib/normalizers loads the wasm-pack bundle. That artifact exists only after
+// `pnpm run wasm:build`. CI unit tests do not build it, so a static import
+// fails at collection. Same guard as scripts/sources/index.test.ts.
+const wasmReady = existsSync(
+  join(
+    dirname(fileURLToPath(import.meta.url)),
+    "../../../packages/wasm/pkg/normalizers/normalizers.js",
+  ),
+);
+
+
+describe.skipIf(!wasmReady)("normalizeParams", () => {
+  let api;
+  async function load() {
+    api ??= await import("./normalizers");
+    return api;
+  }
+  it("compacts a worded parameter count", async () => {
+    expect((await load()).normalizeParams("175 billion")).toBe("175B");
   });
 
-  it("returns null when the value is not a parameter count", () => {
-    expect(normalizeParams("unknown")).toBeNull();
+  it("returns null when the value is not a parameter count", async () => {
+    expect((await load()).normalizeParams("unknown")).toBeNull();
   });
 });
