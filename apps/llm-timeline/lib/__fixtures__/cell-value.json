@@ -1,0 +1,10 @@
+{
+  "row": ["  GPT-4  ", "", "OpenAI"],
+  "cases": [
+    { "index": 0, "expected": "GPT-4" },
+    { "index": 1, "expected": "" },
+    { "index": 2, "expected": "OpenAI" },
+    { "index": -1, "expected": "" },
+    { "index": 9, "expected": "" }
+  ]
+}
