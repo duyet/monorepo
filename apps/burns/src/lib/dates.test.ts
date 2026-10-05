@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { dataLabel, formatDay, parseDay } from "./dates";
+import { dataLabel, formatDay, parseDay, formatMonth } from "./dates";
 
 describe("parseDay", () => {
   test("reads YYYY-MM-DD as a local calendar day", () => {
@@ -77,5 +77,13 @@ describe("dataLabel", () => {
   test("returns null when neither piece is known", () => {
     expect(dataLabel(null, null, "")).toBeNull();
     expect(dataLabel(null, null, "garbage")).toBeNull();
+  });
+});
+
+describe("formatMonth", () => {
+  test("labels a YYYY-MM(-DD) value with month and year", () => {
+    expect(formatMonth("2026-08")).toBe("Aug 2026");
+    expect(formatMonth("2026-08-15")).toBe("Aug 2026");
+    expect(formatMonth("2025-01")).toBe("Jan 2025");
   });
 });
