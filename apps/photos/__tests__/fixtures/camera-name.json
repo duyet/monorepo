@@ -1,0 +1,10 @@
+{
+  "named": {
+    "exif": { "name": "FUJIFILM X100V" },
+    "expected": "FUJIFILM X100V"
+  },
+  "makeModel": {
+    "exif": { "make": "FUJIFILM", "model": "X-T5" },
+    "expected": "FUJIFILM X-T5"
+  }
+}
