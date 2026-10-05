@@ -1,4 +1,4 @@
-import { afterEach, describe, expect, test, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
 import { pingClickHouse } from "../data-fetchers";
 
 describe("pingClickHouse", () => {
@@ -40,5 +40,38 @@ describe("pingClickHouse", () => {
 
     expect(typeof result.latencyMs).toBe("number");
     expect(result.latencyMs).toBeGreaterThanOrEqual(0);
+  });
+});
+
+describe("getCCUsageProjects", () => {
+  beforeEach(() => {
+    vi.resetModules();
+    vi.doMock("../database", () => ({
+      executeClickHouseQuery: vi.fn(async () => ({ success: true, data: [] })),
+    }));
+    vi.doMock("../duckdb-cache", () => ({
+      executeDuckDBQuery: vi.fn(async () => [
+        {
+          session_id: "s1",
+          project_path: "/tmp/app",
+          total_tokens: 40,
+          total_cost: 1,
+          last_activity: "2026-01-02",
+        },
+      ]),
+    }));
+  });
+
+  test("anonymizes one cached project row", async () => {
+    const { getCCUsageProjects } = await import("../data-fetchers");
+
+    await expect(getCCUsageProjects(7)).resolves.toEqual([
+      {
+        projectName: "Project A",
+        tokens: 40,
+        relativeUsage: 100,
+        lastActivity: "2026-01-02",
+      },
+    ]);
   });
 });
