@@ -7,6 +7,7 @@ import {
   DEFAULT_APPS_DIR,
   discoverPagesApps,
   domainForApp,
+  pagesAppNames,
   selectAppsToDeploy,
   toDeployMatrix,
 } from "./cf-pages-apps.ts";
@@ -66,6 +67,34 @@ describe("discoverPagesApps", () => {
     const apps = discoverPagesApps(root);
     expect(Object.keys(apps)).toEqual(["pages-app"]);
     expect(apps["pages-app"].projectName).toBe("duyet-pages-app");
+  });
+});
+
+describe("pagesAppNames", () => {
+  it("returns sorted Pages app names and skips a Worker", () => {
+    const root = mkdtempSync(join(tmpdir(), "cf-pages-names-"));
+    for (const name of ["zeta", "alpha"]) {
+      mkdirSync(join(root, name));
+      writeFileSync(
+        join(root, name, "package.json"),
+        JSON.stringify({ scripts: { "cf:deploy:prod": "echo" } }),
+      );
+      writeFileSync(
+        join(root, name, "wrangler.toml"),
+        `name = "duyet-${name}"\npages_build_output_dir = "dist"\n`,
+      );
+    }
+    mkdirSync(join(root, "worker"));
+    writeFileSync(
+      join(root, "worker", "package.json"),
+      JSON.stringify({ scripts: { "cf:deploy:prod": "wrangler deploy" } }),
+    );
+    writeFileSync(
+      join(root, "worker", "wrangler.toml"),
+      'name = "duyet-worker"\nmain = "src/index.ts"\n',
+    );
+
+    expect(pagesAppNames(root)).toEqual(["alpha", "zeta"]);
   });
 });
 
