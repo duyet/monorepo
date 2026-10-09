@@ -86,7 +86,26 @@ rm -f "$WORKDIR/www/cli/stable.json.bak" "$WORKDIR/www/cli/beta.json.bak"
 python3 -m http.server "$PORT" --bind 127.0.0.1 --directory "$WORKDIR/www" >/dev/null 2>&1 &
 PID=$!
 trap 'kill $PID 2>/dev/null || true; rm -rf "$WORKDIR"' EXIT INT HUP
-sleep 0.3
+
+# Wait for the stub server to answer instead of guessing with a fixed sleep:
+# a loaded runner can take longer than 0.3s to bind, and the first curl in
+# install.sh then fails with "Failed to connect ... after 0 ms" (run 37899122892).
+# curl is already required by install.sh, so probing adds no new dependency;
+# /dev/tcp is a bash-ism and this script runs under POSIX sh.
+# A refused connection returns immediately, so the sleeps only cost wall time
+# when the server is genuinely never coming up.
+attempt=0
+while [ "$attempt" -lt 100 ]; do
+  if curl -fsS -o /dev/null "http://127.0.0.1:$PORT/SHA256SUMS" 2>/dev/null; then
+    break
+  fi
+  attempt=$((attempt + 1))
+  sleep 0.1
+done
+if [ "$attempt" -ge 100 ]; then
+  echo "install-sh-smoke: stub server never became ready on 127.0.0.1:$PORT (probed /SHA256SUMS)" >&2
+  exit 1
+fi
 
 export HOME="$WORKDIR/home"
 export DUYET_BASE_URL="http://127.0.0.1:${PORT}"
