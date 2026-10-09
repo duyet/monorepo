@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/duyet/monorepo/compare/duyet-v0.1.1...duyet-v0.1.2) (2026-10-09)
+
+
+### Bug Fixes
+
+* **deps:** update all non-major dependencies ([#1784](https://github.com/duyet/monorepo/issues/1784)) ([4103a4b](https://github.com/duyet/monorepo/commit/4103a4b92416f190ee4d06e49ae3e9a303f11e8c))
+
 ## [0.1.1](https://github.com/duyet/monorepo/compare/duyet-v0.1.0...duyet-v0.1.1) (2026-09-28)
 
 
