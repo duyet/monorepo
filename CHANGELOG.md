@@ -1,5 +1,34 @@
 # Changelog
 
+## [0.1.10](https://github.com/duyet/monorepo/compare/v0.1.9...v0.1.10) (2026-10-09)
+
+
+### ✨ Features
+
+* **ai-percentage:** show the baked snapshot time on the dashboard ([#1636](https://github.com/duyet/monorepo/issues/1636)) ([8a1dde2](https://github.com/duyet/monorepo/commit/8a1dde2bbe18aa595bee5265412d29c9989f50c4))
+* **blog:** link notes to markdown and discussions ([#1525](https://github.com/duyet/monorepo/issues/1525)) ([39a7f2d](https://github.com/duyet/monorepo/commit/39a7f2d7ff677e1f408de2efb299220c3b84d59c))
+* **blog:** simplify the series index ([#1531](https://github.com/duyet/monorepo/issues/1531)) ([c368234](https://github.com/duyet/monorepo/commit/c36823471d9c105430f9d6a825fc012f464f113e))
+* **blog:** total comment count beside the recent-posts metadata ([#1534](https://github.com/duyet/monorepo/issues/1534)) ([3627193](https://github.com/duyet/monorepo/commit/3627193525a20f842c81a9eb0671a63c81e655a0))
+* **burns:** a 30-day range, and the period total on the legend line ([#1532](https://github.com/duyet/monorepo/issues/1532)) ([67bada1](https://github.com/duyet/monorepo/commit/67bada1278a9c165c490ce5cc84fccdd6dba7194))
+* **burns:** surface generatedAt next to the latest tracked day ([#1583](https://github.com/duyet/monorepo/issues/1583)) ([b8cc0d0](https://github.com/duyet/monorepo/commit/b8cc0d0b319caa319830394c4ee07052d542286c))
+* **insights:** show the baked snapshot time on the index ([#1547](https://github.com/duyet/monorepo/issues/1547)) ([adba0ee](https://github.com/duyet/monorepo/commit/adba0ee95034dca1d20c5c3fc81d016a849dd3cd))
+* **llm-timeline:** show the sheet sync time ([#1549](https://github.com/duyet/monorepo/issues/1549)) ([a36fe43](https://github.com/duyet/monorepo/commit/a36fe43cc462cbd33f3c586d3fbd22c32d3f3a35))
+
+
+### 🐛 Bug Fixes
+
+* **blog:** show the Hacker News thread on posts ([#1529](https://github.com/duyet/monorepo/issues/1529)) ([fdc4322](https://github.com/duyet/monorepo/commit/fdc4322187db3901e5517c3dc31587ce7683943a))
+* **burns:** size the token count from its digits, not the viewport ([#1801](https://github.com/duyet/monorepo/issues/1801)) ([0ff28e5](https://github.com/duyet/monorepo/commit/0ff28e5591ca46dfdc1ed51996da7d11332a1664))
+* **ci:** keep data-app Pages bakes from being cancelled by other pushes ([#1782](https://github.com/duyet/monorepo/issues/1782)) ([3eff861](https://github.com/duyet/monorepo/commit/3eff861a2c47fd95f2a24adfb7927f8e72427e15))
+* **ci:** replace retired macos-13 runner with macos-15-intel ([#1802](https://github.com/duyet/monorepo/issues/1802)) ([1696050](https://github.com/duyet/monorepo/commit/169605068c045316facd1dbb2359fd32fbcbc641))
+* **ci:** wait for the stub server instead of sleeping 0.3s ([#1804](https://github.com/duyet/monorepo/issues/1804)) ([6e2c539](https://github.com/duyet/monorepo/commit/6e2c539c1e71d48369ace194ae8441e720df5d8e))
+* **deploy:** refuse production deploys that GitHub lacks ([#1528](https://github.com/duyet/monorepo/issues/1528)) ([d5ac7c7](https://github.com/duyet/monorepo/commit/d5ac7c7d22307b940d4f33322be5ab236fa53ab9))
+* **deps:** resolve motion within each importer's declared range ([#1786](https://github.com/duyet/monorepo/issues/1786)) ([ccfc90d](https://github.com/duyet/monorepo/commit/ccfc90daa902c55ebafdf0e3f79c3d265c2f362e))
+* **deps:** update all non-major dependencies ([#1784](https://github.com/duyet/monorepo/issues/1784)) ([4103a4b](https://github.com/duyet/monorepo/commit/4103a4b92416f190ee4d06e49ae3e9a303f11e8c))
+* **insights:** stop marking process.env members readonly ([#1789](https://github.com/duyet/monorepo/issues/1789)) ([32d2a29](https://github.com/duyet/monorepo/commit/32d2a29306c0b1a4cef7a8bcb9cd6c4a9bf56205))
+* **photos:** fail the build on an empty gallery when a token is set ([#1548](https://github.com/duyet/monorepo/issues/1548)) ([ee76382](https://github.com/duyet/monorepo/commit/ee7638200cc1d52d09a0575b6fbda15adaa014e2))
+* **tsconfig:** drop baseUrl for TypeScript 7 ([#1797](https://github.com/duyet/monorepo/issues/1797)) ([e8f3517](https://github.com/duyet/monorepo/commit/e8f35170e0d2f2b9a8f1c7a27dce22a3cf5b9551))
+
 ## [0.1.9](https://github.com/duyet/monorepo/compare/v0.1.8...v0.1.9) (2026-09-28)
 
 
