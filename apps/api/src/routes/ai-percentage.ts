@@ -6,6 +6,7 @@
 
 import { Hono } from "hono";
 import type { Env } from "../env.js";
+import { edgeCache } from "../lib/edge-cache.js";
 import {
   executeClickHouseQuery,
   getClickHouseConfig,
@@ -13,6 +14,20 @@ import {
 
 const AI_PERCENTAGE_CACHE_CONTROL =
   "public, max-age=3600, stale-while-revalidate=86400";
+
+const aiPercentageCache = edgeCache({
+  ttl: 3600,
+  swr: 86400,
+  // ?days=abc, ?days=9999 and ?days=3650 all query the same clamped window.
+  canonicalize: (url) => {
+    if (url.searchParams.has("days")) {
+      url.searchParams.set(
+        "days",
+        String(parseHistoryDays(url.searchParams.get("days") ?? undefined))
+      );
+    }
+  },
+});
 
 const aiPercentageRouter = new Hono<{ Bindings: Env }>();
 const MAX_HISTORY_DAYS = 3650;
@@ -50,7 +65,7 @@ export function getDateCondition(days: number): string {
  *   "ai_lines_added": 33000
  * }
  */
-aiPercentageRouter.get("/current", async (c) => {
+aiPercentageRouter.get("/current", aiPercentageCache, async (c) => {
   if (!getClickHouseConfig(c.env)) {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
@@ -116,7 +131,7 @@ aiPercentageRouter.get("/current", async (c) => {
  *   ]
  * }
  */
-aiPercentageRouter.get("/history", async (c) => {
+aiPercentageRouter.get("/history", aiPercentageCache, async (c) => {
   if (!getClickHouseConfig(c.env)) {
     return c.json({ error: "ClickHouse not configured" }, 500);
   }
@@ -178,7 +193,7 @@ aiPercentageRouter.get("/history", async (c) => {
  *   "available": true
  * }
  */
-aiPercentageRouter.get("/available", async (c) => {
+aiPercentageRouter.get("/available", aiPercentageCache, async (c) => {
   if (!getClickHouseConfig(c.env)) {
     return c.json({ available: false });
   }

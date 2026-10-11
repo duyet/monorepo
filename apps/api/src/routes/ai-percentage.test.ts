@@ -114,3 +114,35 @@ describe("parseHistoryDays", () => {
     );
   });
 });
+
+describe("AI percentage edge caching", () => {
+  it("shares one cached ClickHouse query across equivalent history URLs", async () => {
+    const store = new Map<string, Response>();
+    vi.stubGlobal("caches", {
+      default: {
+        match: async (r: Request) => store.get(r.url)?.clone(),
+        put: async (u: string, r: Response) => void store.set(u, r),
+      },
+    });
+    const fetchMock = vi.fn(async () => ({
+      ok: true,
+      text: async () => '{"date":"2026-01-01","ai_percentage":"1"}\n',
+    }));
+    vi.stubGlobal("fetch", fetchMock);
+
+    const a = await app.request(
+      "/api/ai/percentage/history?days=9999&utm_source=x",
+      {},
+      env
+    );
+    const b = await app.request(
+      "/api/ai/percentage/history?days=3650",
+      {},
+      env
+    );
+
+    expect(a.status).toBe(200);
+    expect(b.headers.get("X-Edge-Cache")).toBe("HIT");
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+});
