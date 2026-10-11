@@ -13,6 +13,8 @@ on:
       - '.github/workflows/cf-deploy.yml'
       - 'scripts/cf-pages-apps.ts'
       - 'scripts/cf-deploy-matrix.ts'
+      - 'scripts/wrangler-toml.ts'
+      - 'scripts/sync-failure-summary.ts'
   schedule:
     # After the day's collectors: WakaTime 00:00, Cloudflare 01:00,
     # PostHog 03:00, LLM Timeline 06:00 UTC. The matrix schedule event
