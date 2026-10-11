@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-11T13:45:20.686Z",
+  "generatedAt": "2026-10-11T13:55:22.224Z",
   "firstDate": "2025-08-02",
   "lastDate": "2026-10-11",
   "sources": [
@@ -7386,14 +7386,14 @@
       "cost": 17.39,
       "by_source": [
         {
-          "source": "opencode",
-          "total_tokens": 50392678,
-          "cost": 11.62
-        },
-        {
           "source": "Z.AI",
           "total_tokens": 50392678,
           "cost": 0
+        },
+        {
+          "source": "opencode",
+          "total_tokens": 50392678,
+          "cost": 11.62
         },
         {
           "source": "Claude Code",
