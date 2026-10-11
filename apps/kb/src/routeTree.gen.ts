@@ -11,8 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
-import { Route as SearchRouteImport } from './routes/search'
 import { Route as DreamRouteImport } from './routes/dream'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as CIndexRouteImport } from './routes/c/index'
 import { Route as CCategoryRouteImport } from './routes/c/$category'
 import { Route as DIndexRouteImport } from './routes/d/index'
@@ -35,14 +35,14 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SearchRoute = SearchRouteImport.update({
-  id: '/search',
-  path: '/search',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DreamRoute = DreamRouteImport.update({
   id: '/dream',
   path: '/dream',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CIndexRoute = CIndexRouteImport.update({
@@ -104,8 +104,8 @@ const SitemapXmlRoute = SitemapXmlRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/search': typeof SearchRoute
   '/dream': typeof DreamRoute
+  '/search': typeof SearchRoute
   '/c/$category': typeof CCategoryRoute
   '/d/$date': typeof DDateRoute
   '/k/$slug': typeof KSlugRoute
@@ -121,8 +121,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/search': typeof SearchRoute
   '/dream': typeof DreamRoute
+  '/search': typeof SearchRoute
   '/c/$category': typeof CCategoryRoute
   '/d/$date': typeof DDateRoute
   '/k/$slug': typeof KSlugRoute
@@ -139,8 +139,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/search': typeof SearchRoute
   '/dream': typeof DreamRoute
+  '/search': typeof SearchRoute
   '/c/$category': typeof CCategoryRoute
   '/d/$date': typeof DDateRoute
   '/k/$slug': typeof KSlugRoute
@@ -158,8 +158,8 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
-    | '/search'
     | '/dream'
+    | '/search'
     | '/c/$category'
     | '/d/$date'
     | '/k/$slug'
@@ -175,8 +175,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
-    | '/search'
     | '/dream'
+    | '/search'
     | '/c/$category'
     | '/d/$date'
     | '/k/$slug'
@@ -192,8 +192,8 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
-    | '/search'
     | '/dream'
+    | '/search'
     | '/c/$category'
     | '/d/$date'
     | '/k/$slug'
@@ -210,8 +210,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  SearchRoute: typeof SearchRoute
   DreamRoute: typeof DreamRoute
+  SearchRoute: typeof SearchRoute
   CCategoryRoute: typeof CCategoryRoute
   DDateRoute: typeof DDateRoute
   KSlugRoute: typeof KSlugRoute
@@ -241,18 +241,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/search': {
-      id: '/search'
-      path: '/search'
-      fullPath: '/search'
-      preLoaderRoute: typeof SearchRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/dream': {
       id: '/dream'
       path: '/dream'
       fullPath: '/dream'
       preLoaderRoute: typeof DreamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/c/': {
@@ -338,8 +338,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  SearchRoute: SearchRoute,
   DreamRoute: DreamRoute,
+  SearchRoute: SearchRoute,
   CCategoryRoute: CCategoryRoute,
   DDateRoute: DDateRoute,
   KSlugRoute: KSlugRoute,
