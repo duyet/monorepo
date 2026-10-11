@@ -1,6 +1,8 @@
 import {
+  type FocusEvent as ReactFocusEvent,
   type JSX,
   type KeyboardEvent,
+  type PointerEvent as ReactPointerEvent,
   useEffect,
   useRef,
   useState,
@@ -218,11 +220,18 @@ export function DailyChart({
                 barRefs.current[i] = el;
               },
               "aria-label": `${label(day.date, true)}: ${fmtTokens(dayTotals[i].tokens)} tokens, ${fmtCost(dayTotals[i].cost)}`,
-              onMouseEnter: () => setHovered(i),
-              onMouseLeave: () => setHovered(null),
-              onFocus: () => {
+              // Touch fires compatibility mouse events after a tap; hover from
+              // those would stick and stop a second tap from dismissing.
+              onPointerEnter: (e: ReactPointerEvent) => {
+                if (e.pointerType === "mouse") setHovered(i);
+              },
+              onPointerLeave: (e: ReactPointerEvent) => {
+                if (e.pointerType === "mouse") setHovered(null);
+              },
+              onFocus: (e: ReactFocusEvent) => {
                 setActive(i);
-                setHovered(i);
+                // Tap and click focus too; only keyboard focus shows the tip.
+                if (e.currentTarget.matches(":focus-visible")) setHovered(i);
               },
               onBlur: () => setHovered(null),
               onClick: () => setPinned((p) => (p === i ? null : i)),
