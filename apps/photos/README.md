@@ -58,8 +58,6 @@ apps/photos/
 │   └── LightboxControls.tsx          # Lightbox controls & metadata display
 ├── lib/
 │   ├── types.ts                      # TypeScript interfaces
-│   ├── localPhotos.ts                # Build-time photo scanner
-│   ├── exifExtractor.ts              # EXIF metadata extraction
 │   ├── unsplash.ts                   # Unsplash API integration
 │   ├── MetadataFormatters.ts         # Metadata formatting utilities
 │   └── ImageOptimization.ts          # Image optimization utilities
