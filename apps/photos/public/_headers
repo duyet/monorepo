@@ -10,3 +10,16 @@
 # Hashed assets: immutable long cache
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Build-generated gallery data: 5 min in the browser, edge SWR (deploy purges the cache)
+/photos-data.json
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=86400
+
+/photos/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
+/og.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
+/llms.txt
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

@@ -10,3 +10,13 @@
 # Hashed assets: immutable long cache
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Service worker: always revalidate so a new worker ships immediately
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+/wakatime-assets/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
+/llms.txt
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400

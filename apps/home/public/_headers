@@ -16,19 +16,25 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Static discovery files: rebuilt daily, 1h browser cache
+/sitemap.xml
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/robots.txt
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
 # Images - long cache
+/art/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
 /screenshots/*
   Cache-Control: public, max-age=31536000, immutable
 
 /brand/*
   Cache-Control: public, max-age=31536000, immutable
 
-# CLI channel manifests (#1444 / #1446 / #1447)
-/cli/*.json
-  Content-Type: application/json; charset=utf-8
-  Cache-Control: public, max-age=60, must-revalidate
-  Access-Control-Allow-Origin: *
-  X-Content-Type-Options: nosniff
+# CLI channel manifests (#1444 / #1446 / #1447): see the /cli/*.json rule below.
+# Pages joins Cache-Control across matching rules, so each path gets exactly one.
 
 /cli/minisign.pub
   Content-Type: text/plain; charset=utf-8
@@ -39,6 +45,7 @@
 # Ensure llms.txt is served as plain text and not redirected
 /llms.txt
   Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
   X-Content-Type-Options: nosniff
   Access-Control-Allow-Origin: *
 

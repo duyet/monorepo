@@ -11,19 +11,78 @@
   # whole Pages cache, so edge content is never stale after a publish.
   Cache-Control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
 
+# Cloudflare Pages joins Cache-Control from every matching rule with commas, so
+# the per-path rules below first detach the HTML default from /* ("!"), then set
+# their own policy. Without it browsers saw "max-age=0, ..., max-age=2592000".
+
 # Hashed JS/CSS + KaTeX fonts: filename carries a content hash → cache forever
 /assets/*
+  ! Cache-Control
   Cache-Control: public, max-age=31536000, immutable
 
 # Images: stable URLs, large payloads → long browser cache, edge SWR, deploy-purged
 /media/*
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
+/og/*
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
+/icons/*
+  ! Cache-Control
   Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
 
 # Per-post hydration JSON: regenerated each build → short cache, edge SWR
 /posts-content/*
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400
+
+# Build-generated data/feeds: 5 min in the browser, edge-cached until the next deploy purge
+/posts-data.json
+  ! Cache-Control
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/notes-data.json
+  ! Cache-Control
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/series-data.json
+  ! Cache-Control
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/rss.xml
+  ! Cache-Control
+  Cache-Control: public, max-age=300, s-maxage=86400, stale-while-revalidate=604800
+
+/sitemap.xml
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
+
+/llms.txt
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
+
+/llms-full.txt
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
+
+/robots.txt
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800
+
+# Health/liveness probe: must reflect the last deploy, never edge-cached for a day
+/ping.json
+  ! Cache-Control
+  Cache-Control: public, max-age=0, s-maxage=60, stale-while-revalidate=60
+
+# Service worker: always revalidate so a new worker ships immediately
+/sw.js
+  ! Cache-Control
+  Cache-Control: public, max-age=0, must-revalidate
 
 # Serve .md files as plain text markdown, lightly cached
 /*.md
   Content-Type: text/plain; charset=utf-8
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  ! Cache-Control
+  Cache-Control: public, max-age=3600, s-maxage=86400, stale-while-revalidate=86400

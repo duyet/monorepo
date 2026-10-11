@@ -73,4 +73,8 @@ describe("Cloudflare Pages _headers additions", () => {
       /\/cli\/\*\.json\n {2}Content-Type: application\/json; charset=utf-8\n {2}Cache-Control: public, max-age=300\n/
     );
   });
+
+  it("declares each /cli/*.json rule once (Pages joins duplicate Cache-Control)", () => {
+    expect(headers.match(/^\/cli\/\*\.json$/gm)).toHaveLength(1);
+  });
 });
