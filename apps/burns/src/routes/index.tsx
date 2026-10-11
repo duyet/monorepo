@@ -46,6 +46,7 @@ function Page(): JSX.Element {
   const [rangeKey, setRangeKey] = useState<RangeKey>("90d");
   const [granularity, setGranularity] = useState<Granularity>("daily");
   const range = formatRange(data.firstDate, data.lastDate);
+  const selectedRange = RANGES.find((r) => r.key === rangeKey) ?? RANGES[0];
   const updated = formatUpdated(data.generatedAt);
 
   return (
@@ -110,7 +111,7 @@ function Page(): JSX.Element {
         <DailyChart
           daily={data.daily}
           filter={filter}
-          days={RANGES.find((r) => r.key === rangeKey)?.days ?? null}
+          range={selectedRange}
           granularity={granularity}
         />
       </section>

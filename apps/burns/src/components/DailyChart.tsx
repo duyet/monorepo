@@ -1,5 +1,6 @@
 import { type JSX, useState } from "react";
 import { formatDay, formatMonth } from "../lib/dates";
+import { dayTotals as dayTotalsFor, summarizePeriod } from "../lib/period";
 import {
   fmtCost,
   fmtTokens,
@@ -7,13 +8,17 @@ import {
   sourceSwatch,
 } from "../lib/sources";
 import type { DailyEntry, DailyEntrySource } from "../lib/types";
+import { PeriodBreakdownDialog } from "./PeriodBreakdownDialog";
 
 interface DailyChartProps {
   daily: DailyEntry[];
   /** When set, only this agent's usage is charted. */
   filter?: string | null;
-  /** Number of most recent days to chart; null charts everything. */
-  days?: number | null;
+  /**
+   * The selected range. `days: null` charts everything. The label rides along
+   * so the period total can name its own scope instead of restating "All".
+   */
+  range: { label: string; days: number | null };
   granularity?: Granularity;
 }
 
@@ -57,20 +62,16 @@ export const RANGES = [
   { key: "all", label: "All", days: null },
   { key: "12m", label: "12 months", days: 365 },
   { key: "90d", label: "90 days", days: 90 },
+  { key: "30d", label: "30 days", days: 30 },
 ] as const;
 
 export type RangeKey = (typeof RANGES)[number]["key"];
 const CHART_H = 100;
 
-function stackedTotal(d: DailyEntry): number {
-  const sum = (d.by_source ?? []).reduce((acc, s) => acc + s.total_tokens, 0);
-  return sum || d.total_tokens;
-}
-
 export function DailyChart({
   daily,
   filter = null,
-  days = null,
+  range,
   granularity = "daily",
 }: DailyChartProps): JSX.Element | null {
   const [hovered, setHovered] = useState<number | null>(null);
@@ -80,7 +81,7 @@ export function DailyChart({
   const keep = (source: string) =>
     filter === null || normalizeSource(source) === filter;
 
-  const windowed = (days === null ? daily.slice() : daily.slice(0, days))
+  const windowed = (range.days === null ? daily.slice() : daily.slice(0, range.days))
     .reverse()
     .map((d) =>
       filter === null
@@ -90,22 +91,10 @@ export function DailyChart({
   const recent = granularity === "monthly" ? byMonth(windowed) : windowed;
   const label = (iso: string, long = false) =>
     granularity === "monthly" ? formatMonth(iso) : formatDay(iso, long);
-  const dayTotals = recent.map((d) =>
-    filter === null
-      ? { tokens: d.total_tokens, cost: d.cost }
-      : (d.by_source ?? []).reduce(
-          (acc, s) => ({
-            tokens: acc.tokens + s.total_tokens,
-            cost: acc.cost + s.cost,
-          }),
-          { tokens: 0, cost: 0 }
-        )
-  );
-  const maxTokens =
-    filter === null
-      ? Math.max(...recent.map(stackedTotal), 1)
-      : Math.max(...dayTotals.map((t) => t.tokens), 1);
+  const dayTotals = recent.map((d) => dayTotalsFor(d, filter));
+  const maxTokens = Math.max(...dayTotals.map((t) => t.tokens), 1);
   const barWidth = 100 / recent.length;
+  const period = summarizePeriod(daily, range.days, filter);
 
   const totals = new Map<string, number>();
   for (const day of recent) {
@@ -278,19 +267,31 @@ export function DailyChart({
         ))}
       </div>
 
-      {legend.length > 0 && (
-        <ul className="burns-legend">
-          {legend.map((name) => (
-            <li key={name}>
-              <span
-                className="burns-swatch"
-                style={{ background: sourceSwatch(name) }}
-              />
-              {name}
-            </li>
-          ))}
-        </ul>
-      )}
+      {/*
+        One line: legend on the left, the selected period's total on the right.
+        The line renders whenever there is data, even with no legend, so the
+        total never shifts in and out of the right edge as sources come and go.
+      */}
+      <div className="burns-legend-line">
+        {legend.length > 0 && (
+          <ul className="burns-legend">
+            {legend.map((name) => (
+              <li key={name}>
+                <span
+                  className="burns-swatch"
+                  style={{ background: sourceSwatch(name) }}
+                />
+                {name}
+              </li>
+            ))}
+          </ul>
+        )}
+        <PeriodBreakdownDialog
+          period={period}
+          range={range}
+          filterLabel={filter}
+        />
+      </div>
     </div>
   );
 }
