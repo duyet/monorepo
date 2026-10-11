@@ -43,3 +43,28 @@ For scoped reviews after the last run timestamp:
 - Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
 - `gh run list --branch main --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `main` CI is green
 - `gh run view <run-id> --job <job-id> --log-failed` to inspect CI failures with line-level stack traces
+
+## Subagent naming
+
+Name every subagent `<model>-<reasoning-level>-<task>`, so the run reads back
+as a roster of what actually executed — model, effort, and job in one glance.
+
+```
+<model>-<reasoning-level>-<task>
+```
+
+| Field             | Value                                              | Example        |
+| ----------------- | -------------------------------------------------- | -------------- |
+| `model`           | exact model id, lowercase, no vendor prefix        | `opus-5`       |
+| `reasoning-level` | `low` \| `medium` \| `high` \| `xhigh` \| `ultra` | `high`         |
+| `task`            | 2-3 words, kebab-case, verb-first                  | `split-thread` |
+
+Examples: `opus-5-high-split-thread`, `sonnet-5-medium-survey-codebase`,
+`gpt-5-high-fix-types`, `gemini-3-pro-low-summarize-docs`.
+
+Never a bare `explore`, `research`, or `helper`. When a run fans out, the
+parallel lanes must differ in the `<task>` segment and match on the first two,
+so one `agent list` sorts the fleet by cost. If a name cannot be read back as
+"which model, how hard, doing what", rename it before spawning.
+
+The rule and its rationale: `apps/blog/_shortforms/2026-10-05-naming-subagents-by-model-and-reasoning.md`.
