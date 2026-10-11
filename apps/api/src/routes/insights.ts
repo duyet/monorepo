@@ -45,17 +45,23 @@ insightsRouter.get(
   edgeCache({ ttl: OVERVIEW_TTL, swr: OVERVIEW_SWR, decorate: corsHeaders }),
   async (c) => {
     try {
+      let degraded = false;
       const [ai, waka, cloudflare, posthog] = await Promise.allSettled([
-        getAiOverview(c.env),
+        getAiOverview(c.env, () => {
+          degraded = true;
+        }),
         getWakaOverview(c.env),
         getCloudflareOverview(c.env),
         getPostHogOverview(c.env),
       ]);
 
       setCors(c);
+      // A degraded answer must not be stored, or it outlives the outage.
       c.header(
         "Cache-Control",
-        `public, max-age=${OVERVIEW_TTL}, stale-while-revalidate=${OVERVIEW_SWR}`
+        degraded
+          ? "no-store"
+          : `public, max-age=${OVERVIEW_TTL}, stale-while-revalidate=${OVERVIEW_SWR}`
       );
       return c.json({
         ...emptyOverview(),

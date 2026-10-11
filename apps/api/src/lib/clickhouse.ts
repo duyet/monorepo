@@ -116,10 +116,13 @@ export async function executeClickHouseQuery(
 /**
  * Run a `FORMAT JSONEachRow` query for dashboard reads: never throws, returns
  * an empty list on any failure so callers can merge partial results.
+ * `onFailure` fires when a configured upstream failed, so callers can tell a
+ * degraded `[]` from a genuinely empty result (and refuse to cache it).
  */
 export async function queryClickHouseRows(
   env: Env,
-  query: string
+  query: string,
+  onFailure?: () => void
 ): Promise<Record<string, unknown>[]> {
   const request = buildClickHouseRequest(
     env,
@@ -137,6 +140,7 @@ export async function queryClickHouseRows(
     });
 
     if (!response.ok) {
+      onFailure?.();
       return [];
     }
 
@@ -145,6 +149,7 @@ export async function queryClickHouseRows(
       console.warn(
         `[REDACTED] insights response exceeded ${MAX_CLICKHOUSE_RESPONSE_BYTES} bytes`
       );
+      onFailure?.();
       return [];
     }
 
@@ -160,6 +165,7 @@ export async function queryClickHouseRows(
     return results;
   } catch (error) {
     console.error("ClickHouse insights query failed:", error);
+    onFailure?.();
     return [];
   }
 }

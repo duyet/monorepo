@@ -218,6 +218,8 @@ aiPercentageRouter.get("/available", aiPercentageCache, async (c) => {
     return c.json({ available: count > 0 });
   } catch (error) {
     console.error("Error checking AI percentage availability:", error);
+    // Failure, not a genuine "no data": must not be cached past the outage.
+    c.header("Cache-Control", "no-store");
     return c.json({ available: false });
   }
 });

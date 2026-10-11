@@ -161,6 +161,50 @@ describe("GET /api/insights/overview", () => {
   });
 });
 
+describe("GET /api/insights/overview caching under ClickHouse failure", () => {
+  const CH_ENV = {
+    CLICKHOUSE_HOST: "ch.example.com",
+    CLICKHOUSE_PASSWORD: "secret",
+  } as Env;
+
+  function stubCache() {
+    const store = new Map<string, Response>();
+    vi.stubGlobal("caches", {
+      default: {
+        match: async (r: Request) => store.get(r.url)?.clone(),
+        put: async (u: string, r: Response) => void store.set(u, r),
+      },
+    });
+    return store;
+  }
+
+  it("does not store the zeroed overview when ClickHouse fails", async () => {
+    const store = stubCache();
+    stubFetch(
+      () => ({ ok: false, status: 503, text: async () => "down" }) as Response
+    );
+
+    const res = await insightsRouter.request("/overview", {}, CH_ENV);
+
+    expect(res.status).toBe(200);
+    expect(res.headers.get("Cache-Control")).toBe("no-store");
+    expect(store.size).toBe(0);
+  });
+
+  it("stores the overview when ClickHouse answers", async () => {
+    const store = stubCache();
+    stubFetch(
+      () =>
+        ({ ok: true, json: async () => ({}), text: async () => "" }) as Response
+    );
+
+    const res = await insightsRouter.request("/overview", {}, CH_ENV);
+
+    expect(res.headers.get("Cache-Control")).toMatch(/public/);
+    expect(store.size).toBe(1);
+  });
+});
+
 describe("insight sources degrade instead of throwing", () => {
   it("getAiOverview zeroes out when ClickHouse is unconfigured", async () => {
     const overview = await getAiOverview(ENV);
@@ -233,11 +277,9 @@ describe("insight sources degrade instead of throwing", () => {
       });
     });
 
-    const res = await insightsRouter.request(
-      "/overview",
-      {},
-      { WAKATIME_API_KEY: "key" } as Env
-    );
+    const res = await insightsRouter.request("/overview", {}, {
+      WAKATIME_API_KEY: "key",
+    } as Env);
     const body = (await res.json()) as {
       wakaMetrics: Record<string, unknown>;
       wakaTrend: unknown[];

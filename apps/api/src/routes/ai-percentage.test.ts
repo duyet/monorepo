@@ -146,3 +146,43 @@ describe("AI percentage edge caching", () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 });
+
+describe("AI percentage availability caching", () => {
+  function stubCache() {
+    const store = new Map<string, Response>();
+    vi.stubGlobal("caches", {
+      default: {
+        match: async (r: Request) => store.get(r.url)?.clone(),
+        put: async (u: string, r: Response) => void store.set(u, r),
+      },
+    });
+    return store;
+  }
+
+  it("does not store the available:false produced by a ClickHouse failure", async () => {
+    const store = stubCache();
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok: false, status: 503, text: async () => "down" }))
+    );
+
+    const res = await app.request("/api/ai/percentage/available", {}, env);
+
+    expect(await res.json()).toEqual({ available: false });
+    expect(res.headers.get("Cache-Control")).toBe("no-store");
+    expect(store.size).toBe(0);
+  });
+
+  it("stores a healthy answer", async () => {
+    const store = stubCache();
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(async () => ({ ok: true, text: async () => '{"count":"5"}\n' }))
+    );
+
+    const res = await app.request("/api/ai/percentage/available", {}, env);
+
+    expect(await res.json()).toEqual({ available: true });
+    expect(store.size).toBe(1);
+  });
+});

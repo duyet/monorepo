@@ -103,7 +103,8 @@ function emptyWaka() {
   };
 }
 
-export async function getAiOverview(env: Env) {
+/** `onDegraded` fires when a ClickHouse query failed, so the zeroed fields are not real data. */
+export async function getAiOverview(env: Env, onDegraded?: () => void) {
   const metrics = await queryClickHouseRows(
     env,
     `
@@ -114,7 +115,8 @@ export async function getAiOverview(env: Env) {
         COUNT(DISTINCT date) as active_days
       FROM ccusage_usage_daily
       WHERE date >= today() - INTERVAL 30 DAY
-    `
+    `,
+    onDegraded
   );
 
   const activity = await queryClickHouseRows(
@@ -128,7 +130,8 @@ export async function getAiOverview(env: Env) {
       WHERE date >= today() - INTERVAL 30 DAY
       GROUP BY date
       ORDER BY date ASC
-    `
+    `,
+    onDegraded
   );
 
   const models = await queryClickHouseRows(
@@ -144,7 +147,8 @@ export async function getAiOverview(env: Env) {
       GROUP BY model_name
       ORDER BY total_tokens DESC
       LIMIT 10
-    `
+    `,
+    onDegraded
   );
 
   const metricRow = metrics[0] ?? {};
