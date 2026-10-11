@@ -45,6 +45,11 @@ export function AnimatedCounter({
     if (started.current) return;
     started.current = true;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setDisplay(target.toLocaleString("en-US"));
+      return;
+    }
+
     const start = performance.now();
     let raf: number;
 
@@ -107,10 +112,13 @@ export function AnimatedCounter({
       <span
         className="burns-count"
         ref={box}
+        aria-hidden="true"
         style={fittedPx === null ? undefined : { fontSize: `${fittedPx}px` }}
       >
         {display}
       </span>
+      {/* Screen readers get the final value, not every frame of the count. */}
+      <span className="burns-sr-only">{finalText}</span>
       {/*
         Measured, never painted: the same string at a fixed size, so the ratio
         between its width and the hero's is the count's fit ratio.

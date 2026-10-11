@@ -27,8 +27,9 @@ describe("AnimatedCounter markup", () => {
     const html = markup(163_813_446_180);
     expect(html).toContain('aria-hidden="true"');
     expect(html).toContain("163,813,446,180");
-    // Once, in the probe. The visible count is still counting up from 0.
-    expect(html.match(/163,813,446,180/g)).toHaveLength(1);
+    // Twice: the probe and the screen-reader text. The visible count is still
+    // counting up from 0 and is hidden from assistive tech.
+    expect(html.match(/163,813,446,180/g)).toHaveLength(2);
   });
 
   test("counts up from 0, so the prerendered paint matches hydration", () => {

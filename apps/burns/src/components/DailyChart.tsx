@@ -81,7 +81,9 @@ export function DailyChart({
   const keep = (source: string) =>
     filter === null || normalizeSource(source) === filter;
 
-  const windowed = (range.days === null ? daily.slice() : daily.slice(0, range.days))
+  const windowed = (
+    range.days === null ? daily.slice() : daily.slice(0, range.days)
+  )
     .reverse()
     .map((d) =>
       filter === null
@@ -95,6 +97,14 @@ export function DailyChart({
   const maxTokens = Math.max(...dayTotals.map((t) => t.tokens), 1);
   const barWidth = 100 / recent.length;
   const period = summarizePeriod(daily, range.days, filter);
+
+  if (period.totalTokens === 0) {
+    return (
+      <p className="burns-chart-empty" role="status">
+        No usage{filter ? ` for ${filter}` : ""} in this range.
+      </p>
+    );
+  }
 
   const totals = new Map<string, number>();
   for (const day of recent) {
@@ -133,8 +143,12 @@ export function DailyChart({
         <svg
           viewBox={`0 0 100 ${CHART_H}`}
           preserveAspectRatio="none"
-          role="img"
-          aria-label="Daily token usage"
+          role="group"
+          aria-label={
+            granularity === "monthly"
+              ? "Monthly token usage"
+              : "Daily token usage"
+          }
         >
           {recent.map((day, i) => {
             const gap = barWidth * 0.22;
@@ -154,7 +168,7 @@ export function DailyChart({
             const barAccess = {
               role: "button" as const,
               tabIndex: 0,
-              "aria-label": `${day.date}: ${fmtTokens(dayTotals[i].tokens)} tokens, ${fmtCost(dayTotals[i].cost)}`,
+              "aria-label": `${label(day.date, true)}: ${fmtTokens(dayTotals[i].tokens)} tokens, ${fmtCost(dayTotals[i].cost)}`,
               onMouseEnter: () => setHovered(i),
               onMouseLeave: () => setHovered(null),
               onFocus: () => setHovered(i),
@@ -205,8 +219,7 @@ export function DailyChart({
             const pct = hovered * barWidth + barWidth / 2;
             // Abspos width is the leftover space after `left`. Pin with
             // `right` on the trailing edge so the box can grow leftward.
-            const edge =
-              pct < 18 ? "start" : pct > 82 ? "end" : "center";
+            const edge = pct < 18 ? "start" : pct > 82 ? "end" : "center";
             const style =
               edge === "start"
                 ? { left: 0, right: "auto", transform: "none" }

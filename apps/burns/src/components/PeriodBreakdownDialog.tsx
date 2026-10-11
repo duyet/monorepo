@@ -1,4 +1,5 @@
-import { type JSX, useEffect, useRef, useState } from "react";
+import { type JSX, useState } from "react";
+import { BurnsDialog } from "./BurnsDialog";
 import type { PeriodSummary } from "../lib/period";
 import { rangeScope } from "../lib/period";
 import { fmtCompactTokens, fmtCost } from "../lib/sources";
@@ -26,15 +27,7 @@ export function PeriodBreakdownDialog({
   range,
   filterLabel = null,
 }: PeriodBreakdownDialogProps): JSX.Element | null {
-  const ref = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
-  }, [open]);
 
   if (period.entries === 0) return null;
 
@@ -47,45 +40,41 @@ export function PeriodBreakdownDialog({
       <button
         type="button"
         className="burns-period-total"
+        aria-haspopup="dialog"
         onClick={() => setOpen(true)}
       >
         {fmtCompactTokens(period.totalTokens)} tokens
         <span className="burns-period-scope">{scope}</span>
       </button>
-      <dialog
-        ref={ref}
-        className="burns-dialog"
+      <BurnsDialog
+        open={open}
         onClose={() => setOpen(false)}
-        onClick={(e) => {
-          if (e.target === ref.current) setOpen(false);
-        }}
+        title={`Token breakdown, ${scope}`}
       >
-        <div className="burns-dialog-body">
-          <section className="burns-section" style={{ paddingTop: 0 }}>
-            <div className="burns-section-head">
-              <h2 className="burns-section-title">By source</h2>
-              <p className="burns-section-meta">{scope}</p>
-            </div>
-            <SourceBreakdown totals={period.bySource} />
-          </section>
+        <section className="burns-section" style={{ paddingTop: 0 }}>
+          <div className="burns-section-head">
+            <h2 className="burns-section-title">By source</h2>
+            <p className="burns-section-meta">{scope}</p>
+          </div>
+          <SourceBreakdown totals={period.bySource} />
+        </section>
 
-          {/*
+        {/*
             The per-day mix is not split by agent, so a filtered period has no
             mix to show. A zero-filled bar would read as "no cache reads".
           */}
-          {period.mix ? (
-            <section className="burns-section">
-              <div className="burns-section-head">
-                <h2 className="burns-section-title">Token mix</h2>
-                <p className="burns-section-meta">
-                  {fmtCost(period.totalCost)} total
-                </p>
-              </div>
-              <TokenBreakdown totals={period.mix} />
-            </section>
-          ) : null}
-        </div>
-      </dialog>
+        {period.mix ? (
+          <section className="burns-section">
+            <div className="burns-section-head">
+              <h2 className="burns-section-title">Token mix</h2>
+              <p className="burns-section-meta">
+                {fmtCost(period.totalCost)} total
+              </p>
+            </div>
+            <TokenBreakdown totals={period.mix} />
+          </section>
+        ) : null}
+      </BurnsDialog>
     </>
   );
 }
