@@ -1730,6 +1730,21 @@ Default sub-agents to mid/cheap tiers for mechanical work; reserve expensive mod
 
 ---
 
+# Commit and push to deploy
+URL: https://kb.duyet.net/m/feedback-commit-push-deploy
+Type: feedback
+Description: After shipping work, always commit, push, and deploy — do not wait to be asked
+
+When the work is done (tests pass, change is meant to go live), **commit, push, and deploy** in the same turn. The user says this as `cp and deploy`. Do not stop after the edit, and do not ask whether to ship.
+
+**Why:** Deploy is the default end of the loop, not a follow-up question.
+
+**How to apply:** conventional commit ([[feedback-semantic-commits]]), push, and land it on GitHub `main` so CI deploys. For this monorepo that is a PR merged to `main`, then the Cloudflare Pages workflow (`cf-deploy.yml`). Confirm the deploy run. Run `pnpm run cf:deploy -- <app> --prod` only when CI will not pick the change up, and only from a commit already on `origin/main` with a clean `apps/` and `packages/`. The script refuses otherwise.
+
+Before that merge, run `git log origin/main..HEAD -- apps packages`. If it lists commits, those edits are only on the local checkout. Merging an unrelated PR still rebuilds production from GitHub `main` and rolls the live site back to the older copy. Put the missing files on the PR first. This is what reverted the long "I don't read code anymore" post.
+
+---
+
 # Write concise simple English
 URL: https://kb.duyet.net/m/feedback-concise-english
 Type: feedback
@@ -1802,14 +1817,14 @@ Router files rot if they hold feature contracts. Point to notes instead.
 
 ---
 
-# Write memory on the way out
+# Write memory as you work
 URL: https://kb.duyet.net/m/feedback-docs-write-on-exit
 Type: feedback
-Description: Persist durable public facts before context is lost
+Description: Persist durable public facts during work, not only at session end
 
-Trigger: learned durable public fact → note or inbox, then lint/sync.
+Trigger: learned a durable public fact → update the existing note or append inbox, then lint/sync. Do this during the task, not only on the way out.
 
-**How to apply:** public-only (AGENTS.md §3). Pair with [[feedback-docs-read-on-entry]].
+**How to apply:** public-only (AGENTS.md §3). Prefer updating an existing `memory/` note over a new file. Pair with [[feedback-docs-read-on-entry]].
 
 ---
 
@@ -1821,6 +1836,64 @@ Description: Never claim done if tests/steps were skipped silently
 Surface uncertainty and skipped work. "Tests pass" is false if any were skipped.
 
 **How to apply:** list what was not verified. Pair with [[feedback-logic-change-update-tests]].
+
+---
+
+# Herdr children — offload, merge, then remove
+URL: https://kb.duyet.net/m/feedback-herdr-children-merge-clean
+Type: feedback
+Description: Offload implementation to parallel Herdr child worktrees, squash-merge finished PRs, then remove the worktree
+
+Standing rule for a manager session on a repo that uses [Herdr](https://herdr.dev) worktrees:
+
+- Offload implementation to child worktrees. Resume dead sessions in small batches so the host stays usable. Do not implement features in the manager checkout.
+- Heavy Node work runs once, in the manager session: `local-ci`, typecheck, vitest, `assets:build`, and app builds. Children do not run those in parallel.
+- Group edits that touch the same files into one child. Split only independent work.
+- When a child PR is ready, squash-merge it onto the repo's default branch, then remove that worktree.
+- Leave a lane whose agent is still working, and any tree with uncommitted work that is not already on the default branch.
+- Do not merge release-please or dependency-bump PRs ([[feedback-never-auto-merge-release-please]]).
+
+**Why:** The user repeats this as the manager loop: children build, the manager integrates, finished checkouts go away.
+
+**How to apply:** On each manager turn, list child worktrees, resume or spawn the unfinished ones, merge only gated PRs, and reclaim only landed trees.
+
+---
+
+# Issue → research → PR: require the verify path before implementation
+URL: https://kb.duyet.net/m/feedback-issue-research-pr
+Type: feedback
+Description: An issue is addressable only when it names where the change starts, what the behaviour becomes, and which check proves it
+
+The contract that makes agent-written PRs reviewable, stated once and enforced
+everywhere (human, desk, and sub-agent alike):
+
+1. **Issue** — one problem, with an observable symptom and its evidence (a log
+   line, an `rg` hit, a failing check). No "improve X" without a symptom.
+2. **Research** — before any code, the issue answers: **where** (exact files and
+   the line you start at), **what** (the behaviour after, in one sentence a
+   reviewer could disagree with), **verify** (the test name, CI check, or command
+   with expected output), and **not already done** (issues, PRs, `git log`).
+3. **PR** — one concern, no drive-by renames or dependency bumps, description
+   states the issue, the verify path, and the blast radius.
+
+**Why:** "there is no verify path" is itself the finding — an agent that cannot
+name the check will ship a plausible diff that nothing proves, and the reviewer
+pays for it. Naming *where* is what keeps parallel agents from colliding on the
+same file, and naming *what* is what turns a review from "is this right?" into
+"is this what we asked for?".
+
+**How to apply:**
+
+- **Research-only is a valid outcome.** A vague issue, a product decision, or a
+  finding whose right output is knowledge gets a note, and the cycle stops. Do
+  not open a weak PR to look productive, and do not guess a product decision on
+  a timer.
+- **`needs-design` is a hard stop** for every agent, unattended ones included. It
+  means a human owes a decision.
+- Skip a step if you must — just never skip it *silently*, and record why in the
+  issue.
+
+See [[tech-improvement-loop]], [[feedback-docs-driven-development]].
 
 ---
 
@@ -1836,14 +1909,54 @@ If you rename contracts or change behavior tests lock, grep tests and update exp
 
 ---
 
+# Keep main CI green, fast, and performant
+URL: https://kb.duyet.net/m/feedback-main-ci-green-fast
+Type: feedback
+Description: After merges and new features, verify main CI is green; do not add slow tests or extra hot-path queries
+
+On chmonitor (and similar repos): after a merge or feature batch, **check `main` CI** (`gh run list --branch main`). Required jobs (`unit-tests`, `dashboard`) must stay green. Fix red `main` before starting unrelated work.
+
+**How to apply:**
+- Do not add tests that re-query live ClickHouse when a pure unit test suffices.
+- Do not put extra system-table scans on every Insights/cron sweep if a dedicated page already owns that query — extract, share SQL, run in `Promise.all`, fail closed without blocking other collectors.
+- Watch Worker/dashboard build time; a type error that only shows in `tsc --noEmit` is a required-check fail — reproduce locally before push.
+- Cancelled runs on older SHAs after a fast merge train are expected; judge green on the **tip** SHA.
+
+**Why:** stacked auto-merges cancel mid-SHA CI; tip health and hot-path query cost are what users feel.
+
+---
+
 # Never auto-merge release-please PRs
 URL: https://kb.duyet.net/m/feedback-never-auto-merge-release-please
 Type: feedback
-Description: Leave release-please release PRs for human merge
+Description: Leave release-please and changeset version PRs for human merge
 
-Do not arm auto-merge on release-please PRs (`chore(main): release X.Y.Z`, branches `release-please--*`).
+Do not auto-merge release PRs. Skip:
 
-**How to apply:** fix/CI babysit only; human merges releases. See [[tech-release-please-basics]], [[project-open-managed-agents]].
+- release-please: branch starts with `release-please--`, or title starts with `chore(release)` / `chore(<scope>): release` / `chore: release`
+- changeset Version Packages: branch starts with `changeset-release/`, or title is `Version Packages` / `chore: version packages`
+
+Ordinary `feat` / `fix` / `ci` PRs may still automerge.
+
+**How to apply:** fix/CI babysit only; human merges releases. Generic automerge should skip those branch/title patterns from the default branch so a PR cannot rewrite the skip table. See [[tech-release-please-basics]], [[project-open-managed-agents]].
+
+---
+
+# pstack verification is infra
+URL: https://kb.duyet.net/m/feedback-pstack-verification
+Type: feedback
+Description: Agents must close the loop themselves with a project-local verify skill, a CLI lever, a Feature Map, and cloud agents — not worktrees
+
+Verification is the highest-leverage skill: the agent drives the real app, captures proof, and keeps going until the change is true. Treat it as infra, not optional markdown.
+
+**Why:** Without a closed loop, a human is the bottleneck. Volume only helps if quality stays high.
+
+**How to apply:**
+- Generate `.cursor/skills/verify-<app>/` with `/create-verification-skill` (CLI lever + Feature Map + one proven drive).
+- Prefer tools over prose ("Build the Lever"): composable CLI, `--dry-run` on destructive commands, JSON output, rich `--help`.
+- Parallelize with Cursor cloud agents, not git worktrees.
+- Ship prompts: `/poteto-mode` plus the repo's verify skill (screenshots, video, or transcripts as proof).
+- Refresh the skill as the app changes (`/maintain-verification-skill` on ship, not a new clock wake unless asked).
 
 ---
 
@@ -1894,6 +2007,52 @@ Every changed line must map to the user request. Mention unrelated dead code; do
 
 ---
 
+# Tailscale Serve for local Vite
+URL: https://kb.duyet.net/m/feedback-tailscale-serve-local-vite
+Type: feedback
+Description: When asked for Tailscale or remote access to a local Vite/TanStack app, bind Vite on every interface and add a tailnet-only Serve proxy. Never Funnel unless asked.
+
+When the user asks for Tailscale, tailnet, or remote access to a running local Vite/TanStack app, expose it with **Tailscale Serve** (tailnet only).
+
+**Why:** Direct HTTP on the Vite port is often blocked; Serve terminates HTTPS on the MagicDNS name.
+
+**How to apply:**
+1. Vite `server.host` listens on every interface. `allowedHosts` includes the Tailscale MagicDNS suffix plus the node's name from `tailscale status`.
+2. Do **not** `tailscale serve reset` (it wipes other proxies).
+3. Do **not** enable Funnel unless the user asks for the public internet.
+4. Add a mapping: `tailscale serve --bg --https=<httpsPort> --yes <vitePort>` on a free HTTPS port (check `tailscale serve status` first).
+5. Reply with the `https://<magicdns>:<httpsPort>/` URL from `tailscale serve status`.
+
+---
+
+# Verify UI work in a real browser, not by reading the diff
+URL: https://kb.duyet.net/m/feedback-verify-ui-in-browser
+Type: feedback
+Description: Markup/CSS/JS bugs stay invisible in review — measure the rendered page before claiming done
+
+Render the page in a real browser and measure computed styles/geometry before
+calling UI work done. Assert the *why* in tests, not the markup.
+
+**Why:** on a UI audit, three defects passed code review, a green test suite,
+and a clean read of the diff — all only visible in the rendered page:
+- a container reused two classes (`.wrap .topbar-in`), silently inheriting
+  72px padding and inflating a nav bar from 52px to 113px
+- a `<button>` missing its class fell back to the UA default grey, so the
+  primary CTA was unstyled
+- a control built in JS with one class instead of two got 18px instead of a
+  40px hit area
+Also: a slow/mocked `fetch` in the test harness is what proved a double click
+fired two mutating POSTs. `color-mix`, `overflow-x`, and focus rings look right
+in source and fail silently.
+
+**How to apply:** open the page, then read back `getBoundingClientRect()` and
+`getComputedStyle()` for hit areas, background, and contrast; compute WCAG ratios
+in-page rather than eyeballing greys; test at ~360px for overflow; mock `fetch`
+and count *requests*, not UI states. Fix the defect's cause in CSS, not its
+symptom in one call site, so every instance is covered.
+
+---
+
 # Working style (index)
 URL: https://kb.duyet.net/m/feedback-working-style
 Type: feedback
@@ -1902,9 +2061,10 @@ Description: Index of agent collaboration preferences
 Agent working-style index:
 
 - [[feedback-concise-english]] · [[feedback-simple-code]] · [[feedback-semantic-commits]]
-- [[feedback-surgical-changes]] · [[feedback-fail-loud]]
+- [[feedback-surgical-changes]] · [[feedback-fail-loud]] · [[feedback-commit-push-deploy]]
 - [[feedback-docs-driven-development]] · [[feedback-cheap-models-subagents]]
-- [[feedback-logic-change-update-tests]] · [[feedback-never-auto-merge-release-please]]
+- [[feedback-logic-change-update-tests]] · [[feedback-never-auto-merge-release-please]] · [[feedback-herdr-children-merge-clean]]
+- [[feedback-main-ci-green-fast]] — keep main CI green and hot paths cheap
 
 - [[feedback-disambiguate-repo]] — multi-product sessions
 
@@ -1975,19 +2135,332 @@ Fleet **state/coordination** API (not an agent framework — [[tech-agentstate-n
 
 Product version is [[tech-release-please-basics]]: standing `chore(main): release X.Y.Z` PR, human-merge only ([[feedback-never-auto-merge-release-please]]). In 0.x, `feat` bumps minor (`bump-patch-for-minor-pre-major: false`). `/api` reports that semver.
 
+**Shipping:** duyetbot auto-merges green PRs itself (merge-commit strategy that preserves the branch's semantic commits — no need to merge manually; just push, wait for CI, and confirm). Dashboard routes are auth-gated app shells, excluded from the sitemap checker.
+
 SDKs: npm `@agentstate/sdk`, PyPI `agentstate`. MCP available. MIT, self-hostable.
 Portfolio: [[user-duyet-active-projects]]. Related: [[project-anyworker]], [[project-open-managed-agents]], [[tech-ai-agent-stack]].
+
+---
+
+# aidr uses the cf CLI for D1 and secrets
+URL: https://kb.duyet.net/m/project-aidr-cf-cli
+Type: project
+Description: aidr.today keeps wrangler.toml and wrangler deploy because cf migrate drops Workflows and Durable Objects.
+
+aidr (`apps/web`, Worker `aidr`) uses the `cf` CLI (1.0.0-beta.5) for D1 and Worker secrets.
+
+- D1 database id: `0c8f3efe-0427-4268-8d9f-bb1a4bcbe427`. Commands take the id, not the name `aidr`.
+- Migrations: `cf d1 migrations apply 0c8f3efe-0427-4268-8d9f-bb1a4bcbe427 --dir migrations`
+- Query: `cf d1 query <id> --sql "..."`
+- Secrets: `cf workers secrets bulk --worker aidr --file <json array of {name,text,type}>`
+- Deploy stays `wrangler deploy --config dist/server/wrangler.json`. `cf migrate` does not carry the `news-ingest` Workflow or the `NewsIngestScheduler` Durable Object.
+
+**Why:** the hourly ingest depends on those bindings.
+**How to apply:** do not replace `wrangler.toml` with `cloudflare.config.ts` until `cf migrate` keeps Workflows and Durable Objects.
+
+---
+
+# One AnyRouter listing id per model
+URL: https://kb.duyet.net/m/project-anyrouter-catalog-one-id
+Type: project
+Description: Catalog id is owner/model; host SKUs (date, vision-exp, fast, casing) are upstream names or aliases
+
+A public catalog id is the product slug (`owner/model`), not a host SKU. Date tags, `vision-exp`, `fast`, quantization suffixes, and casing variants belong on `upstreams[].model_name` or `aliases:` — never as sibling listing rows.
+
+Example (2026-08-28): DeepSeek V4 Flash lists as **`deepseek/deepseek-v4-flash`**. Former rows `deepseek/DeepSeek-V4-Flash`, `deepseek/deepseek-v4-flash-0731-fast`, and `deepseek/deepseek-v4-flash-vision-exp` resolve as aliases.
+
+**Why:** callers and `/models` should see one model, not three host spellings.
+**How to apply:** one lowercase `owner/model` listing id; keep working upstreams on that row; alias old ids; remove sibling YAML so it cannot occupy the id. Prefer unlist/alias over deleting history ([[project-anyrouter-unlist-broken-models]]). Do not invent ids. Do not add image/video generation endpoints.
+
+Hub: [[project-anyrouter]].
+
+---
+
+# AnyRouter CLI is a native Rust binary
+URL: https://kb.duyet.net/m/project-anyrouter-cli-native
+Type: project
+Description: Public install is curl | bash; binary is anyr; pin models with anyr claude --model owner/model
+
+Public AnyRouter CLI is a **native Rust** binary, not the old Node package as the primary path.
+
+- Install: `curl -fsSL https://anyrouter.dev/setup.sh | bash`
+- First run: `anyr auth login` then `anyr claude`. Claude is the default agent; there is no post-login model/agent wizard.
+- Commands: `anyr` (prose) / `ar` (alias). Omit `--model` to use the documented `anyrouter/auto` preset (gateway failover, not a catalog SKU). Pin with `anyr claude --model owner/model` (same for `opencode` / `codex`).
+- Catalog ids are `owner/model` (e.g. `stealth/ox-alpha`). Model page: `https://anyrouter.dev/model/<owner>/<model>`.
+- Source, issues, and binaries: [anyrouter-dev/cli](https://github.com/anyrouter-dev/cli). Product/catalog issues stay on [[project-anyrouter]] (`duyet/anyrouter`).
+- Smoke: `anyr claude --model owner/model` (example: `stealth/ox-alpha[1m]`).
+- `setup.sh` (stable) probes GitHub `/releases/latest/download/anyr-<os>-<arch>`, then falls back to the newest release that actually has binaries (often a prerelease). A bare `/releases/latest/download/...` URL can still 404 when the latest stable tag has no assets.
+- `anyr update` must not call the GitHub Releases API unauthenticated (shared IPs get 403). Use a token or the public HTML listing.
+
+Hub: [[project-anyrouter]].
+
+---
+
+# CodexBar declined the AnyRouter provider on endorsement grounds
+URL: https://kb.duyet.net/m/project-anyrouter-codexbar-declined
+Type: project
+Description: steipete/CodexBar closed the AnyRouter provider PRs twice in favor of named-operator, upstream-authorization, and track-record gates
+
+`steipete/CodexBar` closed both AnyRouter provider PRs unmerged on 2026-07-17 — #2171 (duyetbot) and #2218 (joeVenner). The integration code was called clean; the block is **endorsement**: *"Shipping a provider in CodexBar is an implicit endorsement, so for aggregator/relay services I hold a higher bar than code quality."*
+
+Three gates were named, and only the first is really blocking:
+
+1. **Identifiable operator** — hard gate, still open. *"I can't point users at a service whose operator I can't identify."*
+2. **Authorized upstream access** — wants a public statement of reseller/API agreements.
+3. **Track record** — the service was very new.
+
+**Why:** the code was never the problem. Reopening the PR before gate 1 closes earns a third decline on identical grounds.
+
+**How to apply:** gate 1 needs a real legal person, not a copy edit — no entity is named in `src/app/terms.tsx` (`operator is established`, `AnyRouter and its operators`) and `src/app/contact.tsx` records the choice outright: *"the company does not publish one."* Never publish an entity name before it exists; an unnamed operator is an absence of information, a wrong entity is a false legal claim. Tracked in [duyet/anyrouter#3650](https://github.com/duyet/anyrouter/issues/3650).
+
+Gates 2 and 3 are largely satisfiable from work already done: the 2026-08-26 Terms added a provider allowlist for donated keys, Polar is merchant of record, and inception was 2026-04-11. The public `/brand` page ships `anyrouter-logo-currentcolor.svg` (correct for a menu-bar app) and accent `#F38020` — the declined PR had a stale `#f6821f`.
+
+Frame any re-proposal **BYOK-first**: the integration only reads *your own key's* credit balance over one read-only endpoint, so the shared pool is outside its surface.
+
+**Status 2026-09-27:** re-proposed as steipete/CodexBar#4055, rebuilt on the current plugin architecture (see [[tech-codexbar-new-provider-is-a-plugin]]) — 25 lines of Swift plus a `.ts`, down from ~690 lines of bespoke Swift. Local gates green: 855 tests/113 suites, swiftformat, swiftlint, site locales, doc links, generated manifests. CI sits at `action_required` because a fork PR needs maintainer approval, so it has not run upstream yet. **The PR states plainly that gate 1 is still open and asks what form of disclosure would satisfy it** rather than papering over it.
+
+Hub: [[project-anyrouter]].
 
 ---
 
 # AnyRouter OpenAI-compatible API
 URL: https://kb.duyet.net/m/project-anyrouter-openai-compat
 Type: project
-Description: Point existing OpenAI SDKs at AnyRouter base URL; swap model strings
+Description: OpenAI-shaped clients; text and embeddings only — image/video generation is gone
 
 AnyRouter accepts OpenAI Chat Completions-shaped clients (and Anthropic Messages). Integrate by changing base URL + model id.
 
+Scope: text and embeddings. Vision / OCR on **input** is kept. Image and video **generation** were dropped. `POST /api/v1/images/generations` returns `410` `endpoint_gone`.
+
 Product hub: [[project-anyrouter]]. Gateway lessons: [[tech-llm-gateway-quota-as-retryable]].
+
+---
+
+# AnyRouter OS
+URL: https://kb.duyet.net/m/project-anyrouter-os
+Type: project
+Description: Browser OS workshop — repo duyet/anyrouter-os; file bugs on duyet/anyrouter with [os] prefix
+
+AnyRouter OS: public Cloudflare-OS workshop. Repo: duyet/anyrouter-os.
+
+Sibling of the gateway ([[project-anyrouter]]), not a replacement for the API.
+
+The OS repo has issues disabled. File product bugs on duyet/anyrouter with title prefix `[os]`, mention the OS repo in the body, and reuse existing labels only (`follow-up`, `bug`, `frontend`, `consistency`, `documentation`).
+
+Portfolio: [[user-duyet-active-projects]]. Infra: [[user-duyet-infra-cloudflare]].
+
+**Why:** QA cannot open issues on the OS repo; the gateway repo is the shared board.
+**How to apply:** Search duyet/anyrouter for existing `[os]` titles first; comment on near-dupes; do not invent labels.
+
+---
+
+# AnyRouter playground MCP
+URL: https://kb.duyet.net/m/project-anyrouter-playground-mcp
+Type: project
+Description: Playground new chats enable AnyRouter MCP at the documented HTTP endpoint
+
+AnyRouter playground (`https://anyrouter.dev/playground`) attaches remote HTTP MCP servers. A new conversation already has **AnyRouter MCP enabled**.
+
+- Default endpoint (from live docs, do not invent): `https://anyrouter.dev/api/v1/mcp`
+- Transport: remote HTTP / Streamable HTTP. No stdio.
+- Users can disable the default (row stays listed) and add more HTTPS MCP servers.
+- Intended auth: a signed-in Clerk session is enough (`POST /api/v1/mcp` kind `session`). Pasted `sk-ar-v1-*` / `ak_*` is an optional override. Signed-out 401 still asks to sign in or add a key. Live 2026-08-27 after #2772 a signed-in Clerk session attaches AnyRouter MCP (tools/list + initialize 200; no red key line). Do not invent tools, auth, or prices.
+
+Hub: [[project-anyrouter]]. Chrome: [[project-anyrouter-ui-chrome]].
+
+**Why:** playground chat needs catalog/keys/credits tools without leaving the conversation.
+**How to apply:** default-on the documented URL; never invent a second MCP endpoint or tool list.
+
+---
+
+# AnyRouter public UI chrome
+URL: https://kb.duyet.net/m/project-anyrouter-ui-chrome
+Type: project
+Description: Viewport tokens, 44px targets, semantic dark, compact playground row
+
+AnyRouter public UI uses one viewport token system: 320 / 375 / 768 / 1024 / 1280. Mobile-first. No `overflow-x` on the page.
+
+- Tap targets: 44px. Marketing CTAs keep visible labels (do not go icon-only). Vietnamese copy is fine.
+- Color: semantic tokens only (`background`, `foreground`, `border`, `muted`). No raw hex that breaks dark. Test light and dark. Avoid a white flash.
+- Skeletons match the final layout. Do not block first paint on a hung Clerk FAPI.
+- Playground compact chrome is one 44px row at 375; extra actions go in More.
+- Tab, chip, and segmented lists: `h-auto min-h-11`, `overflow-y-hidden`, `scrollbar-width: none`. Horizontal overflow only when chips cannot fit; hide scrollbar chrome.
+- Dashboard sidebar overlays below `lg` and must not crush content. No extra polling. No layout shift from late font/nav.
+- `/models` listing header: H1 and Learn more / Providers / Apps share one row from `md` (title left, links right); stack below `md`. Same gutter as the explorer. Compact link hits 44px. No extra max-width on that hero.
+
+Hub: [[project-anyrouter]]. Tokens: [[tech-flat-design-semantic-tokens]]. Components: [[tech-shadcn-base]].
+
+**Why:** live QA found icon-only CTAs, stacked playground chrome, and a sidebar that squeezed content on phones.
+**How to apply:** design and test at those five widths; keep labels; overflow into More instead of a second toolbar.
+
+---
+
+# AnyRouter should unify reasoning effort across upstreams and models
+URL: https://kb.duyet.net/m/project-anyrouter-uniform-reasoning
+Type: project
+Description: Ticket — /api/v1/models advertises reasoning params on 12 of 206 listings, never the accepted effort values, so clients cannot discover a uniform reasoning surface; chat is effort-only by the host's own docs
+
+Open ticket for [[project-anyrouter]], measured on the full catalog
+(`GET /api/v1/models?all=1`, 206 listings, 2026-09-27). AnyRouter is one
+gateway over many upstreams, so it should expose **one** reasoning contract
+instead of whatever each upstream happens to accept.
+
+Evidence:
+
+- 123 listings carry `reasoning` in `capabilities`, but only **12** list any
+  reasoning request field in `supported_parameters`.
+- Those 12 disagree with each other: `inclusionai/ling-3.0-flash-fin` and
+  `nex-agi/nex-n2.5-*` list only `reasoning`; `z-ai/glm-4.5` and
+  `z-ai/glm-5.2` list only `reasoning_effort`; only `z-ai/glm-5.3-flash` and
+  `stealth/space-bunny-alpha` list all three.
+- **No listing ever publishes the accepted effort values.** A client cannot
+  tell whether `xhigh` is legal on a given route.
+- All 9 `anyrouter/*` presets advertise only
+  `[max_tokens, temperature, top_p, stop, stream]` — no reasoning and no
+  `tools` — even though `auto`/`hermes`/`cowork` route to reasoning models
+  and the preset descriptions tell callers to pass `tools`.
+- 101 of 206 listings have `top_provider.max_completion_tokens: null`, so the
+  documented clamp ("A max_tokens set higher is clamped down silently") is
+  undiscoverable. `anyrouter/decision` is one of them.
+
+Asks:
+
+1. One reasoning surface for the whole API: the same request field
+   (`reasoning` + `reasoning_effort`) accepted on every model, forwarded to
+   whichever route serves the request.
+2. Publish the accepted effort values per model, or adopt a single ladder
+   (`low`/`medium`/`high`) and document it once.
+3. Include reasoning and `tools` in the presets' `supported_parameters`.
+4. Fill `top_provider.max_completion_tokens` (or add an explicit
+   `max_output_tokens`) so the clamp is discoverable.
+
+## The contract is already documented — chat is effort-only
+
+`/api-reference/models` states it outright, and it settles the toggle question
+that no amount of probing could:
+
+> "AnyRouter does not infer universal toggle, token-budget, or
+> interleaved-thinking support from a model name or description. Toggle and
+> budget controls remain endpoint-specific (`reasoning.enabled` /
+> `reasoning.max_tokens` on Responses, `thinking` on Messages)."
+
+The architecture doc in the gateway repo
+(`docs/kb/architecture/reasoning-metadata-and-preset-contract.md`) adds: for
+`anyrouter/*` presets, "Chat uses flat `reasoning_effort`; Responses uses nested
+`reasoning.effort` plus endpoint-specific `reasoning.enabled`; Messages uses
+`thinking`; `none` remains a disable sentinel on the flat Chat/converted-Messages
+path." So on chat there is **one** control plus an off sentinel, and a
+`toggle`/`budget_tokens` entry in any catalog for this API is wrong.
+
+Probes agree (2026-09-27, `POST /api/v1/chat/completions`, `reasoning` object
+forms `effort` / `enabled` / `max_tokens` / `exclude`):
+
+| route | `reasoning: {…}` | `reasoning_effort: none` |
+| --- | --- | --- |
+| `deepseek/deepseek-v4.1-flash` | 400 `Validation: Unsupported parameter(s): 'reasoning'` | 200, `reasoning_tokens: 0` |
+| `openai/gpt-oss-20b` | 400 `property 'reasoning' is unsupported` | 400 (upstream allowlist is low/medium/high only) |
+| `nvidia/nemotron-3-ultra-550b-a55b` | 200; `enabled:false` → 0, `exclude:true` ignored | 200, 0 |
+| `anyrouter/free` | 200; `enabled:false` → 0 | 200, 0 |
+
+The nemotron routes accept the object form only because they are served by an
+OpenRouter-compatible pool that passes it through — exactly the
+"provider support remains route-specific" caveat in the host's own doc. It is
+not a gateway contract, so catalogs must not publish a toggle on it.
+
+## Measured: the gateway forwards the field and never validates it
+
+Reading `error.metadata.upstream_message`, the **serving upstream's** 400
+decides which rungs are legal:
+
+| upstream | its own allowlist |
+| --- | --- |
+| `openrouter-pool` | `max`, `xhigh`, `high`, `medium`, `low`, `minimal`, `none` |
+| `huggingface-pool` | `low`, `medium`, `high` — rejects `xhigh` |
+| `nvidia-byok` (`deepseek-v4.1-flash`) | rejects `minimal` and `medium` |
+| `z-ai-coding-byok` | no validation, accepts any value |
+| `hermes-agent` | `low`, `medium`, `high`, `xhigh` |
+
+The accepted set is **per model id, not per backend**: `nvidia-byok` serves
+both `deepseek-v4.1-flash` (rejects `minimal`/`medium`) and
+`muse-glimmer-30b` (accepts both). A published `low`/`medium`/`high` contract
+returns a hard 400 on `deepseek-v4.1-flash`.
+
+Honored effect, same multi-step prompt, mean `reasoning_tokens` (2026-09-27):
+
+| route | `none` | `low` | `medium` | `high` | `max` |
+| --- | --- | --- | --- | --- | --- |
+| `openai/gpt-oss-20b` (700) | rejected | 273 | 629 | 698 | rejected |
+| `deepseek-v4.1-flash` (1500, n=3) | 0 | 718 | rejected | 1182 | 1410 |
+| `nemotron-3-super-120b-a12b` (1500, n=3) | 0 | 663 | — | 916 | 722 |
+| `nemotron-3-ultra-550b-a55b` (1500, n=3) | 0 | 615 | — | 471 | 287 |
+| `anyrouter/free` (700) | 0 | 535 | 580 | 626 | — |
+| `minimax/m3` (700) | 0 / 349 | 611 | 551 | 846 | — |
+
+`none` is a real off position everywhere it is accepted. `nemotron-3-ultra`
+is the counter-example to "deeper value = more tokens": its ladder came out
+inverted, so accept-without-honored-effect is the honest reading for that
+route — publish the peer's rungs, not a wider set.
+
+Presets resolve the member per request, so their ladder is not separable:
+`cowork`/`hermes` served `poolside/laguna-s-2.1` (`none` = 0, every graded
+value pinned at the whole budget), `auto` served `nvidia/nemotron-3-ultra-550b-a55b`
+(`low` = 3000), `latest` served `meta/muse-glimmer-30b` (no reasoning tokens
+reported at all), `free` served `dots-studio/dots-3-note-preview`.
+
+Account-dependent gotchas when re-probing: `minimax/m3` ran out of upstream
+credit partway through the day (402 → 502, not a rejected rung), and
+`z-ai/glm-4.7-flash` is intermittent (502 from `z-ai-coding-byok`). Eight ids
+are BYOK-only and cannot be exercised with a plain key at all: 404
+`Model … is a Bring Your Own Key (BYOK) only model` or `No upstream available
+for model …` on every value, including a nonsense one.
+
+**`none` is not uniformly an off switch.** Two routes show why one measurement
+is not enough:
+
+- `minimax/m3`, five runs of `none` at max_tokens=1200: the two the route
+  served returned **0 and 787** reasoning tokens. Same value, same route, so
+  the sentinel can be ignored there and no catalog should promise it.
+- `anyrouter/hermes` answers `none` with 400 `Reasoning is mandatory for this
+  endpoint and cannot be disabled.` while `low`/`medium`/`high` each return 0
+  tokens on the member it does serve — publishing the off switch on that preset
+  would advertise a 400.
+- By contrast `anyrouter/auto`, `cowork` and `free` return 0 on every served run
+  of `none` (5/5, 3/3, 4/4) and spend the whole budget on any graded value,
+  because the router picks the member per request: a preset can promise the off
+  and nothing deeper.
+
+**Why:** without this, every client maintains its own per-model reasoning
+table and guesses, and a uniform contract silently breaks on the routes whose
+upstream is narrower.
+**How to apply:** no public tracker exists for AnyRouter (closed service, no
+GitHub repo, issues disabled here), so this note is the ticket of record. Ask
+#2 (publish the accepted values per listing) is the one that unblocks
+full-fidelity per-model data; until then publish the route's measured set,
+cite the measurement in the entry, drop every `toggle` and `budget_tokens`,
+and use `none` as the off position, and only where it reproduces. Shipped that way
+in the models.dev catalog (PR anomalyco/models.dev#8023, merged after the
+automated review came back clean): per-model ladders, no toggles, no cost tiers
+(this API publishes flat rates), no per-token price for the `anyrouter/*`
+presets because they bill the route they resolve, and `[]` for the five entries
+where nothing could be verified — `m3`, `kimi-k2.6`, `grok-build-0.1`,
+`hermes`, `latest`. See
+[[project-anyrouter-openai-compat]].
+
+---
+
+# Unlist broken AnyRouter models
+URL: https://kb.duyet.net/m/project-anyrouter-unlist-broken-models
+Type: project
+Description: Disable or unlist a broken model from /models and the catalog; do not delete history
+
+When a model or upstream on AnyRouter is not working, disable or unlist it from `/models` and the catalog. Do not leave a dead row. Prefer unlist/disable over deleting request history. Do not invent new model ids.
+
+This is standing ops, not a one-off: smoke fails, quarantined upstreams, invalid ids, and unstable models all get unlisted so the catalog stays stable.
+
+Hub: [[project-anyrouter]]. API scope: [[project-anyrouter-openai-compat]].
+
+**Why:** a listed model that 502s or 410s is worse than a missing row.
+**How to apply:** flip the catalog flag / unlist; keep historical generations. Use latest smoke results, not a guessed id list.
 
 ---
 
@@ -1998,11 +2471,12 @@ Description: Universal multi-provider LLM API gateway at anyrouter.dev
 
 https://anyrouter.dev — **universal AI model router**: one API, many providers/models, OpenAI Chat Completions + Anthropic Messages compatible.
 
-Product traits (public): multi-provider routing, BYOK, pricing/latency comparison, Cloudflare-edge deploy.
-Packages mentioned publicly: `@anyr/sdk`, `@anyr/cli`.
+Public surfaces: marketing `anyrouter.dev` · dashboard `dash.anyrouter.dev` · docs `docs.anyrouter.dev` · workshop OS [[project-anyrouter-os]] (`os.anyrouter.dev`).
+API base: `https://anyrouter.dev/api/v1`. Packages: `@anyr/sdk`. CLI: native `anyr` ([[project-anyrouter-cli-native]]).
 
 API shape: [[project-anyrouter-openai-compat]]. Patterns: [[tech-llm-gateway-byok-sibling]], [[tech-llm-gateway-quota-as-retryable]], [[tech-cloudflare-ai-gateway-transparent]], [[tech-workers-cache-enabled]].
-Portfolio: [[user-duyet-active-projects]]. Related products: [[project-agentstate]], [[project-anyworker]].
+Portfolio: [[user-duyet-active-projects]]. Related products: [[project-anyrouter-os]], [[project-agentstate]], [[project-anyworker]].
+Playground MCP: [[project-anyrouter-playground-mcp]].
 
 ---
 
@@ -2051,6 +2525,183 @@ Hub: [[project-clickhouse-monitoring]]. Safety culture: [[feedback-fail-loud]].
 
 ---
 
+# chmonitor CLI local named connections
+URL: https://kb.duyet.net/m/project-chmonitor-cli-local-connections
+Type: project
+Description: chm add/ls/use/rm save local ClickHouse HTTP and postgres:// connections; secrets stay in the credentials helper
+
+`chm` keeps a **local named connection store** (not dashboard hosts).
+
+- `chm add <url>` (alias `connect`) saves ClickHouse HTTP `http(s)://[user:pass@]host:8123[/db]` or `postgres://` / `postgresql://`
+- `chm ls` lists name, engine (`clickhouse` | `postgres`), host, current; `--json` supported
+- `chm use <name>` sets `current_connection` in user `config.toml`
+- `chm rm <name>` removes a saved connection
+- Secrets go through the credentials helper (keyring / `0600` plaintext); never printed in `ls` or JSON
+- Live TUI opens against the active local HTTP connection
+- Dashboard `chm hosts` is unchanged (`/api/v1/hosts`)
+
+Hub: [[project-clickhouse-monitoring]].
+
+---
+
+# chmonitor scheduled desk jobs
+URL: https://kb.duyet.net/m/project-chmonitor-desk-jobs
+Type: project
+Description: Four herdr-desk jobs (triage, babysit, prod watch, improve) with staggered minutes and one agent name each
+
+chmonitor's unattended maintenance is the **herdr-desk** Herdr plugin, config
+only in `.herdr-desk.json` plus repo-owned playbooks in `docs/herdr-desk/`.
+
+| Job | Cron | Owns |
+|---|---|---|
+| `desk:github-issues` | `0,30 * * * *` | triage, research, dispatch children |
+| `local:babysit` | `10,40 * * * *` | red required CI, review, auto-merge, worktrees |
+| `local:prod` | `20,50 * * * *` | live deploy verification, agent probe, usage, revert |
+| `local:improve` | `17 2 * * *` | desk health, doc/skill drift, dead code, slowdowns |
+
+**Why:** one job doing all four duties made every duty compete for the same five
+child slots, so a busy issue queue silently starved PR maintenance. Separate
+jobs give each duty its own budget and its own manager.
+
+**How to apply:**
+
+- **Stagger the minutes** so two jobs never contend for one slot, and give each
+  job its own `agentName` — the agent name *is* the session identity, so a
+  shared name means two prompts racing for one pane.
+- **`name` in the desk config must equal the repo folder name.** A stale
+  `"name": "chmonitor"` in the herdr-desk repo registered a second chmonitor job
+  on a different cron; the loser recorded a prompt failure.
+- Required CI is `unit-tests` + `dashboard`. `e2e-test`, `e2e-test-tsr`,
+  `component-test`, `codecov/patch`, `promptfoo` and `Claude Issues` are
+  informational. Release-please PRs are human-only, never auto-merge.
+- Production deploys itself on push to `main`; `local:prod` is the second pair of
+  eyes and may only verify or restore service, never ship.
+- Proof a branch landed before deleting its worktree: `git diff <branch>
+  origin/main -- <touched files>`, **not** `git branch --merged` — squash merges
+  change the sha, so a fully merged branch still reads "ahead N".
+
+Lessons: [[tech-silent-scheduler-failure]], [[feedback-issue-research-pr]].
+
+---
+
+# chmonitor hide sidebar pages in place
+URL: https://kb.duyet.net/m/project-chmonitor-hide-menu-item
+Type: project
+Description: Hover Hide next to pin hides a sidebar leaf; restore in Settings → Workspace → Navigation
+
+Sidebar leaf items (with an href) can be hidden **in the menu**, without opening Settings first.
+
+- Hover reveals **Hide** (EyeOff) next to **Pin**. Click does not navigate.
+- Persist via `hiddenMenuHrefs` / Custom workspace (`hideMenuHref` / `showMenuHref`).
+- Toast: `{title} hidden from the menu` / `Bring it back in Settings → Workspace → Navigation.` Actions: **Undo** and **Open Navigation**.
+- Settings gear / ⌘, still open General; the toast opens the **navigation** tab.
+- Footer About is not hideable. Engine filter still applies ([[project-chmonitor-menu-engine-filter]]).
+
+Hub: [[project-clickhouse-monitoring]].
+
+**Why:** hide/show used to live only in Settings → Workspace → Navigation.
+**How to apply:** add hide only on leaves with href; restore path is always Settings → Workspace → Navigation; do not invent a second hide store.
+
+---
+
+# chmonitor paid licenses are self-hosted host-count
+URL: https://kb.duyet.net/m/project-chmonitor-licenses
+Type: project
+Description: Paid chmonitor is honor-system host-count licenses (yearly/lifetime), not hosted SaaS seats
+
+Public paid path for [[project-clickhouse-monitoring]] is **self-hosted host-count licenses** (yearly or lifetime), honor system — not hosted SaaS seats. Replicas in the same shard are **not counted**.
+
+Cloud demo remains `dash.chmonitor.dev`. OSS self-host stays the default for enterprises (IP allowlists, no metadata leaving the VPC).
+
+**Why:** agents should not design “SaaS seats” as the paid SKU.
+**How to apply:** talk about host-count licenses + trust model; replicas are free.
+
+---
+
+# chmonitor menu engine filter
+URL: https://kb.duyet.net/m/project-chmonitor-menu-engine-filter
+Type: project
+Description: Absent engines on a menu item means ClickHouse family; Postgres hosts must not see those items
+
+Dashboard nav (sidebar, command palette, Settings > Navigation) filters by the **active host engine**.
+
+- No `engines` tag → ClickHouse family (`clickhouse` + `clickhouse-cloud`). Hidden on Postgres.
+- `engines: ['postgres']` → Postgres-only.
+
+Settings > Navigation uses the same filter as the live sidebar (`useActiveHostEngine`). Do not hardcode ClickHouse when building the customize tree. Do not add `engines: ['postgres']` to ClickHouse tools just to show a heading.
+
+Hub: [[project-clickhouse-monitoring]]. Tools group: [[project-chmonitor-tools-sidebar]].
+
+**Why:** a Postgres host must not customize or see ClickHouse-only pages (Queries, Cluster, Tools).
+**How to apply:** leave CH-only items untagged; thread the active host engine into every nav surface.
+
+---
+
+# chmonitor Tools sidebar group
+URL: https://kb.duyet.net/m/project-chmonitor-tools-sidebar
+Type: project
+Description: Dashboard Tools group holds SQL Console, Data Explorer, Explain, Advisor, Chart Builder, Schema Compare, Settings Diff
+
+Dashboard sidebar **Tools** is last in the MAIN section (after PeerDB, before Others). Interactive-utility group:
+
+- SQL Console (`/sql`)
+- Data Explorer (`/explorer`)
+- Explain (`/explain`)
+- Advisor (`/advisor`) — recommend-only ([[project-chmonitor-advisor]])
+- Chart Builder (`/dashboard`)
+- Schema Compare (`/schema-diff`)
+- Settings Diff (`/settings-diff`)
+
+AI Agent stays its own top-level group. Queries, Cluster, and other monitors stay put. DBA / Engineer / SRE workspace presets include Tools.
+
+Tools is ClickHouse-family only — a Postgres host must not see it ([[project-chmonitor-menu-engine-filter]]).
+
+Hub: [[project-clickhouse-monitoring]].
+
+**Why:** tool pages were scattered under Tables, Queries, Operations, and System.
+**How to apply:** put new interactive utilities in Tools; keep Tools last in MAIN (not in Others); do not move monitoring views there.
+
+---
+
+# chmonitor TTL & Partitions inventory
+URL: https://kb.duyet.net/m/project-chmonitor-ttl-partitions
+Type: project
+Description: System TTL page lists table inventory plus part-health charts; never select system.tables.ttl
+
+System view **TTL & Partitions** (`/ttl-partition-health`) shows:
+
+- Inventory table: full_table, engine, partition_key, ttl_expression, partitions, active_parts, parts_per_partition, bytes_on_disk
+- Charts: part health and parts per table
+
+This is a System monitor, not a Tools utility ([[project-chmonitor-tools-sidebar]]).
+
+`system.tables` has no `ttl` column. Inventory SQL must never select `system.tables.ttl` — that 500s and the UI shows a silent Retry.
+
+Hub: [[project-clickhouse-monitoring]].
+
+**Why:** inventory failed live when the query invented a column; charts still worked.
+**How to apply:** keep inventory and charts as separate queries; fail loud on inventory errors; do not select `system.tables.ttl`.
+
+---
+
+# chmonitor verify skill
+URL: https://kb.duyet.net/m/project-chmonitor-verify-skill
+Type: project
+Description: Project-local .cursor/skills/verify-chmonitor drives the Rust CLI; default doctor is identity-only
+
+chmonitor ships `.cursor/skills/verify-chmonitor` (CLI lever + Feature Map + one proven drive). Primary surface is the standalone `chm` / `chmonitor` binary from this checkout, not the hosted dashboard.
+
+**Why:** Hosted dashboard `GET /api/healthz` is cluster-gated and can hang for minutes. That is not the identity prove.
+
+**How to apply:**
+- Launch this checkout's CLI, then `doctor.sh` (identity-only by default). Opt in to dashboard HTTP with `--http` / a short timeout.
+- Canonical prove: `drive.sh local-connections` — `chm add` / `ls` / `use` / `rm` against isolated `--config` (no operator keyring).
+- Later ships: `/poteto-mode` plus this skill. Refresh the skill when shipping, not on a weekday cron. Cloud agents only; no git worktrees.
+
+Hub: [[project-clickhouse-monitoring]]. Generic loop: [[feedback-pstack-verification]]. Local store: [[project-chmonitor-cli-local-connections]].
+
+---
+
 # chmonitor
 URL: https://kb.duyet.net/m/project-clickhouse-monitoring
 Type: project
@@ -2060,22 +2711,44 @@ github.com/chmonitor/chmonitor · https://chmonitor.dev · docs.chmonitor.dev
 
 **chmonitor** — ClickHouse operational advisor + real-time monitoring, MCP, AI chat. Advisor is recommend-only ([[project-chmonitor-advisor]]).
 
-OSS self-host and hosted Cloud from one product family ([[tech-one-codebase-oss-saas]], [[tech-single-source-env]]).
+OSS self-host and hosted Cloud from one product family ([[tech-one-codebase-oss-saas]], [[tech-single-source-env]]). Paid SKU: [[project-chmonitor-licenses]].
 **Image:** `ghcr.io/chmonitor/chmonitor:latest` (not the stale `ghcr.io/duyet/chmonitor` path).
 **Homelab self-host ops:** [[lessons-chmonitor-homelab-deploy]] (full cluster vs public `dash.chmonitor.dev`; never assign CH `readonly=1` profile to the dashboard user).
+Local CLI store: [[project-chmonitor-cli-local-connections]]. Verify skill: [[project-chmonitor-verify-skill]].
+Sidebar **Tools** group: [[project-chmonitor-tools-sidebar]]. Engine filter: [[project-chmonitor-menu-engine-filter]]. TTL & Partitions: [[project-chmonitor-ttl-partitions]].
 Focus: [[user-duyet-focus-clickhouse]]. Portfolio: [[user-duyet-active-projects]].
+
+---
+
+# codex-claude-plugins verify skill
+URL: https://kb.duyet.net/m/project-codex-claude-plugins-verify-skill
+Type: project
+Description: Project-local .cursor/skills/verify-marketplace; CLI lever on catalogs/manifests, not a hosted UI
+
+duyet/codex-claude-plugins ships `.cursor/skills/verify-marketplace` (CLI lever + Feature Map + one proven drive). Surface is marketplace JSON and plugin manifests, not a hosted web app.
+
+**Why:** Agents need a closed loop before Grok/logo/harness ships. `main` had no `.cursor/skills/verify-*` until PR 86.
+
+**How to apply:**
+- Use `control-marketplace.mjs` (`doctor`, `info`, `list`, `check-install`, `validate`; `--json`; `--dry-run` on `install-antigravity` and `cleanup`). Controller v1.1.0 after #88.
+- Proven drives: `marketplace-catalog` (Claude), `codex-install` (Codex), `grok-build-and-bot` (Grok; skip fails).
+- Grok Build / Grok Bot are first-class after #87 (harnesses) and squash-merged #88 (verify treats those slots as real; prove pass on master `a2c28a3`).
+- Later ships: `/poteto-mode` plus this skill. Refresh on ship, not weekday cron. Cloud agents only; no git worktrees.
+
+Generic loop: [[feedback-pstack-verification]].
 
 ---
 
 # duyetbot persona
 URL: https://kb.duyet.net/m/project-duyetbot
 Type: project
-Description: Autonomous agent persona that maintains public monorepo within clear scope
+Description: Manager agent for the public product fleet — assigns work, keeps kb current
 
-duyetbot maintains [[project-monorepo]] within scope: code, design system, deploy config.
+duyetbot is the manager. It assigns work to dedicated product bots (AnyRouter, chmonitor, live QA), keeps a running summary, and writes durable public facts to [[project-kb]].
 
-Out of scope without human direction: authored blog posts and curated timeline research facts.
-Loops: [[tech-improvement-loop]], [[tech-agent-loop-cycle]]. Memory model: [[feedback-docs-driven-development]].
+It also maintains [[project-monorepo]] within scope: code, design system, deploy config. Out of scope without human direction: authored blog posts and curated timeline research facts.
+
+Shared brain: `~/kb` (same tree as `apps/kb/kb`). Protocol: [[feedback-docs-driven-development]], [[feedback-docs-write-on-exit]].
 
 ---
 
@@ -2094,9 +2767,11 @@ Keep kb notes generic — no private inventory.
 # KB site front-end
 URL: https://kb.duyet.net/m/project-kb-site
 Type: project
-Description: kb.duyet.net renders the shared-brain notes as a public site
+Description: kb.duyet.net renders the shared-brain notes; apps/kb/kb mounts ~/kb
 
 Public site for [[project-kb]]. Graph + llms.txt endpoints for agents. Pattern: [[feedback-docs-driven-development]]. Link: [[user-duyet-site-kb]].
+
+Content lives in the [[project-kb]] git repo (`~/kb`). The renderer is `apps/kb` in [[project-monorepo]]. Locally `apps/kb/kb` is a symlink to `~/kb`. CI uses the `apps/kb/kb` git submodule (`git@github.com:duyet/kb.git`, branch `main`).
 
 ---
 
@@ -2125,12 +2800,335 @@ Uses [[tech-tanstack-start-ssg]], [[tech-flat-design-hairline]]. Curated model d
 # duyet/monorepo
 URL: https://kb.duyet.net/m/project-monorepo
 Type: project
-Description: Public Bun+Turborepo for personal duyet.net web apps
+Description: Public Bun+Turborepo for personal duyet.net web apps including news and the kb site
 
-github.com/duyet/monorepo — public web monorepo (blog, CV, timeline apps, shared packages).
+github.com/duyet/monorepo — public web monorepo (blog, CV, timeline apps, kb site, news, shared packages).
 
-Stack: Bun, Turborepo, TanStack Start SSG, Cloudflare Pages.
+Stack: Bun, Turborepo, TanStack Start SSG, Cloudflare Pages / Workers.
+`apps/kb` is the renderer for [[project-kb]] / [[project-kb-site]].
+`apps/news` is [[project-news]] (news.duyet.net).
+`apps/news-tab` is the unpacked Chrome new-tab client for that feed (Load unpacked; not on Pages/Workers). Separate release-please component (#1406): own changelog, 0.1.x, `news-tab-v*` tags — not folded into the root `duyet` release. Leave its release-please PR unmerged ([[feedback-never-auto-merge-release-please]]).
 Related: [[project-llm-timeline]], [[project-duyetbot]], [[tech-tanstack-start-ssg]], [[tech-flat-design-hairline]].
+
+---
+
+# news.duyet.net
+URL: https://kb.duyet.net/m/project-news
+Type: project
+Description: Personal news feed + public digest; homepage AI;DR thumbs; news-tab own 0.1.x release line
+
+https://news.duyet.net — feed + ranking app in [[project-monorepo]] (`apps/news`). Cloudflare Worker deploy. Admin ingest is token-gated (`/api/admin/*`); do not put the token in kb.
+
+Public third-party digest (shipped 2026-08-28, #1396): `GET /api/public` returns compact JSON (`tldr` bilingual bullets + up to 8 top `stories`, `updatedAt`). No auth. CORS allows `chrome-extension://…`, localhost, and `https://*.duyet.net`. Intended for the in-repo Chrome new-tab client (`apps/news-tab` in [[project-monorepo]]; Load unpacked from `manifest.json`). Homepage `/api/feed` stays the large no-CORS SPA payload.
+
+Homepage AI;DR (shipped 2026-08-28, #1397): each bullet shows a compact story thumb on the right (layout A: number + copy left, 40–48px thumb right). Thumb is the linked story `image_url`; missing/broken images use the site mark. `TldrBullet.image_url` is attached at read time on `/api/feed` and `/api/public`, not stored on the snapshot. QA-only `?aidr=b|c` flips layout; default is A.
+
+Homepage AI;DR copy (shipped 2026-08-28, #1399): digest prompt targets ~2 sentences / 180–240 chars; homepage clamps to 3 lines with ellipsis and highlights named entities (same topic colors as the feed). Existing snapshots stay one-liners until the next finished ingest writes longer copy. `/api/public` already clips `text` at 400 chars.
+
+Hourly ingest (shipped 2026-08-28, #1400 + #1402 + #1405): primary cadence is a Durable Object alarm, not a Worker cron (account is at the 5-trigger cap; [[tech-cloudflare-cron-triggers-five-per-account]], [[tech-durable-object-alarms-not-cron]]). GitHub Actions is a watchdog with four independent crons per hour. Triggers coalesce if a run started in the last 45 minutes; manual `workflow_dispatch` POSTs `?force=1` to bypass coalesce. #1405 intended `open-run` to upsert `workflow_runs` immediately and set `GET /api/system` to `Cache-Control: no-store` (no-store is live). Recert lastRun by a force POST, not an invented schedule fire. First public hit or admin ingest POST arms the alarm.
+
+#1415 (2026-08-29): persist `workflow_runs` with D1 `.run()` / `batch()`, not `INSERT RETURNING` + `.first()` ([[tech-d1-insert-returning-not-a-write]]). Gate 2xx on the same lastRun SELECT `/api/system` uses. Recert lastRun by a force POST after deploy; do not invent a schedule fire.
+
+news-tab releases (shipped 2026-08-28, #1406): `apps/news-tab` is its own release-please component — changelog, 0.1.x line, `news-tab-v*` tags — not folded into the root `duyet` release. Leave its release-please PR for human merge ([[feedback-never-auto-merge-release-please]]).
+
+Chrome new-tab install (shipped 2026-08-29, #1421 + #1423): public zip at https://news.duyet.net/news-tab.zip (packed at news build from `apps/news-tab`; nested `news-tab/manifest.json`). Guide at https://news.duyet.net/extension ("Tab Chrome" in the primary menu). Chrome cannot Load unpacked a `.zip` — unzip first, then pick the `news-tab` folder. Not on Chrome Web Store. `chrome://extensions` is linked; HTTPS pages may block that navigation so the guide also says to paste the URL.
+
+Product hub: [[project-monorepo]]. Portfolio: [[user-duyet-web-presence]].
+
+---
+
+# oma CLI treats empty 2xx as success
+URL: https://kb.duyet.net/m/project-oma-cli-empty-2xx
+Type: project
+Description: CLI apiFetch skips JSON.parse on empty bodies so accepted 202/204 mutations do not look like failures
+
+`oma` CLI shared `apiFetch` treats an empty successful HTTP body as `undefined` instead of calling `res.json()`. `POST /v1/sessions/:id/events` answers `202` with no body once the event is queued; parsing that used to throw `Unexpected end of JSON input` and exit 1 after the turn was already accepted — scripts then retried and duplicated turns.
+
+**Why:** A failed exit after a successful mutation is worse than a quiet accept; retries duplicate work.
+
+**How to apply:** After CLI changes that touch `apiFetch` or session message posting, recert `oma sessions message <id> <text>` exits 0 with `Message sent.` on a live accepted turn. Shipped #474 tip `3d1fdf5` (closes #436). Changeset #477 + Version Packages #478 bumped `@getoma/cli` to `0.1.12` on tip. After Release publish, npm `latest` reports `0.1.12`, but verify the tarball downloads (`cli-0.1.12.tgz` must not 404) before treating npm install as fixed. #476 tip `ce15a15` adds regression tests for whitespace-only 202/204 bodies and documents that `text.trim()` is load-bearing (closes #475; no runtime change). Changeset entry landed in #477. Version Packages #478 merged tip `00c7c6d` bumps `@getoma/cli` to `0.1.12` (CLI excluded from release-please). npm `@getoma/cli@0.1.12` published 2026-10-02 (Changesets Release publish on tip `00c7c6d`; GitHub release/tag `@getoma/cli@0.1.12`). Release Please root `0.1.7` #479 (changelog for #473/#474) later merged tip `0853303` — changelog/manifest only; leave RP alone. Tip CI red after #478/#479 was open #480 (`recovery-do` alarm rearm) — fixed test-only by #482 tip `8146e717` (closes #480; PR CI run 37002904069 green). Tip push CI/deploys did not run: github-actions automerge merges with the default Actions token, which does not trigger further workflows on the merge push; deploy path filters also skip test-only. Leave RP alone.
+
+---
+
+# oma CLI envs get and delete
+URL: https://kb.duyet.net/m/project-oma-cli-envs-get-delete
+Type: project
+Description: oma envs get/delete call GET/DELETE /v1/environments/:id; --json; Partial
+
+`oma envs get <id>` hits `GET /v1/environments/:id` and prints name/id/type plus optional sandbox provider, harness, status, kind, description, and created date; `--json` emits the raw object. `oma envs delete <id>` hits `DELETE /v1/environments/:id`; 409 (active sessions) and 404 surface through `apiFetch`; empty delete bodies still honor `--json` envelopes (see [[project-oma-cli-empty-2xx]]).
+
+**Why:** Smoke and ops need read-back and cleanup of environments without raw `oma api` calls; #484 item 5.
+
+**How to apply:** Shipped on tip `56d682e1` via #488 + Version Packages #490; npm `@getoma/cli@0.1.14` published (Release 37071142257). Soft CLI QA: `oma --version` (0.1.14), `oma envs get --help`, `oma envs delete --help`, then live get/delete against a disposable env id. #484 remains open for envs create config, `oma usage`, and hosted `runtime list`.
+
+---
+
+# oma CLI version, group help, and --json before auth
+URL: https://kb.duyet.net/m/project-oma-cli-version-help-json
+Type: project
+Description: Argv ordering — version/help before loadConfig; --json before empty-result human sentences
+
+`oma` CLI `main()` must answer `--version` / `-V` / `version` and group/leaf `--help` **before** `loadConfig` (no credentials, no network). Unknown help (`oma nope --help`) must still print `Unknown command` and exit 1 — if it falls through after `printHelp` returns false, unauthenticated runs die with "not authenticated." instead of naming the typo.
+
+List verbs honor `--json` **before** the empty-result branch so scripts get `[]` (exit 0), not a human "No rows." sentence. Covered verbs: agents/envs/sessions/keys/models list, auth tenant ls, envs create. Export `main()` and drive argv in tests with a throwing `process.exit` stub (no-op stubs continue past terminal branches).
+
+**Why:** Shell `VERSION=$(oma --version)` and `jq` pipes need honest exit codes and shapes; auth-gated help makes the command surface undiscoverable.
+
+**How to apply:** After CLI dispatch changes, recert `oma --version`, `oma sessions --help`, `oma nope --help` (Unknown command, exit 1, no auth), and `oma agents list --json` (array or `[]`). Shipped #483 tip `27cc4b29` (closes #431 items 1–3). Version Packages #487 squash-merged tip `192e37c7`; Release workflow_dispatch `37067755066` published `@getoma/cli@0.1.13` to npm (OIDC). Default Actions-token merge of the Version Packages PR skips tip push workflows — re-dispatch Release after merge when publish did not run. Leave release-please alone. Partial #484: envs get/delete shipped #488 tip `5c5c9178` (see [[project-oma-cli-envs-get-delete]]); leftover on #484 is envs create config flags, usage, hosted runtime list.
+
+---
+
+# oma Console Analytics dashboard
+URL: https://kb.duyet.net/m/project-oma-console-analytics
+Type: project
+Description: Console /analytics charts cross-agent estimated spend, token mix by kind, and declared multiagent delegation from existing usage APIs
+
+Console **Analytics** (`/analytics`, chord `g y`) is a dedicated spend and delegation page for a workspace. First slice of the analytics issue — no new backend.
+
+It reads `GET /v1/usage?group_by=agent&days=N` (range chips `1d | 7d | 30d`, default `7d`) and `GET /v1/agents` multiagent rosters. KPI strip covers estimated spend, tokens, sessions, and agents with usage. Token mix is **by kind** (input, output, cache, reasoning), not by model. Cost-by-agent uses the same Sonnet-class rates as agent stats (top 10 + Others). Daily trend charts sandbox-active seconds. Declared delegation shows a ranked roster plus a compact SVG node-link on desktop.
+
+Marketing copy on https://oma.duyet.net/features/ names Console Analytics under multi-agent delegation. Docs concepts page documents the same surface. Signed-out `/analytics` stays behind the Console login gate.
+
+**Why:** Operators with many agents need one screen for “who spends?” and “who can call whom?” without a new analytics API.
+
+**How to apply:** Recert signed-in `/analytics` with range chips and empty-tenant honesty. Do not invent by-model charts or a dedicated `/v1/analytics` until usage events carry model ids. Full issue remains open for later slices.
+
+Hub: [[project-open-managed-agents]].
+
+---
+
+# OMA Console Artifacts Inspector tab
+URL: https://kb.duyet.net/m/project-oma-console-artifacts
+Type: project
+Description: Session detail Inspector Artifacts tab aggregates writes, tool-result media, uploads, and session outputs from the event log
+
+In [[project-open-managed-agents]], Console session detail has an **Artifacts** Inspector tab (alongside Overview / Usage / Tools / Sandbox / Files). Shipped in duyet/oma #442.
+
+Derivation is client-side from the streamed event array plus the session outputs listing — no extra store or polling:
+
+| Source | What surfaces |
+|---|---|
+| `write` / `edit` / `output_file` tool_use | Path + content |
+| `agent.tool_result` image/document blocks | data URLs / file ids / media_type |
+| `user.message` attachments | Same set as the chat transcript |
+| Session outputs listing | Listing-only rows need ≥ 1 KB and a previewable type |
+
+Grid/list views, source + extension filters, image lightbox, PDF iframe, text via `CodeBlock`, download for inline writes and `GET /v1/sessions/:id/outputs/:filename`. Declared deliverables via opt-in `output_file` are covered in [[project-oma-output-file-opt-in]] (#341 contract still separate).
+
+**Why:** Operators need to browse agent-produced files without scrolling the event log.
+**How to apply:** QA on a signed-in session detail → Artifacts tab. Do not invent auth secrets for verify; gate checks can assert redirect to `/login`.
+
+---
+
+# oma Console daily summary for scheduled agent runs
+URL: https://kb.duyet.net/m/project-oma-console-daily-summary
+Type: project
+Description: Agent detail Daily summary tab rolls up schedule firings over 1/7/30 UTC days from agent_schedule_runs
+
+Console agent detail gains a **Daily summary** tab for schedule firings only (not all-sessions observability). It rolls up `agent_schedule_runs` (`ok` / `error` / `skipped_concurrency`) over chips `1 | 7 | 30` UTC days with counts, tokens, and cost. Per-schedule history stays in its existing modal.
+
+First slice of the daily-summaries issue — deployments rollup is still open.
+
+**Why:** Operators need an agent-level view of what cron firings did without replaying the event log.
+
+**How to apply:** Recert signed-in agent detail → Daily summary with range chips and empty honesty. Do not treat this tab as all-sessions monitoring.
+
+Shipped in duyet/oma #449. Hub: [[project-open-managed-agents]].
+
+---
+
+# OMA Console HITL approvals and notice bell
+URL: https://kb.duyet.net/m/project-oma-console-hitl-approvals
+Type: project
+Description: Console posts user.tool_confirmation from ApprovalCard; session cards + notice bell for mobile-compact HITL
+
+In [[project-open-managed-agents]] Console, `always_ask` tool calls are approved from an `ApprovalCard` pinned above the session composer. Deny / Approve POST `user.tool_confirmation`. "Don't ask again this session" writes an `oma.hitl.allow:<session>` policy.
+
+Also shipped in the same slice: compact session cards and a notice bell for pending approvals — usable on phone without Web Push.
+
+**Why:** Operators could not approve HITL from mobile; Console never POSTed tool confirmation.
+**How to apply:** Recert signed-in session with a pending always_ask tool; expect ApprovalCard + notice. Out of scope: agent `default_tool_policy`, timeout auto-deny, CLI HITL.
+
+---
+
+# oma Console Agent Monitor tab
+URL: https://kb.duyet.net/m/project-oma-console-monitor
+Type: project
+Description: Console AgentDetail health strip plus Monitor tab is the live agent.status heartbeat feed
+
+Console AgentDetail shows a derived **health strip** (status, last/next run, uptime, success rate, avg duration, cost/run) from existing schedules, sessions, stats, and analytics. No dedicated `/v1/agents/:id/health` route yet.
+
+**Monitor** (`/agents/:id/monitor`) sits between Schedules and Observability. It is the live `agent.status` progress feed: current or last session, step bar, amber `blocked_on`, heartbeat log, lag at 2× the 5-minute default. Eyes-only — Interrupt is out of this slice. Upgrade log is an honest empty placeholder.
+
+Dashboard **Active sessions** deep-links to that agent's Monitor when exactly one running session has an agent id.
+
+Landed in #444 as the first slice of the monitoring UX (#345 still open). Signed-out `/monitor` stays behind the Console login gate.
+
+**Why:** Operators of scheduled or long-running agents need a glanceable alive/progress surface without new control-plane endpoints.
+
+**How to apply:** Point operators and recert at AgentDetail header + Monitor tab, not Observability. Do not invent heartbeat_missed / self_upgrade notify until a dispatcher exists.
+
+Hub: [[project-open-managed-agents]].
+
+---
+
+# OMA Console session Inject overlay
+URL: https://kb.duyet.net/m/project-oma-console-session-inject
+Type: project
+Description: Operators inject prompts, MCP, tools, and vault credentials into a live session without mutating the agent
+
+In [[project-open-managed-agents]], operators can intervene in a **running session** via a session-scoped injection overlay (Console Inspector **Inject** tab).
+
+- **Write:** `POST /v1/sessions/:id/injections` (canonical). `PATCH /v1/sessions/:id/tools` is a thin tool-toggle alias.
+- **Read:** `GET /v1/sessions/:id/injections` returns the overlay (never tokens).
+- **Storage:** `session.metadata._oma_injections` (stripped from public GET metadata). Not copied onto the agent; new sessions do not inherit.
+- **Timing:** prompt append + tool overrides apply on the **next turn**; MCP mounts + credential binds on the **next proxy/outbound call**.
+- **Credentials:** `credential_id` only, must already be in the session’s `vault_ids` (422 otherwise). Overlay/events/UI never carry tokens.
+- **Audit:** `session.config_updated` is non-replayed (prompt body omitted; credential detail is host + id).
+
+First slice of the broader Inject issue; tablet/mobile sheet, env/package injection, and undo stack are out of scope.
+
+**Why:** Live ops without restarting or mutating the agent record.
+**How to apply:** Prefer the Inject API/overlay for session-scoped changes; do not put tokens in metadata or expect agent inheritance. Drive verify with `console-inject`.
+
+---
+
+# oma home session and home runtime
+URL: https://kb.duyet.net/m/project-oma-home-session
+Type: project
+Description: Agent has one durable home inbox plus paired long-lived home runtime; ephemeral sandboxes stay separate
+
+Product shape shipped in duyet/oma #464 (issues #460–#463): **Agent** is the noun. Each Agent may have one **home session** (metadata `home: true`, title `Home`) — a Bot-like durable inbox. Extra sessions stay ephemeral.
+
+**API:** `POST /v1/sessions/home` get-or-create; `GET /v1/sessions/home?agent_id=` returns **200** `{ session: null | Session, runtime, created: false }` even when no inbox exists (not 404 — so Console can paint presence); `POST /v1/sessions` with `metadata.home: true` reuses the same row. Responses include paired **runtime** presence (`online` | `offline` | `provisioning`; ~90s stale → offline). Console Overview + AgentHealthStrip prefer the home payload runtime and show inbox / **Open home** accordingly (#467/#468).
+
+**Runtime vs sandbox:** Home runtime = long-lived bridge/herdr (OpenShell optional). Session sandboxes stay ephemeral. CLI relay bootstraps only — not an always-on shared VM.
+
+**Surfaces:** Landing H1 “Your Agent has a computer — and a durable inbox”; Console Overview home strip + open sessions; AgentHealthStrip presence + inbox link; Agent detail **Open home**. Design RFCs live in repo `docs/home-session.md` (not Starlight `apps/docs`).
+
+**Why:** Matches Grok Bot-like pinned inbox without turning every turn into a shared VM.
+**How to apply:** Drive landing-home via verify-oma; signed-in Console Overview/home strip needs a real operator session — no invented secrets. Hub: [[project-open-managed-agents]].
+
+---
+
+# oma model-card vendor provider on CF wire
+URL: https://kb.duyet.net/m/project-oma-model-card-provider-cf-wire
+Type: project
+Description: CF SessionDO maps Model Card vendor provider (openai/anthropic) to ApiCompat wire tags — parity with Node
+
+Cloudflare agent SessionDO honors a tenant **Model Card** `provider` as a **vendor name** (`openai` / `anthropic`) as well as wire tags (`oai`, `oai-compatible`, `ant`, `ant-compatible`). Shared helper `cardProviderToApiCompat` (harness) maps vendors → wire so CF posts to `/v1/chat/completions` vs `/v1/messages` correctly — matching self-hosted Node (`providerToApiCompat`). Unrecognized/`custom`/empty falls through to `OMA_API_COMPAT` (CF) or Anthropic default (Node).
+
+**Why:** Cards created with `provider: "openai"` probed green but CF turns hit `/v1/messages` (404) because only wire tags were recognized. Diverged from Node after [[project-oma-node-model-card-credentials]] (#470).
+
+**How to apply:** For CF model-card turn failures after a green probe, recert vendor `provider` on the card (not only wire tags). Shipped #473 tip `3b84d86`.
+
+---
+
+# oma Node model-card credentials for session turns
+URL: https://kb.duyet.net/m/project-oma-node-model-card-credentials
+Type: project
+Description: Self-hosted Node resolves tenant Model Card creds before AnyRouter/deployment globals
+
+Self-hosted Node (`apps/main-node`) session turns resolve the tenant **Model Card** first: wire model, API key, base URL, provider, and custom headers. Shared across model construction, tools, and harness auth. OpenAI-compatible cards (e.g. DeepSeek gateways) work without a global `ANTHROPIC_API_KEY`. Deployment-wide / AnyRouter credentials remain the fallback.
+
+**Why:** Without this, valid tenant cards still failed before the first model request on self-hosted Node with no global provider key.
+
+**How to apply:** For Node self-host regressions on model routing, check Model Card resolution order before blaming env keys. Shipped in #470 (closes #469).
+
+CF wire parity (vendor `provider` → ApiCompat): [[project-oma-model-card-provider-cf-wire]] (#473).
+
+---
+
+# OMA output_file is opt-in declared deliverables
+URL: https://kb.duyet.net/m/project-oma-output-file-opt-in
+Type: project
+Description: output_file is gated like browser tools; marks keep-this files as agent.output_declared for Console Artifacts
+
+In [[project-open-managed-agents]], `output_file` is **not** a default-on write to `/mnt/session/outputs/`. It is an **opt-in** tool (same `configs` gate as `browser` / `run_dynamic_worker`) that marks a file as a session deliverable.
+
+Enable via agent toolset config, e.g. `agent_toolset_20260401` with `{ "name": "output_file", "enabled": true }`. Declared files emit `agent.output_declared` into the session event log and surface in the Console Artifacts tab.
+
+Marketing copy on https://oma.duyet.net names this under Building Blocks → Artifacts.
+
+**Why:** Operators want intentional keep-this artifacts, not every sandbox write.
+**How to apply:** Do not assume `output_file` is always present; check agent configs. Console session Inspector **Artifacts** tab (duyet/oma #442) aggregates writes, tool-result media, uploads, session outputs, and declared deliverables from the event log — no extra store.
+
+---
+
+# oma session create persists env_secret to the secret store
+URL: https://kb.duyet.net/m/project-oma-session-env-secret-persist
+Type: project
+Description: POST /v1/sessions writes env_secret and inline github tokens via sessionSecrets.put; unwired store fails 500; DELETE cascades
+
+`POST /v1/sessions` accepts `env_secret` (and inline `github_repository.authorization_token`) and persists each value through `sessionSecrets.put`, keyed by the minted resource id (identity-matched, not list-order zip).
+
+- Fail closed with 500 when secret payloads are present but the store is unwired (no silent drop).
+- Wired on Cloudflare route services and self-host Node (`KvSessionSecretRepo` over the existing SQL-backed KV).
+- Session DELETE cascades `deleteAllForSession` (idempotent with the CF lifecycle path).
+- API responses must not contain plaintext secret values.
+
+Landed in #445 (closes audit #426). Restores documented `env_secret` behavior after a storage refactor dropped the create-path writer.
+
+**Why:** Sandbox consumers (`resource-mounter`, github-creds, runtimes bundle) read the secret store; an empty store meant secrets never reached the sandbox despite 201 creates.
+
+**How to apply:** Keep create-path `sessionSecrets.put` wired on both CF and Node. Prefer identity match over zip-by-index when attaching values to minted resources. Do not invent or log secrets.
+
+Hub: [[project-open-managed-agents]].
+
+---
+
+# oma internal secret uses timing-safe compare
+URL: https://kb.duyet.net/m/project-oma-timing-safe-secrets
+Type: project
+Description: checkInternalSecret and trusted-proxy share timingSafeEqualStr from @duyet/oma-auth/timing-safe-equal
+
+`checkInternalSecret` (gates `/v1/internal/*` on the main worker) compares `x-internal-secret` with shared `timingSafeEqualStr`, same helper as the trusted-proxy guard.
+
+- Helper lives in `packages/auth/src/timing-safe-equal.ts`, exported from `@duyet/oma-auth` and subpath `@duyet/oma-auth/timing-safe-equal`.
+- Prefer the subpath import in the main worker so the auth barrel (`createAuthMiddleware`) stays out of that bundle.
+- Responses unchanged: 503 when secret unset, 401 when header missing/wrong.
+
+Landed in #443 (closes audit #427). Out of scope then: other `x-internal-secret` compares under `apps/integrations`.
+
+**Why:** Keep secret gates consistent and defense-in-depth; avoid `!==` on shared secrets.
+
+**How to apply:** Reuse `timingSafeEqualStr` for new secret compares; import via the timing-safe-equal subpath on the main worker. Do not invent or log secrets.
+
+Hub: [[project-open-managed-agents]].
+
+---
+
+# oma-vault OMA_TENANT fails closed across tenants
+URL: https://kb.duyet.net/m/project-oma-vault-tenant-scope
+Type: project
+Description: Unset/empty/* stay wildcard for single-operator; multi-tenant credentials refuse start and same-host matches stay tenant-scoped
+
+`oma-vault` parses `OMA_TENANT` as a `TenantScope`. Unset, empty, and `*` remain wildcard so a single-operator install still boots. When credentials contain more than one distinct `tenant_id`, a wildcard scope refuses to start. Same-host credential matches no longer return another tenant's token.
+
+Compose and Helm default `OMA_TENANT` to empty (not `*`). Out of scope: per-request tenant attribution via per-session ports or sandbox tags.
+
+**Why:** Prior default `*` plus host-only matching let two tenants that both register `api.github.com` steal each other's token.
+
+**How to apply:** Multi-tenant self-host must set a concrete `OMA_TENANT`. Do not ship chart/compose defaults as `*`. Recert vault matching only within the configured tenant.
+
+Shipped in duyet/oma #450 (closes #428). Hub: [[project-open-managed-agents]].
+
+---
+
+# oma verify skill
+URL: https://kb.duyet.net/m/project-oma-verify-skill
+Type: project
+Description: Project-local .cursor/skills/verify-oma with control-oma.mjs CLI lever and Feature Map for web + Console
+
+duyet/oma ships `.cursor/skills/verify-oma` (CLI lever `control-oma.mjs` + Feature Map under `features/`). Added in #430 with the marketing/Console `cn` migrate.
+
+**Why:** Later ships should drive landing + Console as a user, with screenshots/JSON proof, not only typecheck.
+
+**How to apply:**
+- First prove path already landed with the skill: `control-oma launch web` → `doctor` → `drive landing-home` → `landing-check`; Console login drive for `#auth-email` / Sign in.
+- Later ships: `/poteto-mode` plus this skill. Refresh on ship, not a weekday cron. Cloud agents only; no git worktrees. No invented env or secrets.
+
+Hub: [[project-open-managed-agents]]. Generic loop: [[feedback-pstack-verification]].
 
 ---
 
@@ -2146,6 +3144,72 @@ Open-source reimplementation of a **Managed Agents**-style API. Meta-harness: pl
 Runs two ways: Cloudflare (Workers + Durable Objects) or self-host Node/`docker compose` — same business logic.
 Invariants: [[tech-oma-credentials-out-of-sandbox]], [[tech-prompt-cache-byte-sensitive]].
 Release: [[feedback-never-auto-merge-release-please]]. Portfolio: [[user-duyet-active-projects]].
+
+Env-fallback Claude routing: [[tech-oma-bare-claude-gateway-rewrite]].
+Bridge git HTTPS with a GitHub CLI credential uses [[tech-gh-token-git-host-alias]].
+Console live progress: [[project-oma-console-monitor]].
+Console declared deliverables: [[project-oma-output-file-opt-in]].
+HITL approvals: [[project-oma-console-hitl-approvals]].
+Session env secrets: [[project-oma-session-env-secret-persist]].
+Home session / home runtime: [[project-oma-home-session]].
+Node Model Card credentials: [[project-oma-node-model-card-credentials]].
+Model Card vendor provider (CF wire): [[project-oma-model-card-provider-cf-wire]].
+
+---
+
+# templatebot pay-to-install Sale listings
+URL: https://kb.duyet.net/m/project-templatebot-pay-to-install
+Type: project
+Description: Sale templates require checkout before install; delivery is email plus secret unlock URL; owners see 5% platform fee plus processor estimate and net
+
+On templatebot, **Sale** listings gate install behind checkout. Free listings stay one-click. Platform fee is **5%** of list price (`PLATFORM_FEE_BPS = 500`); Dodo processor estimate is separate; seller net = price − Dodo − platform.
+
+After pay, fulfilment mints an unguessable `unlock_token`, emails the install link (Resend when configured), and `/unlock/{token}` shows install to that buyer. Unpaid Sale must not expose Add to Grok Bot, Open in Grok, View/Copy x.ai, or x.ai/grokbot URLs in HTML/JSON; marketplace share (`?bot=` / `/bot/{id}`) stays public. Buy is the only primary CTA until unlock.
+
+**Why:** Unpaid buyers must not get install paths. Paid buyers need a durable delivery path without relying on a signed-in session alone. Owners need the fee split visible on submit, dashboard, earnings, and pricing.
+
+**How to apply:**
+- Omit install URLs from HTML, preview, list payloads, `getTemplate`, `clickAndRedirect`, and `/llms.txt` unless the viewer is the owner, has a completed purchase, or holds a valid unlock token.
+- Buyers start Dodo checkout (`createBuyCheckout`); demo/unsigned users get a visible alert instead of an install control.
+- Product page: left card is the bot (no install until paid); right panel is Unlock this bot (Buy). After unlock, Add is on the left card and Buy is gone.
+- Show shared owner fee breakdown (buyer pays / Dodo / platform 5% / you keep) on submit, dashboard, earnings, and pricing.
+- Keep `/terms`, `/pricing`, FAQ, and `/llms.txt` aligned with pay-to-unlock, email + unlock URL delivery, and the 5% split.
+- Prove with `.cursor/skills/verify-templatebot` feature `pay-to-install.md` and local D1 fixture `features/fixtures/paid-demo.sql` (Night Counsel). Leave Renovate Dependency Dashboard #6 alone.
+
+---
+
+# templatebot verify skill
+URL: https://kb.duyet.net/m/project-templatebot-verify-skill
+Type: project
+Description: Project-local .cursor/skills/verify-templatebot drives the Vite marketplace over CDP; Feature Map includes 30-per-page D1 browse, browse card coat blend, unlisted /data analytics, PostHog funnel, marquee, pay-to-install, MCP publish, live X embeds, multi-bot collect progress/skip/claim + master-detail publish, viewport presets
+
+templatebot ships `.cursor/skills/verify-templatebot` (CLI lever + Feature Map + one proven drive). Primary surface is the local Vite/Cloudflare marketplace driven over Chrome DevTools Protocol via `control-templatebot.mjs`.
+
+**Why:** `main` had no Playwright/Cypress suite and no verify skill. Agents need a composable launch/doctor/drive loop before feature ships.
+
+**How to apply:**
+- Use `control-templatebot.mjs` (`launch` / `doctor` / `goto` / drive / `cleanup`; `--json`, `--dry-run` on launch/stop/cleanup).
+- Feature map covers browse (incl. `browse-page` 30-per-page from D1 on `/` and `/templates`; `browse-marquee` above the footer; coat-blend card surfaces via `surface-bot-card` / `botCardTint` in light+dark), preview (incl. `preview-scroll`), submit (incl. resubmit / history / X collect; post-submit Leaderboard vs Paid Template equal choices), leaderboard, dashboard, unlisted `/data` analytics (`features/data.md`), PostHog official JS funnel (`VITE_POSTHOG_PROJECT_TOKEN` env-only), pay-to-install (Sale; email + `/unlock/{token}`; `paid-demo.sql` / Night Counsel), MCP publish (`features/mcp-publish.md`), and live X embeds with corner clip (`features/on-x-posts.md` `on-x-embed-corners`: `#15202b` fill + 12px `--background` radial `::after` caps). Viewport presets: mobile 375×812 / desktop 1280×800.
+- Proven drive: browse → Harvey search → Harvey Specter preview → `Close --exact`, then assert `scrollY` holds (no jump-to-top).
+- `Close` needs `--exact` (Harvey card name includes `disclose`). Hero Browse is role button; clear search via `goto /templates`.
+- Live paywall copy is `Checkout unlocks the install link` (not `unlock the install link`); `/unlock/{token}` sets `tb_unlock` so unpaid recipes must run first; `/privacy` shares terms email+unlock copy (`docs-terms`).
+- Local vite skip HTTP→HTTPS redirect on loopback so doctor sees real HTML.
+- Later ships: `/poteto-mode` plus this skill. Refresh with `/maintain-verification-skill` on ship. Cloud agents only; no git worktrees.
+
+Generic loop: [[feedback-pstack-verification]].
+
+**2026-09-03:** Squash-merged [#65](https://github.com/duyet/templatebot/pull/65) (`fd72151`) after [#45](https://github.com/duyet/templatebot/pull/45) `/data` ship — Feature Map now covers unlisted `/data`, PostHog funnel, multi-bot X collect on main.
+**2026-09-03:** Squash-merged [#83](https://github.com/duyet/templatebot/pull/83) (`827735a`, closes #79) — Collecting N of M / skip-or-claim already-listed; then [#80](https://github.com/duyet/templatebot/pull/80) (`4bed5db`, closes #73) master-detail picker; [#85](https://github.com/duyet/templatebot/pull/85)/[#86](https://github.com/duyet/templatebot/pull/86) folded verify map (Publish N bots, Skip rows, marquee above FOOTER not H1).
+**2026-09-03:** Squash-merged [#76](https://github.com/duyet/templatebot/pull/76) (`4aeac0a`, closes #70) — `/on-x` and homepage On X use official live X/Twitter embeds (`widgets.js`), not homemade URL cards.
+**2026-09-03:** Squash-merged [#82](https://github.com/duyet/templatebot/pull/82) (`e1db213`, closes #74/#75) — Deploy applies remote D1 migrations before wrangler deploy; submit/`/data`/MCP hide SQLITE dumps; Feature Map notes migrate-on-deploy + SQLITE-hide.
+
+**2026-09-03:** Squash-merged [#62](https://github.com/duyet/templatebot/pull/62) (`bcbb2f4`) — indexed Top 5 Grok Bots roundup from kloss_xyz (`/blog/26-grok-bots`); Feature Map `kloss-26-grok-bots.md` shipped in the same PR.
+**2026-09-03:** Squash-merged [#81](https://github.com/duyet/templatebot/pull/81) (`8cc9481`, closes #69) — `/api` and `/mcp` are interactive product pages (try-it route/tool cards, copy curl, live 401 / discovery JSON); Feature Map `docs-api-mcp.md` shipped in the same PR.
+**2026-09-03:** Squash-merged [#88](https://github.com/duyet/templatebot/pull/88) (maintain-verification after live drive on default VM; folds #82 migrate-on-deploy / SQLITE-hide plus post-#78 footer marquee map honesty).
+**2026-09-03:** Squash-merged [#103](https://github.com/duyet/templatebot/pull/103) (`cfcffff`, maintain-verify after #101) — browse paging recipes proven live: verification-only `features/fixtures/browse-page.sql` (31 rows), Next/Previous are links when enabled, page-2 proof via count line / `page=2` (not Harvey text/marquee), out-of-range clamps to last page, invalid `page` omits param.
+**2026-09-03:** Squash-merged [#101](https://github.com/duyet/templatebot/pull/101) (`438429a`) — public `/` and `/templates` page at 30 from D1 (`LIMIT`/`OFFSET` + count); Feature Map `browse-page` shipped in the same PR.
+**2026-09-04:** Squash-merged [#107](https://github.com/duyet/templatebot/pull/107) (`a0cdd78`) — clip X embed rounded-corner canvas leak; Feature Map `on-x-embed-corners` shipped in the same PR.
+**2026-09-04:** Squash-merged [#108](https://github.com/duyet/templatebot/pull/108) (`80a4c81`, maintain-verify after #104) — preview dialog locked to `sm:max-w-xl` (576px / ~351px inset at 375); chrome nav MCP leftover corrected to API; demo Buy empty-Dodo alert aligned with pay-to-install.
 
 ---
 
@@ -2202,6 +3266,283 @@ Hub: [[user-duyet-github]]. Stack: [[user-duyet-stack]].
 
 ---
 
+# GitHub Actions — cancel-in-progress false still cancels the pending run, and a paths filter makes the replacement useless
+URL: https://kb.duyet.net/m/reference-gh-actions-concurrency-pending-cancel
+Type: reference
+Description: Back-to-back merges silently drop master builds; with per-path filtering the newer green run does not rebuild the earlier merge's images
+
+`cancel-in-progress: false` does **not** mean "no run is ever cancelled". GitHub
+keeps one *running* plus one *pending* run per concurrency group, and **a third
+arrival cancels the pending one**. Merge three PRs in a minute and the first two
+`master` runs are dropped before they start.
+
+The workflow comment usually only describes the half that is prevented ("a running
+build is not killed mid-push") and calls the limit "at most one run + one pending
+run per ref" without mentioning the eviction. It reads like a guarantee.
+
+**Why it bites harder than it looks:** if the build matrix is filtered with
+`dorny/paths-filter` and only push-to-main runs publish (`push:
+${{ github.event_name != 'pull_request' }}`), then the surviving newer run does
+**not** rebuild the earlier merge's images. The PR proved the image builds and
+nothing ever pushed it. Published tags silently lag the branch, and every check
+in the repo is green. Observed 2026-09-28 in duyet/docker-images: `minio_latest`
+on master said alpine 3.24 while the registry still served 3.20.10, digest
+unchanged from the day before.
+
+**How to apply:**
+
+- Never accept "the cancelled run has a newer green replacement" as a dismissal
+  unless the replacement's path filter provably covers the same images.
+- After a burst of merges, verify the **published** manifest, not the workflow
+  status: read the digest, `created` timestamp, and inherited build history
+  (`ADD alpine-minirootfs-<ver>-…` in the amd64 config blob names the actual base)
+  for every image the merges touched.
+- Remediate by re-running the cancelled run, but only once the group has a free
+  pending slot — rerunning while a run is pending evicts that one and just moves
+  the gap.
+- Durable fixes: drop the concurrency limit for push events, make the push run
+  cumulative, or assert the published base in CI. Cause fix plus a detection
+  check; either alone leaves the other hole.
+- Related: [[reference-herdr-child-dispatch-verify]].
+
+---
+
+# GitHub Actions — default Actions token merges do not trigger further workflows
+URL: https://kb.duyet.net/m/reference-gh-actions-token-merge-no-workflows
+Type: reference
+Description: Squash-merge via github-actions bot with the default Actions token creates a push that skips CI and deploy workflows
+
+When a workflow merges a pull request with the default Actions token (`GITHUB_TOKEN`),
+the resulting push to the default branch **does not start other workflows**. That is
+intentional GitHub security: a bot credential cannot recursively fire Actions.
+Observed 2026-10-02 on duyet/oma — automerge squash-merged #482 (and earlier #476/#479)
+as `github-actions[bot]`; tip SHAs had PR CI green but **zero** `push` CI/deploy runs.
+
+**Not the same as path filters.** Deploy workflows may correctly skip when only
+`test/**` changed. CI on `push: branches: [main]` with no `paths:` key still never
+starts after a default-token merge.
+
+**How to apply:**
+
+- After automerge, treat PR-head CI as the gate that already ran; do not assume tip
+  push CI will confirm. Tip commit status may stay `pending` with only third-party
+  checks (e.g. Socket Security).
+- If tip push CI/deploy is required, merge with a PAT that is allowed to trigger
+  workflows, re-run manually, or push an empty commit as a human/PAT.
+- Do not invent a "test-only path filter skipped CI" explanation when `ci.yml` has
+  no `paths:` filter — check `merged_by` first.
+
+---
+
+# Herdr child agents — a long prompt can fail to submit and look exactly like an idle child
+URL: https://kb.duyet.net/m/reference-herdr-child-dispatch-verify
+Type: reference
+Description: herdr agent prompt with a long brief lands unsent in the opencode composer; verify the lifecycle moved instead of trusting the CLI's success response
+
+A `herdr agent prompt` carrying a long brief (~150+ lines) can be delivered to an
+opencode child's TUI as a **bracketed paste that is never submitted**. The
+composer sits there showing `[Pasted ~158 lines]`, the agent stays `idle`, and
+`agent prompt` still returns `{"type":"agent_prompted"}` with no error.
+
+Short prompts of the same shape submit normally. Observed 2026-09-28 managing
+docker-images worktree children.
+
+The failure is silent because **`idle` is ambiguous**: it is the state of a child
+that was never addressed *and* of one that is thinking, or done, or waiting its
+turn. A manager's notes saying "Dispatched" plus a live worktree plus an idle
+agent all look identical to a healthy run.
+
+**Why:** a whole run can be lost without a single error. In that run the entire
+tick reduced to one changed line, so the loss was total and the checklist still
+read "Dispatched" with every box unticked.
+
+**How to apply:**
+
+- Put the brief in a file in the run directory (`brief-<child>.md` next to
+  `queue.md`); prompt with one or two sentences plus the absolute path. Short
+  prompts don't stall, and a file brief makes a re-prompt one line.
+- After prompting, confirm the lifecycle actually moved:
+  `herdr agent get <name>` must show `working` and a bumped `revision` within
+  seconds. Unchanged `revision` means the prompt did not land.
+- `herdr pane read <pane> --source visible` shows an unsent paste immediately.
+- Clear a stuck composer with `herdr agent send-keys <agent> ctrl+u` before
+  re-prompting, so the next submit does not concatenate with the dead paste.
+- Related: a server restart can kill a child's shell tool mid-turn. Its staged
+  work survives — check `git status` in its worktree before assuming a loss, then
+  re-prompt; staged work only needs `git commit` and a push.
+
+---
+
+# Dev machine duet-ubuntu and local repos
+URL: https://kb.duyet.net/m/reference-machine-duet-ubuntu
+Type: reference
+Description: Primary Linux workstation (duet-ubuntu) — OS, Herdr workspaces, local repo checkout paths, and which credentials are stale
+
+# Dev machine: `duet-ubuntu`
+
+Primary Linux workstation. Confirmed 2026-09-27.
+
+## Machine
+
+- hostname `duet-ubuntu` (FQDN same), user `duyet`
+- Ubuntu 24.04.4 LTS, kernel 6.8.0-138, x86_64
+- uptime at capture: 3 weeks
+
+## Herdr
+
+Terminal multiplexer; agents run in panes. Every control command requires
+`HERDR_ENV=1` or it must be refused. `herdr` v0.9.0.
+
+- Workspaces are labelled per repo; the repo path is the workspace
+  `worktree.checkout_path`, so a repo can be found by path rather than label.
+- `herdr plugin action invoke <plugin>.<action>` resolves the **focused**
+  workspace, not the caller's cwd. A `status`-style action invoked from repo A
+  can therefore report repo B.
+
+## Local repos
+
+| Repo | Path |
+|---|---|
+| aidr | `/home/duyet/project/aidr` |
+| herdr-desk | `/home/duyet/project/herdr-desk` |
+| chmonitor | `/home/duyet/project/chmonitor` |
+| monorepo | `/home/duyet/project/monorepo` |
+| anyrouter | `/home/duyet/project/anyrouter-dev/anyrouter` |
+
+Herdr worktrees live under `/home/duyet/.herdr/worktrees/<repo>/<branch>`.
+
+## Stale credentials (as of 2026-09-27)
+
+Every one of these was valid once and now fails; do not trust them without
+re-probing:
+
+- `CLOUDFLARE_API_TOKEN` — Cloudflare `1000 Invalid API Token`. Blocks local
+  `pnpm sync-env --workers` and `wrangler deploy`. **GitHub Actions still
+  deploys fine**, so the copy in repo secrets is good — only the local one is
+  dead. Symptom: `wrangler whoami` → `9109 Invalid access token`.
+- `CLERK_SECRET_KEY` (in `aidr/.env.local`) — was `401` from `api.clerk.com`
+  after being rotated.
+- `NEWS_ADMIN_TOKEN` (in `aidr/.env.local`) — no longer matches the Worker's
+  copy, so `POST /api/admin/clerk-sync` returns `{"error":"unauthorized"}`.
+- `TELEGRAM_BOT_TOKEN` (in `aidr/.env.local`) — well-formed but revoked;
+  `getMe` returns `401`.
+
+Lesson: on this box, verify a credential against its provider before assuming a
+command failed for another reason. See `aidr`'s `.cursor/skills/aidr-ops`
+(`preflight`) which automates exactly these checks.
+
+## Secrets tooling
+
+- `scripts/sync-env.ts` spawns wrangler with `env: process.env`, so a token that
+  lives only in `.env.local` never reaches it. Unfixed upstream.
+- `herdr-desk` gained a host-level `notify.json`
+  (`~/.config/herdr/plugins/herdr-desk/`) for Telegram, deliberately outside
+  any repo so tokens are never committed.
+
+---
+
+# A per-package task gate is a no-op when no package defines the task
+URL: https://kb.duyet.net/m/tech-automation-gate-vacuous
+Type: tech
+Description: turbo/CI gate that runs `run lint` lints nothing unless a package defines it; align the local hook and CI on one command
+
+A CI job that runs a per-package orchestrator (`turbo run lint`,
+`nx run-many -t lint`) lints **only the packages that define that script**. If
+none do, the job passes on an empty task list and reports success over thousands
+of files. It is green, fast, and worthless.
+
+Paired failure: the local pre-push hook runs a *stricter* command than CI
+(`biome check` = lint + format + assist, vs CI's `biome lint`, which never
+reports `assist/source/organizeImports`). Drift then lands through any green PR
+until the hook rejects **every** push, including unrelated ones — so everyone
+starts using `--no-verify` and the gate is fully disarmed.
+
+**Why:** the two gates are written independently and never compared, so the
+stricter one becomes the thing everyone bypasses, and the looser one provides
+false assurance. Neither is a bug in either command; the bug is the divergence.
+
+**How to apply:**
+
+- Audit every "green" gate by asking *what does it actually execute?* Check that
+  the task exists in at least one package, or that it is not a per-package
+  orchestrator.
+- **Run the identical command locally and in CI.** One command, two places.
+  When they must differ, make CI the superset and say why in a comment.
+- The moment a hook needs `--no-verify` to be productive, the hook is wrong.
+  Treat the first `--no-verify` as a defect report, not a convenience.
+- Before "fixing" a newly-armed gate that flags a wall of unrelated files,
+  autofix in a dedicated change — do not widen the ignore list.
+- Check a stricter tool covers what CI runs before assuming CI is green: a
+  formatter/import-order rule that only `check` reports is invisible to `lint`.
+
+See also [[feedback-main-ci-green-fast]], [[feedback-fail-loud]].
+
+---
+
+# CLI report assemble from repo root
+URL: https://kb.duyet.net/m/tech-cli-report-assemble-from-root
+Type: tech
+Description: Resolve --assemble/--report/--out from the repo root; do not cd into the crate first
+
+`scripts/cli-build-report.sh --assemble` reads matrix JSON from the **workspace download dir** (CI: `cli-report-metrics` at the repo root).
+
+- Resolve `--assemble` / `--report` / `--out` from the repo root
+- Only `cd rust/` for the crate build path
+- Relative `--assemble cli-report-metrics` (same as the workflow) must work from root
+- `cd rust/` first makes the assemble step miss the artifacts (`no metrics json`) even when all matrix builds uploaded
+
+Related: [[tech-pin-github-actions]], [[project-chmonitor-cli-local-connections]].
+
+---
+
+# A new CodexBar provider is a declarative spec plus one TypeScript plugin
+URL: https://kb.duyet.net/m/tech-codexbar-new-provider-is-a-plugin
+Type: tech
+Description: CodexBar moved simple API-key providers to bundled QuickJS plugins; a new provider is ~25 lines of Swift plus a .ts file, not bespoke Swift
+
+A **new** CodexBar provider is a declarative `PluginProviderSpec` plus one bundled TypeScript plugin. It is not bespoke Swift. Simple API-key providers were migrated during the 0.68 cycle (`refactor(plugins): add declarative API-key provider builders`, `migrate simple API-key providers`).
+
+The whole provider is: `case <id>` in `UsageProvider`; a `<Name>ProviderDescriptor.swift` declaring `id: .<id>,` with `public static let spec = PluginProviderSpec(` **and** `apiKeyField: .init(`; `<id>.ts` + its transpiled `<id>.js`; the icon SVG. That is roughly 25 lines of Swift.
+
+**Why:** `Scripts/regenerate-provider-manifests.sh` reads the enum order plus the descriptor's shape and generates the descriptor manifest, the implementation manifest, `ProviderInstanceIDAliases.generated.swift`, and `docs/provider-ids.md`. Having both `spec` and `apiKeyField` makes the script emit `PluginAPIKeyProviderImplementation(spec: X.spec)`, so **no `ProviderImplementation` file is needed at all**.
+
+**How to apply:**
+- Run `Scripts/regenerate-plugin-js.sh` and `Scripts/regenerate-provider-manifests.sh`; both have a `check` mode that CI enforces.
+- In a plugin `.ts`, `catch (error) { void error; ... }` — sucrase rewrites the optional catch binding and oxlint's `no-unused-vars` then fails on the result. Annotate parameters; the `.ts` is type-checked.
+- `ctx.format.usd()` is native en_US currency formatting, so money rows are exact — write literal expectations in tests.
+- Adding a provider also needs: `BurnProviderChoice` (asserted exhaustive), the `balanceOnly`/fingerprint constants in `ProviderArchitectureGatekeeperTests`, the advertised provider count (87 -> 88) across 7 files including 23 site locales, a `docs/index.html` provider card, and a re-rendered `docs/social.png`.
+- The `plugin-provider-specs.json` golden covers a **curated** 31-provider list, not every provider, so a new provider need not be added.
+- CI runs `ubuntu-24.04` with **Swift 6.3.3**; `CodexBarPluginTests` (`TestsPlugin`) and `CodexBarLinuxTests` run there, but `Tests/CodexBarTests` is macOS-only.
+
+Gatekeeper fingerprints can be recomputed off-macOS: `ProviderDescriptorRegistry` lives in `CodexBarCore`, so a throwaway test in `TestsPlugin` can run the test's own hash over the registry and print the new constants. Verified: the untouched `debugLogUnavailableMessage` fingerprint reproduced its committed value exactly.
+
+Decline history: [[project-anyrouter-codexbar-declined]].
+
+---
+
+# Vendor Helm deps; bare `charts/` in .gitignore hides them
+URL: https://kb.duyet.net/m/tech-helm-vendored-deps-gitignore
+Type: tech
+Description: A bare `charts/` gitignore pattern silently strips vendored Helm dependency tarballs from git, breaking source installs
+
+Helm repos that vendor dependencies must commit `charts/*.tgz` per chart. A
+bare `charts/` line in `.gitignore` matches **every** chart's dependency dir
+(chart repos rarely have a top-level `charts/` dir), so `helm dependency
+build` works locally but tarballs are silently never committed. Committed
+`Chart.lock` + missing `charts/` is the tell. Published packages look fine
+when CI builds deps before packaging — only source clones break.
+
+**Why:** `helm template`/`lint`/`install` fail out of the box ("found in
+Chart.yaml, but missing in charts/ directory") with no visible cause.
+
+**How to apply:** anchor the ignore (e.g. `/charts/`) or delete it; commit
+vendored tarballs via `helm dependency build` and verify with a fresh-clone
+`helm template`. Vendor rather than drop declarations when templates
+reference default endpoints like `{{ .Release.Name }}-<dep>`. Related:
+[[project-charts]], [[feedback-fail-loud]].
+
+---
+
 # Pin GitHub Actions
 URL: https://kb.duyet.net/m/tech-pin-github-actions
 Type: tech
@@ -2246,6 +3587,36 @@ Related: [[tech-release-please-basics]], [[tech-release-please-pr-title]].
 
 ---
 
+# Squash merges break patch-id branch cleanup, so ask the forge
+URL: https://kb.duyet.net/m/tech-squash-merge-hides-branch-cleanup
+Type: tech
+Description: git cherry and patch-id report landed branches as unmerged in a squash-merging repo
+
+Merged-branch cleanup based on `git cherry` or patch-id silently fails in a repo
+that squash-merges, because a squash rewrites every patch-id. Landed branches
+then look unmerged forever and are never cleaned up.
+
+**Why:** release-please plus squash PR titles means the PR title is the release
+commit, so squash is the norm rather than the exception. In `duyet/herdr-desk`
+this left three dead branches looking live, and made `git log main..branch`
+report six already-landed commits as pending.
+
+**How to apply:** treat the forge as the authority, not patch-id. A branch is
+spent only when it has at least one **merged** PR *and* no open PR. The "at
+least one" clause is the load-bearing part: an empty PR list means *unknown*,
+not *all merged*, and treating it as merged deletes in-flight work that was
+pushed but not yet proposed — which in a shared working tree can be another
+agent's branch. Keep `git cherry` only as a backstop for forge lag.
+
+Skip the base branch, forge-managed release branches, and any branch pattern
+created at runtime. Pair it with a scheduled workflow, dry-run by default.
+
+A diff against the base is still the tie-breaker when a squash makes hashes
+diverge: if moving from `main` to the branch is mostly deletions, the branch is
+behind, not ahead.
+
+---
+
 # Two-phase Trivy scan
 URL: https://kb.duyet.net/m/tech-trivy-two-phase
 Type: tech
@@ -2254,6 +3625,58 @@ Description: Report job always succeeds; separate fail-on-severity job gates the
 Phase 1: scan with exit 0 for artifacts. Phase 2: fail on CRITICAL/HIGH, ideally reusing setup.
 
 Related: [[tech-pin-github-actions]], [[tech-codebase-maintenance-loop]].
+
+---
+
+# Cloudflare Access fails OPEN when the app is missing — clients keep sending headers nobody checks
+URL: https://kb.duyet.net/m/tech-access-missing-app-fails-open
+Type: reference
+Description: A service-token-protected origin becomes publicly reachable if the Access application is absent; clients still send CF-Access-Client-* headers, so nothing errors and it looks healthy
+
+Cloudflare Access enforcement lives in the **Access application**, not in the client.
+If the application is missing — deleted, or never recreated after an account move —
+the hostname is served **without any check at all**.
+
+**Why it hides:** well-behaved clients keep sending `CF-Access-Client-Id` /
+`CF-Access-Client-Secret`. Requests succeed, dashboards look normal, no error is
+logged anywhere. The credentials are present; nothing is verifying them. An origin
+whose only remaining defence is its own application password is now on the open
+internet.
+
+**Detection** — one unauthenticated request:
+
+```
+curl -sI https://<host>/     # expect 302 -> <team>.cloudflareaccess.com, or 403
+```
+
+A `200` means there is no Access app in front. Service tokens are account-scoped, so
+after an account migration the old token id is meaningless on the new account even
+though clients still transmit it.
+
+**Verify both directions.** Proving the gate blocks anonymous traffic says nothing
+about whether it still admits the legitimate client. Check the pair:
+
+| Request | Expected |
+|---|---|
+| no credentials | `302` / `403` |
+| app credentials, no Access headers | `302` / `403` |
+| app credentials **+** Access headers | `200` |
+
+**Ordering when rotating Access credentials:** create them → propagate to every client
+(Worker vars, secrets, `.env`) → **then** create or update the Access application.
+Reversed, every client is locked out for the length of the gap. That matters most
+where the client fails open by design (backup/telemetry sinks that swallow errors):
+the data silently stops arriving instead of raising anything.
+
+**A wildcard app covers subdomains, but a more specific app wins.** Before relying on
+`*.example.com` to protect a new hostname, confirm no narrower app exists for it.
+
+Related trap: a token that lacks read scope on `access/identity_providers` or on the
+`access/apps/{id}/policies` sub-resource returns an **empty list rather than 403**, so
+"no identity providers configured" and "cannot see them" are indistinguishable.
+Policies are readable inline from the `access/apps` list response. And Access's
+built-in email one-time-PIN needs **no** identity provider object at all, so an empty
+provider list does not mean login is broken.
 
 ---
 
@@ -2268,6 +3691,30 @@ Custom providers: base URL + slug; model path appended. Related: [[project-anyro
 
 ---
 
+# Cloudflare Worker cron triggers cap at five per account
+URL: https://kb.duyet.net/m/tech-cloudflare-cron-triggers-five-per-account
+Type: tech
+Description: Cron triggers are capped at 5 per Cloudflare account, not per Worker
+
+Cloudflare caps Worker `[triggers] crons` at **5 per account**, not per Worker. Shared accounts fill the slots fast. Deploy error is `10072 — You have exceeded the limit of 5 cron triggers`.
+
+Omitting the `triggers` block does **not** clear an existing cron. Emit `"triggers": { "crons": [] }` (or PUT `[]` to the schedules API) to release a slot. Workflow binding `schedules` are a different product and paid-only ([[tech-workflows-binding-schedules]]). Durable Object `alarm()` is another Free-safe scheduler and does not use a cron slot ([[tech-durable-object-alarms-not-cron]]).
+
+---
+
+# Cloudflare Email Sending is transactional, not marketing bulk
+URL: https://kb.duyet.net/m/tech-cloudflare-email-transactional-not-bulk
+Type: tech
+Description: Cloudflare Email Sending is for transactional mail; bulk/marketing campaigns belong on a dedicated ESP
+
+Cloudflare Email Sending (Workers `send_email` binding or REST) is **transactional** — receipts, password resets, one-off lifecycle mail. Marketing and multi-thousand blasts are out of scope.
+
+Bulk sends hit `E_RATE_LIMIT_EXCEEDED` / `E_DAILY_LIMIT_EXCEEDED` (or silent rejects) after a small successful prefix. Check `GET /accounts/{id}/email/sending/limits` before a large send. Use a dedicated ESP for campaigns.
+
+Docs: [Email Service](https://developers.cloudflare.com/email-service/). Related: [[tech-cloudflare-workflows-reset-on-code-update]].
+
+---
+
 # Cloudflare Pages deploy habit
 URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
 Type: tech
@@ -2277,6 +3724,45 @@ Habit: commit → push → deploy the changed Pages app → verify HTTP 200.
 
 Hazard: scripts that rename local env files mid-deploy must not run in parallel.
 Related: [[tech-tanstack-start-ssg]], [[project-monorepo]], [[feedback-semantic-commits]].
+
+---
+
+# Updating a Worker resets in-flight Cloudflare Workflows
+URL: https://kb.duyet.net/m/tech-cloudflare-workflows-reset-on-code-update
+Type: tech
+Description: Deploying a Worker that hosts a running Workflow resets the Durable Object and fails the instance
+
+A Cloudflare Workflow instance is a Durable Object. Deploying new code for the **host Worker** resets that DO. The instance fails with `Durable Object reset because its code was updated`.
+
+List or wait for instances (`wrangler workflows instances list`) before deploying the host. Do not treat a new instance as a clean retry of side effects already written by the old run.
+
+Related: [[tech-workflows-binding-schedules]], [[tech-cloudflare-cron-triggers-five-per-account]].
+
+---
+
+# D1 INSERT RETURNING is not a write API via .first()
+URL: https://kb.duyet.net/m/tech-d1-insert-returning-not-a-write
+Type: tech
+Description: Cloudflare D1 INSERT/UPDATE RETURNING + .first() returns empty results; persist with .run() or batch()
+
+Cloudflare D1 treats `INSERT`/`UPDATE` as writes. `stmt.first()` is a read helper and comes back empty for those statements even with `RETURNING`. A persist path that gates success on the RETURNING row will fail-closed after the write never looks persisted.
+
+Write with `D1PreparedStatement.run()` (or `D1Database.batch()` of prepared statements), then confirm with a later `SELECT`. Do not widen `batch()` on a local D1 wrapper to a broader union — `Env.DB.batch` is `D1PreparedStatement[]` only and a wider type makes the binding unassignable.
+
+Docs: [D1 Database API](https://developers.cloudflare.com/d1/worker-api/d1-database/).
+
+---
+
+# Durable Object alarms are not Worker cron triggers
+URL: https://kb.duyet.net/m/tech-durable-object-alarms-not-cron
+Type: tech
+Description: DO alarm() can schedule work without consuming the account-wide Worker cron cap
+
+Cloudflare Durable Object `alarm()` wakes a DO at a chosen time. Alarms are **not** Worker `[triggers] crons` and do **not** count toward the account-wide 5-cron cap ([[tech-cloudflare-cron-triggers-five-per-account]]).
+
+Workflow binding `schedules` are a different product and paid-only ([[tech-workflows-binding-schedules]]). On a Free plan, a DO alarm (or an external GitHub Actions POST) can start periodic work without a sixth Worker cron or a paid Workflow schedule.
+
+Docs: [Durable Object Alarms](https://developers.cloudflare.com/durable-objects/api/alarms/).
 
 ---
 
@@ -2336,6 +3822,64 @@ Related: [[tech-workers-cache-enabled]], [[tech-workers-cache-swr]].
 
 ---
 
+# Workflows schedules need a paid Workers plan
+URL: https://kb.duyet.net/m/tech-workflows-binding-schedules
+Type: tech
+Description: Workflow binding schedules avoid Worker cron slots but wrangler deploy fails on Free because schedules are paid-only
+
+Cloudflare Workflows accept `schedules` on the binding. Each tick starts a Workflow instance. That does **not** use Worker `[triggers] crons` (Free accounts cap those).
+
+`schedules` itself is paid-only. On a Free plan, `wrangler deploy` can upload the Worker then exit 1 attaching the schedule. The Worker may stay live; CI still goes red.
+
+On Free: trigger the Workflow from a Durable Object alarm ([[tech-durable-object-alarms-not-cron]]), GitHub Actions, or another external cron — not from `workflows[].schedules` and not from Worker crons. Docs: [Trigger Workflows](https://developers.cloudflare.com/workflows/build/trigger-workflows/). Related: [[tech-cloudflare-pages-deploy]], [[project-news]].
+
+---
+
+# Moving a CF zone between accounts copies DNS but not Worker routes — Error 1000
+URL: https://kb.duyet.net/m/tech-zone-account-transfer-breaks-worker-routes
+Type: reference
+Description: Cloudflare inter-account zone/registrar transfer carries DNS records but drops Worker routes and Custom Domains, so every proxied hostname 403s with Error 1000 until routes are recreated
+
+Moving a zone to another Cloudflare account (including a Registrar inter-account
+transfer) copies **DNS records** but **not** Worker routes or Workers Custom Domains.
+
+**Failure mode:** every proxied hostname returns `403` / **Error 1000 "DNS points to
+prohibited IP."** The copied proxied A records point at Cloudflare anycast IPs. On the
+old zone those were never used as an origin because Worker routes intercepted first;
+on the new zone, with no routes, Cloudflare tries to reach that "origin", sees its own
+IP, and refuses. **Routes are what make those placeholder A records harmless.**
+
+Checklist when moving a Workers-backed zone:
+
+| Item | Carries over? |
+|---|---|
+| DNS records (A/CNAME/MX/TXT) | yes |
+| Worker routes | **no — recreate** |
+| Workers Custom Domains | **no** |
+| Custom rulesets (transform/cache rules) | **no** |
+| Email Routing rules | **no** — and destination addresses must be re-verified first, else `2054` |
+| Zone id | **changes** — re-point every hardcoded reference and re-issue zone-scoped API tokens |
+
+Gotchas:
+
+- An **apex** declared `custom_domain: true` is not matched by a `*.example.com/*`
+  route. Creating the Custom Domain fails while leftover apex A records exist
+  (`already has externally managed DNS records`); delete them first.
+- Records that are **CNAMEs to a third party** (e.g. an auth provider's satellite
+  domain) can silently disappear into a `*` wildcard A record — every name still
+  resolves, so nothing looks broken while the integration is down. Diff the old and
+  new zone by querying **each nameserver set directly** with `dig @<ns>`, not by
+  checking whether a name resolves.
+- Registrar transfers lock the registration for **30 days** — no rollback in that
+  window at any price.
+- A tunnel is **not** transferable: create a new one on the destination account and
+  repoint the connector. Its ingress is readable from the API when the tunnel is
+  remotely managed, so it can be replicated exactly without any node access.
+- Verify resource ids (D1/KV/secrets-store) against the **live destination account**
+  before substituting them; a recorded config file is a record of intent, not proof.
+
+---
+
 # Qdrant HNSW config at create
 URL: https://kb.duyet.net/m/tech-qdrant-config-at-create
 Type: tech
@@ -2355,6 +3899,42 @@ Description: Large float32 collections without HNSW/quantization can time out
 High-dimension float32 collections can devolve to expensive scans. Tune HNSW + consider INT8 quantization.
 
 Config timing: [[tech-qdrant-config-at-create]]. Related: [[tech-rag-metadata-key-drift]].
+
+---
+
+# Debian 13 apt ships Node 20
+URL: https://kb.duyet.net/m/tech-debian-13-apt-node-20
+Type: tech
+Description: Debian 13 (trixie) nodejs is 20.x; Wrangler 4 and many CLIs need Node >=22. Install official 22 LTS to /usr/local and dpkg-divert /usr/bin/node.
+
+Debian 13 `apt` `nodejs` is **20.x**. Wrangler 4 refuses to start below **22.0.0**. Do not replace the apt package — other Debian `node-*` packages depend on it.
+
+To make Node 22 the system default:
+
+1. Extract the official `node-v22.*-linux-x64.tar.gz` from nodejs.org into `/usr/local` (`--strip-components=1`). `/usr/local/bin` is already first on the default PATH.
+2. `dpkg-divert --local --divert /usr/bin/node.distrib --rename /usr/bin/node` then `ln -sfn /usr/local/bin/node /usr/bin/node`. Cron/systemd `PATH=/usr/bin:/bin` and `#!/usr/bin/node` then get 22. Debian 20 stays at `/usr/bin/node.distrib`.
+3. Prefer the `.tar.gz` if `xz-utils` is missing. Verify `SHASUMS256.txt`.
+
+After this, `node -v` and `/usr/bin/node -v` are 22; `npm`/`npx` come from `/usr/local/bin`.
+
+---
+
+# Disk swap is not extra RAM
+URL: https://kb.duyet.net/m/tech-disk-swap-not-extra-ram
+Type: tech
+Description: A huge disk swapfile delays OOM and can hang a headless box; prefer small zram plus kill/evict
+
+Swap is spill, not capacity. Pages come back 100–1000× slower than RAM. A large **disk** swapfile lets the kernel thrash (SSD busy, allocators stall, NIC/watchdog look dead) instead of killing a fat process.
+
+On a small always-on Linux box (k8s + DB + agents):
+
+- Prefer **2–4 GiB zram** (compressed, memory-speed) for short spikes.
+- Do **not** add a swapfile ≥ RAM on the same NVMe as the OS/DB.
+- Pair with `earlyoom` / kubelet eviction that fire **while swap still exists**. Huge swap delays that signal.
+
+More swap is useful for hibernate or parking idle desktops. It is a trap when the working set already exceeds RAM and the host must stay reachable.
+
+Related: [[user-duyet-homelab]] (keep topology out of kb — [[feedback-public-kb-only]]).
 
 ---
 
@@ -2425,11 +4005,31 @@ Convert at the client boundary: [[tech-ai-sdk-history-dto-convert]]. Shape: [[re
 # Filesystem-first durable agents
 URL: https://kb.duyet.net/m/tech-eve-filesystem-agents
 Type: tech
-Description: Some frameworks store agent state/layout as files for durability and review
+Description: Eve authors an agent as agent/ files — instructions, tools, connections
 
-Filesystem-first agents keep prompts, memory, and tool config as files — greppable and PR-reviewable.
+Vercel [Eve](https://eve.dev/) authors an agent as files under `agent/`:
 
-Aligns with [[feedback-docs-driven-development]]. Stack map: [[tech-ai-agent-stack]].
+| Path | Role |
+|------|------|
+| `instructions.md` | always-on system prompt |
+| `tools/<name>.ts` | tool name = filename |
+| `connections/<name>.ts` | MCP / OpenAPI |
+| `skills/`, `schedules/`, `subagents/` | optional slots |
+
+Identity comes from the path, not a `name` field. Aligns with [[feedback-docs-driven-development]]. Runtime host: [[tech-eve-runtime-vercel-nitro]].
+
+---
+
+# Eve durable runtime is Vercel or Nitro
+URL: https://kb.duyet.net/m/tech-eve-runtime-vercel-nitro
+Type: tech
+Description: Eve sessions need Vercel Workflow or a self-hosted Nitro Node server
+
+Eve's durable loop (sessions, pause/resume, sandbox) deploys to **Vercel Workflow** or a **self-hosted Nitro Node** server (`eve build` → `.output/`).
+
+It does not run inside a thin Cloudflare Worker that only serves static assets plus one `POST /api/chat`. `withEve()` for Next.js expects that Eve service (local eve-dev, Vercel service, or `EVE_NEXT_PRODUCTION_ORIGIN`).
+
+Authoring files can still follow [[tech-eve-filesystem-agents]] on another host; the durable Eve runtime is a separate deploy choice.
 
 ---
 
@@ -2441,6 +4041,21 @@ Description: Custom gateways must register from agent init with ctx.env; module 
 Flue addresses models as `provider/model`. Register custom providers inside `defineAgent` initializer using `ctx.env`.
 
 `process.env` is empty at module load on workerd. Debug with Node target when errors hide. Related: [[reference-cloudflare-acquires-astro]], [[project-anyrouter]].
+
+---
+
+# GitHub CLI tokens need a git host alias
+URL: https://kb.duyet.net/m/tech-gh-token-git-host-alias
+Type: tech
+Description: A gh vault token keyed to api.github.com does not match github.com git remotes unless lookup aliases those hosts
+
+GitHub CLI (`gh`) credentials are registered for `api.github.com`. Git HTTPS remotes use `github.com` and `gist.github.com`. An exact-host vault lookup therefore misses git clones when the session only holds a `gh` token.
+
+**Why:** `git` and `gh` are different capability specs. Adding `github.com` to the `gh` spec still loses to an exact `git` match.
+
+**How to apply:** At lookup time, alias `github.com` / `gist.github.com` to `api.github.com` so the platform still resolves the token. Prefer exact-host credentials when both exist. Keep the token in memory; do not write it to disk, child env, or git config. Own-TLS clients (`gh`, `curl https://…`) still need a CA/MITM or a per-tool hook.
+
+Shipped for OMA's local bridge in duyet/oma #441. Hub: [[project-open-managed-agents]]. Invariant: [[tech-oma-credentials-out-of-sandbox]].
 
 ---
 
@@ -2499,6 +4114,38 @@ Also: zero-byte full timeouts are terminal per backend per request — don't bur
 
 ---
 
+# OMA env-fallback Claude uses anyrouter/free on AnyRouter
+URL: https://kb.duyet.net/m/tech-oma-bare-claude-gateway-rewrite
+Type: tech
+Description: Bare claude-* rewrites to anthropic/claude-*; AnyRouter env-fallback sonnet sends anyrouter/free on both OpenAI and Anthropic wire paths (not dotted BYOK 4.6)
+
+On the OpenAI-compatible / AnyRouter env-fallback path, OMA rewrites bare `claude-*` model handles to `anthropic/claude-*` (hyphens kept). Prefixed ids and non-Claude handles are unchanged.
+
+AnyRouter aliases hyphenated `anthropic/claude-sonnet-4-6` onto dotted BYOK-only `anthropic/claude-sonnet-4.6`, which 404s `model_unavailable`. Env-fallback therefore sends the live non-BYOK catalog id `anyrouter/free` for those sonnet handles.
+
+`wireModelIdFor` remaps **both** `openai.chat(...)` and `anthropic(...)` when `baseURL` is AnyRouter (#455 covered OpenAI only; #457 closed the Anthropic `/messages` hole where SessionDO with `ANTHROPIC_API_KEY` still POSTed bare sonnet and would strip a mapped `anyrouter/free` to `free`). OpenRouter and direct Anthropic stay unchanged. After #457, spans and `[provider.fetch]` 4xx logs report the HTTP wire `model` (`LanguageModel.modelId` / `request_model=`), not only the agent handle.
+
+**Why:** Hyphen rewrite alone still hit BYOK-only dotted aliases; OpenAI-only remap left the default `ant` `/messages` path broken on live.
+
+**How to apply:** Prefer bare `claude-sonnet-4-6` (seeded General) or `anyrouter/free` on gateway fallback. Recert a new General session after agent-worker deploy: `span.model_request_start.model` and `request_model=` must be `anyrouter/free`, and AnyRouter must not 404 dotted 4.6.
+
+Shipped in duyet/oma #439 + #453 + #455 + #457. Hub: [[project-open-managed-agents]].
+
+---
+
+# CF two-segment package mounts need invokePackage
+URL: https://kb.duyet.net/m/tech-oma-cf-two-segment-invoke-package
+Type: tech
+Description: Cloudflare Hono wrappers for /v1/<group>/<name>/* must dispatch via invokePackage, not nested fetch on c.req.path
+
+On Cloudflare, a Hono mount under `/v1/<group>/<name>` (two segments after `/v1`) must route through `invokePackage` with the two-segment prefix. Nesting `inner.fetch` on `c.req.path` leaves the mount prefix on the URL, so handlers for `/status` or `/connect` never match and return 404 even when the outer auth middleware ran.
+
+Same class of bug for Telegram integrations and AnyRouter provider routes. Flat rewrite that drops only one segment also mis-routes.
+
+Hub: [[project-open-managed-agents]].
+
+---
+
 # Credentials never enter the sandbox
 URL: https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox
 Type: tech
@@ -2506,7 +4153,18 @@ Description: Managed-agent platforms should inject secrets via outbound proxy, n
 
 Invariant for managed agent runtimes: tool sandboxes must not see raw credentials; an outbound proxy injects them.
 
-Project: [[project-open-managed-agents]]. Related: [[feedback-public-kb-only]].
+Project: [[project-open-managed-agents]]. Git host alias: [[tech-gh-token-git-host-alias]]. Related: [[feedback-public-kb-only]].
+
+---
+
+# oma DO alarm tests must call alarm() in the same runInDurableObject
+URL: https://kb.duyet.net/m/tech-oma-do-alarm-test-same-instance
+Type: tech
+Description: Planting setAlarm spies then firing via runDurableObjectAlarm reincarnates the DO and empties the spy
+
+Cloudflare vitest helpers can reconstruct a Durable Object between `runInDurableObject` and a later `runDurableObjectAlarm`. In-memory spies (`setAlarm`/`deleteAlarm`) and `_activeTurnIds` planted in the first entry point are gone on the second — so `setAlarmInside.length === 0` even when production `_scheduleNextAlarm` is correct (CI symptom on tip after #478/#479).
+
+**How to apply:** Drive `alarm()` **inside** the same `runInDurableObject` callback that plants spies/state (idiom already used by `_finalizeStaleTurns` tests). Prefer asserting the durable slot via `getAlarm()` when reincarnation would invalidate spies. Shipped test-only #482 tip `8146e717` (closes #480); production merge path unchanged. Leave RP alone; no runtime QA.
 
 ---
 
@@ -2518,6 +4176,27 @@ Description: Any prefix byte change can bust LLM prompt cache
 Prompt caching keys on exact prefix bytes. Unstable timestamps, random IDs, or reordered system text kill hit rates.
 
 Related: [[project-open-managed-agents]], [[tech-ai-agent-stack]].
+
+---
+
+# Generate API markdown from Python docstrings with ast
+URL: https://kb.duyet.net/m/tech-python-ast-docstring-markdown
+Type: tech
+Description: Prefer stdlib ast over Sphinx/pdoc when emitting markdown API pages from docstrings without importing the app
+
+For a large Python app that is expensive or env-heavy to import, generate **markdown API pages from docstrings with the stdlib `ast` module** (parse files, skip private/`_` names, skip undocumented publics). Do not import the package.
+
+**Why:** Sphinx autodoc, pdoc, and mkdocstrings typically import the app. That needs secrets, settings, and optional deps. `ast` only needs source.
+
+**How to apply:**
+
+- Write one markdown file per module that has documented public classes or functions.
+- Commit the generated tree next to the rest of the docs site so a static `/docs` viewer can serve it with no Python at build time.
+- Keep HTTP OpenAPI as a separate generator. Do not mix route catalogs into the docstring tree.
+- Scope the walk (package prefixes). A whole-`src` dump makes the sidebar unusable.
+- Hand-editing generated pages is wrong; re-run the generator after docstring changes.
+
+[[feedback-docs-driven-development]]
 
 ---
 
@@ -2610,6 +4289,49 @@ Description: Display unit labels must not silently convert values; pair with exp
 If a formatter shows `min`/`h`/`ms`, it must not convert magnitudes unless the multiplier is explicit.
 
 Smell: values that can never reach "60 minutes" if unit is wrong. Related: [[tech-flat-design-semantic-tokens]].
+
+---
+
+# Bun mock.module does not intercept node: builtins (1.4.2)
+URL: https://kb.duyet.net/m/tech-bun-mock-module-node-builtins
+Type: reference
+Description: bun:test mock.module cannot replace node:child_process in importers; use PATH shims or spyOn before import
+
+On Bun 1.4.2, `mock.module("node:child_process", …)` does not change what `import { spawnSync } from "node:child_process"` returns in later importers — builtin modules bypass the module mock registry. Verified empirically; docs describe mock.module for user modules.
+
+Proven substitutes:
+
+- **PATH shim**: create a fixture-local executable script (shebang `#!/path/to/bun`), set `mode: 0o755`, and prepend its directory to `PATH`. Capture argv/stdout to a JSON file; assert on the file. Works for real `spawnSync` and any child that resolves commands via PATH. Combine with `PATH=<shim-dir>` alone (no system dirs) to prove no other executable can run.
+- **`spyOn` before import**: for `process.*`/`globalThis` seams (`process.kill`, `fetch`, `Bun.serve`), `spyOn(...).mockImplementation(...)` placed before dynamically importing the module under test works.
+
+**Why:** teams burn time on the documented-looking `mock.module` path for builtins and silently get the real implementation (worse: real subprocesses).
+**How to apply:** in Bun CLI tests that must fake subprocesses, default to a PATH shim recorder; keep module mocks confined to a fresh child process so spy state never leaks across cases.
+
+---
+
+# Bun writes .bun into a test fixture HOME — assert app state paths, not HOME emptiness
+URL: https://kb.duyet.net/m/tech-bun-test-home-isolation
+Type: reference
+Description: Bun creates ~/.bun (install/cache dirs) under whatever HOME is set when it runs, so hermetic tests must not assert an empty fixture HOME — assert the app-owned state dir is absent instead
+
+When a test sets `HOME` to a fixture dir and spawns `bun` (e.g. `bun --eval`,
+`bun run file.ts`, or importing modules in a child), Bun may create `<HOME>/.bun`
+— its install/cache directory — inside the fixture, even when nothing installs.
+
+**Consequence:** assertions like `readdirSync(fixtureHome)).toEqual([])` fail with
+`[".bun"]`, and before/after HOME snapshot comparisons are order-dependent (they
+pass only if an earlier test already created `.bun`).
+
+**Fix the invariant, not the fixture:** the property under test is "the app wrote
+no state", not "HOME stayed empty". Assert the application-owned paths instead:
+
+- the app state dir under the fixture (`~/.local/state/<app>`) does **not** exist
+- the fixture cwd contains only the files the test wrote
+- pure-function paths: no draft/output JSON anywhere under the state dir
+
+Never special-case `.bun` in an allowlist — that re-couples the test to Bun's
+cache layout. Related: `bun test` does not typecheck; don't present it as a
+typecheck gate.
 
 ---
 
@@ -2746,6 +4468,32 @@ Cost control: [[tech-agent-loop-cheap-subagents]]. Related: [[project-duyetbot]]
 
 ---
 
+# Astro check/build OOM-killed on the shared 16GB box
+URL: https://kb.duyet.net/m/tech-astro-oom-shared-box
+Type: tech
+Description: Full astro check/build gets SIGKILL (exit 137) when other sessions are active — verify with lighter gates and let CI decide
+
+On the duet-ubuntu box (16 GB shared across many concurrent
+agent sessions), `astro check` and `astro build` for a large
+Astro dashboard (200+ files) get SIGKILLed (exit 137) partway
+through — even run alone — when sibling sessions hold most of
+memory (`free -m` shows ~1 GB available).
+
+**Why:** the box is shared; heavy TypeScript/Astro tooling is
+the first casualty of memory pressure, and a killed build says
+nothing about the code.
+
+**How to apply:** verify with the lighter gates — `bunx biome
+check <files>`, `bun test src/lib`, and a targeted
+`bunx tsc -p <temp tsconfig>` over just the touched files'
+import graph (expect pre-existing `ImportMeta.env` hits —
+those come from astro's generated env types, not your code).
+Treat CI (GitHub runners) as the authority for
+check/build; don't burn retries re-running the OOM-killed
+commands locally.
+
+---
+
 # Codebase maintenance loop
 URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
 Type: tech
@@ -2754,6 +4502,138 @@ Description: Measure → fix top issue → verify → commit → deploy → log
 Priority order often: build > tests > lint > deploy > quality > features.
 
 Safe dead-code removal only with proof. Related: [[tech-improvement-loop]], [[feedback-logic-change-update-tests]], [[project-duyetbot]].
+
+---
+
+# Host cron lives in-repo behind an install script
+URL: https://kb.duyet.net/m/tech-cron-as-code-install-script
+Type: tech
+Description: Reproducible host jobs are committed crontab snippets plus an idempotent installer, not hand-edited crontab
+
+Durable host jobs belong in the repo: a `cron.lines` (or equivalent) file plus
+an installer that wraps the block in `BEGIN`/`END` markers, replaces any prior
+block, and can `--remove`. Hand-editing `crontab -e` is not reproducible on the
+next machine.
+
+**How to apply:** new machine runs the installer; do not copy crontab lines from
+chat. When substituting command strings into crontab, do not use `sed` `s|||`
+if the replacement contains `&` (`2>&1`) — `sed` treats `&` as the match.
+
+**Why:** a missing or corrupted redirect silently drops job logs.
+
+---
+
+# Daily coding-agent manager leaves worktrees open for review
+URL: https://kb.duyet.net/m/tech-daily-manager-leaves-worktrees
+Type: tech
+Description: Leave worktrees for human review, but never leave them dirty — commit the work first, and prove a branch landed before deleting it
+
+A morning manager that fans GitHub issues into isolated git worktrees should
+**not** close those worktrees when a child finishes. Persist a dated folder
+(`SUMMARY.md`, issue picks, per-child status) in the repo so the next morning
+is a review, not an archaeology pass.
+
+**How to apply:** cron starts the manager; nightly cron only refreshes the
+summary; humans close or merge after reading the summary.
+
+**Why:** transcripts disappear; filesystem state plus open panes are the review
+surface.
+
+## The two rules that keep "left open" from becoming "lost"
+
+Leaving worktrees for review is only safe if a dirty worktree cannot lose work,
+and only tidy if a merged one can actually be identified.
+
+1. **Never leave a worktree dirty.** Commit to its own branch first — a local
+   `wip(...)` commit is fine and needs no push. Observed cost of the
+   alternative: 14 uncommitted files of real implementation parked in a worktree
+   for a day, one `rm` from gone.
+2. **Never trust `git branch --merged` after a squash merge.** Squash changes the
+   sha, so a fully merged branch still reports "ahead 4, behind 9" and looks
+   unmerged. Prove it by content instead:
+
+   ```sh
+   git diff <branch> origin/main -- $(git diff --name-only \
+     $(git merge-base origin/main <branch>) <branch>)
+   ```
+
+   Empty output means every file it touched is byte-identical to `origin/main`.
+   `git cherry` is the cheap complement: `-` means the patch is already upstream.
+
+Corollary: `git status` reporting a branch as "ahead N" is not evidence of
+unmerged work. Check the content. See [[tech-silent-scheduler-failure]].
+
+---
+
+# Daily digest keys must use the audience timezone
+URL: https://kb.duyet.net/m/tech-digest-local-date
+Type: tech
+Description: A UTC-dated snapshot can miss the local calendar day so the daily digest looks up null and never sends
+
+Key a once-per-local-day digest by the audience timezone date, not UTC. If the snapshot row uses UTC and the sender looks up local date, the lookup is null around midnight and the channel never posts.
+
+If the LLM step that writes the snapshot fails, persist a non-invented fallback (e.g. existing titles) so the send path still has a row. Related: [[project-news]].
+
+---
+
+# An unquoted shell metacharacter in a .env file silently drops every later variable
+URL: https://kb.duyet.net/m/tech-dotenv-unquoted-value-kills-source
+Type: reference
+Description: bash `source` aborts at the offending line, so variables defined after it are empty at point of use with no error — dotenv loaders parse the same file fine, which hides it
+
+`set -a; source .env` is a common way to load config into a shell. It parses as
+**shell code**, not as a config format, so a value containing an unquoted
+metacharacter (`<` `>` `|` `&` `;` `(` `)`) is a syntax error:
+
+```
+NAME=Some Product <noreply@example.com>
+    -> syntax error near unexpected token `newline'
+```
+
+**The damage is everything below it.** `source` aborts at that line, so every variable
+defined *after* it is never set. There is no error at the point of use — the variable
+is simply empty, and a script continues with a blank URL, host, or password.
+
+**Why it survives for months:** dotenv-style loaders (Node, Python, Vite, wrangler)
+tokenize line-by-line and handle the same file without complaint. Only the shell path
+breaks, so it fails for scripts and CI steps while the application works fine.
+
+Detect it — the error goes to stderr and is easy to swallow:
+
+```
+set -a; source .env            # do NOT redirect stderr away
+grep -nE '^[A-Z_]+=[^"'"'"']*[<>|&;()]' .env      # find unquoted offenders
+```
+
+Fix by quoting the value. Prefer quoting **every** value in files that anything
+sources.
+
+Two related traps:
+- `source` inside a pipeline (`source .env | head`) runs in a subshell, so the
+  variables vanish before the next command — a test harness bug that looks identical
+  to the real failure.
+- This is the same family as a database client accepting an empty connection string
+  and reporting success: the failure is the *absence* of a value, so nothing throws.
+
+---
+
+# Morning Herdr issue-desk cron
+URL: https://kb.duyet.net/m/tech-herdr-morning-issue-desk
+Type: tech
+Description: Daily cron starts a Grok manager on main; children get isolated git worktrees; dated run folder stays on disk for review
+
+Unattended daily issue pass: a user-session terminal multiplexer (Herdr) is already running. Cron only talks to that socket.
+
+- Morning: start or nudge a **manager** agent on the `main` checkout. Manager does not implement on `main`.
+- Manager writes a **dated run folder** (queue, workers, summary) on disk; leave tabs/workspaces **open** for human review.
+- Children: one isolated git worktree + one agent each. Cap concurrency (default 3).
+- Nightly: if the manager is still live, ask it for a wrap file. Do not spawn a second evening manager.
+- Timers are **code in the repo** (crontab snippet + systemd user units + install script). Re-run install on a new machine.
+- If the multiplexer socket is missing, the cron job exits 0 and logs a skip.
+- Never auto-merge release-please PRs.
+
+**Why:** overnight GitHub triage without mixing work onto `main`.
+**How to apply:** install the repo's issue-desk script; review the latest run folder and open workspaces in the morning.
 
 ---
 
@@ -2776,6 +4656,42 @@ Description: Ship self-host and cloud from one tree behind a fail-closed mode fl
 Pattern: single high-level deployment mode (`oss|cloud`) that resolves auth/storage defaults. Unset/junk → OSS so open source never degrades.
 
 Never gate core product features behind cloud-only. Example product: [[project-clickhouse-monitoring]]. Env: [[tech-single-source-env]].
+
+---
+
+# A failing scheduled job looks exactly like one with nothing to do
+URL: https://kb.duyet.net/m/tech-silent-scheduler-failure
+Type: tech
+Description: Count consecutive failures per job, not last status; a stale path can kill every future fire permanently
+
+A cron/agent job that throws before it does its work produces **the same
+observable state as a job with no work**: no output, no artifacts, no diff. The
+only difference lives in a log nobody reads.
+
+Observed cost: 24 consecutive daily fires died on one `EISDIR` (a *directory*
+sitting where a `writeFileSync` expected to write a file). 35 of 40 run
+directories were empty. It recovered by accident, when an unrelated config edit
+plus a reinstall happened to clear the path. See [[tech-daily-manager-leaves-worktrees]].
+
+**Why:** `writeFileSync` on an existing directory throws — and because it
+happens *before* the work starts, the failure is permanent rather than
+transient, and self-inflicted rather than environmental.
+
+**How to apply:**
+
+- **Never** let a scheduled job's success be "no error was raised". Write a
+  heartbeat artifact (a `changes.md`, a state row with a real value) so "did
+  nothing" and "could not start" are distinguishable.
+- **Report consecutive failures, not the last status.** `Last: fail` is one red
+  word in a wide table; `Fails: 24 from <date>` is the number that gets read.
+  Replayed against a real ledger, that one column would have named the outage
+  on day two instead of day twenty-four.
+- **Make writes self-healing.** Clear the path before writing
+  (`rm -rf <pointer>` then write) so a stale file, dir, or symlink is a non-event.
+- **Make the health check the first finding** of any self-improvement loop — if
+  the scheduler is broken, every other automated job is silently a no-op too.
+- An **empty run directory** is the cheapest smell there is. Alert on the
+  directory existing with no files in it.
 
 ---
 
@@ -2806,15 +4722,23 @@ URL: https://kb.duyet.net/m/user-duyet-active-projects
 Type: user
 Description: Index of products and repos Duyet actively builds across
 
-Duyet builds **many products in parallel** (not single-app focus).
+Duyet builds **many products in parallel** (not single-app focus). Confirm repo before large edits ([[feedback-disambiguate-repo]]).
 
-| Area | Projects |
-|------|----------|
-| ClickHouse | [[project-clickhouse-monitoring]] |
-| LLM / agents | [[project-anyrouter]] · [[project-agentstate]] · [[project-anyworker]] · [[project-open-managed-agents]] · [[project-duyetbot]] |
-| Personal / platform | [[project-monorepo]] · [[project-kb]] · [[project-llm-timeline]] · [[user-duyet-homelab]] · [[project-charts]] |
+| Area | Product | Public |
+|------|---------|--------|
+| ClickHouse | [[project-clickhouse-monitoring]] | chmonitor.dev · dash.chmonitor.dev · github.com/chmonitor/chmonitor |
+| LLM gateway | [[project-anyrouter]] | anyrouter.dev · dash.anyrouter.dev · docs.anyrouter.dev |
+| AnyRouter OS | [[project-anyrouter-os]] | os.anyrouter.dev |
+| Agent fleet state | [[project-agentstate]] | agentstate.app · github.com/duyet/agentstate |
+| Local agent | [[project-anyworker]] | anyworker.dev · github.com/duyet/anyworker |
+| Managed agents | [[project-open-managed-agents]] | public OSS |
+| Agent persona | [[project-duyetbot]] | agents.duyet.net |
+| Personal web | [[project-monorepo]] | duyet.net family |
+| Shared brain | [[project-kb]] | kb.duyet.net |
+| Timeline | [[project-llm-timeline]] | llm-timeline.duyet.net |
+| Homelab / charts | [[user-duyet-homelab]] · [[project-charts]] | homelab.duyet.net |
 
-Also: [[user-duyet-multi-project]], [[feedback-disambiguate-repo]], [[reference-duyet-github]], [[user-duyet-ai-stance]].
+Also: [[user-duyet-multi-project]], [[reference-duyet-github]], [[user-duyet-ai-stance]], [[user-duyet-web-presence]].
 
 ---
 
@@ -3086,9 +5010,459 @@ Public sites (prefer `/llms.txt` when present):
 |------|-----|
 | Profile / blog / CV | https://duyet.net · https://blog.duyet.net · https://cv.duyet.net (+ `/llms.txt`) |
 | GitHub / X | https://github.com/duyet · https://x.com/_duyet |
-| Products | https://llm-timeline.duyet.net · https://agents.duyet.net · https://kb.duyet.net · https://homelab.duyet.net |
+| Personal products | https://llm-timeline.duyet.net · https://news.duyet.net · https://agents.duyet.net · https://kb.duyet.net · https://homelab.duyet.net |
+| AnyRouter | https://anyrouter.dev · https://os.anyrouter.dev · https://docs.anyrouter.dev |
+| Agent / CH | https://agentstate.app · https://anyworker.dev · https://chmonitor.dev |
 
 Atoms: [[user-duyet-site-blog]], [[user-duyet-github]], [[user-duyet-site-kb]], [[user-duyet-site-homelab]]. Portfolio: [[user-duyet-active-projects]]. Profile: [[user-duyet-profile]].
+
+---
+
+# Inbox — 2026-10-05
+URL: https://kb.duyet.net/d/2026-10-05
+Date: 2026-10-05
+
+# Inbox — 2026-10-05
+
+- 01:24 — llm-timeline daily sync writes syncedAt (full ISO) beside lastSynced (date). The Updated line formats it as D Mon YYYY, HH:MM UTC. Date-only stamps stay a date. PR https://github.com/duyet/monorepo/pull/1549 Fixes #1543.
+
+---
+
+# 2026-10-03
+URL: https://kb.duyet.net/d/2026-10-03
+Date: 2026-10-03
+
+<<<<<<< Updated upstream
+# 2026-10-03
+
+- 04:42 — oma Version Packages #487 merged tip 192e37c7; npm @getoma/cli@0.1.13 published via Release 37067755066; CLI QA soft leftover.
+- 04:42 — oma #485/#487 Version Packages (@getoma/cli 0.1.13 for #431/#483) tip 192e37c7. Release 37067755066 publish success → npm @getoma/cli@0.1.13. Live oma/docs/app 200; app /health ok; anon app /v1/sessions/home 401. CLI-only Soft leftover: tip duyetbot CLI QA (--version, sessions --help, agents list --json). Leave RP.
+
+- 04:57 — oma #488 feat(cli) envs get/delete (Partial #484) tip 5c5c9178; Soft CLI QA envs get/delete --help; leave RP #489 / future VP 0.1.14.
+=======
+# Inbox — 2026-10-03
+
+- 12:04 — aidr/duyet preference: work autonomously end-to-end (close issues, open PRs, follow-ups) without asking for confirmation; report results after
+>>>>>>> Stashed changes
+
+---
+
+# Inbox 2026-10-02
+URL: https://kb.duyet.net/d/2026-10-02
+Date: 2026-10-02
+
+- 18:13 — duyet/oma #478 Version Packages merged tip 00c7c6d (@getoma/cli 0.1.12). Workers Main/Agent/Integrations deploy success. Tip CI failed: recovery-do.test.ts alarm() rearm (expected 0 > 0); typecheck green. npm still 0.1.11; Release publish pending behind earlier workflow_dispatch version-pr. Open RP #479 leave alone. Live oma/docs 200; app /health ok; anon app /v1/sessions/home 401.
+- 18:24 — oma #479 Release Please root 0.1.7 merged tip 0853303 (CHANGELOG + manifest only; #473/#474). npm @getoma/cli 0.1.12 live. Live oma/docs/app health ok. root-v0.1.7 tag not yet created (no Release Please run on tip after bot merge). Tip CI red tracked #480 recovery-do alarm rearm — leave RP alone; no duplicate #474 QA.
+- 18:55 — oma #482 squash-merged tip 8146e717 (github-actions automerge; PR CI 37002904069 success). Closes #480. Test-only recovery-do alarm-rearm same-instance. Tip push CI absent: default Actions-token automerge does not trigger workflows; deploy path filters correctly skip test-only. Live oma/docs 200; app /health ok; anon app /v1/sessions/home 401. No duyetbot QA. Leave RP alone.
+
+---
+
+# Inbox — 2026-10-01
+URL: https://kb.duyet.net/d/2026-10-01
+Date: 2026-10-01
+
+# Inbox — 2026-10-01
+
+- 17:17 — 2026-10-01 aidr run ddb11132 translate/review Provider request failed was mislabeled timeouts: raceTimeout AbortError beat the timed-out error; slices 42000/14000/4667 and review 12500 match modelAttemptTimeoutMs. Score typesafe/jev was healthy.
+- 22:13 — aidr deploy pitfalls (2026-10-01): (1) local pnpm deploy needs VITE_CLERK_PUBLISHABLE_KEY; it lives in repo-root .env.local and vite.config passes it via define; deploy now fails without a pk_live_ key. (2) don't deploy while an hourly run is in flight; a deploy resets the Workflow DO mid-step (TL;DR step now retries once). (3) FORCE_COLOR broke the cf JSON migration gate; cf-d1.ts forces color off.
+
+---
+
+# Inbox — 2026-09-30
+URL: https://kb.duyet.net/d/2026-09-30
+Date: 2026-09-30
+
+# Inbox — 2026-09-30
+
+- 22:41 — GitHub Actions: two jobs that each commit+push from the same checkout race — the second push is rejected (fetch first). Do all commits in one job, and pull --rebase with retry before push.
+- 01:20 — anyrouter: check:dangling-refs flags browser globals in 3rd-party chunks (transformers.web: GPU*/ML*/Cache/postMessage + typeof-guarded Emscripten names) -> allow-list globals, scope vendor free vars per chunk (#3855). Never hand-edit generated docs-registry.ts; regenerate (#3856 fixed headings landing on the wrong entry).
+- 01:20 — anyrouter: when rebasing herdr-desk docs PRs, main's .herdr-desk.json playbook may be newer than the PR's contract -> keep main's rules (prod-health lane may self-merge behind check-pr-merge-safety).
+
+---
+
+# Inbox — 2026-09-29
+URL: https://kb.duyet.net/d/2026-09-29
+Date: 2026-09-29
+
+# Inbox — 2026-09-29
+
+- 02:14 — aidr story OG cards use Be Vietnam Pro. satori/resvg skips GPOS mark-to-base, so Source Sans 3 stacked Vietnamese tones drew on the letter.
+- 19:59 — aidr /about How it works is a single-column ASCII flow (Collect through Distribute). Each line stays under 80 columns. The pre uses overflow-hidden so phones do not scroll sideways.
+
+---
+
+# Inbox — 2026-09-27
+URL: https://kb.duyet.net/d/2026-09-27
+Date: 2026-09-27
+
+# Inbox — 2026-09-27
+
+- 17:17 — monorepo Cloudflare Pages: all 10 projects (blog, home, cv, burns, insights, kb, photos, tip, x-algo, llm-timeline) had production_branch=master after the repo renamed master->main, so every cf:deploy:prod run (--branch=main) landed as Preview and never reached the custom domains. Fixed 2026-09-27 by PATCHing production_branch=main via the Cloudflare API. Separately, CI 'checks / checks' has failed at the Lint step since ~2026-09-21 (biome lint, 16 findings + biome.json schema mismatch), which gates all Deploy jobs. Local deploy escape hatch: cd apps/blog && pnpm run cf:deploy:prod
+- 18:30 — monorepo blog deploy: root cause of 'missing blog post' was TWO bugs. (1) All 10 Cloudflare Pages projects had production_branch=master after the master->main rename, so cf:deploy:prod (--branch=main) always produced Preview deployments that never reached custom domains. Fixed 2026-09-27 by PATCHing production_branch=main via the Cloudflare API. (2) commit 9b3a254d accidentally deleted the '!**/.cursor' line from biome.json that #1514 had just added, so vendored pstack skills were linted and noAssignInExpressions failed the checks job Lint step, gating every Deploy job. Fixed in 58cff05 (also bumped $schema to 2.5.14 to match pinned biome). LESSON: never deploy from a dirty working tree - a stale apps/blog/dist made the local prerender step crash, publishing an SPA shell that 404'd every route while wrangler still reported 'Deployment complete'. Always verify real content on real routes, not HTTP status: the SPA fallback returns 200 for unknown paths. Use gh workflow run cf-deploy.yml --ref main -f app=all to deploy every Pages app.
+- 19:09 — Herdr/Pages deploy rules learned 2026-09-27: (a) Cloudflare Pages PATCH /accounts/{acct}/pages/projects/{name} {"production_branch":"main"} - changing it does NOT retroactively promote existing deployments; a fresh deploy from main is required. (b) The projects list endpoint paginates at 10 by default and per_page is rejected with 400 - enumerate by name, never assume the first page is complete. duyet/monorepo has 13 Pages projects, not 10. (c) wrangler has no 'pages project update'; PATCH via API using the OAuth token in ~/.config/.wrangler/config/default.toml. (d) rollback only works to a past PRODUCTION deployment - 'You cannot rollback to a preview deployment'.
+
+---
+
+# Inbox 2026-09-24
+URL: https://kb.duyet.net/d/2026-09-24
+Date: 2026-09-24
+
+- 18:19 — anyrouter-dev/cli: the gh OAuth token lacks `workflow` scope, so HTTPS pushes touching .github/workflows are rejected and Git Data API trees containing workflow files 404; push via the sshorigin SSH remote instead. `ar` in PATH is shadowed by a non-binutils tool — cargo builds need AR=/usr/bin/ar.
+
+---
+
+# Inbox 2026-09-17
+URL: https://kb.duyet.net/d/2026-09-17
+Date: 2026-09-17
+
+- 01:58 — duyet/oma #470 merged (db9b387): Node self-host uses tenant Model Card credentials for session turns before AnyRouter/deployment globals; closes #469. Workers + Node images green; left release-please #471.
+- 08:34 — duyet/charts#237 fixed via PR #243 (merged a23d594): vendored amundsen elasticsearch + commento postgresql tgz per Chart.lock; root cause was bare 'charts/' pattern in .gitignore silently excluding vendored deps
+- 19:08 — Biome 2.5.14 HTML useAnchorContent requires non-hidden text inside <a>; aria-label or title alone is not enough for icon-only links.
+- 19:48 — agentstate #360 SSE /watch backlog deadlock fixed: PR #448 opened (Closes #360), targeted DO Workers tests 5/5, CI green (Lint+Typecheck+Test 2m16s, GitGuardian, Socket). Not merged; release-please #442 and draft #361 untouched.
+
+---
+
+# 2026-09-16
+URL: https://kb.duyet.net/d/2026-09-16
+Date: 2026-09-16
+
+# 2026-09-16
+- aidr PR #82 Renovate workers-types → 5.20260915.1: lockfile/artifacts fail; left open for minimumReleaseAge until ~2026-09-16T01:18Z (~08:18 ICT)
+- 03:00 — duyet.net CLI installers live after monorepo #1496: curl -fsSL https://duyet.net/install.sh | sh (macOS/Linux), PowerShell install.ps1 (Windows); channel stubs at /cli/stable.json and /cli/beta.json. Real archives still wait on #1444 dist release.
+- 01:36 — AnyRouter morning quota batch: disable platform zenmux/z-ai/dalat/hoian/stepplan keep *-byok; skip openrouter-pool billing.
+- 19:04 — duyet/oma #442 Artifacts panel squash-merged to main as 161068c1; Main/Agent/Integrations/Website dispatched and green.
+
+---
+
+# Inbox — 2026-09-15
+URL: https://kb.duyet.net/d/2026-09-15
+Date: 2026-09-15
+
+# Inbox — 2026-09-15
+
+- 14:57 — TemplateBot marketplace-pull parses x.ai catalog addHref as /bot/{shareId} (and https://x.ai/bot/{id}) as well as grokbot://...?id=; skip /bot/marketplace. Maintain-verify docs PR after #210.
+- 18:20 — AnyRouter: AIHubMix documents exact ids deepseek-v4.1-flash, solar-pro4, gpt-6-astra on aihubmix.com/model/<id>/llms.txt; attach aihubmix-byok to existing listings, never invent SKUs.
+- 18:20 — aidr PR #36 workers-types: rebased, bumped to 5.20260914.1 (24h age), squash-merged; master had biome fail on marketbrief.ts which was formatted in that PR
+- 18:22 — aidr Renovate react 19.3.0 PR #45: lockfile/artifacts fail until rebase onto master + pnpm install; @types/react still 19.2.18 unless ranges bumped to ^19.3.0
+- 18:46 — dither-kit extracted to packages/dither-kit; PR https://github.com/duyet/monorepo/pull/1497 closes #1384
+- 18:46 — anyrouter-dev/cli 0.1.13 shipped via release-please PR #68; tag v0.1.13. GitHub GITHUB_TOKEN does not chain release-binaries; assets need workflow_dispatch with tag. npm-publish has no workflow_dispatch and needs NPM_TOKEN.
+- 18:47 — duyet CLI P7: contact/jd/comment confirm-before-send shipped PR 1499 closing 1448
+- 18:50 — AnyRouter 2026-09-15 public catalog changelog shipped as PR 3309 (aihubmix-byok hops, poolside platform off, BYOK newest-first). Not merged/deployed.
+- 19:16 — anyrouter-dev/cli PR #69: Claude virtual presets keep [1m]/[500k] on ANTHROPIC_MODEL so HUD does not invent [200k].
+- 19:40 — anyrouter-dev/cli v0.1.14 released via squash-merge of release-please #70 after #71 Ctrl+G auto-upgrade hint.
+- 19:51 — aidr: wrangler deploy does not apply D1 SQL migrations; hook apply into the web deploy script (or GHA) with the same CLOUDFLARE_API_TOKEN. OAuth GH_TOKEN without workflow scope cannot push .github/workflows/*.yml
+- 20:01 — aidr: GHA CLOUDFLARE_API_TOKEN can wrangler deploy Workers but Cloudflare API 7403 on D1 migrations.apply — needs Account D1 Edit. Do not chain d1:migrate into deploy until the token can.
+
+---
+
+# 2026-09-14
+URL: https://kb.duyet.net/d/2026-09-14 2
+Date: 2026-09-14 2
+
+- 05:02 — Clerk GitHub sign-in: external_account_not_found happens when SSO callback bounces instead of transferring to sign-up; withSignUp + AuthenticateWithRedirectCallback fixes it.
+- 10:28 — After shipping, commit and push so CI deploys; do not wait to be asked.
+# 2026-09-14
+
+## Devin.ai — No OpenAI-compatible inference API
+
+**Research conclusion** (issue #3271): Devin.ai DOES NOT ship an OpenAI-compatible inference API.
+
+- Official API base: `https://api.devin.ai/v3/organizations/*` and `/v3/enterprise/*`
+- Auth: `cog_` service-user Bearer tokens
+- Endpoints: sessions, knowledge, playbooks, secrets, org admin — NOT chat completions
+- `POST .../sessions` starts a Devin agent session, not a token-stream chat
+- Live probes 2026-09-14 all 404: `/v1/models`, `/v1/chat/completions`, `/v3/models`, `/openai/v1/models`
+- Devin CLI Adaptive/Fusion is internal — not a public OpenAI base URL
+- Community MITM/BYOK proxies are unofficial and ToS-risky — do not register
+
+**Blocked from adding Devin as a BYOK provider.** Commented on #3271 with findings. Awaiting Devin/OpenAI-compat API surface from Cognition.
+
+Sources:
+- https://docs.devin.ai/api-reference/overview
+- https://docs.devin.ai/llms.txt
+- https://github.com/duyet/anyrouter/issues/3271
+
+---
+
+# 2026-09-14
+URL: https://kb.duyet.net/d/2026-09-14
+Date: 2026-09-14
+
+- 05:02 — Clerk GitHub sign-in: external_account_not_found happens when SSO callback bounces instead of transferring to sign-up; withSignUp + AuthenticateWithRedirectCallback fixes it.
+- 10:28 — After shipping, commit and push so CI deploys; do not wait to be asked.
+# 2026-09-14
+
+## Devin.ai — No OpenAI-compatible inference API
+
+**Research conclusion** (issue #3271): Devin.ai DOES NOT ship an OpenAI-compatible inference API.
+
+- Official API base: `https://api.devin.ai/v3/organizations/*` and `/v3/enterprise/*`
+- Auth: `cog_` service-user Bearer tokens
+- Endpoints: sessions, knowledge, playbooks, secrets, org admin — NOT chat completions
+- `POST .../sessions` starts a Devin agent session, not a token-stream chat
+- Live probes 2026-09-14 all 404: `/v1/models`, `/v1/chat/completions`, `/v3/models`, `/openai/v1/models`
+- Devin CLI Adaptive/Fusion is internal — not a public OpenAI base URL
+- Community MITM/BYOK proxies are unofficial and ToS-risky — do not register
+
+**Blocked from adding Devin as a BYOK provider.** Commented on #3271 with findings. Awaiting Devin/OpenAI-compat API surface from Cognition.
+
+Sources:
+- https://docs.devin.ai/api-reference/overview
+- https://docs.devin.ai/llms.txt
+- https://github.com/duyet/anyrouter/issues/3271
+
+---
+
+# Inbox — 2026-09-13
+URL: https://kb.duyet.net/d/2026-09-13
+Date: 2026-09-13
+
+# Inbox — 2026-09-13
+
+- 05:40 — aidr digest email: story body is plain text; Read more / Đọc thêm link under each item. PR #70 merged 2ddacf2
+- 05:53 — AnyRouter Grok Bot ops webhooks: generalized grok-bot-outage-webhook.ts so Model Monitor, Smoke Test, and windowed error-monitor anomalies POST JSON to optional per-channel GROK_BOT_*_WEBHOOK_URL/KEY secrets. Unset URL no-op; never block Telegram. Store bindings 10182 until values exist.
+- 08:07 — x.ai Grok Bot marketplace addHref is now /bot/{shareId} (not grokbot://...?id=). TemplateBot marketplace-pull must parse path-style share ids or it reports zero bots. Hunt from X still requires X_BEARER_TOKEN and fails loud without it.
+- 16:00 — AnyRouter standing release-please PRs #3155 sdk 1.0.1 and #3156 ai-sdk-provider 0.1.9 conflict on sdk.json; do not merge one-at-a-time. npm publish of @anyr/sdk has been E404 since 1.0.0 (classic NPM_TOKEN). GitHub tags ahead of npm 0.1.3/0.1.6.
+- 17:34 — herdr-desk: spawn worktree children on the open project workspace (tab + worktree create --workspace) instead of workspace create a new Space
+
+---
+
+# Inbox 2026-09-12
+URL: https://kb.duyet.net/d/2026-09-12
+Date: 2026-09-12
+
+- 11:42 — AnyRouter dash /keys: one compact toolbar, hide DataTable density, icon Columns/Reset (#3212)
+- 13:48 — aidr OG image enlarged: PR #67 squash-merged, master 6b0c373, live /og.jpg 1200x630 ~38KB yellow AI;DR card
+
+---
+
+# Inbox — 2026-09-11
+URL: https://kb.duyet.net/d/2026-09-11
+Date: 2026-09-11
+
+# Inbox — 2026-09-11
+
+- 13:53 — AnyRouter error-monitor can POST structured JSON to an optional Grok Bot webhook (GROK_BOT_OUTAGE_WEBHOOK_URL) alongside Telegram; Bearer sender key; unset URL is no-op.
+- 14:35 — aidr.today public brand files: PNG logos 200 via Worker ASSETS; SVG/JPG GET 404 when ASSETS SPA-falls back to HTML. handlePublicAsset should fetch a clean GET Accept:*/* and sniff SVG bodies so /favicon.svg is image/svg+xml.
+- 14:41 — AI;DR yellow marks: SVG text must use y at rect center plus dominant-baseline=central (not baseline y) so glyphs sit in the middle of the rounded rect.
+
+---
+
+# Inbox 2026-09-10
+URL: https://kb.duyet.net/d/2026-09-10
+Date: 2026-09-10
+
+- 01:35 — AnyRouter #1926: disabled unprovisioned platform hops hermes-agent, nhatrang, nousresearch; kept -byok; PR https://github.com/duyet/anyrouter/pull/3218
+- 02:12 — anyr omit --model defaults to documented anyrouter/auto preset (issue 58); not a most-used catalog SKU
+- 07:22 — AnyRouter: official DeepSeek API ids attach as BYOK hops on existing Flash/Pro listings, not new catalog SKUs.
+- 07:25 — AnyRouter: catalog listing deepseek/deepseek-v4.1-flash (OpenRouter id) plus official API BYOK hops.
+- 08:18 — AnyRouter: language menu checkmark must follow Paraglide runtime; write cookie after setLocale
+- 08:50 — AnyRouter catalog release notes live at blog.anyrouter.dev/releases/<YYYY-MM-DD>; model detail Released dates link when the model is listed on that note.
+- 12:10 — AnyRouter pool tab Capabilities shows valid donated-key count (coverage + credits), not BYOK badge
+
+---
+
+# Inbox 2026-09-09
+URL: https://kb.duyet.net/d/2026-09-09
+Date: 2026-09-09
+
+- 07:23 — oma release #465 shipped root 0.1.4 / web 0.0.3 (tags root-v0.1.4, web-v0.0.3); live landing/docs/app 200
+- 14:29 — aidr Chrome extension 0.1.13: brief-center AI;DR, header icon align, hide Submit until signed-in; PR #44 feat/ext-0.1.13-relax-align
+- 14:30 — aidr-v0.1.13 shipped: PR https://github.com/duyet/aidr/pull/44 squash-merged tip 0e5a4f8; release https://github.com/duyet/aidr/releases/tag/aidr-v0.1.13 (aidr-cws.zip + aidr.zip)
+
+---
+
+# Inbox 2026-09-08
+URL: https://kb.duyet.net/d/2026-09-08
+Date: 2026-09-08
+
+- 02:30 — Resumed crashed AnyRouter Claude herdr children: most already merged; finished #3183 as PR #3187 (strip Claude [1m] model suffixes) and merged to main. Claude panes were not logged in so work completed from the worktree.
+
+---
+
+# Inbox 2026-09-07
+URL: https://kb.duyet.net/d/2026-09-07
+Date: 2026-09-07
+
+- 14:09 — xops onboarded: content board scaffolded; X read OK via default connector for @duyetbot (id 1964937865860714496); user-X--duyetbot still client-not-enrolled on me/credits; post authority HOLD.
+- 14:10 — xops samples ready: X-001 templatebot pulse (525 + featured), X-002 anyrouter Sep 5 Fable/Astra; board + algo brief in xops workspace; post HOLD; duyetbot X MCP needs enrollment fix.
+
+---
+
+# 2026-08-29
+URL: https://kb.duyet.net/d/2026-08-29
+Date: 2026-08-29
+
+# 2026-08-29
+
+- 09:46 — news.duyet.net: #1413 (fail-closed ingest POST) merged `eb1ecfd4`; Workers+Pages green. Force ingest still HTTP 500; `/api/system` lastRun stuck at `42d830a9` (2026-08-26). Follow-up #1414 open; cloud agent on it. Leave release-please/kb-submodule PRs unmerged.
+- 10:08 — news.duyet.net: #1415 squash-merged `bde2a293` (persist lastRun via D1 .run()/batch()). Workers 33230557536 + Pages 33230557665 green. Host 200; lastRun still 42d830a9, runsToday 0. No ingest fired. Leave #1362 #1365 #1407 unmerged. Ping duyetbot to recert #1414.
+
+- 16:21 ICT — #1421 live: https://news.duyet.net/extension (load-unpacked guide) + https://news.duyet.net/news-tab.zip (~17KB). Leave release-please #1422/#1362 and kb-submodule #1365.
+- 21:35 ICT — #1423 live: /extension unzip-first (Load unpacked the `news-tab` folder, not the zip), Tab Chrome in primary menu, zip-load error screenshot, href chrome://extensions + paste hint. Zip still nested news-tab/manifest.json. Leave #1362 #1365 #1422.
+
+---
+
+# 2026-08-28
+URL: https://kb.duyet.net/d/2026-08-28
+Date: 2026-08-28
+
+# 2026-08-28
+- 01:20 — #3356 merged as 2209b61: chm add/ls/use/rm local named connections (CH HTTP + postgres://). P0 of #3354. Secrets in credentials helper. Dash hosts unchanged.
+- 01:32 — #3357 merged as 28930d8: cli-report assemble resolves --assemble/--report from repo root (CI download dir). Sticky comment posted. #3355 rebase onto this tip started.
+- 01:40 — #3355 squash-merged as c735550 after #3357 unblocked cli-report. sticky-pull-request-comment v2→v3. Left #3347, release-please.
+- 08:18 — anyrouter: MCP OAuth consent stabilized for Cursor/agent clients (#2799); unlist smoke-failed/quarantined catalog models (#2806).
+- 08:18 — chmonitor: CLI local named connections shipped (#3356).
+
+- 11:01 ICT — Shipped Experiential Labs hosted (`experiential`) + BYOK (`experiential-byok`) via #2822 at `63725cdf`. Promo $0 routes on existing ids: `qwen/qwen3.8-27b`, `deepseek/DeepSeek-V4-Flash`, `openai/gpt-5.6-luna`. Catalog ~104. Secrets Store binding `anyrouter_upstream_experiential_api_key`. Unlist hosted if smoke fails.
+
+- 11:02 — anyrouter-db Experiential hosted+BYOK live; listing n=104 includes qwen/qwen3.8-27b, deepseek/DeepSeek-V4-Flash, openai/gpt-5.6-luna (commit 63725cdf).
+- 11:32 ICT — news.duyet.net: #1398 058f0a9 live. Scoring/TL;DR primary is anyrouter/auto; stealth/ox-alpha removed from chains. Fallbacks still gemma / glm / ling.
+
+- 11:46 ICT — AnyRouter #2827 live (da6f0c5a): D1 Sessions API (`withSession`) on api/admin/mcp/support/flow so global read replicas actually serve reads; closes #2823. Deployed those workers from local ops.
+- 11:50 ICT — news #1396 b83e54b live: GET https://news.duyet.net/api/public 200 (tldr en/vi + stories); CORS ok for chrome-extension origins; Pages+Workers deploy green. Left #1397 (conflict/CR), #1365 submodule, #1362 release-please.
+- 11:55 ICT — AnyRouter #2829 live (0af1e21f): anyrouter/auto ranked by usage; preset member lists match dispatch. Deployed api/models/dashboard/playground.
+- 12:25 ICT — news #1397 d351db61 live: homepage AI;DR layout A (number+copy left, 40–48px thumb right). /api/public and /api/feed attach image_url at read time; missing image uses the site mark. Left #1362 #1365.
+
+- 14:46 ICT — news #1402 merged+Worker deployed (record ingest runs when score/tldr LLM fail); closes #1401.
+- 14:52 ICT — news #1399 squash-merged (longer AI;DR clamp/highlight); duyet-news Worker redeployed.
+
+- 15:43 ICT — news #1405 f08dad87 Worker deployed. Force News Ingest 33156341919 POST id 532028af skipped:false. lastRun still 42d830a9, runsToday 0, id not in runs (~2 min). Host 200; /api/system no-store live. #1406 merged; #1407 news-tab 0.1.1 release-please opened. Leave #1362 #1365 #1407.
+
+- 17:31 ICT — AnyRouter #2843 live at 7cd866ef (with #2846 sdk pin): listing n=102 has one DeepSeek V4 Flash row `deepseek/deepseek-v4-flash`. API detail 200. /model HTML still on old web bundle (canonical 404; old slugs 200). Did not deploy web.
+
+---
+
+# 2026-08-27
+URL: https://kb.duyet.net/d/2026-08-27
+Date: 2026-08-27
+
+# 2026-08-27
+
+- 13:49 — AnyRouter MCP OAuth re-auth on every Cursor/agent open was ours: new mcp_client__ per DCR port + always-consent + missing expires_in. Shipped stable consent @ b30a2fe (PR #2799, #2795 #2796 #2797). Not proven Cursor-side.
+- 23:58 — #2806 live at 3767aa1 (closes #2803). Listing API 104; unlisted hosted rows: qwen/qwen3-30b-a3b, qwen/qwen3-30b-a3b-fp8, qwen/qwq-32b, wafer/moonshot-kimi-k2-6, qwen/qwen3.8-flash-next (Empero quarantined; fp8 alias only), deepseek/DeepSeek-V3.2, deepseek/deepseek-v4-pro. History pages stay 200. No ids invented.
+
+---
+
+# 2026-08-26
+URL: https://kb.duyet.net/d/2026-08-26
+Date: 2026-08-26
+
+# 2026-08-26
+- 08:22 — monorepo #1355 recert PASS @ 51fb0ef (PR #1371): `.github/workflows/claude-ci-fix.yml` binds `workflow_run.head_branch` via `env RAW_BRANCH` (sanitize step uses `$RAW_BRANCH`, no `run:` interpolation). Job `if` requires `head_repository.full_name == github.repository` (same-repo PRs only, not forks). Checkout `ref:` still interpolates head_branch in `with:` (not shell). Left #1282 #1305 #1300.
+- 08:31 — monorepo #1354 recert PASS @ 60d841af (PR #1372): three scratch files 404 on master (list-presets.ts, test-anyrouter.ts, test-gemini.ts). .gitleaks.toml + gitleaks.yml present (sk-ar-v1- rule, working-tree --no-git). Did not fetch/print secrets. AnyRouter revoke 401 not treated as FAIL. Google AIza leftover not filed. Left #1282 #1305 #1300.
+- 15:46 — anyrouter playground model picker leftover after PR #2731: no overflow (PASS). Filed #2732: BYOK wraps to a second row at 768–1280 because overlay width is pinned at 608px; tab buttons 26px (list rows 44px); list clipped mid-row. https://github.com/duyet/anyrouter/issues/2732
+- 15:49 — playground picker: tabs must be inline (scroll, no scrollbar). Selected-row left orange rail is slop. #2732 spec comment. Filed #2733. anyrouter + QA local loop.
+- 16:43 — anyrouter #2732+#2733 recert PASS @ 17696c8 (PR #2735): picker tabs one inline 44px row, overflow-x auto + scrollbar-width none, selected border-left 0. Overlay in viewport. Did not file.
+
+---
+
+# Inbox 2026-08-25
+URL: https://kb.duyet.net/d/2026-08-25
+Date: 2026-08-25
+
+- 02:10 — Shared-stash race nearly cost two agent lanes their WIP (feat-prefer-pool-routing worktree): used `git stash push` + `git stash pop` in one compound command; a concurrent session pushed between the two, so MY pop consumed THEIR entry and applied unrelated UI edits into my tree while my routing diff vanished. Recovered both sides via `git fsck --unreachable --no-reflogs` (dropped-stash commits stay reachable: index commit → parent scan finds the stash merge commit, `git checkout <sha> -- <paths>` restores). Lesson: the AGENTS.md rule "never bare stash/pop" applies even to push+pop pairs in a single command — the stack is live-shared; only tag-and-apply-by-SHA is safe. Also: whole-tree `tsc --noEmit` gets SIGTERM'd (OOM) on the 15GB box when several agent sessions run concurrently — cap heap (`NODE_OPTIONS=--max-old-space-size=2560`) or scope typecheck; fresh-worktree tsc errors about missing `@anyrouter/i18n/runtime` etc. are pre-existing codegen gaps, not yours.
+- 02:30 — GMI Cloud MiniMax Week wired (feat/gmi-minimax-week): live-probed api.gmi-serving.com/v1/models (key in .env.production.local, NOT .env.local — the empty .env.local entry 401s) — MiniMaxAI/MiniMax-M3 + MiniMaxAI/MiniMax-M2.7 confirmed, both inference probes 200, discount_to_user:0 = promo active. Added gmicloud + gmicloud-byok $0 upstreams (list_pricing kept: M3 0.6/2.4, M2.7 0.3/1.2) to both model YAMLs as lowest-priority fallbacks; campaign ToS bans resale/farming → BYOK is the safe path, platform-key pooling noted as ToS-risky in YAML comment. PROMO ENDS ~2026-09-06 (campaign Aug 24–Sep 6; winners Sep 11): after that reprice or remove the two gmicloud upstreams on minimax/m3 + m2.7. H3/Speech/Music NOT added (text-only policy). Campaign page https://www.gmicloud.ai/minimax-week.
+- 10:16 — miniflare e2e suite dropped from vitest.e2e.config.ts exclude (#2561): tests/e2e/api-miniflare.test.ts no longer exists; stale exclude removed.
+- 12:28 — admin app (apps/admin) rewritten onto dashboard chrome: SidebarProvider+Sidebar(inset,icon-collapse), ui/breadcrumb top bar, PageContainer+PageHeader on all 21 routes, SPA sidebar links. PR #2655 duyet/anyrouter. AdminPageHeader in shared.tsx now has zero consumers (left for cleanup pass).
+- 13:03 — AnyRouter deploy: new UPSTREAM_* keys must be created in Cloudflare Secrets Store (anyrouter_<lowercase>) before wrangler deploy; wrangler secret put alone is not enough (10182). Self-loop node_modules symlinks in package trees break Vite ?url font imports.
+- 13:03 — AnyRouter: new UPSTREAM_* keys need Secrets Store create before Worker deploy (10182); package-local node_modules self-symlinks break Vite font ?url
+- 16:44 — Playground max tokens defaults off; input max is min YAML max_completion_tokens (GLM-5 32k not 128k ctx). CH backup on R2 anyrouter-analytics/backups/ch/dest-20260825T092733Z (3.7GB, 39 objects).
+- 18:53 — AnyRouter plan cutover 2026-08-25: Go → credits, Pro 0→0, Pro+ 5→00 (renamed Polar Max 024621b6 in place), Max 00→00 (new Polar product 627c5d52). D1 0190 applied; no active max/power rows. PRs #2685 #2683. No retro credit grant.
+- 19:05 — Public latency/uptime: use p99 (drop slowest 1% of ticks) so one timeout does not move the 24h number; TPS stays median not p99 because high TPS is the bogus tail.
+
+---
+
+# Inbox — 2026-08-24
+URL: https://kb.duyet.net/d/2026-08-24
+Date: 2026-08-24
+
+# Inbox — 2026-08-24
+
+- 11:30 — AnyRouter OpenRouter free-pool eligibility: :free suffix OR explicit $0/$0 list_pricing, not $0 BYOK catalog price. stealth/ox-alpha had pool:false + no :free suffix so it was missing from the pool.
+- 12:25 — Gemini Developer API (AI Studio AIza keys, Bearer on generativelanguage.googleapis.com) is a different product from Vertex Agent Platform express (?key= on aiplatform.googleapis.com) and from Antigravity OAuth on cloudcode-pa /v1internal.
+- 18:50 — Cloudflare Email Sending is transactional-only; bulk marketing belongs on a dedicated ESP. Workflow host deploys reset in-flight Workflow DOs. Worker crons cap at 5/account. AnyRouter CLI is native Rust (`anyr`).
+- 18:56 — Claude Code [1m] suffix is 1M context, stripped before the provider; do not send it to Pi/Codex/OpenAI-compatible APIs. AnyRouter catalog ids stay provider/model.
+- 19:50 — AnyRouter smoke #2380: drop unsupported mulerouter on qwen3-30b-a3b + qwen2.5-coder; unlist Qwen3-Coder + leanstral; leave sambanova/wafer 402 on capacity residue
+
+---
+
+# Inbox 2026-08-23
+URL: https://kb.duyet.net/d/2026-08-23
+Date: 2026-08-23
+
+- 02:30 — Cron daily-ai-report 2026-08-23: report built OK (10 items, saved to ~/.hermes/cron/output/daily-ai-report-2026-08-23.html). sharehtml upload PARTIAL FAILURE: POST /api/documents saved doc (id daily-ai-report-2026-08-23-47pa5 + dup -j9eff) but returned HTTP 500; site-wide content-serving outage confirmed (all docs incl. older ones return 500 on /d/<id>.html and /d/<id>/content; homepage + viewer shell OK). Viewer URL https://html.duyet.net/d/daily-ai-report-2026-08-23-47pa5 should work once platform recovers. No delete token returned so duplicate could not be removed.
+
+---
+
+# Inbox 2026-08-20
+URL: https://kb.duyet.net/d/2026-08-20
+Date: 2026-08-20
+
+- 09:28 — AnyRouter native CLI (public anyrouter-dev/cli): device+paste login, persist key, account/keys switch, models use, --install agents, color TUI menu. Auto-upgrade + GitHub Releases already shipped.
+- 09:45 — AnyRouter CLI CI builds linux/mac/windows + wasm32; size/startup bench on PRs and GitHub Releases; live WASM playground at anyrouter-dev.github.io/cli and /cli page iframe.
+- 12:10 — Pi coding agent (`@mariozechner/pi-coding-agent`) has no `PI_MODELS_JSON` env. Custom providers live in `~/.pi/agent/models.json` or `$PI_CODING_AGENT_DIR/models.json`. `apiKey` is an env var *name* (`ANYROUTER_API_KEY`), not `$VAR` and not the secret. `ar pi` writes `~/.anyrouter/pi` and sets `PI_CODING_AGENT_DIR`.
+- 12:40 — Claude Code maps `/model` opus/sonnet/haiku via `ANTHROPIC_DEFAULT_{OPUS,SONNET,HAIKU}_MODEL`. If all three are set to the same id, the picker collapses to one entry. `ar claude` keeps them independent; session default is `anyrouter/auto`.
+- 12:50 — AnyRouter device login already returns `verification_uri_complete` (`/cli/device?code=`). CLI should print and open that URL, not ask the user to type the code.
+- 12:47 — AnyRouter CLI public page is anyrouter.dev/cli only. Dropped GitHub Pages WASM playground (anyrouter-dev.github.io/cli). wasm32 still built for size benches; anyr.wasm still ships on releases.
+- 13:20 — AnyRouter CLI GitHub Releases use the release-please CHANGELOG (this version plus older versions, commit links). Not a short handwritten blurb.
+
+---
+
+# Inbox 2026-08-19
+URL: https://kb.duyet.net/d/2026-08-19
+Date: 2026-08-19
+
+# Inbox 2026-08-19
+
+- 00:16 — chmonitor mobile landing+dash PRs shipped to main. Settings > Navigation menu tree must filter by the active host engine (Postgres hosts must not see the ClickHouse tree).
+- 00:25 — AnyRouter OS product bugs are filed on duyet/anyrouter with an [os] title prefix because duyet/anyrouter-os has issues disabled.
+- 02:31 — Leftover docs/donate/copy-hit ship recerted PASS 4/4 on AnyRouter public docs and /donate hero (copy hits 44px). Open Sidebar still 34px. Compact leftover CTAs on later donate-pool and /free still 32px, not the hero.
+- 02:45 — leftover docs/donate/copy-hit recert PASS 4/4; leftover hunt this pass. No new unique filed. Comments: anyrouter #2185 internals still live, #2219 /apps still no H1, #2218 changelog H1 sr-only only; monorepo #1316 homepage also no H1 (not refiled). Skipped dupes: /free /cli 32px (#2295), donate lower 32px (#2320), /compare 375 (#2333), HOLD #2329/#2330/#2316/#2299, chmonitor #3115.
+- 14:41 — OMA Console first-run: New session modal dead-ends when the tenant has no environment. Session header can show Outcome: success after model turns fail with Bad Gateway, and a stale working chip stays pinned. Three onboarding tracks (Overview / Launch / agent readiness) disagree on progress. Filed duyet/oma #397 #398 #399.
+- 15:26 — OMA Console after #401/#402: failed turns report Outcome: failure with Retry; New Session can create a default env in-modal; sidebar daily path is Agents/Sessions/Overview/Usage with Resources nested; Launch is not top-level; Overview leads with recent sessions once any session exists.
+
+- 13:21 — AnyRouter Agent 503 was missing SUPPORT_INFERENCE_KEY; account-access UI now mounts only after a blocked account tool.
+
+---
+
+# Inbox — 2026-08-18
+URL: https://kb.duyet.net/d/2026-08-18
+Date: 2026-08-18
+
+# Inbox — 2026-08-18
+
+- 02:05 — anyrouter donate pool: req_5c719c367ea646bc9a2ce3af routed google/gemini-3.7-flash via openrouter-pool at $0; BYOK 0 pricing != OpenRouter free; adding donate coverage free vs paid (feat/pool-donate-coverage)
+- 02:07 — anyrouter: openrouter-pool upstream_cost_usd is $0 because BYOK catalog is 0/0 and we do not request OpenRouter usage.include; gemini-3.7-flash list ~0.375/1.875 per 1M; feat/pool-upstream-cost
+- 16:17 — Standing: after chmonitor merges, verify main CI tip is green; keep Insights/schema-diff queries off the hot path (no extra sequential system.tables+parts on every collectStorage).
+- 11:08 — duyetbot codes via Grok Build on Herdr; public accounts github.com/duyetbot and x.com/duyetbot; weekday chmonitor issue triage
+- 11:37 — AnyRouter StepFun Step Plan API returns HTTP 400 `you have no active step plan subscription` (type `request_params_invalid`) when the key has no Step Plan; treat as quota-exhausted 400 so routing falls through, and classify the error-spike as external quota rather than unknown/platform_outage
+
+- 20:37 — chmonitor/chmonitor does not have the Cursor GitHub app; Cursor cloud agents cannot launch. Use Grok Build on a local checkout / worktrees. Squash-merge (never release-please).
+
+- 20:49 — AnyRouter health JSON is status + components (api, providers, smoke_tests, workflows, routing), not the old ok/uptime/providers[] envelope. Docs still describe the old shape.
+- 20:49 — anyrouter/free requires a Go plan or a donated key; there is no no-key daily allowance.
+- 20:49 — AnyRouter dashboard chrome on main is a 5-item rail (Overview, Keys, Logs, Routing, BYOK) with Credits on the user chip; not live until deploy.
+- 21:00 — news app: article permalinks are /ai/{id}; landing feed is client-fetched from /api/feed; sitemap.xml is not shipped.
+- 14:20 — news.duyet.net live bugs: Worker-only /sitemap.xml + robots Sitemap; homepage must run_worker_first or the static shell has no stories; article share tags need name=description + twitter + canonical; title_vi missing → honest EN fallback not invented VI; Stripe/OpenRouter dups were URL-hash + LLM-only merge (code bug). PR https://github.com/duyet/monorepo/pull/1301 — not merged, not deployed.
+- 16:00 — Debian 13 apt only ships Node 20; Wrangler 4 needs >=22. Installed official Node 22.23.2 LTS to /usr/local and dpkg-diverted /usr/bin/node so 22 is the system default. Debian 20 remains at /usr/bin/node.distrib.
+
+- 00:05 — AnyRouter dashboard 5-item rail (Overview, Keys, Logs, Routing, BYOK) is live on the signed-in shell; Credits lives on the user chip (PR 2273).
+- 00:05 — Public marketing SSR still dual-renders EN plus hidden VI `data-lang` spans (fail-closed CSS). Homepage first HTML is ~1.1MB with ~359KB inlined CSS.
+
+- 19:53 — OMA public marketing (oma.duyet.net) and docs (docs.oma.duyet.net) chrome is compact/hairline: no glass/blur/gradient-text, semantic tokens, 44px targets, Inter + Instrument Serif + JetBrains Mono. Issue #387.
+
+---
+
+# Inbox — 2026-08-17
+URL: https://kb.duyet.net/d/2026-08-17
+Date: 2026-08-17
+
+# Inbox — 2026-08-17
+
+- 11:35 — chmonitor paid product is now self-hosted host-count licenses (yearly/lifetime), honor system, not hosted SaaS seats
+- 23:14 — AnyRouter herdr daily: morning Grok manager fans issues into isolated worktrees; state in ops/herdr-daily/state; leave panes open; cron as code via install.sh
+- 23:15 — chmonitor issue-desk: morning 07:00 / nightly 22:00 cron+systemd; state in ops/issue-desk/runs/
 
 ---
 

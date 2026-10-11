@@ -4,7 +4,7 @@ URL: https://kb.duyet.net
 Sitemap: https://kb.duyet.net/sitemap.xml
 Raw Markdown: https://kb.duyet.net/k/<slug>.md
 
-32 articles across 8 categories, 116 memory notes, 4 inbox notes.
+32 articles across 8 categories, 195 memory notes, 35 inbox notes.
 
 ## Pages
 
@@ -247,6 +247,12 @@ Markdown: https://kb.duyet.net/m/feedback-cheap-models-subagents.md
 Type: feedback
 Description: Fan-out sub-agents to cheaper models by default
 
+### Commit and push to deploy
+URL: https://kb.duyet.net/m/feedback-commit-push-deploy
+Markdown: https://kb.duyet.net/m/feedback-commit-push-deploy.md
+Type: feedback
+Description: After shipping work, always commit, push, and deploy — do not wait to be asked
+
 ### Write concise simple English
 URL: https://kb.duyet.net/m/feedback-concise-english
 Markdown: https://kb.duyet.net/m/feedback-concise-english.md
@@ -283,11 +289,11 @@ Markdown: https://kb.duyet.net/m/feedback-docs-router-tiny.md
 Type: feedback
 Description: CLAUDE.md/AGENTS.md = short stable rules + pointers, not architecture dumps
 
-### Write memory on the way out
+### Write memory as you work
 URL: https://kb.duyet.net/m/feedback-docs-write-on-exit
 Markdown: https://kb.duyet.net/m/feedback-docs-write-on-exit.md
 Type: feedback
-Description: Persist durable public facts before context is lost
+Description: Persist durable public facts during work, not only at session end
 
 ### Fail loud; don't hide skips
 URL: https://kb.duyet.net/m/feedback-fail-loud
@@ -295,17 +301,41 @@ Markdown: https://kb.duyet.net/m/feedback-fail-loud.md
 Type: feedback
 Description: Never claim done if tests/steps were skipped silently
 
+### Herdr children — offload, merge, then remove
+URL: https://kb.duyet.net/m/feedback-herdr-children-merge-clean
+Markdown: https://kb.duyet.net/m/feedback-herdr-children-merge-clean.md
+Type: feedback
+Description: Offload implementation to parallel Herdr child worktrees, squash-merge finished PRs, then remove the worktree
+
+### Issue → research → PR: require the verify path before implementation
+URL: https://kb.duyet.net/m/feedback-issue-research-pr
+Markdown: https://kb.duyet.net/m/feedback-issue-research-pr.md
+Type: feedback
+Description: An issue is addressable only when it names where the change starts, what the behaviour becomes, and which check proves it
+
 ### Logic change → update related tests
 URL: https://kb.duyet.net/m/feedback-logic-change-update-tests
 Markdown: https://kb.duyet.net/m/feedback-logic-change-update-tests.md
 Type: feedback
 Description: Co-update tests in the same change; never wait for CI
 
+### Keep main CI green, fast, and performant
+URL: https://kb.duyet.net/m/feedback-main-ci-green-fast
+Markdown: https://kb.duyet.net/m/feedback-main-ci-green-fast.md
+Type: feedback
+Description: After merges and new features, verify main CI is green; do not add slow tests or extra hot-path queries
+
 ### Never auto-merge release-please PRs
 URL: https://kb.duyet.net/m/feedback-never-auto-merge-release-please
 Markdown: https://kb.duyet.net/m/feedback-never-auto-merge-release-please.md
 Type: feedback
-Description: Leave release-please release PRs for human merge
+Description: Leave release-please and changeset version PRs for human merge
+
+### pstack verification is infra
+URL: https://kb.duyet.net/m/feedback-pstack-verification
+Markdown: https://kb.duyet.net/m/feedback-pstack-verification.md
+Type: feedback
+Description: Agents must close the loop themselves with a project-local verify skill, a CLI lever, a Feature Map, and cloud agents — not worktrees
 
 ### KB stores public generic facts only
 URL: https://kb.duyet.net/m/feedback-public-kb-only
@@ -331,6 +361,18 @@ Markdown: https://kb.duyet.net/m/feedback-surgical-changes.md
 Type: feedback
 Description: Touch only what the request requires; no drive-by refactors
 
+### Tailscale Serve for local Vite
+URL: https://kb.duyet.net/m/feedback-tailscale-serve-local-vite
+Markdown: https://kb.duyet.net/m/feedback-tailscale-serve-local-vite.md
+Type: feedback
+Description: When asked for Tailscale or remote access to a local Vite/TanStack app, bind Vite on every interface and add a tailnet-only Serve proxy. Never Funnel unless asked.
+
+### Verify UI work in a real browser, not by reading the diff
+URL: https://kb.duyet.net/m/feedback-verify-ui-in-browser
+Markdown: https://kb.duyet.net/m/feedback-verify-ui-in-browser.md
+Type: feedback
+Description: Markup/CSS/JS bugs stay invisible in review — measure the rendered page before claiming done
+
 ### Working style (index)
 URL: https://kb.duyet.net/m/feedback-working-style
 Markdown: https://kb.duyet.net/m/feedback-working-style.md
@@ -349,11 +391,65 @@ Markdown: https://kb.duyet.net/m/project-agentstate.md
 Type: project
 Description: State and coordination layer for AI agent fleets (public OSS)
 
+### aidr uses the cf CLI for D1 and secrets
+URL: https://kb.duyet.net/m/project-aidr-cf-cli
+Markdown: https://kb.duyet.net/m/project-aidr-cf-cli.md
+Type: project
+Description: aidr.today keeps wrangler.toml and wrangler deploy because cf migrate drops Workflows and Durable Objects.
+
+### One AnyRouter listing id per model
+URL: https://kb.duyet.net/m/project-anyrouter-catalog-one-id
+Markdown: https://kb.duyet.net/m/project-anyrouter-catalog-one-id.md
+Type: project
+Description: Catalog id is owner/model; host SKUs (date, vision-exp, fast, casing) are upstream names or aliases
+
+### AnyRouter CLI is a native Rust binary
+URL: https://kb.duyet.net/m/project-anyrouter-cli-native
+Markdown: https://kb.duyet.net/m/project-anyrouter-cli-native.md
+Type: project
+Description: Public install is curl | bash; binary is anyr; pin models with anyr claude --model owner/model
+
+### CodexBar declined the AnyRouter provider on endorsement grounds
+URL: https://kb.duyet.net/m/project-anyrouter-codexbar-declined
+Markdown: https://kb.duyet.net/m/project-anyrouter-codexbar-declined.md
+Type: project
+Description: steipete/CodexBar closed the AnyRouter provider PRs twice in favor of named-operator, upstream-authorization, and track-record gates
+
 ### AnyRouter OpenAI-compatible API
 URL: https://kb.duyet.net/m/project-anyrouter-openai-compat
 Markdown: https://kb.duyet.net/m/project-anyrouter-openai-compat.md
 Type: project
-Description: Point existing OpenAI SDKs at AnyRouter base URL; swap model strings
+Description: OpenAI-shaped clients; text and embeddings only — image/video generation is gone
+
+### AnyRouter OS
+URL: https://kb.duyet.net/m/project-anyrouter-os
+Markdown: https://kb.duyet.net/m/project-anyrouter-os.md
+Type: project
+Description: Browser OS workshop — repo duyet/anyrouter-os; file bugs on duyet/anyrouter with [os] prefix
+
+### AnyRouter playground MCP
+URL: https://kb.duyet.net/m/project-anyrouter-playground-mcp
+Markdown: https://kb.duyet.net/m/project-anyrouter-playground-mcp.md
+Type: project
+Description: Playground new chats enable AnyRouter MCP at the documented HTTP endpoint
+
+### AnyRouter public UI chrome
+URL: https://kb.duyet.net/m/project-anyrouter-ui-chrome
+Markdown: https://kb.duyet.net/m/project-anyrouter-ui-chrome.md
+Type: project
+Description: Viewport tokens, 44px targets, semantic dark, compact playground row
+
+### AnyRouter should unify reasoning effort across upstreams and models
+URL: https://kb.duyet.net/m/project-anyrouter-uniform-reasoning
+Markdown: https://kb.duyet.net/m/project-anyrouter-uniform-reasoning.md
+Type: project
+Description: Ticket — /api/v1/models advertises reasoning params on 12 of 206 listings, never the accepted effort values, so clients cannot discover a uniform reasoning surface; chat is effort-only by the host's own docs
+
+### Unlist broken AnyRouter models
+URL: https://kb.duyet.net/m/project-anyrouter-unlist-broken-models
+Markdown: https://kb.duyet.net/m/project-anyrouter-unlist-broken-models.md
+Type: project
+Description: Disable or unlist a broken model from /models and the catalog; do not delete history
 
 ### AnyRouter
 URL: https://kb.duyet.net/m/project-anyrouter
@@ -385,17 +481,71 @@ Markdown: https://kb.duyet.net/m/project-chmonitor-advisor.md
 Type: project
 Description: AI/ops advisor suggests CH changes but does not apply DDL automatically
 
+### chmonitor CLI local named connections
+URL: https://kb.duyet.net/m/project-chmonitor-cli-local-connections
+Markdown: https://kb.duyet.net/m/project-chmonitor-cli-local-connections.md
+Type: project
+Description: chm add/ls/use/rm save local ClickHouse HTTP and postgres:// connections; secrets stay in the credentials helper
+
+### chmonitor scheduled desk jobs
+URL: https://kb.duyet.net/m/project-chmonitor-desk-jobs
+Markdown: https://kb.duyet.net/m/project-chmonitor-desk-jobs.md
+Type: project
+Description: Four herdr-desk jobs (triage, babysit, prod watch, improve) with staggered minutes and one agent name each
+
+### chmonitor hide sidebar pages in place
+URL: https://kb.duyet.net/m/project-chmonitor-hide-menu-item
+Markdown: https://kb.duyet.net/m/project-chmonitor-hide-menu-item.md
+Type: project
+Description: Hover Hide next to pin hides a sidebar leaf; restore in Settings → Workspace → Navigation
+
+### chmonitor paid licenses are self-hosted host-count
+URL: https://kb.duyet.net/m/project-chmonitor-licenses
+Markdown: https://kb.duyet.net/m/project-chmonitor-licenses.md
+Type: project
+Description: Paid chmonitor is honor-system host-count licenses (yearly/lifetime), not hosted SaaS seats
+
+### chmonitor menu engine filter
+URL: https://kb.duyet.net/m/project-chmonitor-menu-engine-filter
+Markdown: https://kb.duyet.net/m/project-chmonitor-menu-engine-filter.md
+Type: project
+Description: Absent engines on a menu item means ClickHouse family; Postgres hosts must not see those items
+
+### chmonitor Tools sidebar group
+URL: https://kb.duyet.net/m/project-chmonitor-tools-sidebar
+Markdown: https://kb.duyet.net/m/project-chmonitor-tools-sidebar.md
+Type: project
+Description: Dashboard Tools group holds SQL Console, Data Explorer, Explain, Advisor, Chart Builder, Schema Compare, Settings Diff
+
+### chmonitor TTL & Partitions inventory
+URL: https://kb.duyet.net/m/project-chmonitor-ttl-partitions
+Markdown: https://kb.duyet.net/m/project-chmonitor-ttl-partitions.md
+Type: project
+Description: System TTL page lists table inventory plus part-health charts; never select system.tables.ttl
+
+### chmonitor verify skill
+URL: https://kb.duyet.net/m/project-chmonitor-verify-skill
+Markdown: https://kb.duyet.net/m/project-chmonitor-verify-skill.md
+Type: project
+Description: Project-local .cursor/skills/verify-chmonitor drives the Rust CLI; default doctor is identity-only
+
 ### chmonitor
 URL: https://kb.duyet.net/m/project-clickhouse-monitoring
 Markdown: https://kb.duyet.net/m/project-clickhouse-monitoring.md
 Type: project
 Description: Open-source ClickHouse operational advisor — monitoring + AI recommendations
 
+### codex-claude-plugins verify skill
+URL: https://kb.duyet.net/m/project-codex-claude-plugins-verify-skill
+Markdown: https://kb.duyet.net/m/project-codex-claude-plugins-verify-skill.md
+Type: project
+Description: Project-local .cursor/skills/verify-marketplace; CLI lever on catalogs/manifests, not a hosted UI
+
 ### duyetbot persona
 URL: https://kb.duyet.net/m/project-duyetbot
 Markdown: https://kb.duyet.net/m/project-duyetbot.md
 Type: project
-Description: Autonomous agent persona that maintains public monorepo within clear scope
+Description: Manager agent for the public product fleet — assigns work, keeps kb current
 
 ### duyet/homelab
 URL: https://kb.duyet.net/m/project-homelab
@@ -407,7 +557,7 @@ Description: Public personal homelab repo — configs and experiments (no privat
 URL: https://kb.duyet.net/m/project-kb-site
 Markdown: https://kb.duyet.net/m/project-kb-site.md
 Type: project
-Description: kb.duyet.net renders the shared-brain notes as a public site
+Description: kb.duyet.net renders the shared-brain notes; apps/kb/kb mounts ~/kb
 
 ### duyet/kb shared brain
 URL: https://kb.duyet.net/m/project-kb
@@ -425,13 +575,133 @@ Description: Public SSG timeline of LLM models at llm-timeline.duyet.net
 URL: https://kb.duyet.net/m/project-monorepo
 Markdown: https://kb.duyet.net/m/project-monorepo.md
 Type: project
-Description: Public Bun+Turborepo for personal duyet.net web apps
+Description: Public Bun+Turborepo for personal duyet.net web apps including news and the kb site
+
+### news.duyet.net
+URL: https://kb.duyet.net/m/project-news
+Markdown: https://kb.duyet.net/m/project-news.md
+Type: project
+Description: Personal news feed + public digest; homepage AI;DR thumbs; news-tab own 0.1.x release line
+
+### oma CLI treats empty 2xx as success
+URL: https://kb.duyet.net/m/project-oma-cli-empty-2xx
+Markdown: https://kb.duyet.net/m/project-oma-cli-empty-2xx.md
+Type: project
+Description: CLI apiFetch skips JSON.parse on empty bodies so accepted 202/204 mutations do not look like failures
+
+### oma CLI envs get and delete
+URL: https://kb.duyet.net/m/project-oma-cli-envs-get-delete
+Markdown: https://kb.duyet.net/m/project-oma-cli-envs-get-delete.md
+Type: project
+Description: oma envs get/delete call GET/DELETE /v1/environments/:id; --json; Partial
+
+### oma CLI version, group help, and --json before auth
+URL: https://kb.duyet.net/m/project-oma-cli-version-help-json
+Markdown: https://kb.duyet.net/m/project-oma-cli-version-help-json.md
+Type: project
+Description: Argv ordering — version/help before loadConfig; --json before empty-result human sentences
+
+### oma Console Analytics dashboard
+URL: https://kb.duyet.net/m/project-oma-console-analytics
+Markdown: https://kb.duyet.net/m/project-oma-console-analytics.md
+Type: project
+Description: Console /analytics charts cross-agent estimated spend, token mix by kind, and declared multiagent delegation from existing usage APIs
+
+### OMA Console Artifacts Inspector tab
+URL: https://kb.duyet.net/m/project-oma-console-artifacts
+Markdown: https://kb.duyet.net/m/project-oma-console-artifacts.md
+Type: project
+Description: Session detail Inspector Artifacts tab aggregates writes, tool-result media, uploads, and session outputs from the event log
+
+### oma Console daily summary for scheduled agent runs
+URL: https://kb.duyet.net/m/project-oma-console-daily-summary
+Markdown: https://kb.duyet.net/m/project-oma-console-daily-summary.md
+Type: project
+Description: Agent detail Daily summary tab rolls up schedule firings over 1/7/30 UTC days from agent_schedule_runs
+
+### OMA Console HITL approvals and notice bell
+URL: https://kb.duyet.net/m/project-oma-console-hitl-approvals
+Markdown: https://kb.duyet.net/m/project-oma-console-hitl-approvals.md
+Type: project
+Description: Console posts user.tool_confirmation from ApprovalCard; session cards + notice bell for mobile-compact HITL
+
+### oma Console Agent Monitor tab
+URL: https://kb.duyet.net/m/project-oma-console-monitor
+Markdown: https://kb.duyet.net/m/project-oma-console-monitor.md
+Type: project
+Description: Console AgentDetail health strip plus Monitor tab is the live agent.status heartbeat feed
+
+### OMA Console session Inject overlay
+URL: https://kb.duyet.net/m/project-oma-console-session-inject
+Markdown: https://kb.duyet.net/m/project-oma-console-session-inject.md
+Type: project
+Description: Operators inject prompts, MCP, tools, and vault credentials into a live session without mutating the agent
+
+### oma home session and home runtime
+URL: https://kb.duyet.net/m/project-oma-home-session
+Markdown: https://kb.duyet.net/m/project-oma-home-session.md
+Type: project
+Description: Agent has one durable home inbox plus paired long-lived home runtime; ephemeral sandboxes stay separate
+
+### oma model-card vendor provider on CF wire
+URL: https://kb.duyet.net/m/project-oma-model-card-provider-cf-wire
+Markdown: https://kb.duyet.net/m/project-oma-model-card-provider-cf-wire.md
+Type: project
+Description: CF SessionDO maps Model Card vendor provider (openai/anthropic) to ApiCompat wire tags — parity with Node
+
+### oma Node model-card credentials for session turns
+URL: https://kb.duyet.net/m/project-oma-node-model-card-credentials
+Markdown: https://kb.duyet.net/m/project-oma-node-model-card-credentials.md
+Type: project
+Description: Self-hosted Node resolves tenant Model Card creds before AnyRouter/deployment globals
+
+### OMA output_file is opt-in declared deliverables
+URL: https://kb.duyet.net/m/project-oma-output-file-opt-in
+Markdown: https://kb.duyet.net/m/project-oma-output-file-opt-in.md
+Type: project
+Description: output_file is gated like browser tools; marks keep-this files as agent.output_declared for Console Artifacts
+
+### oma session create persists env_secret to the secret store
+URL: https://kb.duyet.net/m/project-oma-session-env-secret-persist
+Markdown: https://kb.duyet.net/m/project-oma-session-env-secret-persist.md
+Type: project
+Description: POST /v1/sessions writes env_secret and inline github tokens via sessionSecrets.put; unwired store fails 500; DELETE cascades
+
+### oma internal secret uses timing-safe compare
+URL: https://kb.duyet.net/m/project-oma-timing-safe-secrets
+Markdown: https://kb.duyet.net/m/project-oma-timing-safe-secrets.md
+Type: project
+Description: checkInternalSecret and trusted-proxy share timingSafeEqualStr from @duyet/oma-auth/timing-safe-equal
+
+### oma-vault OMA_TENANT fails closed across tenants
+URL: https://kb.duyet.net/m/project-oma-vault-tenant-scope
+Markdown: https://kb.duyet.net/m/project-oma-vault-tenant-scope.md
+Type: project
+Description: Unset/empty/* stay wildcard for single-operator; multi-tenant credentials refuse start and same-host matches stay tenant-scoped
+
+### oma verify skill
+URL: https://kb.duyet.net/m/project-oma-verify-skill
+Markdown: https://kb.duyet.net/m/project-oma-verify-skill.md
+Type: project
+Description: Project-local .cursor/skills/verify-oma with control-oma.mjs CLI lever and Feature Map for web + Console
 
 ### Open Managed Agents (OMA)
 URL: https://kb.duyet.net/m/project-open-managed-agents
 Markdown: https://kb.duyet.net/m/project-open-managed-agents.md
 Type: project
 Description: OSS self-hostable Managed Agents API — CF Workers/DO or Docker
+
+### templatebot pay-to-install Sale listings
+URL: https://kb.duyet.net/m/project-templatebot-pay-to-install
+Markdown: https://kb.duyet.net/m/project-templatebot-pay-to-install.md
+Type: project
+Description: Sale templates require checkout before install; delivery is email plus secret unlock URL; owners see 5% platform fee plus processor estimate and net
+
+### templatebot verify skill
+URL: https://kb.duyet.net/m/project-templatebot-verify-skill
+Markdown: https://kb.duyet.net/m/project-templatebot-verify-skill.md
+Type: project
+Description: Project-local .cursor/skills/verify-templatebot drives the Vite marketplace over CDP; Feature Map includes 30-per-page D1 browse, browse card coat blend, unlisted /data analytics, PostHog funnel, marquee, pay-to-install, MCP publish, live X embeds, multi-bot collect progress/skip/claim + master-detail publish, viewport presets
 
 ### AI SDK UIMessage shape
 URL: https://kb.duyet.net/m/reference-ai-sdk-uimessage
@@ -457,6 +727,54 @@ Markdown: https://kb.duyet.net/m/reference-duyet-github.md
 Type: reference
 Description: Catalog of notable public duyet/* and related OSS repos
 
+### GitHub Actions — cancel-in-progress false still cancels the pending run, and a paths filter makes the replacement useless
+URL: https://kb.duyet.net/m/reference-gh-actions-concurrency-pending-cancel
+Markdown: https://kb.duyet.net/m/reference-gh-actions-concurrency-pending-cancel.md
+Type: reference
+Description: Back-to-back merges silently drop master builds; with per-path filtering the newer green run does not rebuild the earlier merge's images
+
+### GitHub Actions — default Actions token merges do not trigger further workflows
+URL: https://kb.duyet.net/m/reference-gh-actions-token-merge-no-workflows
+Markdown: https://kb.duyet.net/m/reference-gh-actions-token-merge-no-workflows.md
+Type: reference
+Description: Squash-merge via github-actions bot with the default Actions token creates a push that skips CI and deploy workflows
+
+### Herdr child agents — a long prompt can fail to submit and look exactly like an idle child
+URL: https://kb.duyet.net/m/reference-herdr-child-dispatch-verify
+Markdown: https://kb.duyet.net/m/reference-herdr-child-dispatch-verify.md
+Type: reference
+Description: herdr agent prompt with a long brief lands unsent in the opencode composer; verify the lifecycle moved instead of trusting the CLI's success response
+
+### Dev machine duet-ubuntu and local repos
+URL: https://kb.duyet.net/m/reference-machine-duet-ubuntu
+Markdown: https://kb.duyet.net/m/reference-machine-duet-ubuntu.md
+Type: reference
+Description: Primary Linux workstation (duet-ubuntu) — OS, Herdr workspaces, local repo checkout paths, and which credentials are stale
+
+### A per-package task gate is a no-op when no package defines the task
+URL: https://kb.duyet.net/m/tech-automation-gate-vacuous
+Markdown: https://kb.duyet.net/m/tech-automation-gate-vacuous.md
+Type: tech
+Description: turbo/CI gate that runs `run lint` lints nothing unless a package defines it; align the local hook and CI on one command
+
+### CLI report assemble from repo root
+URL: https://kb.duyet.net/m/tech-cli-report-assemble-from-root
+Markdown: https://kb.duyet.net/m/tech-cli-report-assemble-from-root.md
+Type: tech
+Description: Resolve --assemble/--report/--out from the repo root; do not cd into the crate first
+
+### A new CodexBar provider is a declarative spec plus one TypeScript plugin
+URL: https://kb.duyet.net/m/tech-codexbar-new-provider-is-a-plugin
+Markdown: https://kb.duyet.net/m/tech-codexbar-new-provider-is-a-plugin.md
+Type: tech
+Description: CodexBar moved simple API-key providers to bundled QuickJS plugins; a new provider is ~25 lines of Swift plus a .ts file, not bespoke Swift
+
+### Vendor Helm deps; bare `charts/` in .gitignore hides them
+URL: https://kb.duyet.net/m/tech-helm-vendored-deps-gitignore
+Markdown: https://kb.duyet.net/m/tech-helm-vendored-deps-gitignore.md
+Type: tech
+Description: A bare `charts/` gitignore pattern silently strips vendored Helm dependency tarballs from git, breaking source installs
+
 ### Pin GitHub Actions
 URL: https://kb.duyet.net/m/tech-pin-github-actions
 Markdown: https://kb.duyet.net/m/tech-pin-github-actions.md
@@ -481,11 +799,23 @@ Markdown: https://kb.duyet.net/m/tech-release-please-pre1-minor.md
 Type: tech
 Description: With bump-patch-for-minor-pre-major, feat in 0.x needs breaking marker for minor
 
+### Squash merges break patch-id branch cleanup, so ask the forge
+URL: https://kb.duyet.net/m/tech-squash-merge-hides-branch-cleanup
+Markdown: https://kb.duyet.net/m/tech-squash-merge-hides-branch-cleanup.md
+Type: tech
+Description: git cherry and patch-id report landed branches as unmerged in a squash-merging repo
+
 ### Two-phase Trivy scan
 URL: https://kb.duyet.net/m/tech-trivy-two-phase
 Markdown: https://kb.duyet.net/m/tech-trivy-two-phase.md
 Type: tech
 Description: Report job always succeeds; separate fail-on-severity job gates the build
+
+### Cloudflare Access fails OPEN when the app is missing — clients keep sending headers nobody checks
+URL: https://kb.duyet.net/m/tech-access-missing-app-fails-open
+Markdown: https://kb.duyet.net/m/tech-access-missing-app-fails-open.md
+Type: reference
+Description: A service-token-protected origin becomes publicly reachable if the Access application is absent; clients still send CF-Access-Client-* headers, so nothing errors and it looks healthy
 
 ### AI Gateway is transparent on model ids
 URL: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-transparent
@@ -493,11 +823,41 @@ Markdown: https://kb.duyet.net/m/tech-cloudflare-ai-gateway-transparent.md
 Type: tech
 Description: Cloudflare AI Gateway does not validate model names; upstream does
 
+### Cloudflare Worker cron triggers cap at five per account
+URL: https://kb.duyet.net/m/tech-cloudflare-cron-triggers-five-per-account
+Markdown: https://kb.duyet.net/m/tech-cloudflare-cron-triggers-five-per-account.md
+Type: tech
+Description: Cron triggers are capped at 5 per Cloudflare account, not per Worker
+
+### Cloudflare Email Sending is transactional, not marketing bulk
+URL: https://kb.duyet.net/m/tech-cloudflare-email-transactional-not-bulk
+Markdown: https://kb.duyet.net/m/tech-cloudflare-email-transactional-not-bulk.md
+Type: tech
+Description: Cloudflare Email Sending is for transactional mail; bulk/marketing campaigns belong on a dedicated ESP
+
 ### Cloudflare Pages deploy habit
 URL: https://kb.duyet.net/m/tech-cloudflare-pages-deploy
 Markdown: https://kb.duyet.net/m/tech-cloudflare-pages-deploy.md
 Type: tech
 Description: Semantic commit → push → deploy changed app; avoid parallel deploys that share env files
+
+### Updating a Worker resets in-flight Cloudflare Workflows
+URL: https://kb.duyet.net/m/tech-cloudflare-workflows-reset-on-code-update
+Markdown: https://kb.duyet.net/m/tech-cloudflare-workflows-reset-on-code-update.md
+Type: tech
+Description: Deploying a Worker that hosts a running Workflow resets the Durable Object and fails the instance
+
+### D1 INSERT RETURNING is not a write API via .first()
+URL: https://kb.duyet.net/m/tech-d1-insert-returning-not-a-write
+Markdown: https://kb.duyet.net/m/tech-d1-insert-returning-not-a-write.md
+Type: tech
+Description: Cloudflare D1 INSERT/UPDATE RETURNING + .first() returns empty results; persist with .run() or batch()
+
+### Durable Object alarms are not Worker cron triggers
+URL: https://kb.duyet.net/m/tech-durable-object-alarms-not-cron
+Markdown: https://kb.duyet.net/m/tech-durable-object-alarms-not-cron.md
+Type: tech
+Description: DO alarm() can schedule work without consuming the account-wide Worker cron cap
 
 ### forwardAuth must preserve status
 URL: https://kb.duyet.net/m/tech-forwardauth-preserve-status
@@ -529,6 +889,18 @@ Markdown: https://kb.duyet.net/m/tech-workers-cache-tags.md
 Type: tech
 Description: Tag responses for targeted purge instead of purge-everything
 
+### Workflows schedules need a paid Workers plan
+URL: https://kb.duyet.net/m/tech-workflows-binding-schedules
+Markdown: https://kb.duyet.net/m/tech-workflows-binding-schedules.md
+Type: tech
+Description: Workflow binding schedules avoid Worker cron slots but wrangler deploy fails on Free because schedules are paid-only
+
+### Moving a CF zone between accounts copies DNS but not Worker routes — Error 1000
+URL: https://kb.duyet.net/m/tech-zone-account-transfer-breaks-worker-routes
+Markdown: https://kb.duyet.net/m/tech-zone-account-transfer-breaks-worker-routes.md
+Type: reference
+Description: Cloudflare inter-account zone/registrar transfer carries DNS records but drops Worker routes and Custom Domains, so every proxied hostname 403s with Error 1000 until routes are recreated
+
 ### Qdrant HNSW config at create
 URL: https://kb.duyet.net/m/tech-qdrant-config-at-create
 Markdown: https://kb.duyet.net/m/tech-qdrant-config-at-create.md
@@ -540,6 +912,18 @@ URL: https://kb.duyet.net/m/tech-qdrant-hnsw-timeout
 Markdown: https://kb.duyet.net/m/tech-qdrant-hnsw-timeout.md
 Type: tech
 Description: Large float32 collections without HNSW/quantization can time out
+
+### Debian 13 apt ships Node 20
+URL: https://kb.duyet.net/m/tech-debian-13-apt-node-20
+Markdown: https://kb.duyet.net/m/tech-debian-13-apt-node-20.md
+Type: tech
+Description: Debian 13 (trixie) nodejs is 20.x; Wrangler 4 and many CLIs need Node >=22. Install official 22 LTS to /usr/local and dpkg-divert /usr/bin/node.
+
+### Disk swap is not extra RAM
+URL: https://kb.duyet.net/m/tech-disk-swap-not-extra-ram
+Markdown: https://kb.duyet.net/m/tech-disk-swap-not-extra-ram.md
+Type: tech
+Description: A huge disk swapfile delays OOM and can hang a headless box; prefer small zram plus kill/evict
 
 ### AgentState five primitives
 URL: https://kb.duyet.net/m/tech-agentstate-five-primitives
@@ -575,13 +959,25 @@ Description: Persist or convert to dynamic-tool / tool-name parts for history re
 URL: https://kb.duyet.net/m/tech-eve-filesystem-agents
 Markdown: https://kb.duyet.net/m/tech-eve-filesystem-agents.md
 Type: tech
-Description: Some frameworks store agent state/layout as files for durability and review
+Description: Eve authors an agent as agent/ files — instructions, tools, connections
+
+### Eve durable runtime is Vercel or Nitro
+URL: https://kb.duyet.net/m/tech-eve-runtime-vercel-nitro
+Markdown: https://kb.duyet.net/m/tech-eve-runtime-vercel-nitro.md
+Type: tech
+Description: Eve sessions need Vercel Workflow or a self-hosted Nitro Node server
 
 ### Flue: register providers in initializer
 URL: https://kb.duyet.net/m/tech-flue-register-in-initializer
 Markdown: https://kb.duyet.net/m/tech-flue-register-in-initializer.md
 Type: tech
 Description: Custom gateways must register from agent init with ctx.env; module load has empty env
+
+### GitHub CLI tokens need a git host alias
+URL: https://kb.duyet.net/m/tech-gh-token-git-host-alias
+Markdown: https://kb.duyet.net/m/tech-gh-token-git-host-alias.md
+Type: tech
+Description: A gh vault token keyed to api.github.com does not match github.com git remotes unless lookup aliases those hosts
 
 ### Hermes custom_providers
 URL: https://kb.duyet.net/m/tech-hermes-custom-provider
@@ -613,17 +1009,41 @@ Markdown: https://kb.duyet.net/m/tech-llm-gateway-quota-as-retryable.md
 Type: tech
 Description: Reseller budget errors buried in 400 should failover like 402/429
 
+### OMA env-fallback Claude uses anyrouter/free on AnyRouter
+URL: https://kb.duyet.net/m/tech-oma-bare-claude-gateway-rewrite
+Markdown: https://kb.duyet.net/m/tech-oma-bare-claude-gateway-rewrite.md
+Type: tech
+Description: Bare claude-* rewrites to anthropic/claude-*; AnyRouter env-fallback sonnet sends anyrouter/free on both OpenAI and Anthropic wire paths (not dotted BYOK 4.6)
+
+### CF two-segment package mounts need invokePackage
+URL: https://kb.duyet.net/m/tech-oma-cf-two-segment-invoke-package
+Markdown: https://kb.duyet.net/m/tech-oma-cf-two-segment-invoke-package.md
+Type: tech
+Description: Cloudflare Hono wrappers for /v1/<group>/<name>/* must dispatch via invokePackage, not nested fetch on c.req.path
+
 ### Credentials never enter the sandbox
 URL: https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox
 Markdown: https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox.md
 Type: tech
 Description: Managed-agent platforms should inject secrets via outbound proxy, not into the sandbox FS
 
+### oma DO alarm tests must call alarm() in the same runInDurableObject
+URL: https://kb.duyet.net/m/tech-oma-do-alarm-test-same-instance
+Markdown: https://kb.duyet.net/m/tech-oma-do-alarm-test-same-instance.md
+Type: tech
+Description: Planting setAlarm spies then firing via runDurableObjectAlarm reincarnates the DO and empties the spy
+
 ### Prompt cache is byte-sensitive
 URL: https://kb.duyet.net/m/tech-prompt-cache-byte-sensitive
 Markdown: https://kb.duyet.net/m/tech-prompt-cache-byte-sensitive.md
 Type: tech
 Description: Any prefix byte change can bust LLM prompt cache
+
+### Generate API markdown from Python docstrings with ast
+URL: https://kb.duyet.net/m/tech-python-ast-docstring-markdown
+Markdown: https://kb.duyet.net/m/tech-python-ast-docstring-markdown.md
+Type: tech
+Description: Prefer stdlib ast over Sphinx/pdoc when emitting markdown API pages from docstrings without importing the app
 
 ### RAG citation guards
 URL: https://kb.duyet.net/m/tech-rag-citation-guards
@@ -672,6 +1092,18 @@ URL: https://kb.duyet.net/m/tech-unit-suffix-vs-scale
 Markdown: https://kb.duyet.net/m/tech-unit-suffix-vs-scale.md
 Type: tech
 Description: Display unit labels must not silently convert values; pair with explicit multiplier
+
+### Bun mock.module does not intercept node: builtins (1.4.2)
+URL: https://kb.duyet.net/m/tech-bun-mock-module-node-builtins
+Markdown: https://kb.duyet.net/m/tech-bun-mock-module-node-builtins.md
+Type: reference
+Description: bun:test mock.module cannot replace node:child_process in importers; use PATH shims or spyOn before import
+
+### Bun writes .bun into a test fixture HOME — assert app state paths, not HOME emptiness
+URL: https://kb.duyet.net/m/tech-bun-test-home-isolation
+Markdown: https://kb.duyet.net/m/tech-bun-test-home-isolation.md
+Type: reference
+Description: Bun creates ~/.bun (install/cache dirs) under whatever HOME is set when it runs, so hermetic tests must not assert an empty fixture HOME — assert the app-owned state dir is absent instead
 
 ### Flat design: hairline borders
 URL: https://kb.duyet.net/m/tech-flat-design-hairline
@@ -745,11 +1177,47 @@ Markdown: https://kb.duyet.net/m/tech-agent-loop-cycle.md
 Type: tech
 Description: Periodic cycle triages open PRs and dispatches fix/review work
 
+### Astro check/build OOM-killed on the shared 16GB box
+URL: https://kb.duyet.net/m/tech-astro-oom-shared-box
+Markdown: https://kb.duyet.net/m/tech-astro-oom-shared-box.md
+Type: tech
+Description: Full astro check/build gets SIGKILL (exit 137) when other sessions are active — verify with lighter gates and let CI decide
+
 ### Codebase maintenance loop
 URL: https://kb.duyet.net/m/tech-codebase-maintenance-loop
 Markdown: https://kb.duyet.net/m/tech-codebase-maintenance-loop.md
 Type: tech
 Description: Measure → fix top issue → verify → commit → deploy → log
+
+### Host cron lives in-repo behind an install script
+URL: https://kb.duyet.net/m/tech-cron-as-code-install-script
+Markdown: https://kb.duyet.net/m/tech-cron-as-code-install-script.md
+Type: tech
+Description: Reproducible host jobs are committed crontab snippets plus an idempotent installer, not hand-edited crontab
+
+### Daily coding-agent manager leaves worktrees open for review
+URL: https://kb.duyet.net/m/tech-daily-manager-leaves-worktrees
+Markdown: https://kb.duyet.net/m/tech-daily-manager-leaves-worktrees.md
+Type: tech
+Description: Leave worktrees for human review, but never leave them dirty — commit the work first, and prove a branch landed before deleting it
+
+### Daily digest keys must use the audience timezone
+URL: https://kb.duyet.net/m/tech-digest-local-date
+Markdown: https://kb.duyet.net/m/tech-digest-local-date.md
+Type: tech
+Description: A UTC-dated snapshot can miss the local calendar day so the daily digest looks up null and never sends
+
+### An unquoted shell metacharacter in a .env file silently drops every later variable
+URL: https://kb.duyet.net/m/tech-dotenv-unquoted-value-kills-source
+Markdown: https://kb.duyet.net/m/tech-dotenv-unquoted-value-kills-source.md
+Type: reference
+Description: bash `source` aborts at the offending line, so variables defined after it are empty at point of use with no error — dotenv loaders parse the same file fine, which hides it
+
+### Morning Herdr issue-desk cron
+URL: https://kb.duyet.net/m/tech-herdr-morning-issue-desk
+Markdown: https://kb.duyet.net/m/tech-herdr-morning-issue-desk.md
+Type: tech
+Description: Daily cron starts a Grok manager on main; children get isolated git worktrees; dated run folder stays on disk for review
 
 ### Autonomous improvement loop
 URL: https://kb.duyet.net/m/tech-improvement-loop
@@ -762,6 +1230,12 @@ URL: https://kb.duyet.net/m/tech-one-codebase-oss-saas
 Markdown: https://kb.duyet.net/m/tech-one-codebase-oss-saas.md
 Type: tech
 Description: Ship self-host and cloud from one tree behind a fail-closed mode flag
+
+### A failing scheduled job looks exactly like one with nothing to do
+URL: https://kb.duyet.net/m/tech-silent-scheduler-failure
+Markdown: https://kb.duyet.net/m/tech-silent-scheduler-failure.md
+Type: tech
+Description: Count consecutive failures per job, not last status; a stale path can kill every future fire permanently
 
 ### Single-source env config
 URL: https://kb.duyet.net/m/tech-single-source-env
@@ -938,6 +1412,161 @@ Type: reference
 Description: Index of public sites and llms.txt sources
 
 ## Inbox
+
+### Inbox — 2026-10-05
+URL: https://kb.duyet.net/d/2026-10-05
+Markdown: https://kb.duyet.net/d/2026-10-05.md
+Date: 2026-10-05
+
+### 2026-10-03
+URL: https://kb.duyet.net/d/2026-10-03
+Markdown: https://kb.duyet.net/d/2026-10-03.md
+Date: 2026-10-03
+
+### Inbox 2026-10-02
+URL: https://kb.duyet.net/d/2026-10-02
+Markdown: https://kb.duyet.net/d/2026-10-02.md
+Date: 2026-10-02
+
+### Inbox — 2026-10-01
+URL: https://kb.duyet.net/d/2026-10-01
+Markdown: https://kb.duyet.net/d/2026-10-01.md
+Date: 2026-10-01
+
+### Inbox — 2026-09-30
+URL: https://kb.duyet.net/d/2026-09-30
+Markdown: https://kb.duyet.net/d/2026-09-30.md
+Date: 2026-09-30
+
+### Inbox — 2026-09-29
+URL: https://kb.duyet.net/d/2026-09-29
+Markdown: https://kb.duyet.net/d/2026-09-29.md
+Date: 2026-09-29
+
+### Inbox — 2026-09-27
+URL: https://kb.duyet.net/d/2026-09-27
+Markdown: https://kb.duyet.net/d/2026-09-27.md
+Date: 2026-09-27
+
+### Inbox 2026-09-24
+URL: https://kb.duyet.net/d/2026-09-24
+Markdown: https://kb.duyet.net/d/2026-09-24.md
+Date: 2026-09-24
+
+### Inbox 2026-09-17
+URL: https://kb.duyet.net/d/2026-09-17
+Markdown: https://kb.duyet.net/d/2026-09-17.md
+Date: 2026-09-17
+
+### 2026-09-16
+URL: https://kb.duyet.net/d/2026-09-16
+Markdown: https://kb.duyet.net/d/2026-09-16.md
+Date: 2026-09-16
+
+### Inbox — 2026-09-15
+URL: https://kb.duyet.net/d/2026-09-15
+Markdown: https://kb.duyet.net/d/2026-09-15.md
+Date: 2026-09-15
+
+### 2026-09-14
+URL: https://kb.duyet.net/d/2026-09-14 2
+Markdown: https://kb.duyet.net/d/2026-09-14 2.md
+Date: 2026-09-14 2
+
+### 2026-09-14
+URL: https://kb.duyet.net/d/2026-09-14
+Markdown: https://kb.duyet.net/d/2026-09-14.md
+Date: 2026-09-14
+
+### Inbox — 2026-09-13
+URL: https://kb.duyet.net/d/2026-09-13
+Markdown: https://kb.duyet.net/d/2026-09-13.md
+Date: 2026-09-13
+
+### Inbox 2026-09-12
+URL: https://kb.duyet.net/d/2026-09-12
+Markdown: https://kb.duyet.net/d/2026-09-12.md
+Date: 2026-09-12
+
+### Inbox — 2026-09-11
+URL: https://kb.duyet.net/d/2026-09-11
+Markdown: https://kb.duyet.net/d/2026-09-11.md
+Date: 2026-09-11
+
+### Inbox 2026-09-10
+URL: https://kb.duyet.net/d/2026-09-10
+Markdown: https://kb.duyet.net/d/2026-09-10.md
+Date: 2026-09-10
+
+### Inbox 2026-09-09
+URL: https://kb.duyet.net/d/2026-09-09
+Markdown: https://kb.duyet.net/d/2026-09-09.md
+Date: 2026-09-09
+
+### Inbox 2026-09-08
+URL: https://kb.duyet.net/d/2026-09-08
+Markdown: https://kb.duyet.net/d/2026-09-08.md
+Date: 2026-09-08
+
+### Inbox 2026-09-07
+URL: https://kb.duyet.net/d/2026-09-07
+Markdown: https://kb.duyet.net/d/2026-09-07.md
+Date: 2026-09-07
+
+### 2026-08-29
+URL: https://kb.duyet.net/d/2026-08-29
+Markdown: https://kb.duyet.net/d/2026-08-29.md
+Date: 2026-08-29
+
+### 2026-08-28
+URL: https://kb.duyet.net/d/2026-08-28
+Markdown: https://kb.duyet.net/d/2026-08-28.md
+Date: 2026-08-28
+
+### 2026-08-27
+URL: https://kb.duyet.net/d/2026-08-27
+Markdown: https://kb.duyet.net/d/2026-08-27.md
+Date: 2026-08-27
+
+### 2026-08-26
+URL: https://kb.duyet.net/d/2026-08-26
+Markdown: https://kb.duyet.net/d/2026-08-26.md
+Date: 2026-08-26
+
+### Inbox 2026-08-25
+URL: https://kb.duyet.net/d/2026-08-25
+Markdown: https://kb.duyet.net/d/2026-08-25.md
+Date: 2026-08-25
+
+### Inbox — 2026-08-24
+URL: https://kb.duyet.net/d/2026-08-24
+Markdown: https://kb.duyet.net/d/2026-08-24.md
+Date: 2026-08-24
+
+### Inbox 2026-08-23
+URL: https://kb.duyet.net/d/2026-08-23
+Markdown: https://kb.duyet.net/d/2026-08-23.md
+Date: 2026-08-23
+
+### Inbox 2026-08-20
+URL: https://kb.duyet.net/d/2026-08-20
+Markdown: https://kb.duyet.net/d/2026-08-20.md
+Date: 2026-08-20
+
+### Inbox 2026-08-19
+URL: https://kb.duyet.net/d/2026-08-19
+Markdown: https://kb.duyet.net/d/2026-08-19.md
+Date: 2026-08-19
+
+### Inbox — 2026-08-18
+URL: https://kb.duyet.net/d/2026-08-18
+Markdown: https://kb.duyet.net/d/2026-08-18.md
+Date: 2026-08-18
+
+### Inbox — 2026-08-17
+URL: https://kb.duyet.net/d/2026-08-17
+Markdown: https://kb.duyet.net/d/2026-08-17.md
+Date: 2026-08-17
 
 ### Inbox 2026-08-14
 URL: https://kb.duyet.net/d/2026-08-14

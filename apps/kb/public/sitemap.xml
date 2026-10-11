@@ -4,6 +4,9 @@
     <loc>https://kb.duyet.net/</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/search</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/c/agents</loc>
   </url>
   <url>
@@ -162,6 +165,9 @@
     <loc>https://kb.duyet.net/m/feedback-cheap-models-subagents</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/feedback-commit-push-deploy</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/feedback-concise-english</loc>
   </url>
   <url>
@@ -186,10 +192,22 @@
     <loc>https://kb.duyet.net/m/feedback-fail-loud</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/feedback-herdr-children-merge-clean</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/feedback-issue-research-pr</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/feedback-logic-change-update-tests</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/feedback-main-ci-green-fast</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/feedback-never-auto-merge-release-please</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/feedback-pstack-verification</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/feedback-public-kb-only</loc>
@@ -204,6 +222,12 @@
     <loc>https://kb.duyet.net/m/feedback-surgical-changes</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/feedback-tailscale-serve-local-vite</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/feedback-verify-ui-in-browser</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/feedback-working-style</loc>
   </url>
   <url>
@@ -213,7 +237,34 @@
     <loc>https://kb.duyet.net/m/project-agentstate</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/project-aidr-cf-cli</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-catalog-one-id</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-cli-native</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-codexbar-declined</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/project-anyrouter-openai-compat</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-os</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-playground-mcp</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-ui-chrome</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-uniform-reasoning</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-anyrouter-unlist-broken-models</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/project-anyrouter</loc>
@@ -231,7 +282,34 @@
     <loc>https://kb.duyet.net/m/project-chmonitor-advisor</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-cli-local-connections</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-desk-jobs</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-hide-menu-item</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-licenses</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-menu-engine-filter</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-tools-sidebar</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-ttl-partitions</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-chmonitor-verify-skill</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/project-clickhouse-monitoring</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-codex-claude-plugins-verify-skill</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/project-duyetbot</loc>
@@ -252,7 +330,67 @@
     <loc>https://kb.duyet.net/m/project-monorepo</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/project-news</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-cli-empty-2xx</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-cli-envs-get-delete</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-cli-version-help-json</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-console-analytics</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-console-artifacts</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-console-daily-summary</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-console-hitl-approvals</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-console-monitor</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-console-session-inject</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-home-session</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-model-card-provider-cf-wire</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-node-model-card-credentials</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-output-file-opt-in</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-session-env-secret-persist</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-timing-safe-secrets</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-vault-tenant-scope</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-oma-verify-skill</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/project-open-managed-agents</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-templatebot-pay-to-install</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/project-templatebot-verify-skill</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/reference-ai-sdk-uimessage</loc>
@@ -267,6 +405,30 @@
     <loc>https://kb.duyet.net/m/reference-duyet-github</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/reference-gh-actions-concurrency-pending-cancel</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/reference-gh-actions-token-merge-no-workflows</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/reference-herdr-child-dispatch-verify</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/reference-machine-duet-ubuntu</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-automation-gate-vacuous</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-cli-report-assemble-from-root</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-codexbar-new-provider-is-a-plugin</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-helm-vendored-deps-gitignore</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-pin-github-actions</loc>
   </url>
   <url>
@@ -279,13 +441,34 @@
     <loc>https://kb.duyet.net/m/tech-release-please-pre1-minor</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-squash-merge-hides-branch-cleanup</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-trivy-two-phase</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-access-missing-app-fails-open</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-cloudflare-ai-gateway-transparent</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-cloudflare-cron-triggers-five-per-account</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-cloudflare-email-transactional-not-bulk</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-cloudflare-pages-deploy</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-cloudflare-workflows-reset-on-code-update</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-d1-insert-returning-not-a-write</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-durable-object-alarms-not-cron</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-forwardauth-preserve-status</loc>
@@ -303,10 +486,22 @@
     <loc>https://kb.duyet.net/m/tech-workers-cache-tags</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-workflows-binding-schedules</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-zone-account-transfer-breaks-worker-routes</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-qdrant-config-at-create</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-qdrant-hnsw-timeout</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-debian-13-apt-node-20</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-disk-swap-not-extra-ram</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-agentstate-five-primitives</loc>
@@ -327,7 +522,13 @@
     <loc>https://kb.duyet.net/m/tech-eve-filesystem-agents</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-eve-runtime-vercel-nitro</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-flue-register-in-initializer</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-gh-token-git-host-alias</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-hermes-custom-provider</loc>
@@ -345,10 +546,22 @@
     <loc>https://kb.duyet.net/m/tech-llm-gateway-quota-as-retryable</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-oma-bare-claude-gateway-rewrite</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-oma-cf-two-segment-invoke-package</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-oma-credentials-out-of-sandbox</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-oma-do-alarm-test-same-instance</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-prompt-cache-byte-sensitive</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-python-ast-docstring-markdown</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-rag-citation-guards</loc>
@@ -373,6 +586,12 @@
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-unit-suffix-vs-scale</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-bun-mock-module-node-builtins</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-bun-test-home-isolation</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-flat-design-hairline</loc>
@@ -411,13 +630,34 @@
     <loc>https://kb.duyet.net/m/tech-agent-loop-cycle</loc>
   </url>
   <url>
+    <loc>https://kb.duyet.net/m/tech-astro-oom-shared-box</loc>
+  </url>
+  <url>
     <loc>https://kb.duyet.net/m/tech-codebase-maintenance-loop</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-cron-as-code-install-script</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-daily-manager-leaves-worktrees</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-digest-local-date</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-dotenv-unquoted-value-kills-source</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-herdr-morning-issue-desk</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-improvement-loop</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-one-codebase-oss-saas</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/m/tech-silent-scheduler-failure</loc>
   </url>
   <url>
     <loc>https://kb.duyet.net/m/tech-single-source-env</loc>
@@ -508,6 +748,130 @@
   </url>
   <url>
     <loc>https://kb.duyet.net/d</loc>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-10-05</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-10-03</loc>
+    <lastmod>2026-10-03</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-10-02</loc>
+    <lastmod>2026-10-02</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-10-01</loc>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-30</loc>
+    <lastmod>2026-09-30</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-29</loc>
+    <lastmod>2026-09-29</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-27</loc>
+    <lastmod>2026-09-27</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-24</loc>
+    <lastmod>2026-09-24</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-17</loc>
+    <lastmod>2026-09-17</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-16</loc>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-15</loc>
+    <lastmod>2026-09-15</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-14%202</loc>
+    <lastmod>2026-09-14 2</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-14</loc>
+    <lastmod>2026-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-13</loc>
+    <lastmod>2026-09-13</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-12</loc>
+    <lastmod>2026-09-12</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-11</loc>
+    <lastmod>2026-09-11</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-10</loc>
+    <lastmod>2026-09-10</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-09</loc>
+    <lastmod>2026-09-09</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-08</loc>
+    <lastmod>2026-09-08</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-09-07</loc>
+    <lastmod>2026-09-07</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-29</loc>
+    <lastmod>2026-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-28</loc>
+    <lastmod>2026-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-27</loc>
+    <lastmod>2026-08-27</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-26</loc>
+    <lastmod>2026-08-26</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-25</loc>
+    <lastmod>2026-08-25</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-24</loc>
+    <lastmod>2026-08-24</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-23</loc>
+    <lastmod>2026-08-23</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-20</loc>
+    <lastmod>2026-08-20</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-19</loc>
+    <lastmod>2026-08-19</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-18</loc>
+    <lastmod>2026-08-18</lastmod>
+  </url>
+  <url>
+    <loc>https://kb.duyet.net/d/2026-08-17</loc>
+    <lastmod>2026-08-17</lastmod>
   </url>
   <url>
     <loc>https://kb.duyet.net/d/2026-08-14</loc>
