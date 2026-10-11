@@ -43,8 +43,8 @@ export type ArticleHeadInput = {
   /** Appended to `title` in `<title>`, e.g. `" | Tôi là Duyệt"`. */
   titleSuffix?: string;
   /**
-   * Href for the `rel=alternate type="text/markdown"` link. Omit for surfaces
-   * with no plain-text form (quick notes render from the notes index).
+   * Href for the `rel=alternate type="text/markdown"` link. Posts and notes
+   * both publish a sibling `.md` file. Omit only when a surface has none.
    */
   markdownHref?: string;
   /**

@@ -26,6 +26,8 @@ export interface Shortform {
   id: string
   date: Date
   title?: string
+  x?: string
+  hackerNews?: string
   body: string
   excerpt: string
 }

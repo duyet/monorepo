@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://blog.duyet.net/2026/10/herdr</loc>
+    <lastmod>2026-10-04</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/2026/09/i-dont-read-code-anymore</loc>
+    <lastmod>2026-09-26</lastmod>
+  </url>
+  <url>
     <loc>https://blog.duyet.net/2026/08/grok-bot</loc>
     <lastmod>2026-08-19</lastmod>
   </url>
@@ -1274,95 +1282,111 @@
   </url>
   <url>
     <loc>https://blog.duyet.net/category/javascript</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/git</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/software-engineering</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/news</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/linux</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/data</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/web</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/data-engineering</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/project</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/infrastructure</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/story</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/machine-learning</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/productivity</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/rust</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/category/ai</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/feed</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/categories</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/tags</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/archives</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/featured</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/series</loc>
-    <lastmod>2026-08-22</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/notes</loc>
-    <lastmod>2026-08-17</lastmod>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/naming-subagents-by-model-and-reasoning</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/closing-the-loop-in-cf-workers</loc>
+    <lastmod>2026-10-01</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/how-do-i-trust-my-agents-more</loc>
+    <lastmod>2026-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://blog.duyet.net/note/ai-tools-aug-2026</loc>
+    <lastmod>2026-09-08</lastmod>
   </url>
   <url>
     <loc>https://blog.duyet.net/note/system-prompt-vs-tool-schema</loc>

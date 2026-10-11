@@ -1,7 +1,62 @@
 # Duyet Le - Technical Blog (Full Content)
 
-> This file contains the full markdown content of all 318 blog posts.
+> This file contains the full markdown content of all 320 blog posts.
 > For a summary index, see https://blog.duyet.net/llms.txt
+
+---
+
+# Herdr
+
+- **URL**: https://blog.duyet.net/2026/10/herdr
+- **Date**: 2026-10-04
+- **Category**: AI
+- **Tags**: Ai, Agents, Herdr
+
+
+I [landed 1000+ PRs this week](https://x.com/_duyet/status/2107751334598640056), and this is how I use [Herdr](https://herdr.dev) these days to achieve that.
+
+I am starting the master agent session as the manager (for each repo), with the smart models, asking it to take that role: manage and spawn the child Herdr worktree sessions, prompting them, checking their progress, more agents to review, merge, etc. Each child worktree can run any coding agent. I can spawn 50 sessions at a time across Pi, Claude, Grok, OpenCode, and Devin, etc., to keep them planning, implementing, and doing PR reviews. You can see they communicate via Herdr ([Herdr Agent Automation](https://herdr.dev/docs/agent-automation/)), sending prompts to each other, inspecting their state, collecting their results, etc., and keep them all busy day and night. Create skills to teach your master agent which is the best for which task.
+
+I have the [herdr-desk](https://github.com/duyet/herdr-desk) plugin, which is scheduled to wake up sometimes to do the automated and boring tasks: GitHub issue triage, code review, summary stuff, and reporting to me via Telegram.
+
+This is also the best for working across repos, one integrated with another, and one agent can raise an issue for another one to fix, and both keep improving.
+
+You can launch Herdr on multiple machines and keep one Herdr dashboard, even on your phone. Install Tailscale on all of them. You should design the Tailscale ACL groups carefully, to isolate them for security.
+
+If you are using Grok Bot or Cue or Muse or Dot, install Tailscale and Herdr on their computer, working the same way. They can control it, and you can see what is actually running from your Mac.
+
+![Herdr sessions across repos](/media/2026/10/herdr/herdr-1.jpeg)
+
+<div></div>
+
+![Herdr agent integrations](/media/2026/10/herdr/herdr-2.jpeg)
+
+
+---
+
+# I don't read code anymore
+
+- **URL**: https://blog.duyet.net/2026/09/i-dont-read-code-anymore
+- **Date**: 2026-09-26
+- **Category**: AI
+- **Tags**: Ai, Agents
+
+
+It's actually been a year or two.
+
+Agents are really much better now, and they'll keep getting better. People are still surprised when I say that, but reading code makes no sense anymore.
+
+Disagree or debate me all you want, but soon you'll realize and admit I was right.
+
+You are also an asshole that slows things down on accept, prompt, and validating that agents work. I don't mean every code are perfect and have no issue at all, before AI slop we still have human slop.
+
+I was working on dual EN/VI language support, and I caught it using if-else to switch between them. I thought, damn it, you should use i18n, or some general way, etc. But that was only because it was not aware we might want more languages later. Keep it easy. You can just say please add Japanese, and it does that very quickly, even refactor the whole codebase. Who cares about that anymore?
+
+I have nothing to share here, everything is already out there and outdated every random morning. People keep building more ways for agents to validate themselves — pstack or whatever similar right now — but that changes soon too, even prompting will being automated. Just keep up with all the techniq you found and try them all, please move on and accept that you was a software engineer.
+
+I retired as a professional software engineer (damn, I miss the time when debugging took days or weeks with debug print out). Now I'm just the one who makes agents make programs.
+
+
 
 ---
 
@@ -47,6 +102,10 @@ The next piece is communication between the bots and the automation loop. They h
 
 Give them a mailbox, a Cloudflare account, a GitHub account — the same surfaces a human uses — and they can do a lot without you sitting in the loop. Mail for alerts and inbound asks. Cloudflare for deploy and config. GitHub for issues, PRs, and review. The schedule is what keeps the team alive when you are not watching.
 
+Bot channels are where the real teamwork shows up. Agents react, ping each other, and hand off work the way a small team would — short updates, tapbacks, shared rooms for anyrouter/cli/qa/ui. It is efficient, and some days it just looks like you are watching teammates work.
+
+![Bots reacting to each other in a channel](/media/2026/08/grok-bot/channels-reactions.jpg)
+
 ## This replaced my local coding agent
 
 When I ask a bot to code, it launches a Cursor Cloud Agent for each task and PR. I can keep feeding it input or adjust details in realtime. You can also install Cursor CLI or Grok Build and code remotely via herdr — the way I still work from my homelab machine, only now from anywhere. The bot can drive those local coding agents without issues.
@@ -63,6 +122,22 @@ I also asked it to print a one-page A4 every morning when I walk into the home o
 <img src="/media/2026/08/grok-bot/duyetbot.jpg" alt="duyetbot the boss" />
 <img src="/media/2026/08/grok-bot/daily-print.jpg" alt="duyetbot daily report on the T720DW" />
 </div>
+
+My setup now is simple: I ask duyetbot to delegate tasks to the right bot or channel. Coding lands in a Cursor Cloud sandbox, or on a local machine through Herdr + Anyr CLI when I want to sit in on the session — or when cloud credits are running low.
+
+<div class="img-row">
+<img src="/media/2026/08/grok-bot/herdr-anyr-coding.jpg" alt="A coding session driven through Herdr with the Anyr CLI" />
+<img src="/media/2026/08/grok-bot/duyetbot-assign.jpg" alt="duyetbot assigning a task to the right bot" />
+</div>
+
+xAI now publishes official Grok Bot guides at [x.ai/bot/guides](https://x.ai/bot/guides). Featured is "How I run multiple teams of Grok Bots" (Aug 27, 2026), plus cards for mobile, designing Grok Bot with Grok Bot, GTM, and PMs.
+
+![xAI Grok Bot Guides — featured How I run multiple teams of Grok Bots, with cards for mobile, designing Grok Bot with Grok Bot, GTM, and PMs](/media/2026/08/grok-bot/xai-guides.jpg)
+
+We can even create a group chat of bots and let them make drama.
+
+> Every company still needs some drama, included Grok @Bot team. Here we go 😂
+> https://x.com/_duyet/status/2093007340824035383
 
 I will keep using it, discovering more, and posting updates.
 
@@ -172,22 +247,26 @@ A lot of providers give you some free tokens. This one unifies and combines them
 When those keys go into the shared pool, the idle capacity turns into credits and free models for everyone. **You donate what you're not using, and you draw from what others aren't using.** [Donating your idle free keys to the pool](https://anyrouter.dev/donate) is the way to a good source of free tokens for everyone.
 
 <div class="img-row">
-  <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-bg.png" alt="The shared key pool" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-bg.png?v=d83b17c3" alt="The shared key pool" loading="lazy" />
   <img src="/media/2026/07/anyrouter/anyrouter-shared-pool-2-bg.png" alt="Shared pool models" loading="lazy" />
 </div>
 
-# Why Starter at $1/mo
+# Why Go is $2/mo
 
-I launched a few weeks ago giving each new user $2 free right after sign up. Thousands of spam accounts got created.
-So I am starting the plan at $1/mo — nothing compared to a $200 Claude or Codex plan or the bunch of other subscriptions you already pay for, not even worth your morning coffee. Honestly, it's a good way to prevent spam.
+I launched a few weeks ago giving each new user $2 free credit right after sign up. Thousands of spam accounts got created.
+
+The cheap paid door is now Go at $2/mo. Polar charges the card $2.63 so their fee is covered. You get $4 monthly credits — not a $1 plan.
 
 <div class="img-row">
   <img src="/media/2026/07/anyrouter/anyrouter-spam.jpeg" alt="Spam accounts after launch" loading="lazy" />
-  <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png" alt="Getting the Starter plan" loading="lazy" />
+  <img src="/media/2026/07/anyrouter/anyrouter-to-start-bg.png?v=d83b17c3" alt="Getting the Go plan" loading="lazy" />
 </div>
 
-Another way to get the Starter plan: donate at least one good shared key to the pool.
-I will improve this over time.
+The Free plan has no monthly credits and no signup bonus. `anyrouter/free` on Free returns 403 until you take Go or donate a key.
+
+Another way to get Go: donate at least one good shared key to the pool. No card. I do not take Alipay or WeChat.
+
+I will keep improving this. Live table: [docs.anyrouter.dev/features/pricing](https://docs.anyrouter.dev/features/pricing).
 
 # How I built anyrouter: Self improvement
 
@@ -198,6 +277,10 @@ There is a lot more to build than I thought (landing, api, mcp, admin, email, bl
 Every night, a scheduled agent sandbox runs more goal-and-loop sessions to build toward the docs and address as many GitHub issues as possible. That's the continuous self-improvement. I also keep Claude Code or Codex at hand for customization, adjustments, or correcting things myself.
 
 **Manage**: [duyetbot](https://duyet.net/about-duyetbot) (Hermes agent) helps a lot as the manager. It has jobs hunting for newly released models and new upstream providers, running smoke tests, generating reports, analytics, health checks, catching bugs — everything auto-tracked and turned into GitHub issues again, and another agent comes to fix them the next morning.
+
+**Updated 2026-09:** duyetbot is now an instance of [Grok Bot](/2026/08/grok-bot/), which manages everything from implementation and research to model ops and system audits. Grok Bot is the agent design I wanted for duyetbot by the end of the year.
+
+<img src="/media/2026/07/anyrouter/duyetbot-grok-bot.jpg" alt="duyetbot (Grok Bot) managing AnyRouter. Agents, PRs, deploys." loading="lazy" />
 
 I think this is the right way I've found so far to self-improve and manage a large codebase and product like this.
 
@@ -258,8 +341,8 @@ const { text } = await generateText({
 <div class="tab-panel">
 
 ```bash
-# Pick any model (e.g. GLM-5.2)
-npx @anyr/cli claude --model z-ai/glm-5.2
+curl -fsSL https://anyrouter.dev/setup.sh | bash
+anyr claude --model z-ai/glm-5.2
 ```
 
 </div>
@@ -269,7 +352,7 @@ npx @anyr/cli claude --model z-ai/glm-5.2
 
 People wire it into coding agents, chat apps, and batch jobs — anywhere they'd otherwise juggle several provider keys by hand. A few real setups are collected at [anyrouter.dev/use-cases](https://anyrouter.dev/use-cases). Take whatever's useful.
 
-![AnyRouter use cases](/media/2026/07/anyrouter/anyrouter-use-cases.png)
+![AnyRouter use cases](/media/2026/07/anyrouter/anyrouter-use-cases.png?v=d83b17c3)
 
 I hope everyone can use it and give me more feedback: [https://anyrouter.dev](https://anyrouter.dev/?utm_source=blog&utm_medium=post&ref=blog)
 
@@ -33791,6 +33874,68 @@ Open the browser and go to: [http://localhost:8080](http://localhost:8080/)
 
 `res.sendFile()` is a very easy-to-use and useful method in ExpressJs, you can make SinglePage applications, load content using AngularJs, static pages, etc. Additionally, ExpressJs provides many other tools to read and download files on the server.
 
+
+---
+
+# Naming subagents by model and reasoning level
+
+- **URL**: https://blog.duyet.net/note/naming-subagents-by-model-and-reasoning
+- **Date**: 2026-10-05
+
+I am having a rule for naming teammates/subagents by `<model>-<reasoning-level>-<task>` for a better overview of how they actually are.
+
+![naming-subagents-1.jpeg](/media/notes/naming-subagents-1.jpeg)
+
+---
+
+# Closing the loop in CF Workers
+
+- **URL**: https://blog.duyet.net/note/closing-the-loop-in-cf-workers
+- **Date**: 2026-10-01
+
+Cloudflare shipped [Issues](https://blog.cloudflare.com/real-time-issue-detection/) for Workers, in open beta. Repeated exceptions, 5xx responses, and error logs get grouped into one issue. A CF-native way, similar to my note on the Kubernetes [agent sandbox](https://blog.duyet.net/2026/06/agent-sandbox-on-kubernetes/), where the agent reads the stack and comes back with the fix.
+
+![closing-the-loop-cf-1.jpeg](/media/notes/closing-the-loop-cf-1.jpeg)
+
+<div></div>
+
+![closing-the-loop-cf-2.jpeg](/media/notes/closing-the-loop-cf-2.jpeg)
+
+<div></div>
+
+![closing-the-loop-cf-3.jpeg](/media/notes/closing-the-loop-cf-3.jpeg)
+
+---
+
+# How do I trust my agents more
+
+- **URL**: https://blog.duyet.net/note/how-do-i-trust-my-agents-more
+- **Date**: 2026-09-14
+
+People keep asking how to trust agents more. Most still review every line. That is the wrong lever.
+
+[@poteto](https://x.com/silentguyy66/status/2099094124628492717): ban the patterns agents are bad at, put verification in front, then let them merge. CI, tests, skills, cloud agents that open and ship PRs. You stop cooking every dish. You run the kitchen.
+
+That is how I trust Grok Bot / duyetbot / [herdr-desk](https://github.com/duyet/herdr-desk) more than line-by-line review. I wrote the longer version at [Grok Bot](https://blog.duyet.net/2026/08/grok-bot/). Same pipeline: Verification → skills → cloud agents → automerged PRs. Hire another reviewer, or spend the tokens on checks that actually catch what agents mess up.
+
+---
+
+# AI tools I use — Aug 2026
+
+- **URL**: https://blog.duyet.net/note/ai-tools-aug-2026
+- **Date**: 2026-09-08
+
+I keep changing things to discover more tools every day … Some notes on my latest update:
+
+I'm off the Claude Max 20x subscription now. Still think Claude Code works best with their own models — using it with another model isn't what it used to be. See [the new rules of context engineering for Claude 5 generation models](https://claude.com/blog/the-new-rules-of-context-engineering-for-claude-5-generation-models). Fable is really good; Opus 5 leaves me cold.
+
+Tried Codex. Left a few times. The app still doesn't work for me. I just don't like it — hard to control things.
+
+**Herdr + Grok Build CLI** is my main stack now. SuperGrok Heavy is $300 and that's a hard price to swallow, but the terminal quality is first-class. Herdr is replacing tmux and will become much better for AI, I think, so far. The things I love about Herdr: persistent state, works across machines, can control the agent itself, cool worktree story.
+
+Grok Bot still feels like the best design I can imagine for a good agent and assistant, and I wrote it up at [blog.duyet.net/2026/08/grok-bot](https://blog.duyet.net/2026/08/grok-bot/). It's just simple and does really well. They move fast and fix a lot; it works effectively, not aspirationally. No FOMO — you should try it if you can. You can also grab some [templatebot.lol](https://templatebot.lol) here.
+
+**[anyrouter.dev/cli](https://anyrouter.dev/cli)** — I keep trying to make this mainstream, and it's not good enough honestly. The upstream providers are still unstable, and finding good sources is the actual bottleneck.
 
 ---
 

@@ -4,8 +4,22 @@
         <description><![CDATA[Sr. Data Engineer. Rustacean at night]]></description>
         <link>https://blog.duyet.net</link>
         <generator>RSS for Node</generator>
-        <lastBuildDate>Sat, 22 Aug 2026 20:38:55 GMT</lastBuildDate>
+        <lastBuildDate>Thu, 08 Oct 2026 17:47:19 GMT</lastBuildDate>
         <atom:link href="https://blog.duyet.net/rss.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Herdr]]></title>
+            <description><![CDATA[I landed 1000+ PRs this week, and this is how I use Herdr these days to achieve that.]]></description>
+            <link>https://blog.duyet.net/2026/10/herdr</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/10/herdr</guid>
+            <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+        </item>
+        <item>
+            <title><![CDATA[I don't read code anymore]]></title>
+            <description><![CDATA[It's been a year or two. Disagree or debate me all you want, but soon you'll realize and admit I was right.]]></description>
+            <link>https://blog.duyet.net/2026/09/i-dont-read-code-anymore</link>
+            <guid isPermaLink="true">https://blog.duyet.net/2026/09/i-dont-read-code-anymore</guid>
+            <pubDate>Sat, 26 Sep 2026 00:00:00 GMT</pubDate>
+        </item>
         <item>
             <title><![CDATA[Grok Bot]]></title>
             <description><![CDATA[I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good.]]></description>
@@ -341,20 +355,6 @@
             <link>https://blog.duyet.net/2022/09/rust-question-mark-operator</link>
             <guid isPermaLink="true">https://blog.duyet.net/2022/09/rust-question-mark-operator</guid>
             <pubDate>Sat, 24 Sep 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: indoc]]></title>
-            <description><![CDATA[indoc là một crate nhỏ nhưng hữu ích giúp canh lề (indented documents). indoc!() macro nhận multiline string và un-indents lúc compile time, xoá tất cả khoảng trắng đầu tiên trên cách dòng dựa theo dòng đầu tiên.]]></description>
-            <link>https://blog.duyet.net/2022/08/rust-indoc</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-indoc</guid>
-            <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
-        </item>
-        <item>
-            <title><![CDATA[Rust: Rayon - A data parallelism library for Rust]]></title>
-            <description><![CDATA[rayon là thư viện data-parallelism cho Rust, gọn nhẹ và dễ dàng convert từ code tính toán tuần tự sang song song mà vẫn đảm bảo không lỗi data-race.]]></description>
-            <link>https://blog.duyet.net/2022/08/rust-rayon</link>
-            <guid isPermaLink="true">https://blog.duyet.net/2022/08/rust-rayon</guid>
-            <pubDate>Sat, 06 Aug 2022 00:00:00 GMT</pubDate>
         </item>
     </channel>
 </rss>

@@ -12,7 +12,7 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 
 ## About This Blog
 
-318+ technical articles covering topics including:
+320+ technical articles covering topics including:
 - Data Engineering & Big Data
 - Apache Spark, ClickHouse, Apache Airflow
 - Cloud Computing (AWS, GCP, Azure)
@@ -24,6 +24,20 @@ A comprehensive collection of technical blog posts covering Data Engineering, So
 Articles span from 2015 to 2026, documenting the evolution of modern data engineering and software development practices.
 
 ## Recent Posts
+
+### [Herdr](https://blog.duyet.net/2026/10/herdr)
+- **Date**: 2026-10-04
+- **Category**: AI
+- **Tags**: Ai, Agents, Herdr
+- **URL**: https://blog.duyet.net/2026/10/herdr
+- **Description**: I landed 1000+ PRs this week, and this is how I use Herdr these days to achieve that.
+
+### [I don't read code anymore](https://blog.duyet.net/2026/09/i-dont-read-code-anymore)
+- **Date**: 2026-09-26
+- **Category**: AI
+- **Tags**: Ai, Agents
+- **URL**: https://blog.duyet.net/2026/09/i-dont-read-code-anymore
+- **Description**: It's been a year or two. Disagree or debate me all you want, but soon you'll realize and admit I was right.
 
 ### [Grok Bot](https://blog.duyet.net/2026/08/grok-bot)
 - **Date**: 2026-08-19
@@ -151,25 +165,13 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 - **URL**: https://blog.duyet.net/2026/01/coding-agent/long-running-agent
 - **Description**: Build a long-running autonomous coding agent that runs 24/7
 
-### [opencode](https://blog.duyet.net/2026/01/coding-agent/opencode)
-- **Date**: 2026-01-01
-- **Category**: AI
-- **Tags**: Ai
-- **URL**: https://blog.duyet.net/2026/01/coding-agent/opencode
-- **Description**: A coding agent with nice UI/UX that consolidates all your subscriptions
-
-### [Parallel Sub-Agents / Teams](https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents)
-- **Date**: 2026-01-01
-- **Category**: AI
-- **Tags**: Ai
-- **URL**: https://blog.duyet.net/2026/01/coding-agent/parallel-sub-agents
-- **Description**: Lead a team of parallel agents with leader delegation to senior and junior roles
-
 
 ## All Blog Posts by Year
 
-### 2026 (22 posts)
+### 2026 (24 posts)
 
+- [Herdr](https://blog.duyet.net/2026/10/herdr) - 2026-10-04
+- [I don't read code anymore](https://blog.duyet.net/2026/09/i-dont-read-code-anymore) - 2026-09-26
 - [Grok Bot](https://blog.duyet.net/2026/08/grok-bot) - 2026-08-19
 - [I am building anyrouter.dev](https://blog.duyet.net/2026/07/anyrouter) - 2026-07-19
 - [Open Managed Agents](https://blog.duyet.net/2026/07/open-managed-agents) - 2026-07-18
@@ -524,6 +526,26 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 
+### [Naming subagents by model and reasoning level](https://blog.duyet.net/note/naming-subagents-by-model-and-reasoning)
+- **Date**: 2026-10-05
+- **URL**: https://blog.duyet.net/note/naming-subagents-by-model-and-reasoning
+- **Markdown**: https://blog.duyet.net/note/naming-subagents-by-model-and-reasoning.md
+- **Description**: I am having a rule for naming teammates/subagents by <model>-<reasoning-level>-<task> for a better overview of how they actually are.
+### [Closing the loop in CF Workers](https://blog.duyet.net/note/closing-the-loop-in-cf-workers)
+- **Date**: 2026-10-01
+- **URL**: https://blog.duyet.net/note/closing-the-loop-in-cf-workers
+- **Markdown**: https://blog.duyet.net/note/closing-the-loop-in-cf-workers.md
+- **Description**: Cloudflare shipped Issues for Workers, in open beta. Repeated exceptions, 5xx responses, and error logs get grouped into one issue. A CF-native way, similar to my note on the Kubernetes agent sandbox, where the agent reads the stack and comes back with the fix. <div></div> <div></div>
+### [How do I trust my agents more](https://blog.duyet.net/note/how-do-i-trust-my-agents-more)
+- **Date**: 2026-09-14
+- **URL**: https://blog.duyet.net/note/how-do-i-trust-my-agents-more
+- **Markdown**: https://blog.duyet.net/note/how-do-i-trust-my-agents-more.md
+- **Description**: People keep asking how to trust agents more. Most still review every line. That is the wrong lever. @poteto: ban the patterns agents are bad at, put verification in front, then let them merge. CI, tests, skills, cloud agents that open and ship PRs. You stop cooking every dish. You run the kitchen. That is how I trust Grok Bot / duyetbot / herdr-desk more than line-by-line review. I wrote the longer version at Grok Bot. Same pipeline: Verification → skills → cloud agents → automerged PRs. Hire another reviewer, or spend the tokens on checks that actually catch what agents mess up.
+### [AI tools I use — Aug 2026](https://blog.duyet.net/note/ai-tools-aug-2026)
+- **Date**: 2026-09-08
+- **URL**: https://blog.duyet.net/note/ai-tools-aug-2026
+- **Markdown**: https://blog.duyet.net/note/ai-tools-aug-2026.md
+- **Description**: I keep changing things to discover more tools every day … Some notes on my latest update: I'm off the Claude Max 20x subscription now. Still think Claude Code works best with their own models — using it with another model isn't what it used to be. See the new rules of context engineering for Claude 5 generation models. Fable is really good; Opus 5 leaves me cold. Tried Codex. Left a few times. The app still doesn't work for me. I just don't like it — hard to control things. Herdr + Grok Build CLI is my main stack now. SuperGrok Heavy is $300 and that's a hard price to swallow, but the terminal quality is first-class. Herdr is replacing tmux and will become much better for AI, I think, so far. The things I love about Herdr: persistent state, works across machines, can control the agent itself, cool worktree story. Grok Bot still feels like the best design I can imagine for a good agent and assistant, and I wrote it up at blog.duyet.net/2026/08/grok-bot. It's just simple and does really well. They move fast and fix a lot; it works effectively, not aspirationally. No FOMO — you should try it if you can. You can also grab some templatebot.lol here. anyrouter.dev/cli — I keep trying to make this mainstream, and it's not good enough honestly. The upstream providers are still unstable, and finding good sources is the actual bottleneck.
 ### [System prompt vs tool schema](https://blog.duyet.net/note/system-prompt-vs-tool-schema)
 - **Date**: 2026-08-17
 - **URL**: https://blog.duyet.net/note/system-prompt-vs-tool-schema
@@ -573,9 +595,9 @@ Short-form thoughts and notes. Full list: https://blog.duyet.net/notes
 ---
 
 **Blog Statistics:**
-- Total Posts: 318
+- Total Posts: 320
 - Years Active: 2015-2026
 - Categories: 15
-- Tags: 64
+- Tags: 65
 
 Generated from: https://blog.duyet.net

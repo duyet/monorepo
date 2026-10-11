@@ -11,6 +11,7 @@ slug: /2026/07/anyrouter
 thumbnail: /media/2026/07/anyrouter/anyrouter-intro.png
 description: "I am building AnyRouter to solve my problem of collecting free LLM tokens from everywhere and unifying the MCP Gateway. Yes, it's another router, but this is a router of routers."
 x: https://x.com/_duyet/status/2078848270064066623
+hackerNews: https://news.ycombinator.com/item?id=49898751
 changelog:
   - date: "2026-09"
     note: "duyetbot is now an instance of Grok Bot"

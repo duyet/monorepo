@@ -77,6 +77,14 @@ describe("parseFrontmatter", () => {
     expect(parsed.body).toBe("above\n---\nbelow")
   })
 
+  it("reads optional discussion links", () => {
+    const parsed = parseFrontmatter(
+      "---\ndate: 2026-10-01\nx: https://x.com/_duyet/status/1\nhackerNews: https://news.ycombinator.com/item?id=1\n---\nbody"
+    )
+    expect(parsed.x).toBe("https://x.com/_duyet/status/1")
+    expect(parsed.hackerNews).toBe("https://news.ycombinator.com/item?id=1")
+  })
+
   it("keeps the documented limits of the three-key shape", () => {
     // Not fixed by the shared fence, and pinned so the limit is visible: the
     // per-key regexes do not unquote values and do not read lists. Shortforms

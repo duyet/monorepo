@@ -10,6 +10,7 @@ tags:
   - Grok
 slug: /2026/08/grok-bot
 x: https://x.com/_duyet/status/2089665924454633766
+hackerNews: https://news.ycombinator.com/item?id=49898729
 description: "I am on SuperGrok Heavy because of Grok Bot and I am super impressed. Wow, from me, at first. The harness is surprisingly good. The UI/UX is surprisingly good."
 thumbnail: /media/2026/08/grok-bot/hero.jpg
 video: /media/2026/08/grok-bot/hero.mp4

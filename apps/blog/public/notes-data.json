@@ -1,5 +1,29 @@
 [
   {
+    "id": "naming-subagents-by-model-and-reasoning",
+    "title": "Naming subagents by model and reasoning level",
+    "date": "2026-10-05",
+    "excerpt": "I am having a rule for naming teammates/subagents by <model>-<reasoning-level>-<task> for a better overview of how they actually are."
+  },
+  {
+    "id": "closing-the-loop-in-cf-workers",
+    "title": "Closing the loop in CF Workers",
+    "date": "2026-10-01",
+    "excerpt": "Cloudflare shipped Issues for Workers, in open beta. Repeated exceptions, 5xx responses, and error logs get grouped into one issue. A CF-native way, similar to my note on the Kubernetes agent sandbox, where the agent reads the stack and comes back with the fix. <div></div> <div></div>"
+  },
+  {
+    "id": "how-do-i-trust-my-agents-more",
+    "title": "How do I trust my agents more",
+    "date": "2026-09-14",
+    "excerpt": "People keep asking how to trust agents more. Most still review every line. That is the wrong lever. @poteto: ban the patterns agents are bad at, put verification in front, then let them merge. CI, tests, skills, cloud agents that open and ship PRs. You stop cooking every dish. You run the kitchen. That is how I trust Grok Bot / duyetbot / herdr-desk more than line-by-line review. I wrote the longer version at Grok Bot. Same pipeline: Verification → skills → cloud agents → automerged PRs. Hire another reviewer, or spend the tokens on checks that actually catch what agents mess up."
+  },
+  {
+    "id": "ai-tools-aug-2026",
+    "title": "AI tools I use — Aug 2026",
+    "date": "2026-09-08",
+    "excerpt": "I keep changing things to discover more tools every day … Some notes on my latest update: I'm off the Claude Max 20x subscription now. Still think Claude Code works best with their own models — using it with another model isn't what it used to be. See the new rules of context engineering for Claude 5 generation models. Fable is really good; Opus 5 leaves me cold. Tried Codex. Left a few times. The app still doesn't work for me. I just don't like it — hard to control things. Herdr + Grok Build CLI is my main stack now. SuperGrok Heavy is $300 and that's a hard price to swallow, but the terminal quality is first-class. Herdr is replacing tmux and will become much better for AI, I think, so far. The things I love about Herdr: persistent state, works across machines, can control the agent itself, cool worktree story. Grok Bot still feels like the best design I can imagine for a good agent and assistant, and I wrote it up at blog.duyet.net/2026/08/grok-bot. It's just simple and does really well. They move fast and fix a lot; it works effectively, not aspirationally. No FOMO — you should try it if you can. You can also grab some templatebot.lol here. anyrouter.dev/cli — I keep trying to make this mainstream, and it's not good enough honestly. The upstream providers are still unstable, and finding good sources is the actual bottleneck."
+  },
+  {
     "id": "system-prompt-vs-tool-schema",
     "title": "System prompt vs tool schema",
     "date": "2026-08-17",

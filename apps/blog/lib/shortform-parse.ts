@@ -18,6 +18,9 @@ export interface ParsedFrontmatter {
   date: string
   title?: string
   slug?: string
+  /** Discussion thread. Absent when the note has none. */
+  x?: string
+  hackerNews?: string
   body: string
 }
 
@@ -27,6 +30,8 @@ export interface RawShortform {
   title?: string;
   /** Raw `date:` frontmatter value — callers decide how to parse it. */
   date: string;
+  x?: string;
+  hackerNews?: string;
   body: string;
   excerpt: string;
 }
@@ -54,10 +59,14 @@ export function parseFrontmatter(raw: string): ParsedFrontmatter {
   const dateMatch = fm.match(/^date:\s*(.+)$/m)
   const titleMatch = fm.match(/^title:\s*(.+)$/m)
   const slugMatch = fm.match(/^slug:\s*(.+)$/m)
+  const xMatch = fm.match(/^x:\s*(.+)$/m)
+  const hnMatch = fm.match(/^hackerNews:\s*(.+)$/m)
   return {
     date: dateMatch ? dateMatch[1].trim() : '',
     title: titleMatch ? titleMatch[1].trim() : undefined,
     slug: slugMatch ? slugMatch[1].trim() : undefined,
+    ...(xMatch ? { x: xMatch[1].trim() } : {}),
+    ...(hnMatch ? { hackerNews: hnMatch[1].trim() } : {}),
     body: split.body.trim(),
   }
 }
@@ -129,12 +138,14 @@ export function parseShortform(
   raw: string,
   resolveUrl: (filename: string) => string | undefined,
 ): RawShortform {
-  const { date, title, slug, body } = parseFrontmatter(raw)
+  const { date, title, slug, x, hackerNews, body } = parseFrontmatter(raw)
   const resolved = resolveEmbeds(body, resolveUrl)
   return {
     id: shortformId(filename.replace(/\.md$/, ''), slug),
     title,
     date,
+    ...(x ? { x } : {}),
+    ...(hackerNews ? { hackerNews } : {}),
     body: resolved,
     excerpt: toExcerpt(resolved),
   }

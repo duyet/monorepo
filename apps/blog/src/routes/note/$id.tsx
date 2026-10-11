@@ -3,6 +3,7 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { type ReactElement, Suspense } from "react";
 import { Markdown } from "@/components/Markdown";
 import { buildArticleHead } from "@/lib/head";
+import { MarkdownMenuWrapper } from "@/src/routes/$year/$month/-markdown-menu-wrapper";
 import { ogAbsolute, ogNoteCardPath } from "@/lib/og";
 import { getShortformById, getShortforms } from "@/lib/shortforms";
 import type { Shortform } from "@/lib/shortforms";
@@ -24,14 +25,15 @@ export const Route = createFileRoute("/note/$id")({
     const title = note?.title ?? (id ? id.replace(/-/g, " ") : "Note");
     const canonical = `${SITE_URL}/note/${id}`;
     // Notes are shortform, so the card is type-only (notes carry no thumbnail)
-    // and lives at /og/note-<id>.png — see scripts/generate-og.ts. No markdown
-    // alternate: a note has no standalone .md form.
+    // and lives at /og/note-<id>.png — see scripts/generate-og.ts. The raw
+    // note is written to public/note/{id}.md by generate-static-files.ts.
     return buildArticleHead({
       title,
       description: note?.excerpt ?? "",
       url: canonical,
       image: ogAbsolute(ogNoteCardPath(id)),
       titleSuffix: " | Quick Notes",
+      markdownHref: `${canonical}.md`,
       datePublished: note?.date,
     });
   },
@@ -100,6 +102,33 @@ function NotePage(): ReactElement {
               {dateFormat(note.date, "MMM d, yyyy")}
             </p>
           </div>
+        </div>
+        <div className="mt-4 flex items-center gap-4 flex-wrap">
+          {note.hackerNews ? (
+            <a
+              href={note.hackerNews}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+            >
+              Comment on HN ↗
+            </a>
+          ) : null}
+          {note.x ? (
+            <a
+              href={note.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-[var(--font-mono)] text-[var(--rd-text-3)] text-[12.5px] underline underline-offset-4 decoration-[var(--rd-border)] hover:text-[var(--rd-text-1)] transition-colors"
+            >
+              Comment on X ↗
+            </a>
+          ) : null}
+          <MarkdownMenuWrapper
+            markdownUrl={`/note/${note.id}.md`}
+            markdownContent={note.body}
+            dropUp={false}
+          />
         </div>
         {note.title ? (
           <h1 className="mt-8 text-2xl font-bold tracking-tight">
