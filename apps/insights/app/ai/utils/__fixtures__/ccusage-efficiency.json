@@ -1,0 +1,10 @@
+{
+  "rows": [
+    { "date": "2024-06-15", "tokens": 1000, "cost": 3, "tokens_per_dollar": 333.4 },
+    { "date": "", "tokens": 0, "cost": 0, "tokens_per_dollar": null }
+  ],
+  "series": [
+    { "date": "2024-06-15", "Efficiency Score": 333 },
+    { "date": "Unknown", "Efficiency Score": 0 }
+  ]
+}

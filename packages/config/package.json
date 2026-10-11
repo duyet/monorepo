@@ -21,7 +21,7 @@
   },
   "devDependencies": {
     "@duyet/tsconfig": "*",
-    "typescript": "^6.0.0"
+    "typescript": "^7.0.0"
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",

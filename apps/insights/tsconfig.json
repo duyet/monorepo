@@ -1,10 +1,8 @@
 {
   "extends": "@duyet/tsconfig/vite.json",
   "compilerOptions": {
-    "ignoreDeprecations": "6.0",
     "strictNullChecks": true,
     "allowJs": true,
-    "baseUrl": ".",
     "types": ["vite/client"],
     "paths": {
       "@/*": ["./*"]

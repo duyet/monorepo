@@ -1,0 +1,10 @@
+{
+  "models": [
+    { "name": "Earlier", "date": "2024-03-02" },
+    { "name": "June", "date": "2024-06-01" },
+    { "name": "Later", "date": "2024-03-20" }
+  ],
+  "year": 2024,
+  "march": ["Later", "Earlier"],
+  "june": ["June"]
+}

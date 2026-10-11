@@ -1,0 +1,5 @@
+[
+  { "input": "O'Brien", "expected": "O\\'Brien" },
+  { "input": "a\\b", "expected": "a\\\\b" },
+  { "input": "line\nbreak", "expected": "line\\nbreak" }
+]

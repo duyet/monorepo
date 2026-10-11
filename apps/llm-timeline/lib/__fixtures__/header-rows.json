@@ -1,0 +1,15 @@
+{
+  "aliases": {
+    "name": ["model"],
+    "date": ["announced"],
+    "org": ["organization"]
+  },
+  "sheet": [
+    ["notes", "skip this title row"],
+    ["Model", "Announced", "Organization"],
+    ["GPT-4", "2023-03-14", "OpenAI"]
+  ],
+  "headerIndex": 1,
+  "noHeader": [["only", "one", "column-ish"]],
+  "noHeaderIndex": -1
+}

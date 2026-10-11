@@ -1,5 +1,26 @@
 # Changelog
 
+## [0.1.9](https://github.com/duyet/monorepo/compare/v0.1.8...v0.1.9) (2026-09-28)
+
+
+### ✨ Features
+
+* **blog:** add thumbnail to "I don't read code anymore" ([82fc71c](https://github.com/duyet/monorepo/commit/82fc71c6c6298068f2b52e4f1205c6f39026e843))
+
+
+### 🐛 Bug Fixes
+
+* **agent-assistant:** build worker entry via separate vite server config ([50b6807](https://github.com/duyet/monorepo/commit/50b68076cb31d1c2c52e3cc338e11fe6b7e00a95))
+* **blog:** ship favicon.ico so /favicon.ico stops 404ing ([cd2261a](https://github.com/duyet/monorepo/commit/cd2261a5686de110e49cd043ce685502b24b56b0))
+* **blog:** upgrade @tanstack/react-start to resolve router-core export mismatch ([3f05d88](https://github.com/duyet/monorepo/commit/3f05d88efcd64ff337030f3cd08d3e3cb4ede70b))
+* **ci:** probe ClickHouse over TCP instead of an ICMP ping ([edfe7a8](https://github.com/duyet/monorepo/commit/edfe7a837f192fbc3db97f9c95ba278c94f16a55))
+* **csp:** allow scripts.clarity.ms behind the www.clarity.ms redirect ([04013ea](https://github.com/duyet/monorepo/commit/04013ea8a5e275c7faf0643f59c5fa9bf9f131d6))
+* **csp:** allow shared analytics script hosts in Pages _headers ([f0b3203](https://github.com/duyet/monorepo/commit/f0b3203d9fed0a6dc8cd26aeb577b02e1ebf806d))
+* **deps:** align [@tanstack](https://github.com/tanstack) pins with root overrides and refresh lockfile ([117f419](https://github.com/duyet/monorepo/commit/117f419126c5e8804d4f7be6ce79f4edae57de83))
+* **llm-timeline:** upgrade @tanstack/react-start to resolve router-core export mismatch ([e241801](https://github.com/duyet/monorepo/commit/e241801194e130d1c548ec33c8b035ef37435765))
+* **release-please:** give the root package its own release component ([5205b3e](https://github.com/duyet/monorepo/commit/5205b3e60cab895407f7ed165ba1e6a480ba787d))
+* resolve deploy failures and refactor env files ([1b0132c](https://github.com/duyet/monorepo/commit/1b0132c06eed35cde52c0b9ba633f91b45db1333))
+
 ## [0.1.8](https://github.com/duyet/monorepo/compare/v0.1.7...v0.1.8) (2026-09-27)
 
 

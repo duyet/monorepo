@@ -660,9 +660,6 @@ function printSummary(success: boolean) {
 }
 
 /**
- * Main execution
- */
-/**
  * Production on Cloudflare Pages is whatever GitHub `main` last built.
  * A local `--prod` from an unpushed commit publishes that commit, and the
  * next push to `main` builds GitHub's older tree and rolls the site back.

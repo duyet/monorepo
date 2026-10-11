@@ -11,7 +11,7 @@ import {
   type RangeKey,
 } from "../components/DailyChart";
 import { SourceIcons } from "../components/SourceIcons";
-import { BURNS_LOCALE, formatDay } from "../lib/dates";
+import { dataLabel } from "../lib/dates";
 import { readPublicJson } from "../lib/read-public-json";
 import { fmtCost } from "../lib/sources";
 import type { TokenData } from "../lib/types";
@@ -24,30 +24,14 @@ export const Route = createFileRoute("/")({
   component: Page,
 });
 
-function formatRange(first: string | null, last: string | null): string | null {
-  if (!first || !last) return null;
-  return `${formatDay(first, true)} — ${formatDay(last, true)}`;
-}
-
-function formatUpdated(iso: string): string | null {
-  if (!iso) return null;
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return null;
-  return `Updated ${d.toLocaleDateString(BURNS_LOCALE, {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  })}`;
-}
-
 function Page(): JSX.Element {
   const data = Route.useLoaderData();
   const [filter, setFilter] = useState<string | null>(null);
   const [rangeKey, setRangeKey] = useState<RangeKey>("90d");
   const [granularity, setGranularity] = useState<Granularity>("daily");
-  const range = formatRange(data.firstDate, data.lastDate);
+  const label = dataLabel(data.firstDate, data.lastDate, data.generatedAt);
+  const labelParts = label ? label.split(" · ") : [];
   const selectedRange = RANGES.find((r) => r.key === rangeKey) ?? RANGES[0];
-  const updated = formatUpdated(data.generatedAt);
 
   return (
     <div className="burns-page">
@@ -56,7 +40,7 @@ function Page(): JSX.Element {
           <p className="burns-eyebrow">Burns</p>
           <h1 className="burns-title">Token usage</h1>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+        <div className="burns-header-actions">
           <BreakdownDialog
             sourceTotals={data.source_totals ?? []}
             totals={data.totals}
@@ -70,8 +54,16 @@ function Page(): JSX.Element {
         <p className="burns-hero-kicker">tokens all-time</p>
         <p className="burns-hero-meta">
           {fmtCost(data.totals.total_cost)}
-          {range ? ` · ${range}` : ""}
-          {updated ? ` · ${updated}` : ""}
+          {/*
+            Each part of the label is its own nowrap span, so the line breaks
+            at the " · " separators and never inside a date.
+          */}
+          {labelParts.map((part) => (
+            <span key={part}>
+              {" · "}
+              <span className="burns-nowrap">{part}</span>
+            </span>
+          ))}
         </p>
         <SourceIcons
           sources={data.sources}
@@ -82,7 +74,7 @@ function Page(): JSX.Element {
       </section>
 
       <section className="burns-section burns-section-chart">
-        <div className="burns-section-head">
+        <div className="burns-section-head burns-section-head-switches">
           <div className="burns-switch">
             {GRANULARITIES.map((g) => (
               <button

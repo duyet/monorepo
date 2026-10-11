@@ -1,1 +1,56 @@
-CLAUDE.md
+# CLAUDE.md
+
+Read [docs/ai/internal-knowledge.md](docs/ai/internal-knowledge.md) before changing this repository.
+
+Use semantic commit messages. Commit as author `duyet <me@duyet.net>`. Keep changes surgical and verify with the narrowest useful command for the touched app or package.
+For single-file verification, use `pnpm exec biome lint <path>` before broader app checks.
+For dead-code cleanup, verify zero non-test references first with `rg -n "<symbol>" apps packages --glob '!**/*.test.*' --glob '!**/*.spec.*'`.
+For root quality checks, use `pnpm run lint`, `pnpm run check-types`, and `pnpm run test`.
+For deploy/config workflows, use root scripts (`pnpm run config`, `pnpm run deploy`, `pnpm run cf:deploy`, `pnpm run cf:deploy:prod`) when needed.
+For Rust/WASM workflows, use the documented root commands (`pnpm run rust:build`, `pnpm run wasm:build`, `pnpm run wasm:test`, `pnpm run wasm:clippy`, `pnpm run bench:wasm`) only when the touched change requires them.
+`AGENTS.md` is a symlink to this file; update `CLAUDE.md` as the canonical instruction entrypoint.
+
+Put durable repository knowledge in `docs/ai/internal-knowledge.md` instead of expanding this file.
+
+## Herdr isolated worktrees (when `HERDR_ENV=1`)
+
+`herdr worktree create` only opens a **shell** pane. Always follow with
+`herdr agent start` + `herdr agent prompt` on `.result.root_pane.pane_id`, or
+the worktree sits idle. Recipe: `docs/ai/internal-knowledge.md` (Herdr section).
+Do not run bare `herdr` (attaches the TUI). Confirm with `herdr --skill`.
+
+## Code-smell / dead-code automation
+
+For scoped reviews after the last run timestamp:
+
+- `git log --since='<LAST_RUN_ISO>' --name-only --pretty=format:'%H%n%s%n%b'` (or `--since='24h ago'`)
+- `git log --since='<LAST_RUN_ISO>' --no-merges --name-only --pretty=format:'%H%n%s%n%b'` when merge commits make change attribution noisy
+- `git log --since='<LAST_RUN_ISO>' --no-merges --name-only --pretty=format: | sed '/^$/d' | sort -u` to inventory touched files before symbol checks
+- If <LAST_RUN_ISO> is UTC (`...Z`), pass an explicit UTC offset to avoid local-time drift (example: `git log --since='2026-05-15 21:01:30 +0000' --name-only --pretty=format:'%H%n%s%n%b'`).
+- `git symbolic-ref --short -q HEAD || echo "DETACHED"` before PR work so automation can branch off detached worktrees safely
+- See `docs/ai/internal-knowledge.md` for linked-worktree permission fallback details
+- `git show --unified=3 <commit_sha>`
+- `pnpm why <package>` to verify dependency overrides resolve to the intended package version
+- `rg -n "pnpm-lock\\.yaml" scripts/cf-deploy.ts` to verify deploy-orchestrator full-rebuild detection matches the repo's real lockfile
+- `pnpm run cf:deploy -- --force` to rebuild all requested Cloudflare Pages apps when change detection is intentionally bypassed
+- `rg -n "<symbol>" <file-or-dir> --glob '!**/*.test.*' --glob '!**/__tests__/**'` for dead-reference evidence
+- `rg -n "pnpm/action-setup@" .github/workflows -g'*.yml'` to verify valid action pins after CI workflow updates
+- `rg -n "setup-bun" .github/workflows -g'*.yml'` to catch leftover Bun setup actions
+- `rg -n "dtolnay/rust-toolchain@|jetli/wasm-pack-action@|version: latest" .github/workflows -g'*.yml'` to verify Rust/WASM action refs and wasm-pack version pins after deploy-workflow changes
+- `rg -n "if \\(field ===" packages/libs --glob '*.ts'` to catch duplicate field branches in parser-style switch/if chains before cleanup
+- `cd apps/kb && pnpm run build` regenerates `public/{robots,sitemap,llms,llms-full}.txt` plus `public/k/*.md`; keep article `links` frontmatter intact for raw markdown consumers
+- Keep durable findings in `docs/ai/core-memory.md` and list reference docs in `docs/INDEX.md`
+- Do not create dated `docs/reviews/code-smell-dead-code-<DATE>.md` files
+- `gh run list --branch main --event push --limit 10 --json databaseId,headSha,status,conclusion,name,updatedAt` to confirm post-merge `main` CI is green
+- `gh run view <run-id> --job <job-id> --log-failed` to inspect CI failures with line-level stack traces
+
+<!-- BEGIN:turborepo-agent-rules -->
+
+# This is NOT the Turborepo you know
+
+Turborepo configuration, task behavior, and CLI commands can vary between installed versions and may differ from your training data. Resolve the `turbo` package from this file's directory or relevant workspace; in monorepos, it may not be visible from the repository root. For example, run `node -p "require.resolve('turbo/package.json')"` from a workspace that depends on `turbo`.
+
+Read `docs/README.md` inside that installed package first, then read the relevant pages from its `docs/` directory before changing Turborepo configuration or commands. Heed deprecation notices. These bundled docs match the installed package version and are available without network access.
+
+This block is written and re-added by `turbo` before repository-scoped commands when an AI agent is detected. In the Turborepo source repository, its template is defined in `crates/turborepo-cli/src/cli/agent_guidance.rs`. Removing the managed block while updates are enabled means a later qualifying invocation will add it again. Set `"agentGuidance": false` in the root `turbo.json` or `turbo.jsonc` to opt out; this does not remove an existing block. Keep the block committed with your work to avoid an uncommitted change on the next agent invocation.
+<!-- END:turborepo-agent-rules -->

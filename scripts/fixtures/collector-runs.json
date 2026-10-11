@@ -1,0 +1,26 @@
+[
+  {
+    "workflowName": "Data Sync (WakaTime)",
+    "conclusion": "success",
+    "createdAt": "2026-10-05T00:02:00Z",
+    "url": "https://github.com/duyet/monorepo/actions/runs/100"
+  },
+  {
+    "workflowName": "Data Sync (PostHog)",
+    "conclusion": "success",
+    "createdAt": "2026-10-04T03:01:00Z",
+    "url": "https://github.com/duyet/monorepo/actions/runs/90"
+  },
+  {
+    "workflowName": "Data Sync (PostHog)",
+    "conclusion": "failure",
+    "createdAt": "2026-10-05T03:04:00Z",
+    "url": "https://github.com/duyet/monorepo/actions/runs/1546"
+  },
+  {
+    "workflowName": "Data Sync (Cloudflare)",
+    "conclusion": "failure",
+    "createdAt": "2026-10-05T01:05:00Z",
+    "url": "https://github.com/duyet/monorepo/actions/runs/80"
+  }
+]

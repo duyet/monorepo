@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Eyebrow, Reveal } from "@duyet/components";
 import { StaticView } from "@/components/StaticView";
-import { lastSynced, models, years } from "@/lib/data";
+import { models, syncedAt, years } from "@/lib/data";
+import { formatSyncTime } from "@/lib/sync-time";
 import { getStats } from "@/lib/utils";
 
 const stats = getStats(models);
@@ -33,7 +34,7 @@ function LLMTimelinePage() {
             side.
           </p>
           <p className="mt-3 font-[family-name:var(--font-mono)] text-xs text-[var(--rd-text-3)]">
-            Updated {lastSynced}
+            Updated {formatSyncTime(syncedAt)}
           </p>
         </header>
       </Reveal>

@@ -3,6 +3,11 @@ import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 export default defineConfig({
+  define: {
+    "import.meta.env.VITE_SNAPSHOT_AT": JSON.stringify(
+      new Date().toISOString()
+    ),
+  },
   resolve: { dedupe: ["react", "react-dom"] },
   plugins: [
     tanstackStart({

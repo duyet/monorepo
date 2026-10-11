@@ -296,7 +296,9 @@ const FIELD_HANDLERS = defineFieldHandlers({
   },
 
   hackerNews(post, data) {
-    post.hackerNews = trimmedString(data.hackerNews);
+    post.hackerNews = trimmedString(
+      data.hackerNews ?? data.hackerNewsCommentUrl
+    );
   },
 
   changelog(post, data) {

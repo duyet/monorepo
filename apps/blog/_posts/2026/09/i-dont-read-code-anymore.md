@@ -20,7 +20,7 @@ Agents are really much better now, and they'll keep getting better. People are s
 
 Disagree or debate me all you want, but soon you'll realize and admit I was right.
 
-You are also an asshole that slows things down on accept, prompt, and validating that agents work. I don't mean every code are perfect and have no issue at all, before AI slop we still have human slop.
+You are also an asshole that slows things down on accept, prompt, and validating that agents work. My 60 agents are working right now. I don't mean every code are perfect and have no issue at all, before AI slop we still have human slop.
 
 I was working on dual EN/VI language support, and I caught it using if-else to switch between them. I thought, damn it, you should use i18n, or some general way, etc. But that was only because it was not aware we might want more languages later. Keep it easy. You can just say please add Japanese, and it does that very quickly, even refactor the whole codebase. Who cares about that anymore?
 

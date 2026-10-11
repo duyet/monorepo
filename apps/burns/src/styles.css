@@ -74,6 +74,13 @@ body {
   gap: 16px;
 }
 
+.burns-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
 .burns-eyebrow {
   margin: 0;
   font-size: 11px;
@@ -91,21 +98,59 @@ body {
   color: var(--ink);
 }
 
+/*
+ * Sizing context for the count: `cqi` below resolves against this box, which
+ * is the page's content width. Fitting to the container instead of the viewport
+ * means the page padding is already accounted for.
+ */
 .burns-hero {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  container-type: inline-size;
 }
 
-.burns-count {
+/*
+ * Wrapper owns the typography the probe measures against, and clips it.
+ * Letter-spacing is on the sized elements below rather than here: `em` in
+ * letter-spacing resolves against the element's own font-size, so it has to
+ * track the count's size to stay the same proportion of it.
+ */
+.burns-count-fit {
+  position: relative;
   display: block;
+  width: 100%;
+  overflow: clip;
   font-family: var(--sans);
-  font-size: min(8rem, 11vw);
   font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
   font-variant-numeric: tabular-nums;
   color: var(--ink);
+}
+
+/*
+ * The count, sized to fill its box: `--count-em` is the formatted string's own
+ * width in em (see `lib/count.ts`), which is what makes the size follow the
+ * number of digits rather than the viewport. AnimatedCounter measures the real
+ * glyphs once the webfont is in and overrides this; this size is what the
+ * prerendered HTML shows until it does.
+ */
+.burns-count {
+  display: block;
+  font-size: min(8rem, calc(100cqi / var(--count-em, 8)));
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+/* Measured, never painted. */
+.burns-count-probe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 .burns-hero-kicker {
@@ -119,6 +164,11 @@ body {
   font-size: 12px;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
+}
+
+/* A date range or an "Updated …" date stays one unit when the line wraps. */
+.burns-nowrap {
+  white-space: nowrap;
 }
 
 .burns-hero .burns-icons {
@@ -562,13 +612,69 @@ body {
   padding: 20px;
 }
 
-@media (max-width: 420px) {
+@media (width <= 640px) {
+  /*
+   * The chart is centred in whatever height the viewport has left over, which
+   * on a phone is a gap the size of the header between hero and chart.
+   */
+  .burns-section-chart {
+    margin-block: 0;
+  }
+
+  /*
+   * Two switch groups sharing a row leaves 11px text on a phone, so each group
+   * gets its own row and every button gets a tap target's worth of height.
+   */
+  .burns-section-head-switches {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .burns-switch button {
+    flex: 1 1 auto;
+    justify-content: center;
+    display: inline-flex;
+    align-items: center;
+    min-height: 36px;
+    padding: 4px 10px;
+  }
+
+  /*
+   * 18px marks are below the 24px minimum target size, so the box grows and
+   * the mark stays where it was. The gap shrinks by the padding that adds, to
+   * keep the row's optical rhythm.
+   */
+  .burns-icons {
+    gap: 0 4px;
+  }
+
+  .burns-icon {
+    min-width: 36px;
+    height: 36px;
+  }
+
+  /* Long agent names ellipsize instead of widening the tooltip past the screen. */
+  .burns-tooltip-name {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /*
+   * An icon tooltip is anchored to its icon, so the first and last ones in a
+   * row hang off the side of a phone. A tap cannot hover either, so the same
+   * numbers stay reachable in the Breakdown dialog instead of floating off
+   * screen or pushing a scrollbar onto the page.
+   */
+  .burns-icon-tip {
+    display: none;
+  }
+}
+
+@media (width <= 420px) {
   .burns-page {
     padding: 20px 16px 40px;
     gap: 28px;
-  }
-
-  .burns-count {
-    font-size: clamp(2.6rem, 15vw, 4rem);
   }
 }

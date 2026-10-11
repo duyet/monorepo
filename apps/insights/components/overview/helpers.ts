@@ -25,6 +25,36 @@ export function shortDate(date: string) {
   });
 }
 
+const SNAPSHOT_MONTHS = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+] as const;
+
+/** UTC clock time of a baked analytics payload. Null when the stamp is missing. */
+export function formatSnapshotTime(
+  iso: string | null | undefined,
+): string | null {
+  if (!iso) return null;
+  const parsed = new Date(iso);
+  if (Number.isNaN(parsed.getTime())) return null;
+  const day = parsed.getUTCDate();
+  const month = SNAPSHOT_MONTHS[parsed.getUTCMonth()];
+  const year = parsed.getUTCFullYear();
+  const hours = String(parsed.getUTCHours()).padStart(2, "0");
+  const minutes = String(parsed.getUTCMinutes()).padStart(2, "0");
+  return `${day} ${month} ${year}, ${hours}:${minutes} UTC`;
+}
+
 export function compactName(name: string) {
   return name
     .replace(/^claude-/, "")

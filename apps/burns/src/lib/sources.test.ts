@@ -1,6 +1,17 @@
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
 import { requiresFreshBurnsData } from "./freshness";
-import { normalizeSource, SOURCE_COLORS, sourceSwatch } from "./sources";
+import {
+  fmtCost,
+  fmtTokens,
+  normalizeSource,
+  SOURCE_COLORS,
+  sourceSwatch,
+} from "./sources";
+
+const burnsRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
 describe("normalizeSource", () => {
   test("maps only raw antigravity to Google Antigravity", () => {
@@ -40,6 +51,12 @@ describe("normalizeSource", () => {
   });
 });
 
+describe("fmtTokens", () => {
+  test("formats a small token count with the burns locale grouping", () => {
+    expect(fmtTokens(1234)).toBe("1,234");
+  });
+});
+
 describe("source colors", () => {
   test("gemini and antigravity use different swatches", () => {
     expect(SOURCE_COLORS["Gemini CLI"]).toBeTruthy();
@@ -51,6 +68,33 @@ describe("source colors", () => {
 
   test("Z.AI and Grok use distinct swatches", () => {
     expect(sourceSwatch("Z.AI")).not.toBe(sourceSwatch("Grok"));
+  });
+});
+
+describe("fmtCost", () => {
+  test("renders a dollar sign with grouping and two decimals", () => {
+    expect(fmtCost(12.5)).toBe("$12.50");
+    expect(fmtCost(0)).toBe("$0.00");
+    expect(fmtCost(319041.45)).toBe("$319,041.45");
+  });
+});
+
+describe("fetch-burns-data mapping", () => {
+  const fetchSrc = readFileSync(
+    join(burnsRoot, "scripts/fetch-burns-data.ts"),
+    "utf8"
+  );
+
+  test("maps gemini and antigravity independently via normalizeSource", () => {
+    expect(normalizeSource("gemini")).toBe("Gemini CLI");
+    expect(normalizeSource("antigravity")).toBe("Google Antigravity");
+    expect(normalizeSource("gemini")).not.toBe(normalizeSource("antigravity"));
+
+    expect(fetchSrc).toContain("normalizeSource(");
+    expect(fetchSrc).not.toContain("IN ('antigravity', 'gemini')");
+    expect(fetchSrc).not.toMatch(
+      /source\s*=\s*'gemini'\s+THEN\s+'Google Antigravity'/i
+    );
   });
 });
 

@@ -1,0 +1,20 @@
+{
+  "rows": [
+    {
+      "session_id": "a",
+      "project_path": "/home/duyet/project/monorepo",
+      "tokens": 75,
+      "cost": 1.5
+    },
+    {
+      "session_id": "b",
+      "project_path": "C:\\work\\photos",
+      "tokens": 25,
+      "cost": 0.5
+    }
+  ],
+  "leaderboard": [
+    { "name": "monorepo", "tokens": 75, "cost": 1.5, "pct": 75 },
+    { "name": "photos", "tokens": 25, "cost": 0.5, "pct": 25 }
+  ]
+}

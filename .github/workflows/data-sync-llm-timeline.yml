@@ -29,6 +29,39 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      # scripts/sync-data.ts reaches llm-timeline/lib/{normalizers,csv}.ts, which
+      # import the wasm-pack bundle from @duyet/wasm/pkg and shell out to the
+      # duyet-cli release binary. Both are gitignored, so neither exists after a
+      # fresh checkout and every sync died on ERR_MODULE_NOT_FOUND. Same shape
+      # and action pins as checks.yml; kept in step because the sync script runs
+      # directly through tsx, not through turbo, so no cache split is needed.
+      - name: Setup Rust toolchain (wasm32 + native)
+        uses: dtolnay/rust-toolchain@89b12181fb390509a0842a86cc55eeb8eb928c1d # stable
+        with:
+          targets: wasm32-unknown-unknown
+
+      - name: Cache cargo registry & build
+        uses: actions/cache@v6
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-checks-${{ hashFiles('Cargo.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-cargo-checks-
+
+      - name: Install wasm-pack
+        uses: jetli/wasm-pack-action@0d096b08b4e5a7de8c28de67e11e945404e9eefa # v0.4.0
+        with:
+          version: v0.15.0
+
+      - name: Build WASM packages
+        run: pnpm run wasm:build
+
+      - name: Build duyet-cli
+        run: pnpm run rust:build
+
       - name: Sync data (dry run)
         if: ${{ inputs.dry_run == true }}
         working-directory: apps/llm-timeline

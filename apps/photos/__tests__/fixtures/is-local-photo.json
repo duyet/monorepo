@@ -1,0 +1,34 @@
+{
+  "local": {
+    "id": "local-abc123",
+    "source": "local",
+    "filename": "sunset.jpg",
+    "originalName": "sunset.jpg",
+    "created_at": "2024-05-01T12:00:00Z",
+    "updated_at": "2024-05-01T12:00:00Z",
+    "width": 4000,
+    "height": 3000,
+    "size": 2500000,
+    "mimeType": "image/jpeg",
+    "urls": {
+      "raw": "/uploads/sunset.jpg",
+      "full": "/uploads/sunset.jpg",
+      "regular": "/uploads/sunset.jpg",
+      "small": "/uploads/sunset.jpg",
+      "thumb": "/uploads/sunset.jpg"
+    }
+  },
+  "standard": {
+    "id": "unsplash-xyz789",
+    "provider": "unsplash",
+    "created_at": "2024-04-01T10:00:00Z",
+    "width": 6000,
+    "height": 4000,
+    "urls": {
+      "full": "https://images.unsplash.com/photo-1?w=1200",
+      "regular": "https://images.unsplash.com/photo-1?w=600",
+      "small": "https://images.unsplash.com/photo-1?w=300",
+      "thumb": "https://images.unsplash.com/photo-1?w=100"
+    }
+  }
+}
