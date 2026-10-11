@@ -1,4 +1,10 @@
-import { type JSX, useState } from "react";
+import {
+  type JSX,
+  type KeyboardEvent,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { formatDay, formatMonth } from "../lib/dates";
 import { dayTotals as dayTotalsFor, summarizePeriod } from "../lib/period";
 import {
@@ -68,6 +74,29 @@ export const RANGES = [
 export type RangeKey = (typeof RANGES)[number]["key"];
 const CHART_H = 100;
 
+/**
+ * Roving-tabindex arrow handling: the bar to focus after `key`, or null when
+ * the key is not a navigation key.
+ */
+export function nextBarIndex(
+  key: string,
+  current: number,
+  count: number
+): number | null {
+  switch (key) {
+    case "ArrowLeft":
+      return Math.max(current - 1, 0);
+    case "ArrowRight":
+      return Math.min(current + 1, count - 1);
+    case "Home":
+      return 0;
+    case "End":
+      return count - 1;
+    default:
+      return null;
+  }
+}
+
 export function DailyChart({
   daily,
   filter = null,
@@ -75,6 +104,21 @@ export function DailyChart({
   granularity = "daily",
 }: DailyChartProps): JSX.Element | null {
   const [hovered, setHovered] = useState<number | null>(null);
+  // Touch has no hover: a tap pins the bar's tooltip until the next tap away.
+  const [pinned, setPinned] = useState<number | null>(null);
+  // Roving tabindex: the chart is one tab stop, arrows move between bars.
+  const [active, setActive] = useState<number | null>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
+  const barRefs = useRef<(SVGElement | null)[]>([]);
+
+  useEffect(() => {
+    if (pinned === null) return;
+    const dismiss = (e: PointerEvent) => {
+      if (!frameRef.current?.contains(e.target as Node)) setPinned(null);
+    };
+    document.addEventListener("pointerdown", dismiss);
+    return () => document.removeEventListener("pointerdown", dismiss);
+  }, [pinned]);
 
   if (daily.length === 0) return null;
 
@@ -118,8 +162,10 @@ export function DailyChart({
     .sort((a, b) => b[1] - a[1])
     .map(([name]) => name);
 
-  const hoveredDay = hovered !== null ? recent[hovered] : null;
-  const sources = (hoveredDay?.by_source ?? [])
+  const shown = hovered ?? pinned;
+  const shownDay = shown !== null ? (recent[shown] ?? null) : null;
+  const tabStop = Math.min(active ?? recent.length - 1, recent.length - 1);
+  const sources = (shownDay?.by_source ?? [])
     .map((s: DailyEntrySource) => ({
       ...s,
       name: normalizeSource(s.source),
@@ -139,7 +185,7 @@ export function DailyChart({
 
   return (
     <div className="burns-chart">
-      <div className="burns-chart-frame">
+      <div className="burns-chart-frame" ref={frameRef}>
         <svg
           viewBox={`0 0 100 ${CHART_H}`}
           preserveAspectRatio="none"
@@ -164,15 +210,37 @@ export function DailyChart({
 
             const useStack = stack.length > 0;
             let y = CHART_H;
-            const dim = hovered !== null && hovered !== i;
+            const dim = shown !== null && shown !== i;
             const barAccess = {
               role: "button" as const,
-              tabIndex: 0,
+              tabIndex: i === tabStop ? 0 : -1,
+              ref: (el: SVGElement | null) => {
+                barRefs.current[i] = el;
+              },
               "aria-label": `${label(day.date, true)}: ${fmtTokens(dayTotals[i].tokens)} tokens, ${fmtCost(dayTotals[i].cost)}`,
               onMouseEnter: () => setHovered(i),
               onMouseLeave: () => setHovered(null),
-              onFocus: () => setHovered(i),
+              onFocus: () => {
+                setActive(i);
+                setHovered(i);
+              },
               onBlur: () => setHovered(null),
+              onClick: () => setPinned((p) => (p === i ? null : i)),
+              onKeyDown: (e: KeyboardEvent) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setPinned((p) => (p === i ? null : i));
+                  return;
+                }
+                if (e.key === "Escape") {
+                  setPinned(null);
+                  return;
+                }
+                const next = nextBarIndex(e.key, i, recent.length);
+                if (next === null) return;
+                e.preventDefault();
+                barRefs.current[next]?.focus();
+              },
               style: { cursor: "pointer" as const },
             };
 
@@ -213,10 +281,10 @@ export function DailyChart({
           })}
         </svg>
 
-        {hovered !== null &&
-          hoveredDay &&
+        {shown !== null &&
+          shownDay &&
           (() => {
-            const pct = hovered * barWidth + barWidth / 2;
+            const pct = shown * barWidth + barWidth / 2;
             // Abspos width is the leftover space after `left`. Pin with
             // `right` on the trailing edge so the box can grow leftward.
             const edge = pct < 18 ? "start" : pct > 82 ? "end" : "center";
@@ -233,7 +301,7 @@ export function DailyChart({
             return (
               <div className="burns-tooltip" style={style}>
                 <div className="burns-tooltip-title">
-                  {label(hoveredDay.date, true)}
+                  {label(shownDay.date, true)}
                 </div>
                 {sources.length > 0 ? (
                   <div className="burns-tooltip-grid">
@@ -262,12 +330,12 @@ export function DailyChart({
                   </div>
                 ) : (
                   <div style={{ fontVariantNumeric: "tabular-nums" }}>
-                    {fmtTokens(dayTotals[hovered].tokens)} tokens
+                    {fmtTokens(dayTotals[shown].tokens)} tokens
                   </div>
                 )}
                 <div className="burns-tooltip-foot">
-                  <span>{fmtTokens(dayTotals[hovered].tokens)} total</span>
-                  <span>{fmtCost(dayTotals[hovered].cost)}</span>
+                  <span>{fmtTokens(dayTotals[shown].tokens)} total</span>
+                  <span>{fmtCost(dayTotals[shown].cost)}</span>
                 </div>
               </div>
             );

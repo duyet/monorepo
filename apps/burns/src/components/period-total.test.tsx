@@ -1,7 +1,7 @@
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, test } from "vitest";
 import type { DailyEntry } from "../lib/types";
-import { DailyChart, RANGES } from "./DailyChart";
+import { DailyChart, nextBarIndex, RANGES } from "./DailyChart";
 
 /**
  * Guards the two things the legend line has to get right: the total is scoped
@@ -106,5 +106,24 @@ describe("DailyChart period total", () => {
     expect(html).not.toContain('class="burns-legend"');
     expect(html).toContain('class="burns-legend-line"');
     expect(total(html)).toBe("5.0K");
+  });
+});
+describe("DailyChart keyboard access", () => {
+  test("the chart is one tab stop: only the newest bar is tabbable", () => {
+    const html = markup("30d");
+    const stops = html.match(/tabindex="0"/gi) ?? [];
+    const bars = html.match(/role="button"/g) ?? [];
+    expect(bars).toHaveLength(30);
+    expect(stops).toHaveLength(1);
+  });
+
+  test("arrows, Home and End move between bars and stop at the ends", () => {
+    expect(nextBarIndex("ArrowRight", 3, 10)).toBe(4);
+    expect(nextBarIndex("ArrowLeft", 3, 10)).toBe(2);
+    expect(nextBarIndex("ArrowLeft", 0, 10)).toBe(0);
+    expect(nextBarIndex("ArrowRight", 9, 10)).toBe(9);
+    expect(nextBarIndex("Home", 5, 10)).toBe(0);
+    expect(nextBarIndex("End", 5, 10)).toBe(9);
+    expect(nextBarIndex("Tab", 5, 10)).toBeNull();
   });
 });
