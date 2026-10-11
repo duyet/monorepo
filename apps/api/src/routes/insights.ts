@@ -7,6 +7,7 @@
 
 import { Hono, type Context } from "hono";
 import type { Env } from "../env.js";
+import { edgeCache } from "../lib/edge-cache.js";
 import {
   emptyOverview,
   getAiOverview,
@@ -16,10 +17,12 @@ import {
 } from "../lib/insights.js";
 
 const insightsRouter = new Hono<{ Bindings: Env }>();
+const OVERVIEW_TTL = 300;
+const OVERVIEW_SWR = 3600;
 const FALLBACK_CORS_ORIGIN = "https://insights.duyet.net";
 
-function setCors(c: Context<{ Bindings: Env }>) {
-  const origin = c.req.header("Origin");
+function corsHeaders(request: Request, headers: Headers) {
+  const origin = request.headers.get("Origin");
   const allowedOrigin =
     origin &&
     (/^https:\/\/(insights\.)?duyet\.net$/.test(origin) ||
@@ -27,37 +30,47 @@ function setCors(c: Context<{ Bindings: Env }>) {
       ? origin
       : FALLBACK_CORS_ORIGIN;
 
-  c.header("Access-Control-Allow-Origin", allowedOrigin);
-  c.header("Vary", "Origin");
+  headers.set("Access-Control-Allow-Origin", allowedOrigin);
+  headers.set("Vary", "Origin");
 }
 
-insightsRouter.get("/overview", async (c) => {
-  try {
-    const [ai, waka, cloudflare, posthog] = await Promise.allSettled([
-      getAiOverview(c.env),
-      getWakaOverview(c.env),
-      getCloudflareOverview(c.env),
-      getPostHogOverview(c.env),
-    ]);
+function setCors(c: Context<{ Bindings: Env }>) {
+  const headers = new Headers();
+  corsHeaders(c.req.raw, headers);
+  for (const [key, value] of headers) c.header(key, value);
+}
 
-    setCors(c);
-    c.header(
-      "Cache-Control",
-      "public, max-age=300, stale-while-revalidate=3600"
-    );
-    return c.json({
-      ...emptyOverview(),
-      ...(ai.status === "fulfilled" ? ai.value : {}),
-      ...(waka.status === "fulfilled" ? waka.value : {}),
-      ...(cloudflare.status === "fulfilled" ? cloudflare.value : {}),
-      ...(posthog.status === "fulfilled" ? posthog.value : {}),
-    });
-  } catch (error) {
-    console.error("Error fetching insights overview:", error);
-    setCors(c);
-    return c.json(emptyOverview());
+insightsRouter.get(
+  "/overview",
+  edgeCache({ ttl: OVERVIEW_TTL, swr: OVERVIEW_SWR, decorate: corsHeaders }),
+  async (c) => {
+    try {
+      const [ai, waka, cloudflare, posthog] = await Promise.allSettled([
+        getAiOverview(c.env),
+        getWakaOverview(c.env),
+        getCloudflareOverview(c.env),
+        getPostHogOverview(c.env),
+      ]);
+
+      setCors(c);
+      c.header(
+        "Cache-Control",
+        `public, max-age=${OVERVIEW_TTL}, stale-while-revalidate=${OVERVIEW_SWR}`
+      );
+      return c.json({
+        ...emptyOverview(),
+        ...(ai.status === "fulfilled" ? ai.value : {}),
+        ...(waka.status === "fulfilled" ? waka.value : {}),
+        ...(cloudflare.status === "fulfilled" ? cloudflare.value : {}),
+        ...(posthog.status === "fulfilled" ? posthog.value : {}),
+      });
+    } catch (error) {
+      console.error("Error fetching insights overview:", error);
+      setCors(c);
+      return c.json(emptyOverview());
+    }
   }
-});
+);
 
 insightsRouter.options("*", (c) => {
   setCors(c);
