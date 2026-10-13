@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
 
 import { spawnSync } from "node:child_process";
-import { existsSync, renameSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseEnvFile } from "./parse-env.ts";
@@ -12,7 +12,6 @@ const rootDir = join(scriptDir, "..");
 
 function loadDeployEnv(): Record<string, string> {
   return {
-    ...parseEnvFile(join(rootDir, ".env.production")),
     ...parseEnvFile(join(rootDir, ".env.local")),
     ...Object.fromEntries(
       Object.entries(process.env).filter(
@@ -45,8 +44,6 @@ function runCommand(cmd: string[], cwd: string, env: Record<string, string>) {
     throw result.error;
   }
 
-  // Throw instead of process.exit(): process.exit() terminates immediately and
-  // skips the caller's finally, which is what restores .env.local.
   if (result.status !== 0) {
     throw new CommandFailed(result.status ?? 1);
   }
@@ -71,55 +68,9 @@ if (!existsSync(appPath)) {
 const env = loadDeployEnv();
 const outputDir = readOutputDir(appDir, explicitOutputDir);
 const productionBranch = env.CF_PAGES_PRODUCTION_BRANCH || "main";
-const envLocal = join(rootDir, ".env.local");
-const envLocalBackup = join(rootDir, ".env.local.deploy-bak");
-let movedEnvLocal = false;
-
-// Self-heal a leak from a previous run that died uncatchably (SIGTERM, OOM
-// kill, power loss). Without this, .env.local stays parked as the .bak file
-// and every later deploy refuses to start.
-if (!existsSync(envLocal) && existsSync(envLocalBackup)) {
-  renameSync(envLocalBackup, envLocal);
-  console.log("  ↩ Restored .env.local left behind by an interrupted deploy");
-}
-
-/** Idempotent: safe to call from both the finally block and signal handlers. */
-function restoreEnvLocal() {
-  if (movedEnvLocal && existsSync(envLocalBackup)) {
-    renameSync(envLocalBackup, envLocal);
-    movedEnvLocal = false;
-    console.log("  ↩ Restored .env.local");
-  }
-}
-
-// The event loop is blocked inside spawnSync while the build runs, so these
-// fire only once the child returns. Registering them matters anyway: without a
-// listener Node terminates on SIGTERM immediately and never reaches the
-// finally block, stranding .env.local. The 128+signal exit codes are the
-// conventional shell convention.
-for (const [signal, code] of [
-  ["SIGHUP", 129],
-  ["SIGINT", 130],
-  ["SIGTERM", 143],
-] as const) {
-  process.on(signal, () => {
-    restoreEnvLocal();
-    process.exit(code);
-  });
-}
-
 let exitCode = 0;
 
 try {
-  if (existsSync(envLocal)) {
-    if (existsSync(envLocalBackup)) {
-      throw new Error(`Refusing to overwrite existing backup: ${envLocalBackup}`);
-    }
-
-    renameSync(envLocal, envLocalBackup);
-    movedEnvLocal = true;
-  }
-
   runCommand(["pnpm", "run", "build"], appPath, env);
   runCommand(
     [
@@ -139,9 +90,6 @@ try {
 } catch (err) {
   exitCode = err instanceof CommandFailed ? err.code : 1;
   console.error(err instanceof CommandFailed ? `✗ ${err.message}` : err);
-} finally {
-  restoreEnvLocal();
 }
 
-// Exiting only after the finally block keeps the .env.local restore in effect.
 process.exit(exitCode);

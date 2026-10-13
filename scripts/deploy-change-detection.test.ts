@@ -95,16 +95,16 @@ describe("selectAppsToBuild", () => {
   });
 
   it("does not full-rebuild for a deploy-only config change", () => {
-    // .env.production holds secrets, not build inputs: it must not cause a
-    // rebuild of every app, but it is still worth logging.
+    // The orchestrator is a deployment input, not a build input: it must not
+    // cause a rebuild of every app, but it is still worth logging.
     const { apps, logLines } = selectAppsToBuild({
-      changedFiles: [".env.production"],
+      changedFiles: ["scripts/cf-deploy.ts"],
       requestedApps: REQUESTED,
     });
     expect(apps).toEqual(REQUESTED); // via the no-changes safety fallback
     expect(logLines).toEqual([
       "[INFO] No app changes detected",
-      "[INFO] Config changes (deployment only): .env.production",
+      "[INFO] Config changes (deployment only): scripts/cf-deploy.ts",
       "[INFO] No app changes detected. Building all apps for safety.",
     ]);
   });

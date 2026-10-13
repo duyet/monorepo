@@ -40,29 +40,9 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const rootDir = join(__dirname, "..");
 
-function loadEnvFiles(paths: string[]): Record<string, string> {
-  const merged: Record<string, string> = {};
-  for (const filePath of paths) {
-    const parsed = parseEnvFile(filePath);
-    for (const [key, value] of Object.entries(parsed)) {
-      if (!(key in merged) || merged[key] === "") {
-        merged[key] = value;
-      }
-    }
-  }
-  return merged;
-}
-
-// Load production environment from .env.production
-// These values override .env.local during build (process.env has highest precedence)
-const envProductionPath = join(rootDir, ".env.production");
-const PRODUCTION_ENV = parseEnvFile(envProductionPath);
-const DEPLOY_ENV = loadEnvFiles([
-  join(rootDir, ".env.production.local"),
-  join(rootDir, ".env.local"),
-  join(rootDir, ".env.production"),
-  join(rootDir, ".env"),
-]);
+// Deploy-time env (secrets and public build values) lives in .env.local only.
+// Anything already in process.env, such as CI secrets, still wins.
+const DEPLOY_ENV = parseEnvFile(join(rootDir, ".env.local"));
 
 const CLOUDFLARE_ENV = {
   CLOUDFLARE_API_TOKEN:
@@ -206,7 +186,7 @@ async function preflightCloudflareAuth(): Promise<boolean> {
       "[ERROR] Cloudflare auth is missing for non-interactive deployment."
     );
     console.error(
-      "[ERROR] Set CLOUDFLARE_API_TOKEN in shell or .env.production.local before running cf:deploy."
+      "[ERROR] Set CLOUDFLARE_API_TOKEN in shell or .env.local before running cf:deploy."
     );
     console.error(
       "[ERROR] Docs: https://developers.cloudflare.com/fundamentals/api/get-started/create-token/"
@@ -313,18 +293,10 @@ async function buildAllApps(): Promise<boolean> {
   console.log(
     `[INFO] Building ${appsWithBuildScript.length} app(s) for deployment: ${appsWithBuildScript.join(", ")}`
   );
-  console.log(`[INFO] Loading environment from: .env.production`);
-  console.log(`[INFO] Production URLs:`);
-  console.log(
-    `       VITE_DUYET_HOME_URL=${PRODUCTION_ENV.VITE_DUYET_HOME_URL || PRODUCTION_ENV.NEXT_PUBLIC_DUYET_HOME_URL || "(not set)"}`
-  );
-  console.log(
-    `       VITE_DUYET_BLOG_URL=${PRODUCTION_ENV.VITE_DUYET_BLOG_URL || PRODUCTION_ENV.NEXT_PUBLIC_DUYET_BLOG_URL || "(not set)"}`
-  );
-  console.log(`       NODE_ENV=${PRODUCTION_ENV.NODE_ENV || "(not set)"}`);
+  console.log(`[INFO] Loading environment from: .env.local`);
 
   // Build each app individually to handle failures gracefully
-  // Pass DEPLOY_ENV which sets process.env values directly (including secrets from .env.production.local)
+  // Pass DEPLOY_ENV which sets process.env values directly (including secrets from .env.local)
   const buildResults = await Promise.all(
     appsWithBuildScript.map((app) =>
       runCommand(

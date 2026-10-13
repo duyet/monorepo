@@ -75,7 +75,7 @@ const myUrls = createUrls(duyetUrls, {
 URLs automatically respect environment variables:
 
 ```bash
-# .env or .env.local
+# .env.local (optional, production URLs are the defaults in code)
 NEXT_PUBLIC_DUYET_BLOG_URL=https://blog.duyet.net
 NEXT_PUBLIC_DUYET_HOME_URL=https://duyet.net
 NEXT_PUBLIC_DUYET_CV_URL=https://cv.duyet.net

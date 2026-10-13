@@ -83,18 +83,7 @@ export const appConfig: Record<
       "POSTGRES_PASSWORD",
       "CLERK_SECRET_KEY",
     ],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_DUYET_API_URL",
-      "NEXT_PUBLIC_AUTH0_ADMIN_EMAIL",
-      "NEXT_PUBLIC_AUTH0_DOMAIN",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-insights": {
     secrets: [
@@ -114,16 +103,7 @@ export const appConfig: Record<
       "CLOUDFLARE_API_TOKEN",
       "CLERK_SECRET_KEY",
     ],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_MEASUREMENT_ID",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-photos": {
     secrets: [
@@ -133,67 +113,23 @@ export const appConfig: Record<
       "CLOUDINARY_CLOUD_NAME",
       "CLERK_SECRET_KEY",
     ],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "UNSPLASH_USERNAME",
-      "PHOTOS_OWNER_USERNAME",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-home": {
     secrets: ["CLERK_SECRET_KEY"],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_DUYET_API_URL",
-      "NEXT_PUBLIC_DUYET_AI_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-cv": {
     secrets: ["CLERK_SECRET_KEY"],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-homelab": {
     secrets: ["CLERK_SECRET_KEY"],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-llm-timeline": {
     secrets: ["CLERK_SECRET_KEY"],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-agent-api": {
     secrets: [
@@ -206,15 +142,7 @@ export const appConfig: Record<
   },
   "duyet-ai": {
     secrets: ["CLERK_SECRET_KEY"],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
   "duyet-burns": {
     secrets: ["MOTHERDUCK_TOKEN"],
@@ -222,46 +150,25 @@ export const appConfig: Record<
   },
   "duyet-ai-percentage": {
     secrets: ["CLERK_SECRET_KEY"],
-    buildVars: [
-      "NEXT_PUBLIC_DUYET_BLOG_URL",
-      "NEXT_PUBLIC_DUYET_CV_URL",
-      "NEXT_PUBLIC_DUYET_HOMELAB_URL",
-      "NEXT_PUBLIC_DUYET_INSIGHTS_URL",
-      "NEXT_PUBLIC_DUYET_PHOTOS_URL",
-      "NEXT_PUBLIC_DUYET_HOME_URL",
-      "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY",
-    ],
+    buildVars: [],
   },
 };
 
 function loadEnvFiles(): Record<string, string> {
   const env: Record<string, string> = {};
 
-  // 1. Load from root .env files (base configuration)
-  const rootEnvFiles = [
-    ".env",
-    ".env.local",
-    ".env.production",
-  ];
-  for (const file of rootEnvFiles) {
-    const filePath = join(rootDir, file);
-    if (!existsSync(filePath)) continue;
-
-    const content = readFileSync(filePath, "utf-8");
-    Object.assign(env, parseEnvContent(content));
+  // 1. Load from the root .env.local (base configuration)
+  const rootEnvPath = join(rootDir, ".env.local");
+  if (existsSync(rootEnvPath)) {
+    Object.assign(env, parseEnvContent(readFileSync(rootEnvPath, "utf-8")));
   }
 
-  // 2. Load from app-specific .env files (overrides root values)
+  // 2. Load from the app-specific .env.local (overrides root values)
   const dirName = appName.replace("duyet-", "");
   const appDir = join(rootDir, "apps", dirName);
-  const appEnvFiles = [".env", ".env.local", ".env.production"];
-
-  for (const file of appEnvFiles) {
-    const appEnvPath = join(appDir, file);
-    if (!existsSync(appEnvPath)) continue;
-
-    const content = readFileSync(appEnvPath, "utf-8");
-    Object.assign(env, parseEnvContent(content));
+  const appEnvPath = join(appDir, ".env.local");
+  if (existsSync(appEnvPath)) {
+    Object.assign(env, parseEnvContent(readFileSync(appEnvPath, "utf-8")));
   }
 
   return env;
@@ -451,7 +358,7 @@ async function main() {
   const env = loadEnvFiles();
   if (Object.keys(env).length === 0) {
     console.error(
-      `  [ERROR] No environment variables found in root .env files`
+      `  [ERROR] No environment variables found in root .env.local`
     );
     process.exit(1);
   }

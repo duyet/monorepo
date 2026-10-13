@@ -26,13 +26,13 @@ changed files match:
 - `pnpm-lock.yaml`
 - `.npmrc`
 
-`turbo.json`, `.env.production`, and most of `scripts/` do **not** force every
+`turbo.json` and most of `scripts/` do **not** force every
 Pages app to rebuild in CI.
 
 ### Local / manual (`scripts/cf-deploy.ts`)
 
 `pnpm run cf:deploy` still diffs `origin/main...HEAD` and also watches
-`turbo.json`, `.env.production`, and `scripts/` for full rebuilds. A
+`turbo.json` and `scripts/` for full rebuilds. A
 lockfile-only or `packages/**` change rebuilds every requested Pages app.
 `--force` skips detection (`pnpm run cf:deploy -- --force`).
 

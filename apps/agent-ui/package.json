@@ -12,7 +12,7 @@
     "test": "vitest run",
     "start": "vite preview --port 3008",
     "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-agents",
-    "cf:deploy": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
+    "cf:deploy": "dotenv -e ../../.env.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-agents --commit-dirty=true",
     "cf:deploy:prod": "tsx ../../scripts/cf-deploy-prod.ts agent-ui duyet-agents"
   },
   "dependencies": {

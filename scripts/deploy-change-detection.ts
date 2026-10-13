@@ -11,9 +11,9 @@
  * Note this is deliberately NOT the same policy as
  * `selectAppsToDeploy` in `cf-pages-apps.ts`, which drives the CI matrix.
  * The two watch different file sets (this one also treats `turbo.json` as
- * build-everything and reports `.env.production` / `scripts/cf-deploy.ts` as
- * deploy-only, while the matrix one keys off `.npmrc`) and this one falls back
- * to building everything when it detects no app changes. Unifying them would
+ * build-everything and reports `scripts/cf-deploy.ts` as deploy-only, while
+ * the matrix one keys off `.npmrc`) and this one falls back to building
+ * everything when it detects no app changes. Unifying them would
  * change what gets deployed, so they stay separate.
  */
 
@@ -28,7 +28,6 @@ export const CHANGE_DETECTION_PATHS = [
   "turbo.json",
   "package.json",
   "pnpm-lock.yaml",
-  ".env.production",
   "scripts/",
 ] as const;
 
@@ -37,10 +36,10 @@ const CORE_CONFIG_FILES = ["turbo.json", "package.json", "pnpm-lock.yaml"];
 
 /**
  * Changed files worth reporting but not worth a full rebuild on their own.
- * These are deployment inputs (secrets, the orchestrator itself) rather than
- * build inputs.
+ * This is a deployment input (the orchestrator itself) rather than a build
+ * input.
  */
-const DEPLOY_ONLY_FILES = [".env.production", "scripts/cf-deploy.ts"];
+const DEPLOY_ONLY_FILES = ["scripts/cf-deploy.ts"];
 
 export interface ChangeDetectionResult {
   /** Apps to build, in build order. */

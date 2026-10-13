@@ -66,7 +66,7 @@ pnpm run deploy
 
 ## Environment Variables
 
-Set these in your `.env` file or Cloudflare Workers secrets:
+Set these in the root `.env.local` or Cloudflare Workers secrets:
 
 - `OPENROUTER_API_KEY`: API key for OpenRouter (for AI descriptions)
 

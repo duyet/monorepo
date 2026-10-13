@@ -6,7 +6,7 @@ This photos app now supports **mixed content from multiple providers**: Unsplash
 
 ### Environment Variables
 
-Add the following environment variables to your `.env` or `.env.local` file:
+Add the following environment variables to the root `.env.local` file:
 
 ```bash
 # Cloudinary Configuration

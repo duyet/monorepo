@@ -13,7 +13,7 @@
     "lint": "biome lint .",
     "start": "vite preview --port 3005",
     "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-llm-timeline",
-    "cf:deploy": "dotenv -e ../../.env.production -e ../../.env.production.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-llm-timeline --commit-dirty=true",
+    "cf:deploy": "dotenv -e ../../.env.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-llm-timeline --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh llm-timeline duyet-llm-timeline",
     "rss": "tsx scripts/generate-rss.ts",
     "llms-txt": "tsx scripts/generate-llms-txt.ts",

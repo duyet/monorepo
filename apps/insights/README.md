@@ -4,7 +4,7 @@ Analytics dashboard for https://insights.duyet.net (Cloudflare Pages project `du
 
 ## Environment Variables
 
-There is no `.env.local.example`. Copy values into `.env.local` (gitignored) for local scripts, or set them on the Cloudflare Pages project. Names match `apps/insights/environment.d.ts`.
+Copy values from the root `.env.example` into the root `.env.local` (gitignored) for local scripts, or set them on the Cloudflare Pages project. Names match `apps/insights/environment.d.ts`.
 
 ### Server / build-time
 

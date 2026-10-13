@@ -83,7 +83,7 @@ Cloudflare. For a brand-new app:
 
 ```bash
 # 1) Create the project (one-time)
-set -a && source ../../.env.production.local && set +a
+set -a && source ../../.env.local && set +a
 pnpm dlx wrangler pages project create duyet-kb --production-branch main
 
 # 2) Deploy

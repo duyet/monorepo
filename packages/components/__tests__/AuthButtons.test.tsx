@@ -14,7 +14,7 @@ const fakeClerkModule = {
   UserButton: () => null,
 };
 
-// The publishable key AuthButtons reads comes from .env.test — each module
+// The publishable key AuthButtons reads comes from the `define` in vitest.config.ts — each module
 // gets its own import.meta.env object, so it cannot be stubbed from here.
 describe("AuthButtons with a host-owned ClerkProvider", () => {
   it("renders on the first render when the module is already available", () => {

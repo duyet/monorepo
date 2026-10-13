@@ -59,12 +59,7 @@
     "CLICKHOUSE_NEWS_USER",
     "CLICKHOUSE_NEWS_PASSWORD"
   ],
-  "globalDependencies": [
-    ".env",
-    ".env.local",
-    ".env.development",
-    ".env.production"
-  ],
+  "globalDependencies": [".env.local"],
   "tasks": {
     "build": {
       "outputs": ["dist/**", ".output/**"],

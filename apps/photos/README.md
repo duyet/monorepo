@@ -221,7 +221,7 @@ pnpm run start
 3. Photos appear in your gallery with full metadata!
 
 ### Environment Variables
-Required in `turbo.json` or `.env`:
+Required in `turbo.json` or the root `.env.local`:
 ```
 UNSPLASH_ACCESS_KEY=your_unsplash_access_key
 ```

@@ -52,7 +52,7 @@ pnpm run cf:deploy:prod
 
 ### Environment Variables
 
-Environment variables are defined at the monorepo root in `.env` or `.env.local`:
+Environment variables are defined at the monorepo root in `.env.local` (template: `.env.example`):
 
 ```bash
 # Cross-app navigation
