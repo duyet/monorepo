@@ -75,6 +75,9 @@ function barLabel(date: string, view: View, long = false): string {
   return formatDay(date);
 }
 
+const fmtFullTokens = (n: number): string =>
+  Math.round(n).toLocaleString("en-US");
+
 export function DailyChart({
   days,
   series,
@@ -335,7 +338,7 @@ export function DailyChart({
             <div className="burns-tip-head">
               <b>{barLabel(column.date, view, true)}</b>
               <span className="burns-tip-total">
-                {fmtCompactTokens(columnTotal(column).tokens)} ·{" "}
+                {fmtFullTokens(columnTotal(column).tokens)} ·{" "}
                 {fmtCost(columnTotal(column).cost)}
               </span>
             </div>
@@ -352,7 +355,7 @@ export function DailyChart({
                     </span>
                     {name}
                   </span>
-                  <span>{fmtCompactTokens(tokens)}</span>
+                  <span>{fmtFullTokens(tokens)}</span>
                   <span className="burns-tip-cost">{fmtCost(cost)}</span>
                 </div>
               );

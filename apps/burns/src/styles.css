@@ -411,11 +411,15 @@ body {
 
 .burns-tip-row {
   display: grid;
-  grid-template-columns: 1fr auto 48px;
+  grid-template-columns: 1fr auto 56px;
   align-items: center;
   gap: 16px;
   padding: 2px 0;
   font-variant-numeric: tabular-nums;
+}
+
+.burns-tip-row > span:nth-child(2) {
+  text-align: right;
 }
 
 .burns-tip-name {
