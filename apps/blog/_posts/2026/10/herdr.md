@@ -1,5 +1,5 @@
 ---
-title: Herdr
+title: herdr
 date: 2026-10-04
 author: Duyet
 category: AI
