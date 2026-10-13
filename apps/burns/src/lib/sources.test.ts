@@ -3,13 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, test } from "vitest";
 import { requiresFreshBurnsData } from "./freshness";
-import {
-  fmtCost,
-  fmtTokens,
-  normalizeSource,
-  SOURCE_COLORS,
-  sourceSwatch,
-} from "./sources";
+import { fmtCost, fmtTokens, normalizeSource } from "./sources";
 
 const burnsRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 
@@ -57,25 +51,12 @@ describe("fmtTokens", () => {
   });
 });
 
-describe("source colors", () => {
-  test("gemini and antigravity use different swatches", () => {
-    expect(SOURCE_COLORS["Gemini CLI"]).toBeTruthy();
-    expect(SOURCE_COLORS["Google Antigravity"]).toBeTruthy();
-    expect(sourceSwatch("Gemini CLI")).not.toBe(
-      sourceSwatch("Google Antigravity")
-    );
-  });
-
-  test("Z.AI and Grok use distinct swatches", () => {
-    expect(sourceSwatch("Z.AI")).not.toBe(sourceSwatch("Grok"));
-  });
-});
-
 describe("fmtCost", () => {
-  test("renders a dollar sign with grouping and two decimals", () => {
-    expect(fmtCost(12.5)).toBe("$12.50");
+  test("shows cents below $10, whole dollars from $10, commas from $1,000", () => {
     expect(fmtCost(0)).toBe("$0.00");
-    expect(fmtCost(319041.45)).toBe("$319,041.45");
+    expect(fmtCost(0.27)).toBe("$0.27");
+    expect(fmtCost(12.5)).toBe("$13");
+    expect(fmtCost(319041.45)).toBe("$319,041");
   });
 });
 

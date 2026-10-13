@@ -16,19 +16,6 @@ export const DISPLAY_SOURCES = [
 
 export type DisplaySource = (typeof DISPLAY_SOURCES)[number];
 
-export const SOURCE_COLORS: Record<string, string> = {
-  "Claude Code": "#D97757",
-  Codex: "#10A37F",
-  "Gemini CLI": "#4B64E8",
-  Grok: "#1A1A1A",
-  opencode: "#7C3AED",
-  "Z.AI": "#111111",
-  "Google Antigravity": "#FFE432",
-  Hermes: "#6366F1",
-  OpenClaw: "#0EA5E9",
-  pi: "#F59E0B",
-};
-
 const DISPLAY_BY_LOWER = new Map<string, string>(
   DISPLAY_SOURCES.map((name: string): [string, string] => [
     name.toLowerCase(),
@@ -75,29 +62,47 @@ export function normalizeSource(raw: string, modelName = ""): string {
   return trimmed;
 }
 
-export function sourceSwatch(name: string): string {
-  if (name === "Z.AI") return "#737373";
-  if (name === "Grok") return "#9a9994";
-  return SOURCE_COLORS[name] ?? "var(--muted)";
-}
-
 export function fmtTokens(n: number): string {
   return n.toLocaleString(BURNS_LOCALE);
 }
 
-export function fmtCompactTokens(n: number): string {
-  const abs = Math.abs(n);
-  const sign = n < 0 ? "-" : "";
-  if (abs >= 1e12) return `${sign}${(abs / 1e12).toFixed(1)}T`;
-  if (abs >= 1e9) return `${sign}${(abs / 1e9).toFixed(1)}B`;
-  if (abs >= 1e6) return `${sign}${(abs / 1e6).toFixed(1)}M`;
-  if (abs >= 1e3) return `${sign}${(abs / 1e3).toFixed(1)}K`;
-  return n.toLocaleString(BURNS_LOCALE);
+const COMPACT_UNITS = [
+  [1e12, "T"],
+  [1e9, "B"],
+  [1e6, "M"],
+  [1e3, "K"],
+  [1, ""],
+] as const;
+
+/** ~3 significant digits, no trailing ".0". */
+function threeDigits(x: number): number {
+  if (x >= 100) return Math.round(x);
+  return x >= 10 ? +x.toFixed(1) : +x.toFixed(2);
 }
 
+/**
+ * Compact token count: T/B/M/K with ~3 significant digits and no trailing
+ * ".0" ("8.76B", "12.3K", "189B"). A value that rounds up to 1000 moves to
+ * the next unit instead of reading "1000K".
+ */
+export function fmtCompactTokens(n: number): string {
+  if (!n) return "0";
+  const abs = Math.abs(n);
+  const sign = n < 0 ? "-" : "";
+  let at = COMPACT_UNITS.findIndex(([div]) => abs >= div);
+  if (at < 0) at = COMPACT_UNITS.length - 1;
+  let value = threeDigits(abs / COMPACT_UNITS[at][0]);
+  if (value >= 1000 && at > 0) {
+    at -= 1;
+    value = threeDigits(abs / COMPACT_UNITS[at][0]);
+  }
+  return `${sign}${value}${COMPACT_UNITS[at][1]}`;
+}
+
+/** Dollars: commas from 1,000, whole dollars from 10, cents below. */
 export function fmtCost(n: number): string {
-  return `$${n.toLocaleString(BURNS_LOCALE, {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })}`;
+  if (n >= 10) {
+    return `$${Math.round(n).toLocaleString(BURNS_LOCALE)}`;
+  }
+  return `$${n.toFixed(2)}`;
 }

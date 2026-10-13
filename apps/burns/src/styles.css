@@ -6,39 +6,53 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --canvas: #ffffff;
-  --ink: #0c0c0c;
-  --background: var(--canvas);
-  --foreground: var(--ink);
-  --body: #3a3a38;
-  --muted: #6e6d68;
-  --muted-foreground: #6e6d68;
-  --muted-soft: #76756f;
-  --hairline: #e8e8e6;
-  --surface-card: #ffffff;
-  --on-dark: #f4f3f1;
+  --bg: #fbfbfa;
+  --fg: #111110;
+  --muted: #8a8985;
+  --line: #e8e7e3;
+  --soft: #f1f0ec;
+  --pop: #ffffff;
+  --claude: #d97757;
+  --s0: #d97757;
+  --s1: #7c3aed;
+  --s2: #2563eb;
+  --s3: #3f3f46;
+  --s4: #0d9488;
+  --s5: #16a34a;
+  --s6: #dc2626;
+  --s7: #d97706;
+  --s8: #db2777;
+  --s9: #4b64e8;
+  --open: #7c3aed;
+  --other: #b5b3ad;
+  --up: #2f8f5b;
   --sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-}
-
-.dark {
-  --canvas: #0a0a0a;
-  --ink: #f4f3f1;
-  --background: var(--canvas);
-  --foreground: var(--ink);
-  --body: #c8c7c2;
-  --muted: #9a9994;
-  --muted-foreground: #9a9994;
-  --muted-soft: #7a7974;
-  --hairline: #242424;
-  --surface-card: #111111;
-  --on-dark: #f4f3f1;
-}
-
-html {
+  --mono: ui-monospace, Menlo, monospace;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
   color-scheme: light;
 }
 
-html.dark {
+.dark {
+  --bg: #0b0b0c;
+  --fg: #f2f1ee;
+  --muted: #7d7c78;
+  --line: #222220;
+  --soft: #18181a;
+  --pop: #1a1a1c;
+  --claude: #e8896a;
+  --s0: #e8896a;
+  --s1: #9f6bff;
+  --s2: #60a5fa;
+  --s3: #d4d4d8;
+  --s4: #2dd4bf;
+  --s5: #4ade80;
+  --s6: #f87171;
+  --s7: #fbbf24;
+  --s8: #f472b6;
+  --s9: #818cf8;
+  --open: #9f6bff;
+  --other: #55544f;
+  --up: #4cc283;
   color-scheme: dark;
 }
 
@@ -54,650 +68,618 @@ body {
 
 body {
   font-family: var(--sans);
-  color: var(--ink);
-  background: var(--canvas);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
 }
 
+/* One screen: the chart flexes to whatever the rest leaves, so the page only
+   scrolls when the viewport is too small for the chart's minimum. */
 .burns-page {
-  width: 100%;
   min-height: 100dvh;
-  padding: 28px 32px 32px;
   display: flex;
   flex-direction: column;
-  gap: 36px;
+  padding: clamp(16px, 4vh, 40px) clamp(16px, 4vw, 48px);
 }
 
 .burns-header {
   display: flex;
-  align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
+  align-items: center;
+  gap: 12px;
 }
 
 .burns-header-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
-  flex-shrink: 0;
+  gap: 20px;
 }
 
 .burns-eyebrow {
   margin: 0;
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
-.burns-title {
-  margin: 4px 0 0;
-  font-size: 15px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--ink);
+/* Plain-text switches: no chrome, the active one is solid. */
+.burns-tabs {
+  display: inline-flex;
+  gap: 16px;
 }
 
-/*
- * Sizing context for the count: `cqi` below resolves against this box, which
- * is the page's content width. Fitting to the container instead of the viewport
- * means the page padding is already accounted for.
- */
+.burns-tabs button,
+.burns-text-btn {
+  all: unset;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--muted);
+  transition: color 0.2s;
+}
+
+.burns-tabs button:hover,
+.burns-text-btn:hover,
+.burns-text-btn:focus-visible {
+  color: var(--fg);
+}
+
+.burns-tabs button[aria-pressed="true"] {
+  color: var(--fg);
+  font-weight: 500;
+}
+
+.burns-tabs button:focus-visible,
+.burns-text-btn:focus-visible,
+.burns-agent:focus-visible,
+.burns-key:focus-visible,
+.burns-bar:focus-visible {
+  outline: 2px solid var(--claude);
+  outline-offset: 1px;
+}
+
 .burns-hero {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  margin-top: clamp(16px, 5vh, 48px);
   container-type: inline-size;
 }
 
-/*
- * Wrapper owns the typography the probe measures against, and clips it.
- * Letter-spacing is on the sized elements below rather than here: `em` in
- * letter-spacing resolves against the element's own font-size, so it has to
- * track the count's size to stay the same proportion of it.
- */
-.burns-count-fit {
-  position: relative;
-  display: block;
-  width: 100%;
-  overflow: clip;
-  font-family: var(--sans);
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-}
-
-/*
- * The count, sized to fill its box: `--count-em` is the formatted string's own
- * width in em (see `lib/count.ts`), which is what makes the size follow the
- * number of digits rather than the viewport. AnimatedCounter measures the real
- * glyphs once the webfont is in and overrides this; this size is what the
- * prerendered HTML shows until it does.
- */
+/* Sized from the container so the exact total spans the page at any width. */
 .burns-count {
-  display: block;
-  font-size: min(8rem, calc(100cqi / var(--count-em, 8)));
-  line-height: 0.95;
-  letter-spacing: -0.045em;
+  font-size: min(12.4cqi, 20vh);
   white-space: nowrap;
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 0.9;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Measured, never painted. */
-.burns-count-probe {
+.burns-sub {
+  margin: clamp(8px, 1.6vh, 18px) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  align-items: baseline;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.burns-delta {
+  color: var(--up);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.burns-agents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: clamp(8px, 2.5vh, 28px);
+  margin-left: -8px;
+}
+
+.burns-agent {
+  all: unset;
+  position: relative;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: var(--muted);
+  transition:
+    background 0.2s,
+    opacity 0.25s,
+    transform 0.25s var(--ease);
+}
+
+.burns-agent .burns-mark {
+  width: 20px;
+  height: 20px;
+  transition: filter 0.25s;
+}
+
+.burns-agent:hover {
+  background: var(--soft);
+  color: var(--fg);
+  transform: translateY(-2px);
+}
+
+.burns-agent[aria-pressed="true"] {
+  background: var(--soft);
+  color: var(--fg);
+}
+
+.burns-agents[data-filtering] .burns-agent:not([aria-pressed="true"]) {
+  opacity: 0.35;
+}
+
+.burns-agents[data-filtering]
+  .burns-agent:not([aria-pressed="true"])
+  .burns-mark {
+  filter: grayscale(1);
+}
+
+.burns-agent::after {
+  content: attr(data-tip);
   position: absolute;
-  top: 0;
-  left: 0;
-  visibility: hidden;
-  letter-spacing: -0.045em;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translate(-50%, 4px);
+  background: var(--pop);
+  color: var(--fg);
+  border: 1px solid var(--line);
+  box-shadow: 0 6px 18px rgb(0 0 0 / 0.08);
+  font-size: 12px;
+  padding: 5px 9px;
+  border-radius: 7px;
   white-space: nowrap;
   pointer-events: none;
+  opacity: 0;
+  transition:
+    opacity 0.15s,
+    transform 0.2s var(--ease);
+  z-index: 3;
 }
 
-.burns-hero-kicker {
-  margin: 0;
-  font-size: 13px;
-  color: var(--body);
+.burns-agent:hover::after,
+.burns-agent:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }
 
-.burns-hero-meta {
-  margin: 0;
-  font-size: 12px;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-/* A date range or an "Updated …" date stays one unit when the line wraps. */
-.burns-nowrap {
-  white-space: nowrap;
-}
-
-.burns-hero .burns-icons {
-  margin-top: 10px;
-}
-
-.burns-section {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding-top: 28px;
-}
-
-.burns-section-chart {
-  margin-block: auto;
-}
-
-.burns-section-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.burns-section-title {
-  margin: 0;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-
-.burns-section-meta {
-  margin: 0;
+/* An agent's mark: a fixed box the SVG fills, whatever its viewBox. */
+.burns-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
   font-size: 11px;
-  color: var(--muted-soft);
-  font-variant-numeric: tabular-nums;
-}
-
-.burns-switch {
-  display: flex;
-  align-items: center;
-  gap: 2px;
-}
-
-.burns-switch button {
-  padding: 2px 8px;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  font-size: 11px;
-  color: var(--muted-soft);
-  cursor: pointer;
-  font-variant-numeric: tabular-nums;
-}
-
-.burns-switch button:hover {
-  color: var(--ink);
-}
-
-.burns-switch button[aria-pressed="true"] {
-  color: var(--ink);
   font-weight: 600;
 }
 
-.burns-footer {
+.burns-mark svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.burns-controls {
+  margin-top: clamp(16px, 4vh, 56px);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding-top: 8px;
-  font-size: 12px;
-}
-
-.burns-footer a {
-  color: var(--muted);
-  text-decoration: none;
-}
-
-.burns-footer a:hover {
-  color: var(--ink);
-}
-
-/* Legend left, period total right, on one line that wraps as a unit. */
-.burns-legend-line {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px 16px;
-  margin-top: 10px;
-}
-
-.burns-legend {
-  display: flex;
   flex-wrap: wrap;
-  gap: 8px 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  font-size: 11px;
-  color: var(--muted);
-}
-
-/* The period total, doubling as the trigger for its own breakdown dialog. */
-.burns-period-total {
-  display: flex;
-  align-items: baseline;
-  gap: 6px;
-  flex-shrink: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  font-size: 11px;
-  color: var(--ink);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.burns-period-total:hover .burns-period-scope {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.burns-period-scope {
-  color: var(--muted-soft);
-}
-
-@media (width <= 480px) {
-  .burns-legend-line {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-}
-
-.burns-legend li {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.burns-swatch {
-  width: 8px;
-  height: 8px;
-  flex-shrink: 0;
-  box-shadow: inset 0 0 0 1px rgb(12 12 12 / 0.14);
-}
-
-.dark .burns-swatch {
-  box-shadow: inset 0 0 0 1px rgb(244 243 241 / 0.22);
+  gap: 10px;
 }
 
 .burns-chart {
-  width: 100%;
-}
-
-.burns-chart-frame {
   position: relative;
-  width: 100%;
+  margin-top: clamp(8px, 2vh, 24px);
+  flex: 1;
+  min-height: 180px;
+  cursor: default;
+  /* Horizontal drags are ours; vertical ones still scroll the page. */
+  touch-action: pan-y;
 }
 
-.burns-chart svg {
-  display: block;
-  width: 100%;
-  height: 168px;
-}
-
-.burns-chart svg [tabindex]:focus {
-  outline: none;
-}
-
-.burns-chart svg [tabindex]:focus-visible {
-  outline: 1px solid var(--ink);
-}
-
-.burns-chart-axis {
+.burns-bars {
+  position: absolute;
+  inset: 22px 0 0 0;
   display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
+  align-items: flex-end;
+  gap: var(--gap, 3px);
+}
+
+.burns-bar {
+  flex: 1;
+  display: flex;
+  flex-direction: column-reverse;
+  height: 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 3px 3px 1px 1px;
+  transition:
+    height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.25s ease,
+    filter 0.25s ease;
+}
+
+.burns-bar span {
+  display: block;
+  transition: height 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.burns-bar span + span {
+  box-shadow: 0 1px 0 var(--bg);
+}
+
+.burns-chart[data-active] .burns-bar:not([data-on]) {
+  opacity: 0.3;
+  filter: saturate(0.4);
+}
+
+.burns-cross {
+  position: absolute;
+  left: 0;
+  top: 22px;
+  bottom: 0;
+  width: 1px;
+  background: var(--fg);
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+  transition:
+    opacity 0.2s ease,
+    transform 0.22s var(--ease);
+}
+
+.burns-chart[data-active] .burns-cross {
+  opacity: 0.2;
+}
+
+/* The tallest bar always fills the plot, so its label sits at the plot top. */
+.burns-peak {
+  position: absolute;
+  bottom: calc(100% - 22px);
   font-size: 11px;
-  color: var(--muted-soft);
-  font-variant-numeric: tabular-nums;
+  font-family: var(--mono);
+  transform: translate(-50%, 0);
+  padding-bottom: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition:
+    left 0.45s cubic-bezier(0.2, 0.8, 0.2, 1),
+    opacity 0.2s;
+}
+
+.burns-peak[data-ready] {
+  opacity: 1;
+}
+
+.burns-chart[data-active] .burns-peak {
+  opacity: 0;
 }
 
 .burns-tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
+  left: 0;
+  top: 0;
+  z-index: 2;
   padding: 8px 10px;
-  width: max-content;
-  min-width: 200px;
-  max-width: min(380px, calc(100% - 16px));
-  background: var(--canvas);
-  border: 1px solid var(--hairline);
-  color: var(--ink);
-  font-size: 11px;
-  line-height: 1.5;
-  pointer-events: none;
-  z-index: 10;
-}
-
-.burns-tooltip-title {
-  font-weight: 500;
-  margin-bottom: 6px;
-}
-
-.burns-tooltip-grid {
-  display: grid;
-  grid-template-columns: 8px minmax(0, 1fr) max-content max-content;
-  column-gap: 10px;
-  row-gap: 3px;
-  align-items: center;
-  font-variant-numeric: tabular-nums;
+  font-size: 12px;
   white-space: nowrap;
+  color: var(--fg);
+  background: var(--pop);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  box-shadow:
+    0 10px 30px rgb(0 0 0 / 0.08),
+    0 2px 6px rgb(0 0 0 / 0.04);
+  pointer-events: none;
+  will-change: transform;
+  transition: transform 0.22s var(--ease);
+  animation: burns-fade 0.2s ease;
 }
 
-.burns-tooltip-foot {
+@keyframes burns-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.burns-tip-head {
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  margin-top: 6px;
-  padding-top: 4px;
-  border-top: 1px solid var(--hairline);
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
 }
 
-.burns-sources {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
+.burns-tip-total {
+  font-family: var(--mono);
+  font-size: 11px;
 }
 
-.burns-source-head {
+.burns-tip-row {
   display: grid;
-  grid-template-columns: 8px minmax(0, 1fr) max-content max-content;
-  gap: 8px 10px;
-  align-items: baseline;
-  font-size: 13px;
+  grid-template-columns: 1fr auto 56px;
+  align-items: center;
+  gap: 14px;
+  padding: 2px 0;
+  font-family: var(--mono);
+  font-size: 11px;
 }
 
-.burns-source-name {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.burns-source-tokens,
-.burns-source-cost {
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.burns-source-bar {
-  height: 3px;
-  margin-top: 6px;
-  background: var(--hairline);
-}
-
-.burns-source-bar > i {
-  display: block;
-  height: 100%;
-}
-
-.burns-mix-bar {
-  display: flex;
-  height: 6px;
-  width: 100%;
-  overflow: hidden;
-}
-
-.burns-mix-bar > i {
-  display: block;
-  height: 100%;
-  min-width: 0;
-}
-
-.burns-mix-input {
-  background: var(--ink);
-}
-
-.burns-mix-output {
-  background: var(--muted);
-}
-
-.burns-mix-write {
-  background: #c4c3bd;
-}
-
-.burns-mix-read {
-  background: #e4e3de;
-}
-
-.dark .burns-mix-write {
-  background: #5a5955;
-}
-
-.dark .burns-mix-read {
-  background: #3a3936;
-}
-
-.burns-mix-rows {
-  margin: 10px 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-direction: column;
+.burns-tip-name {
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
 }
 
-.burns-mix-row {
-  display: grid;
-  grid-template-columns: 8px minmax(0, 1fr) max-content;
-  gap: 8px 10px;
-  align-items: center;
-  font-size: 12px;
-  color: var(--body);
+.burns-tip-swatch {
+  width: 3px;
+  height: 14px;
+  border-radius: 2px;
 }
 
-.burns-mix-row span:last-child {
-  font-variant-numeric: tabular-nums;
+.burns-tip-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 14px;
+  height: 14px;
+}
+
+.burns-tip-cost {
+  text-align: right;
   color: var(--muted);
 }
 
-.burns-icons {
+.burns-legend-line {
+  margin-top: 18px;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 14px;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 13px;
 }
 
-.burns-icon {
+.burns-keys {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  width: auto;
-  min-width: 18px;
-  height: 18px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  flex-shrink: 0;
-  color: var(--muted);
-  position: relative;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.burns-key {
+  all: unset;
   cursor: pointer;
-}
-
-.burns-icon[aria-pressed="true"] {
-  color: var(--ink);
-}
-
-.burns-icon:focus {
-  outline: none;
-}
-
-.burns-icon:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 3px;
-}
-
-.burns-icon-tip {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 50%;
-  transform: translateX(-50%);
-  padding: 8px 10px;
-  width: max-content;
-  max-width: min(220px, calc(100vw - 32px));
-  background: var(--canvas);
-  border: 1px solid var(--hairline);
-  color: var(--ink);
-  font-size: 11px;
-  line-height: 1.5;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  text-align: center;
-  pointer-events: none;
-  z-index: 20;
-}
-
-.burns-icon-mark {
-  display: flex;
+  display: inline-flex;
+  gap: 7px;
   align-items: center;
-  justify-content: center;
-  height: 14px;
-  min-width: 14px;
-  font-size: 15px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition:
+    background 0.15s,
+    opacity 0.15s;
+}
+
+.burns-key:hover,
+.burns-key:focus-visible {
+  background: var(--soft);
+}
+
+.burns-key i {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+}
+
+.burns-key small {
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.burns-key[aria-pressed="false"] {
+  opacity: 0.35;
+}
+
+.burns-total {
+  color: var(--muted);
+  cursor: default;
+  user-select: none;
+}
+
+.burns-total b {
+  color: var(--fg);
   font-weight: 500;
-  line-height: 1;
-  letter-spacing: -0.04em;
 }
 
-/* Tight viewBoxes + a fixed height render every mark at the same height. */
-.burns-icon-mark svg {
-  display: block;
-  height: 100%;
-  width: auto;
-}
-
-.burns-link-button {
-  padding: 0;
-  border: 0;
-  background: transparent;
-  font: inherit;
-  font-size: 12px;
-  color: var(--muted);
-  cursor: pointer;
-}
-
-.burns-link-button:hover {
-  color: var(--ink);
-}
-
+/* Breakdown dialog. Open and close both fade and slide; the backdrop blurs. */
 .burns-dialog {
-  width: min(520px, calc(100vw - 32px));
-  margin: auto;
-  max-height: calc(100dvh - 32px);
-  overflow: auto;
+  border: 0;
   padding: 0;
-  border: 1px solid var(--hairline);
-  background: var(--canvas);
-  color: var(--ink);
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--fg);
+  border-radius: 16px;
+  width: min(560px, calc(100vw - 32px));
+  max-height: min(80vh, 720px);
+  box-shadow:
+    0 24px 80px rgb(0 0 0 / 0.25),
+    0 0 0 1px var(--line);
+  opacity: 0;
+  transform: translateY(12px) scale(0.98);
+  transition:
+    opacity 0.25s ease,
+    transform 0.3s var(--ease),
+    overlay 0.3s allow-discrete,
+    display 0.3s allow-discrete;
+}
+
+.burns-dialog[open] {
+  opacity: 1;
+  transform: none;
+}
+
+@starting-style {
+  .burns-dialog[open] {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
 }
 
 .burns-dialog::backdrop {
-  background: rgb(12 12 12 / 0.4);
-  backdrop-filter: blur(6px);
+  background: rgb(0 0 0 / 0);
+  backdrop-filter: blur(0);
+  transition: all 0.3s allow-discrete;
 }
 
-.burns-dialog-close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: var(--muted);
-  cursor: pointer;
+.burns-dialog[open]::backdrop {
+  background: rgb(0 0 0 / 0.35);
+  backdrop-filter: blur(4px);
 }
 
-.burns-dialog-close:hover {
-  color: var(--ink);
+@starting-style {
+  .burns-dialog[open]::backdrop {
+    background: rgb(0 0 0 / 0);
+    backdrop-filter: blur(0);
+  }
 }
 
-.burns-dialog-body {
+.burns-dlg {
+  padding: 20px 24px 24px;
+  height: min(560px, 80vh);
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  padding: 20px;
-  padding-right: 48px;
 }
 
-@media (width <= 640px) {
-  /*
-   * The chart is centred in whatever height the viewport has left over, which
-   * on a phone is a gap the size of the header between hero and chart.
-   */
-  .burns-section-chart {
-    margin-block: 0;
-  }
+.burns-dlg-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
 
-  /*
-   * Two switch groups sharing a row leaves 11px text on a phone, so each group
-   * gets its own row and every button gets a tap target's worth of height.
-   */
-  .burns-section-head-switches {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 4px;
-  }
+.burns-pane {
+  flex: 1;
+  overflow: auto;
+  margin: 16px -24px 0;
+  padding: 0 24px;
+  animation: burns-rise 0.25s ease;
+}
 
-  .burns-switch button {
-    flex: 1 1 auto;
-    justify-content: center;
-    display: inline-flex;
-    align-items: center;
-    min-height: 36px;
-    padding: 4px 10px;
-  }
-
-  /*
-   * 18px marks are below the 24px minimum target size, so the box grows and
-   * the mark stays where it was. The gap shrinks by the padding that adds, to
-   * keep the row's optical rhythm.
-   */
-  .burns-icons {
-    gap: 0 4px;
-  }
-
-  .burns-icon {
-    min-width: 36px;
-    height: 36px;
-  }
-
-  /* Long agent names ellipsize instead of widening the tooltip past the screen. */
-  .burns-tooltip-name {
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /*
-   * An icon tooltip is anchored to its icon, so the first and last ones in a
-   * row hang off the side of a phone. A tap cannot hover either, so the same
-   * numbers stay reachable in the Breakdown dialog instead of floating off
-   * screen or pushing a scrollbar onto the page.
-   */
-  .burns-icon-tip {
-    display: none;
+@keyframes burns-rise {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
   }
 }
 
-@media (width <= 420px) {
-  .burns-page {
-    padding: 20px 16px 40px;
-    gap: 28px;
-  }
+.burns-rows {
+  display: grid;
+  gap: 2px;
+}
+
+.burns-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px 72px;
+  gap: 12px;
+  align-items: center;
+  padding: 7px 8px;
+  margin: 0 -8px;
+  border-radius: 8px;
+  font-size: 13px;
+  transition: background 0.15s;
+}
+
+.burns-row:hover {
+  background: var(--soft);
+}
+
+.burns-row-name {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.burns-row-name > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.burns-track {
+  height: 4px;
+  border-radius: 2px;
+  background: var(--soft);
+  overflow: hidden;
+}
+
+.burns-track i {
+  display: block;
+  height: 100%;
+  border-radius: 2px;
+  background: var(--c, var(--other));
+  transition: width 0.6s var(--ease);
+}
+
+.burns-row-v,
+.burns-row-c {
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.burns-row-c {
+  color: var(--muted);
+}
+
+.burns-mixbar {
+  display: flex;
+  height: 10px;
+  border-radius: 5px;
+  overflow: hidden;
+  gap: 2px;
+}
+
+.burns-mixbar i {
+  display: block;
+  height: 100%;
+}
+
+.burns-mixleg {
+  display: grid;
+  gap: 10px 20px;
+  margin-top: 14px;
+  font-size: 13px;
+}
+
+.burns-mixleg > div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.burns-mixleg span:first-child {
+  display: inline-flex;
+  gap: 7px;
+  align-items: center;
+}
+
+.burns-mixleg b {
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  display: inline-block;
+}
+
+.burns-mixleg span:last-child {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
 }
 
 .burns-sr-only {
@@ -707,23 +689,14 @@ body {
   margin: -1px;
   padding: 0;
   overflow: hidden;
-  clip-path: inset(50%);
+  clip: rect(0 0 0 0);
   white-space: nowrap;
   border: 0;
 }
 
-.burns-link-button:focus-visible,
-.burns-period-total:focus-visible,
-.burns-dialog-close:focus-visible,
-.burns-switch button:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
-}
-
-.burns-chart-empty {
-  margin: 0;
-  padding: 48px 0;
-  text-align: center;
-  font-size: 12px;
-  color: var(--muted);
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }

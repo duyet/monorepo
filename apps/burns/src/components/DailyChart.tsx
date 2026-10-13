@@ -1,85 +1,50 @@
 import {
+  type CSSProperties,
   type FocusEvent as ReactFocusEvent,
   type JSX,
   type KeyboardEvent,
   type PointerEvent as ReactPointerEvent,
+  type MouseEvent as ReactMouseEvent,
   useEffect,
+  useLayoutEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
-import { formatDay, formatMonth } from "../lib/dates";
-import { dayTotals as dayTotalsFor, summarizePeriod } from "../lib/period";
+import { formatDay, formatMonth, formatMonthLong } from "../lib/dates";
+import { fmtCompactTokens, fmtCost, fmtTokens } from "../lib/sources";
 import {
-  fmtCost,
-  fmtTokens,
-  normalizeSource,
-  sourceSwatch,
-} from "../lib/sources";
-import type { DailyEntry, DailyEntrySource } from "../lib/types";
-import { PeriodBreakdownDialog } from "./PeriodBreakdownDialog";
+  byMonth,
+  type Column,
+  columnTotal,
+  type Day,
+  type Range,
+  type Series,
+  seriesIndex,
+  seriesTotals,
+  sliceRange,
+  toColumns,
+  type View,
+  visibleTokens,
+} from "../lib/usage";
+import { SourceIcon } from "./SourceIcons";
 
 interface DailyChartProps {
-  daily: DailyEntry[];
-  /** When set, only this agent's usage is charted. */
-  filter?: string | null;
-  /**
-   * The selected range. `days: null` charts everything. The label rides along
-   * so the period total can name its own scope instead of restating "All".
-   */
-  range: { label: string; days: number | null };
-  granularity?: Granularity;
+  /** Every day, oldest first. */
+  days: readonly Day[];
+  series: readonly Series[];
+  /** When set, only this agent is charted. */
+  filter: string | null;
+  onClearFilter: () => void;
+  range: Range;
+  view: View;
 }
 
-export const GRANULARITIES = [
-  { key: "monthly", label: "Monthly" },
-  { key: "daily", label: "Daily" },
-] as const;
+/** Bars grow in one after another on first load. */
+const INTRO_STAGGER_MS = 6;
+const INTRO_MS = 900;
 
-export type Granularity = (typeof GRANULARITIES)[number]["key"];
-
-/** Roll daily entries up into one entry per calendar month. */
-function byMonth(entries: DailyEntry[]): DailyEntry[] {
-  const months = new Map<string, DailyEntry>();
-  for (const d of entries) {
-    const key = d.date.slice(0, 7);
-    const month = months.get(key);
-    if (!month) {
-      months.set(key, {
-        ...d,
-        date: `${key}-01`,
-        by_source: (d.by_source ?? []).map((s) => ({ ...s })),
-      });
-      continue;
-    }
-    month.total_tokens += d.total_tokens;
-    month.cost += d.cost;
-    for (const s of d.by_source ?? []) {
-      const existing = month.by_source?.find((m) => m.source === s.source);
-      if (existing) {
-        existing.total_tokens += s.total_tokens;
-        existing.cost += s.cost;
-        continue;
-      }
-      month.by_source?.push({ ...s });
-    }
-  }
-  return [...months.values()];
-}
-
-export const RANGES = [
-  { key: "all", label: "All", days: null },
-  { key: "12m", label: "12 months", days: 365 },
-  { key: "90d", label: "90 days", days: 90 },
-  { key: "30d", label: "30 days", days: 30 },
-] as const;
-
-export type RangeKey = (typeof RANGES)[number]["key"];
-const CHART_H = 100;
-
-/**
- * Roving-tabindex arrow handling: the bar to focus after `key`, or null when
- * the key is not a navigation key.
- */
+/** Roving-tabindex arrow handling: the bar to focus after `key`, or null. */
 export function nextBarIndex(
   key: string,
   current: number,
@@ -99,289 +64,335 @@ export function nextBarIndex(
   }
 }
 
+function gapFor(bars: number): string {
+  if (bars > 200) return "1px";
+  return bars > 60 ? "3px" : "6px";
+}
+
+function barLabel(date: string, view: View, long = false): string {
+  if (view === "monthly")
+    return long ? formatMonthLong(date) : formatMonth(date);
+  return formatDay(date);
+}
+
 export function DailyChart({
-  daily,
-  filter = null,
+  days,
+  series,
+  filter,
+  onClearFilter,
   range,
-  granularity = "daily",
-}: DailyChartProps): JSX.Element | null {
+  view,
+}: DailyChartProps): JSX.Element {
+  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());
   const [hovered, setHovered] = useState<number | null>(null);
   // Touch has no hover: a tap pins the bar's tooltip until the next tap away.
   const [pinned, setPinned] = useState<number | null>(null);
   // Roving tabindex: the chart is one tab stop, arrows move between bars.
   const [active, setActive] = useState<number | null>(null);
-  const frameRef = useRef<HTMLDivElement>(null);
-  const barRefs = useRef<(SVGElement | null)[]>([]);
+  const [ready, setReady] = useState(false);
+  const [intro, setIntro] = useState(true);
+  const [peakLeft, setPeakLeft] = useState<number | null>(null);
+
+  const chartRef = useRef<HTMLDivElement>(null);
+  const barsRef = useRef<HTMLDivElement>(null);
+  const barRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const tipRef = useRef<HTMLDivElement>(null);
+  const crossRef = useRef<HTMLDivElement>(null);
+  const peakRef = useRef<HTMLDivElement>(null);
+
+  // First load: bars start at 0 and grow in, then the stagger is dropped so
+  // later range/view/filter changes morph all bars together.
+  useEffect(() => {
+    let inner = 0;
+    const outer = requestAnimationFrame(() => {
+      inner = requestAnimationFrame(() => setReady(true));
+    });
+    const done = setTimeout(() => setIntro(false), INTRO_MS);
+    return () => {
+      cancelAnimationFrame(outer);
+      cancelAnimationFrame(inner);
+      clearTimeout(done);
+    };
+  }, []);
+
+  // An agent filter replaces the legend, so switched-off keys start over.
+  useEffect(() => setHidden(new Set()), [filter]);
 
   useEffect(() => {
     if (pinned === null) return;
     const dismiss = (e: PointerEvent) => {
-      if (!frameRef.current?.contains(e.target as Node)) setPinned(null);
+      if (!chartRef.current?.contains(e.target as Node)) setPinned(null);
     };
     document.addEventListener("pointerdown", dismiss);
     return () => document.removeEventListener("pointerdown", dismiss);
   }, [pinned]);
 
-  if (daily.length === 0) return null;
-
-  const keep = (source: string) =>
-    filter === null || normalizeSource(source) === filter;
-
-  const windowed = (
-    range.days === null ? daily.slice() : daily.slice(0, range.days)
-  )
-    .reverse()
-    .map((d) =>
-      filter === null
-        ? d
-        : { ...d, by_source: (d.by_source ?? []).filter((s) => keep(s.source)) }
+  const columns = useMemo(() => {
+    const window = sliceRange(days, range);
+    return toColumns(
+      view === "monthly" ? byMonth(window) : window,
+      series,
+      filter
     );
-  const recent = granularity === "monthly" ? byMonth(windowed) : windowed;
-  const label = (iso: string, long = false) =>
-    granularity === "monthly" ? formatMonth(iso) : formatDay(iso, long);
-  const dayTotals = recent.map((d) => dayTotalsFor(d, filter));
-  const maxTokens = Math.max(...dayTotals.map((t) => t.tokens), 1);
-  const barWidth = 100 / recent.length;
-  const period = summarizePeriod(daily, range.days, filter);
+  }, [days, range, view, series, filter]);
 
-  if (period.totalTokens === 0) {
-    return (
-      <p className="burns-chart-empty" role="status">
-        No usage{filter ? ` for ${filter}` : ""} in this range.
-      </p>
+  const totals = columns.map((c) => visibleTokens(c, series, hidden));
+  const max = Math.max(0, ...totals);
+  const peak = max > 0 ? totals.indexOf(max) : -1;
+  const peakText =
+    peak < 0
+      ? ""
+      : `${fmtCompactTokens(max)} · ${barLabel(columns[peak].date, view)}`;
+
+  const requested = hovered ?? pinned;
+  const shown = requested !== null && columns[requested] ? requested : null;
+
+  useLayoutEffect(() => {
+    const chart = chartRef.current;
+    const tip = tipRef.current;
+    const cross = crossRef.current;
+    const bar = shown === null ? null : barRefs.current[shown];
+    if (!chart || !tip || !cross || !bar) return;
+    const cr = chart.getBoundingClientRect();
+    const br = bar.getBoundingClientRect();
+    const cx = br.left - cr.left + br.width / 2;
+    const tx = Math.min(
+      Math.max(cx - tip.offsetWidth / 2, 0),
+      Math.max(cr.width - tip.offsetWidth, 0)
     );
-  }
-
-  const totals = new Map<string, number>();
-  for (const day of recent) {
-    for (const s of day.by_source ?? []) {
-      const name = normalizeSource(s.source);
-      totals.set(name, (totals.get(name) ?? 0) + s.total_tokens);
+    const ty = Math.max(
+      br.top - cr.top - tip.offsetHeight - 12,
+      -tip.offsetHeight - 4
+    );
+    // A tooltip that just appeared is placed in one go; only column-to-column
+    // moves glide.
+    const fresh = tip.dataset.placed !== "1";
+    if (fresh) tip.style.transition = "none";
+    tip.style.transform = `translate(${tx}px, ${ty}px)`;
+    cross.style.transform = `translateX(${cx}px)`;
+    if (fresh) {
+      void tip.offsetWidth;
+      tip.style.transition = "";
+      tip.dataset.placed = "1";
     }
-  }
-  const legend = [...totals.entries()]
-    .filter(([, n]) => n > 0)
-    .sort((a, b) => b[1] - a[1])
-    .map(([name]) => name);
+  }, [shown, columns]);
 
-  const shown = hovered ?? pinned;
-  const shownDay = shown !== null ? (recent[shown] ?? null) : null;
-  const tabStop = Math.min(active ?? recent.length - 1, recent.length - 1);
-  const sources = (shownDay?.by_source ?? [])
-    .map((s: DailyEntrySource) => ({
-      ...s,
-      name: normalizeSource(s.source),
-    }))
-    .filter((s) => s.total_tokens > 0 || s.cost > 0)
-    .sort((a, b) => b.total_tokens - a.total_tokens);
+  // The peak label stays inside the chart, so it needs real widths.
+  useLayoutEffect(() => {
+    const bars = barsRef.current;
+    const label = peakRef.current;
+    if (!bars || !label || peak < 0) return;
+    const place = () => {
+      const half = label.offsetWidth / 2;
+      const at = ((peak + 0.5) / columns.length) * bars.clientWidth;
+      setPeakLeft(
+        Math.min(Math.max(at, half), Math.max(bars.clientWidth - half, half))
+      );
+    };
+    place();
+    const observer = new ResizeObserver(place);
+    observer.observe(bars);
+    return () => observer.disconnect();
+  }, [peak, peakText, columns.length]);
 
-  const ticks = [
-    ...new Set(
-      [
-        recent[0]?.date,
-        recent[Math.floor(recent.length / 2)]?.date,
-        recent[recent.length - 1]?.date,
-      ].filter(Boolean) as string[]
-    ),
-  ];
+  const columnAt = (clientX: number): number | null => {
+    const rect = barsRef.current?.getBoundingClientRect();
+    if (!rect || rect.width === 0 || columns.length === 0) return null;
+    const at = Math.floor(
+      ((clientX - rect.left) / rect.width) * columns.length
+    );
+    return Math.min(columns.length - 1, Math.max(0, at));
+  };
+
+  const onPointerMove = (e: ReactPointerEvent) => {
+    // Touch fires compatibility mouse events after a tap; hover from those
+    // would stick and stop a second tap from dismissing.
+    if (e.pointerType === "touch") return;
+    const at = columnAt(e.clientX);
+    if (at !== null && at !== hovered) setHovered(at);
+  };
+
+  const onClick = (e: ReactMouseEvent) => {
+    const bar = (e.target as Element).closest<HTMLElement>("[data-i]");
+    const at = bar ? Number(bar.dataset.i) : columnAt(e.clientX);
+    if (at === null || Number.isNaN(at)) return;
+    setPinned((p) => (p === at ? null : at));
+  };
+
+  const tabStop =
+    active !== null && active < columns.length ? active : columns.length - 1;
+  const gap = gapFor(columns.length);
+  const sums = seriesTotals(columns);
+  const all = sums.reduce((a, b) => a + b, 0);
+  const keys = series
+    .map((s, i) => ({ s, tokens: sums[i] ?? 0 }))
+    .filter(({ tokens }) => tokens > 0);
+
+  const toggle = (key: string) =>
+    setHidden((prev) => {
+      const next = new Set(prev);
+      if (next.has(key)) next.delete(key);
+      else if (keys.filter(({ s }) => !prev.has(s.key)).length > 1)
+        next.add(key);
+      return next;
+    });
+
+  const column: Column | undefined =
+    shown === null ? undefined : columns[shown];
+  const tipRows = column
+    ? series
+        .map((s, j) => ({ s, tokens: column.tokens[j], cost: column.cost[j] }))
+        .filter((r) => r.tokens > 0)
+        .sort((a, b) => b.tokens - a.tokens)
+    : [];
+  const filterSeries =
+    filter === null ? null : series[seriesIndex(series, filter)];
 
   return (
-    <div className="burns-chart">
-      <div className="burns-chart-frame" ref={frameRef}>
-        <svg
-          viewBox={`0 0 100 ${CHART_H}`}
-          preserveAspectRatio="none"
-          role="group"
-          aria-label={
-            granularity === "monthly"
-              ? "Monthly token usage"
-              : "Daily token usage"
-          }
+    <>
+      <div
+        className="burns-chart"
+        ref={chartRef}
+        data-active={shown !== null || undefined}
+        onPointerMove={onPointerMove}
+        onPointerLeave={(e) => {
+          if (e.pointerType !== "touch") setHovered(null);
+        }}
+        onClick={onClick}
+      >
+        <div
+          className="burns-bars"
+          ref={barsRef}
+          style={{ "--gap": gap } as CSSProperties}
         >
-          {recent.map((day, i) => {
-            const gap = barWidth * 0.22;
-            const w = Math.max(barWidth - gap, 0.2);
-            const x = i * barWidth + gap / 2;
-            const stack = (day.by_source ?? [])
-              .map((s) => ({
-                name: normalizeSource(s.source),
-                tokens: s.total_tokens,
-              }))
-              .filter((s) => s.tokens > 0)
-              .sort((a, b) => legend.indexOf(a.name) - legend.indexOf(b.name));
-
-            const useStack = stack.length > 0;
-            let y = CHART_H;
-            const dim = shown !== null && shown !== i;
-            const barAccess = {
-              role: "button" as const,
-              tabIndex: i === tabStop ? 0 : -1,
-              ref: (el: SVGElement | null) => {
-                barRefs.current[i] = el;
-              },
-              "aria-label": `${label(day.date, true)}: ${fmtTokens(dayTotals[i].tokens)} tokens, ${fmtCost(dayTotals[i].cost)}`,
-              // Touch fires compatibility mouse events after a tap; hover from
-              // those would stick and stop a second tap from dismissing.
-              onPointerEnter: (e: ReactPointerEvent) => {
-                if (e.pointerType === "mouse") setHovered(i);
-              },
-              onPointerLeave: (e: ReactPointerEvent) => {
-                if (e.pointerType === "mouse") setHovered(null);
-              },
-              onFocus: (e: ReactFocusEvent) => {
-                setActive(i);
-                // Tap and click focus too; only keyboard focus shows the tip.
-                if (e.currentTarget.matches(":focus-visible")) setHovered(i);
-              },
-              onBlur: () => setHovered(null),
-              onClick: () => setPinned((p) => (p === i ? null : i)),
-              onKeyDown: (e: KeyboardEvent) => {
-                if (e.key === "Enter" || e.key === " ") {
+          {/* Bars are keyed by position so a range change morphs them, not remounts. */}
+          {columns.map((col, i) => {
+            const tot = totals[i];
+            const height = ready && max > 0 ? (tot / max) * 100 : 0;
+            const { tokens, cost } = columnTotal(col);
+            return (
+              <div
+                key={i}
+                role="button"
+                data-i={i}
+                data-on={shown === i || undefined}
+                className="burns-bar"
+                tabIndex={i === tabStop ? 0 : -1}
+                ref={(el) => {
+                  barRefs.current[i] = el;
+                }}
+                aria-label={`${barLabel(col.date, view, true)}: ${fmtTokens(tokens)} tokens, ${fmtCost(cost)}`}
+                style={{
+                  height: `${height}%`,
+                  transitionDelay: intro ? `${i * INTRO_STAGGER_MS}ms` : "0ms",
+                }}
+                onFocus={(e: ReactFocusEvent) => {
+                  setActive(i);
+                  // Tap and click focus too; only keyboard focus shows the tip.
+                  if (e.currentTarget.matches(":focus-visible")) setHovered(i);
+                }}
+                onBlur={() => setHovered(null)}
+                onKeyDown={(e: KeyboardEvent) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    setPinned((p) => (p === i ? null : i));
+                    return;
+                  }
+                  if (e.key === "Escape") {
+                    setPinned(null);
+                    return;
+                  }
+                  const next = nextBarIndex(e.key, i, columns.length);
+                  if (next === null) return;
                   e.preventDefault();
-                  setPinned((p) => (p === i ? null : i));
-                  return;
-                }
-                if (e.key === "Escape") {
-                  setPinned(null);
-                  return;
-                }
-                const next = nextBarIndex(e.key, i, recent.length);
-                if (next === null) return;
-                e.preventDefault();
-                barRefs.current[next]?.focus();
-              },
-              style: { cursor: "pointer" as const },
-            };
-
-            if (!useStack) {
-              const h = (dayTotals[i].tokens / maxTokens) * CHART_H;
-              return (
-                <rect
-                  key={day.date}
-                  x={x}
-                  y={CHART_H - h}
-                  width={w}
-                  height={h}
-                  fill="var(--muted)"
-                  opacity={dim ? 0.35 : 1}
-                  {...barAccess}
-                />
-              );
-            }
-
-            return (
-              <g key={day.date} opacity={dim ? 0.35 : 1} {...barAccess}>
-                {stack.map((seg) => {
-                  const h = (seg.tokens / maxTokens) * CHART_H;
-                  y -= h;
-                  return (
-                    <rect
-                      key={`${day.date}-${seg.name}`}
-                      x={x}
-                      y={y}
-                      width={w}
-                      height={h}
-                      fill={sourceSwatch(seg.name)}
-                    />
-                  );
-                })}
-              </g>
-            );
-          })}
-        </svg>
-
-        {shown !== null &&
-          shownDay &&
-          (() => {
-            const pct = shown * barWidth + barWidth / 2;
-            // Abspos width is the leftover space after `left`. Pin with
-            // `right` on the trailing edge so the box can grow leftward.
-            const edge = pct < 18 ? "start" : pct > 82 ? "end" : "center";
-            const style =
-              edge === "start"
-                ? { left: 0, right: "auto", transform: "none" }
-                : edge === "end"
-                  ? { left: "auto", right: 0, transform: "none" }
-                  : {
-                      left: `${pct}%`,
-                      right: "auto",
-                      transform: "translateX(-50%)",
-                    };
-            return (
-              <div className="burns-tooltip" style={style}>
-                <div className="burns-tooltip-title">
-                  {label(shownDay.date, true)}
-                </div>
-                {sources.length > 0 ? (
-                  <div className="burns-tooltip-grid">
-                    {sources.map((s) => (
-                      <div key={s.name} style={{ display: "contents" }}>
-                        <span
-                          className="burns-swatch"
-                          style={{ background: sourceSwatch(s.name) }}
-                        />
-                        <span className="burns-tooltip-name">{s.name}</span>
-                        <span
-                          style={{ color: "var(--muted)", textAlign: "right" }}
-                        >
-                          {fmtTokens(s.total_tokens)}
-                        </span>
-                        <span
-                          style={{
-                            color: "var(--muted-soft)",
-                            textAlign: "right",
-                          }}
-                        >
-                          {fmtCost(s.cost)}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div style={{ fontVariantNumeric: "tabular-nums" }}>
-                    {fmtTokens(dayTotals[shown].tokens)} tokens
-                  </div>
-                )}
-                <div className="burns-tooltip-foot">
-                  <span>{fmtTokens(dayTotals[shown].tokens)} total</span>
-                  <span>{fmtCost(dayTotals[shown].cost)}</span>
-                </div>
+                  barRefs.current[next]?.focus();
+                }}
+              >
+                {series.map((s, j) => (
+                  <span
+                    key={s.key}
+                    style={{
+                      background: s.color,
+                      height: `${hidden.has(s.key) || !tot ? 0 : (col.tokens[j] / tot) * 100}%`,
+                    }}
+                  />
+                ))}
               </div>
             );
-          })()}
-      </div>
-
-      <div className="burns-chart-axis">
-        {ticks.map((d) => (
-          <span key={d}>{label(d)}</span>
-        ))}
-      </div>
-
-      {/*
-        One line: legend on the left, the selected period's total on the right.
-        The line renders whenever there is data, even with no legend, so the
-        total never shifts in and out of the right edge as sources come and go.
-      */}
-      <div className="burns-legend-line">
-        {legend.length > 0 && (
-          <ul className="burns-legend">
-            {legend.map((name) => (
-              <li key={name}>
-                <span
-                  className="burns-swatch"
-                  style={{ background: sourceSwatch(name) }}
-                />
-                {name}
-              </li>
-            ))}
-          </ul>
+          })}
+        </div>
+        <div className="burns-cross" ref={crossRef} />
+        <div
+          className="burns-peak"
+          ref={peakRef}
+          data-ready={(ready && peakLeft !== null) || undefined}
+          style={{ left: peakLeft ?? 0 }}
+        >
+          {peakText}
+        </div>
+        {column && (
+          <div className="burns-tooltip" ref={tipRef}>
+            <div className="burns-tip-head">
+              <b>{barLabel(column.date, view, true)}</b>
+              <span className="burns-tip-total">
+                {fmtCompactTokens(columnTotal(column).tokens)} ·{" "}
+                {fmtCost(columnTotal(column).cost)}
+              </span>
+            </div>
+            {tipRows.map(({ s, tokens, cost }) => {
+              const name = filter ?? s.label;
+              return (
+                <div className="burns-tip-row" key={s.key}>
+                  <span className="burns-tip-name">
+                    <i
+                      className="burns-tip-swatch"
+                      style={{ background: s.color }}
+                    />
+                    <span className="burns-tip-icon">
+                      <SourceIcon name={name} />
+                    </span>
+                    {name}
+                  </span>
+                  <span>{fmtCompactTokens(tokens)}</span>
+                  <span className="burns-tip-cost">{fmtCost(cost)}</span>
+                </div>
+              );
+            })}
+          </div>
         )}
-        <PeriodBreakdownDialog
-          period={period}
-          range={range}
-          filterLabel={filter}
-        />
       </div>
-    </div>
+
+      <div className="burns-legend-line">
+        <div className="burns-keys">
+          {filter !== null && filterSeries ? (
+            <button type="button" className="burns-key" onClick={onClearFilter}>
+              <i style={{ background: filterSeries.color }} />
+              {filter} <small>× clear</small>
+            </button>
+          ) : (
+            keys.map(({ s, tokens }) => {
+              const share = (tokens / all) * 100;
+              return (
+                <button
+                  type="button"
+                  key={s.key}
+                  className="burns-key"
+                  title={s.members.join(", ")}
+                  aria-pressed={!hidden.has(s.key)}
+                  onClick={() => toggle(s.key)}
+                >
+                  <i style={{ background: s.color }} />
+                  {s.label}{" "}
+                  <small>{share < 1 ? "<1" : Math.round(share)}%</small>
+                </button>
+              );
+            })
+          )}
+        </div>
+        <div className="burns-total">
+          <b>{fmtCompactTokens(all)}</b> tokens · {range.scope}
+        </div>
+      </div>
+    </>
   );
 }

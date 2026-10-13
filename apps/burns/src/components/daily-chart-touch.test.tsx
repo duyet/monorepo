@@ -3,7 +3,8 @@ import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeAll, describe, expect, test } from "vitest";
 import type { DailyEntry } from "../lib/types";
-import { DailyChart, RANGES } from "./DailyChart";
+import { buildSeries, RANGES, toDays } from "../lib/usage";
+import { DailyChart } from "./DailyChart";
 
 /**
  * A phone fires compatibility mouse events after a tap. If those set hover,
@@ -40,7 +41,18 @@ function mount(): HTMLElement {
   host = document.createElement("div");
   document.body.append(host);
   root = createRoot(host);
-  act(() => root?.render(<DailyChart daily={daily} range={RANGES[0]} />));
+  act(() =>
+    root?.render(
+      <DailyChart
+        days={toDays(daily)}
+        series={buildSeries(["Codex"])}
+        filter={null}
+        onClearFilter={() => {}}
+        range={RANGES[0]}
+        view="daily"
+      />
+    )
+  );
   return host;
 }
 

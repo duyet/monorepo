@@ -28,8 +28,8 @@ const SITE_OG_IMAGE = `${SITE_URL}/og.png`;
 function NotFoundComponent() {
   return (
     <div className="burns-page">
-      <h1 className="burns-title">404</h1>
-      <p className="burns-hero-meta">Page not found</p>
+      <h1 className="burns-eyebrow">404</h1>
+      <p className="burns-sub">Page not found</p>
     </div>
   );
 }
@@ -93,7 +93,7 @@ function RootComponent() {
         />
       </head>
       <body>
-        <ThemeProvider>
+        <ThemeProvider defaultTheme="system" enableSystem>
           <main>
             <Outlet />
           </main>

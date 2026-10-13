@@ -1,20 +1,23 @@
-import ThemeToggle from "@duyet/components/ThemeToggle";
 import { createFileRoute } from "@tanstack/react-router";
-import { type JSX, useState } from "react";
+import { type JSX, useMemo, useState } from "react";
 import { AnimatedCounter } from "../components/AnimatedCounter";
 import { BreakdownDialog } from "../components/BreakdownDialog";
+import { DailyChart } from "../components/DailyChart";
+import { SourceIcons } from "../components/SourceIcons";
+import { TextTabs } from "../components/TextTabs";
+import { ThemeTabs } from "../components/ThemeTabs";
+import { readPublicJson } from "../lib/read-public-json";
+import { fmtCompactTokens, fmtCost } from "../lib/sources";
+import type { TokenData } from "../lib/types";
 import {
-  DailyChart,
-  GRANULARITIES,
-  type Granularity,
+  buildSeries,
   RANGES,
   type RangeKey,
-} from "../components/DailyChart";
-import { SourceIcons } from "../components/SourceIcons";
-import { dataLabel } from "../lib/dates";
-import { readPublicJson } from "../lib/read-public-json";
-import { fmtCost } from "../lib/sources";
-import type { TokenData } from "../lib/types";
+  toDays,
+  VIEWS,
+  type View,
+  weekTrend,
+} from "../lib/usage";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
@@ -24,93 +27,80 @@ export const Route = createFileRoute("/")({
   component: Page,
 });
 
+const RANGE_OPTIONS = RANGES.map(({ key, label }) => ({ key, label }));
+
 function Page(): JSX.Element {
   const data = Route.useLoaderData();
   const [filter, setFilter] = useState<string | null>(null);
   const [rangeKey, setRangeKey] = useState<RangeKey>("90d");
-  const [granularity, setGranularity] = useState<Granularity>("daily");
-  const label = dataLabel(data.firstDate, data.lastDate, data.generatedAt);
-  const labelParts = label ? label.split(" · ") : [];
-  const selectedRange = RANGES.find((r) => r.key === rangeKey) ?? RANGES[0];
+  const [view, setView] = useState<View>("daily");
+
+  const sourceTotals = useMemo(
+    () =>
+      [...data.source_totals].sort((a, b) => b.total_tokens - a.total_tokens),
+    [data.source_totals]
+  );
+  const series = useMemo(
+    () => buildSeries(sourceTotals.map((s) => s.source)),
+    [sourceTotals]
+  );
+  const days = useMemo(() => toDays(data.daily), [data.daily]);
+  const range = RANGES.find((r) => r.key === rangeKey) ?? RANGES[0];
+  const { last, prior } = weekTrend(days);
 
   return (
     <div className="burns-page">
       <header className="burns-header">
-        <div>
-          <p className="burns-eyebrow">Burns</p>
-          <h1 className="burns-title">Token usage</h1>
-        </div>
+        <h1 className="burns-eyebrow">Burns · token usage</h1>
         <div className="burns-header-actions">
           <BreakdownDialog
-            sourceTotals={data.source_totals ?? []}
+            sourceTotals={sourceTotals}
             totals={data.totals}
+            days={days}
+            series={series}
           />
-          <ThemeToggle />
+          <ThemeTabs />
         </div>
       </header>
 
       <section className="burns-hero">
         <AnimatedCounter target={data.totals.total_tokens} />
-        <p className="burns-hero-kicker">tokens all-time</p>
-        <p className="burns-hero-meta">
-          {fmtCost(data.totals.total_cost)}
-          {/*
-            Each part of the label is its own nowrap span, so the line breaks
-            at the " · " separators and never inside a date.
-          */}
-          {labelParts.map((part) => (
-            <span key={part}>
-              {" · "}
-              <span className="burns-nowrap">{part}</span>
-            </span>
-          ))}
+        <p className="burns-sub">
+          <span>tokens · {fmtCost(data.totals.total_cost)}</span>
+          <span className="burns-delta">
+            {last >= prior ? "↑" : "↓"} {fmtCompactTokens(last)} last 7 days
+          </span>
         </p>
         <SourceIcons
-          sources={data.sources}
-          sourceTotals={data.source_totals ?? []}
+          sourceTotals={sourceTotals}
           selected={filter}
           onSelect={setFilter}
         />
       </section>
 
-      <section className="burns-section burns-section-chart">
-        <div className="burns-section-head burns-section-head-switches">
-          <div className="burns-switch">
-            {GRANULARITIES.map((g) => (
-              <button
-                key={g.key}
-                type="button"
-                aria-pressed={granularity === g.key}
-                onClick={() => setGranularity(g.key)}
-              >
-                {g.label}
-              </button>
-            ))}
-          </div>
-          <div className="burns-switch">
-            {RANGES.map((r) => (
-              <button
-                key={r.key}
-                type="button"
-                aria-pressed={rangeKey === r.key}
-                onClick={() => setRangeKey(r.key)}
-              >
-                {r.label}
-              </button>
-            ))}
-          </div>
-        </div>
-        <DailyChart
-          daily={data.daily}
-          filter={filter}
-          range={selectedRange}
-          granularity={granularity}
+      <div className="burns-controls">
+        <TextTabs<View>
+          label="Chart view"
+          options={VIEWS}
+          value={view}
+          onChange={setView}
         />
-      </section>
+        <TextTabs<RangeKey>
+          label="Chart range"
+          options={RANGE_OPTIONS}
+          value={rangeKey}
+          onChange={setRangeKey}
+        />
+      </div>
 
-      <footer className="burns-footer">
-        <a href="https://duyet.net">duyet.net</a>
-      </footer>
+      <DailyChart
+        days={days}
+        series={series}
+        filter={filter}
+        onClearFilter={() => setFilter(null)}
+        range={range}
+        view={view}
+      />
     </div>
   );
 }

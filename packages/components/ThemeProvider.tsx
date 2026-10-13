@@ -2,6 +2,8 @@
 
 import { ThemeProvider, type ThemeProviderProps } from "next-themes";
 
+export { useTheme } from "next-themes";
+
 /** Light is `:root`. Only add `.dark` when the user saved dark. */
 export const THEME_BOOT_SCRIPT = `(function(){try{var r=document.documentElement;if(localStorage.getItem("theme")==="dark"){r.classList.add("dark");r.style.colorScheme="dark";}else{r.classList.remove("dark");r.style.colorScheme="light";}}catch(e){}})();`;
 

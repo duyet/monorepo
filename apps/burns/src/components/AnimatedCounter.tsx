@@ -1,136 +1,47 @@
-import {
-  type CSSProperties,
-  useEffect,
-  useLayoutEffect,
-  useRef,
-  useState,
-} from "react";
-import { countEm, fitCountPx, PROBE_PX } from "../lib/count";
+import { useEffect, useState } from "react";
 
 interface AnimatedCounterProps {
   target: number;
   duration?: number;
 }
 
-function easeOutQuad(t: number): number {
-  return t * (2 - t);
+function easeOutQuart(t: number): number {
+  return 1 - (1 - t) ** 4;
 }
 
 /**
- * `useLayoutEffect` warns when it renders on the server, and this app
- * prerenders. The fit only ever runs in a browser either way.
+ * The exact total, counted up from 0. Prerender and first paint both show 0, so
+ * hydration matches; the final value is always in the DOM for screen readers.
  */
-const useBrowserLayoutEffect =
-  typeof window === "undefined" ? useEffect : useLayoutEffect;
-
 export function AnimatedCounter({
   target,
-  duration = 700,
+  duration = 900,
 }: AnimatedCounterProps) {
-  const [display, setDisplay] = useState("0");
-  /** null means "use the CSS size", which is what the prerendered HTML has. */
-  const [fittedPx, setFittedPx] = useState<number | null>(null);
-  const started = useRef(false);
-  const box = useRef<HTMLSpanElement>(null);
-  const probe = useRef<HTMLSpanElement>(null);
-
-  /**
-   * Every value the animation passes through. Tabular digits and the commas
-   * between them are the same width, so the final string is as wide as any of
-   * them and the size never shifts mid-count.
-   */
+  const [value, setValue] = useState(0);
   const finalText = target.toLocaleString("en-US");
 
   useEffect(() => {
-    if (started.current) return;
-    started.current = true;
-
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setDisplay(target.toLocaleString("en-US"));
+      setValue(target);
       return;
     }
 
     const start = performance.now();
-    let raf: number;
-
+    let raf = 0;
     const tick = (now: number) => {
-      const elapsed = now - start;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = easeOutQuad(progress);
-      const current = Math.floor(eased * target);
-      setDisplay(current.toLocaleString("en-US"));
-
-      if (progress < 1) {
-        raf = requestAnimationFrame(tick);
-      } else {
-        setDisplay(target.toLocaleString("en-US"));
-      }
+      const progress = Math.min((now - start) / duration, 1);
+      setValue(Math.round(target * easeOutQuart(progress)));
+      if (progress < 1) raf = requestAnimationFrame(tick);
     };
-
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
   }, [target, duration]);
 
-  useBrowserLayoutEffect(() => {
-    const frame = box.current;
-    const ruler = probe.current;
-    if (!frame || !ruler) return;
-
-    const fit = () => {
-      const available = frame.clientWidth;
-      const textWidth = ruler.getBoundingClientRect().width;
-      setFittedPx((prev) => {
-        const next = fitCountPx(available, textWidth);
-        return prev === next ? prev : next;
-      });
-    };
-
-    fit();
-    // The hero box is the only thing whose width we fit against, so a width
-    // change (rotation, split view, a rotated phone) re-fits on its own.
-    const observer = new ResizeObserver(fit);
-    observer.observe(frame);
-    // Inter arrives after first paint and it is the font that has to fit, so
-    // the measured size waits for it rather than trusting the fallback.
-    let cancelled = false;
-    void document.fonts.ready.then(() => {
-      // The effect can already have been cleaned up (a target change unmounts
-      // and remounts the count), and `frame`/`ruler` would be stale by then.
-      if (!cancelled) fit();
-    });
-    return () => {
-      cancelled = true;
-      observer.disconnect();
-    };
-  }, [finalText]);
-
   return (
-    <span
-      className="burns-count-fit"
-      style={{ "--count-em": countEm(finalText) } as CSSProperties}
-    >
-      <span
-        className="burns-count"
-        ref={box}
-        aria-hidden="true"
-        style={fittedPx === null ? undefined : { fontSize: `${fittedPx}px` }}
-      >
-        {display}
-      </span>
+    <div className="burns-count">
+      <span aria-hidden="true">{value.toLocaleString("en-US")}</span>
       {/* Screen readers get the final value, not every frame of the count. */}
       <span className="burns-sr-only">{finalText}</span>
-      {/*
-        Measured, never painted: the same string at a fixed size, so the ratio
-        between its width and the hero's is the count's fit ratio.
-      */}
-      <span
-        className="burns-count-probe"
-        ref={probe}
-        aria-hidden="true"
-        style={{ fontSize: PROBE_PX }}
-      >
-        {finalText}
-      </span>
-    </span>
+    </div>
   );
 }

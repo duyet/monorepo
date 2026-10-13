@@ -1,18 +1,10 @@
-import { useState } from "react";
-import { fmtCost, fmtTokens } from "../lib/sources";
+import type { JSX } from "react";
+import { fmtCompactTokens } from "../lib/sources";
 import type { SourceTotal } from "../lib/types";
-
-interface SourceIconsProps {
-  sources: readonly string[];
-  sourceTotals?: readonly SourceTotal[];
-  /** Currently selected agent filter, or null for all agents. */
-  selected?: string | null;
-  onSelect?: (name: string | null) => void;
-}
 
 // Official brand SVGs from glincker/thesvg.
 // Icons using fill="currentColor" auto-revert to white in dark mode via --muted.
-const icons: Record<string, string> = {
+const RAW_ICONS: Record<string, string> = {
   "Gemini CLI": `<svg viewBox="2.8 1.6 18.4 17.6" xmlns="http://www.w3.org/2000/svg">
     <title>Gemini CLI</title>
     <path fill="#4B64E8" d="M12 1.6l1.72 7.12L21.2 10.4l-7.48 1.68L12 19.2l-1.72-7.12L2.8 10.4l7.48-1.68L12 1.6z"/>
@@ -60,114 +52,71 @@ const icons: Record<string, string> = {
     <path d="M395.479 633.828L735.91 381.105C752.599 368.715 776.454 373.548 784.406 392.792C826.26 494.285 807.561 616.253 724.288 699.996C641.016 783.739 525.151 802.104 419.247 760.277L303.556 814.143C469.49 928.202 670.987 899.995 796.901 773.282C896.776 672.843 927.708 535.937 898.785 412.476L899.047 412.739C857.105 231.37 909.358 158.874 1016.4 10.6326C1018.93 7.11771 1021.47 3.60279 1024 0L883.144 141.651V141.212L395.392 633.916" />
     <path d="M325.226 695.251C206.128 580.84 226.662 403.776 328.285 301.668C403.431 226.097 526.549 195.254 634.026 240.596L749.454 186.994C728.657 171.88 702.007 155.623 671.424 144.2C533.19 86.9942 367.693 115.465 255.323 228.382C147.234 337.081 113.244 504.215 171.613 646.833C215.216 753.423 143.739 828.818 71.7385 904.916C46.2237 931.893 20.6216 958.87 0 987.429L325.139 695.339" />
   </svg>`,
+  cursor: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2 3 7v10l9 5 9-5V7l-9-5Zm0 2.3 6.6 3.7L12 11.7 5.4 8 12 4.3ZM5 9.7l6 3.4v6.6l-6-3.4V9.7Z"/></svg>`,
+  "cursor-cloud-agent": `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M10 2 2 6.5v9l8 4.5 3-1.7V12l5-2.8V6.5L10 2Zm0 2.3 5.6 3.2L10 10.6 4.4 7.5 10 4.3Z"/><path d="M18 13a3 3 0 0 0-2.8 2 2.5 2.5 0 0 0 .3 5H20a2.5 2.5 0 0 0 .6-4.9A3 3 0 0 0 18 13Z"/></svg>`,
+  devin: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h6.5a9 9 0 0 1 0 18H5V3Zm3 3v12h3.5a6 6 0 0 0 0-12H8Z"/><circle cx="11.5" cy="12" r="2"/></svg>`,
+  copilot: `<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4c-3 0-5.5.6-7 2.2C3.6 7.6 3.5 9.8 4 11.3 2.8 12 2 13 2 14.5V17c0 .6.3 1 .8 1.3C5 19.6 8.3 21 12 21s7-1.4 9.2-2.7c.5-.3.8-.7.8-1.3v-2.5c0-1.5-.8-2.5-2-3.2.5-1.5.4-3.7-1-5.1C17.5 4.6 15 4 12 4Zm-4 4c1.6 0 2.5.5 2.7 1.8.2 1.4-.4 2.6-2.4 2.6-1.6 0-2.4-.6-2.6-1.9C5.5 9 6.4 8 8 8Zm8 0c1.6 0 2.5 1 2.3 2.5-.2 1.3-1 1.9-2.6 1.9-2 0-2.6-1.2-2.4-2.6C13.5 8.5 14.4 8 16 8Zm-6.2 7.2c.6 0 1 .4 1 1v1.3a1 1 0 1 1-2 0v-1.3c0-.6.4-1 1-1Zm4.4 0c.6 0 1 .4 1 1v1.3a1 1 0 1 1-2 0v-1.3c0-.6.4-1 1-1Z"/></svg>`,
 };
 
-const DISPLAY_LABELS: Record<string, string> = {
-  Codex: "Codex (OpenAI)",
-  "Claude Code": "Claude Code",
-  "Gemini CLI": "Gemini CLI",
-  "Google Antigravity": "Google Antigravity",
-  "Z.AI": "Z.AI",
-  opencode: "opencode",
-  Grok: "Grok",
-  Hermes: "Hermes",
-  OpenClaw: "OpenClaw",
-  pi: "pi",
-};
+/** Brand marks, minus the embedded <title> so only our own label shows. */
+const ICONS: Record<string, string> = Object.fromEntries(
+  Object.entries(RAW_ICONS).map(([name, svg]) => [
+    name,
+    svg.replace(/<title>.*?<\/title>/s, ""),
+  ])
+);
 
-export function SourceIcons({
-  sources,
-  sourceTotals = [],
-  selected = null,
-  onSelect,
-}: SourceIconsProps) {
-  const [hovered, setHovered] = useState<string | null>(null);
-
-  const totalsByName = new Map(sourceTotals.map((s) => [s.source, s]));
-
+/** An agent's mark, or nothing for an agent without one. */
+export function SourceIcon({ name }: { name: string }): JSX.Element | null {
+  const svg = ICONS[name];
+  if (!svg) return null;
   return (
-    <div className="burns-icons">
-      {sources.map((name) => {
-        const svg = icons[name];
-        const isHovered = hovered === name;
-        const total = totalsByName.get(name);
-        const label = DISPLAY_LABELS[name] ?? name;
-        const dimmed = Boolean(
-          (selected && selected !== name) || (hovered && !isHovered)
-        );
-        const mark = name.slice(0, 1).toUpperCase();
-        return (
-          <button
-            type="button"
-            key={name}
-            className="burns-icon"
-            aria-label={label}
-            aria-pressed={selected === name}
-            onClick={() => onSelect?.(selected === name ? null : name)}
-            onMouseEnter={() => setHovered(name)}
-            onMouseLeave={() => setHovered(null)}
-            onFocus={() => setHovered(name)}
-            onBlur={() => setHovered(null)}
-          >
-            {svg ? (
-              <span
-                className="burns-icon-mark"
-                style={{ opacity: dimmed ? 0.4 : 1 }}
-                dangerouslySetInnerHTML={{ __html: svg }}
-              />
-            ) : (
-              <span
-                className="burns-icon-mark"
-                style={{ opacity: dimmed ? 0.4 : 1 }}
-              >
-                {mark}
-              </span>
-            )}
-            {isHovered && (
-              <span className="burns-icon-tip">
-                <span
-                  style={{ display: "block", fontWeight: 500, marginBottom: 2 }}
-                >
-                  {label}
-                </span>
-                <span
-                  style={{
-                    display: "block",
-                    color: "var(--muted-soft)",
-                    marginBottom: 4,
-                  }}
-                >
-                  {selected === name
-                    ? "Click to clear filter"
-                    : "Click to filter"}
-                </span>
-                {total ? (
-                  <span
-                    style={{
-                      display: "block",
-                      color: "var(--muted)",
-                      fontVariantNumeric: "tabular-nums",
-                    }}
-                  >
-                    <span style={{ display: "block" }}>
-                      {fmtTokens(total.total_tokens)} tokens
-                    </span>
-                    <span style={{ display: "block" }}>
-                      {fmtCost(total.cost)} all-time
-                    </span>
-                  </span>
-                ) : (
-                  <span
-                    style={{ display: "block", color: "var(--muted-soft)" }}
-                  >
-                    No usage recorded
-                  </span>
-                )}
-              </span>
-            )}
-          </button>
-        );
-      })}
+    <span
+      className="burns-mark"
+      aria-hidden="true"
+      dangerouslySetInnerHTML={{ __html: svg }}
+    />
+  );
+}
+
+interface SourceIconsProps {
+  /** All-time totals, ordered by tokens. */
+  sourceTotals: readonly SourceTotal[];
+  /** Currently selected agent filter, or null for all agents. */
+  selected: string | null;
+  onSelect: (name: string | null) => void;
+}
+
+/** Row of agent marks: hover names the agent, click filters the chart. */
+export function SourceIcons({
+  sourceTotals,
+  selected,
+  onSelect,
+}: SourceIconsProps): JSX.Element {
+  return (
+    <div
+      className="burns-agents"
+      data-filtering={selected !== null || undefined}
+    >
+      {sourceTotals.map(({ source, total_tokens }) => (
+        <button
+          type="button"
+          key={source}
+          className="burns-agent"
+          aria-label={source}
+          aria-pressed={selected === source}
+          data-tip={`${source} · ${fmtCompactTokens(total_tokens)}`}
+          onClick={() => onSelect(selected === source ? null : source)}
+        >
+          {ICONS[source] ? (
+            <SourceIcon name={source} />
+          ) : (
+            <span className="burns-mark" aria-hidden="true">
+              {source.slice(0, 1).toUpperCase()}
+            </span>
+          )}
+        </button>
+      ))}
     </div>
   );
 }
