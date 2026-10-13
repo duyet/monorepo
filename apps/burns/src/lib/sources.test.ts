@@ -90,8 +90,8 @@ describe("requiresFreshBurnsData", () => {
     // Without this the script would hard-fail on a PR build that has no
     // MOTHERDUCK_TOKEN, and the committed public/token-data.json would go
     // stale on any push to a non-main branch.
-    expect(requiresFreshBurnsData("pull_request")).toBe(false);
+    expect(requiresFreshBurnsData("pull_request", "refs/pull/1/merge")).toBe(false);
     expect(requiresFreshBurnsData("push", "refs/heads/feature")).toBe(false);
-    expect(requiresFreshBurnsData(undefined, undefined)).toBe(false);
+    expect(requiresFreshBurnsData("", "")).toBe(false);
   });
 });
