@@ -266,7 +266,8 @@ body {
 }
 
 .burns-controls {
-  margin-top: clamp(16px, 4vh, 56px);
+  margin-top: auto;
+  padding-top: clamp(16px, 6vh, 80px);
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -276,7 +277,7 @@ body {
 .burns-chart {
   position: relative;
   margin-top: clamp(8px, 2vh, 24px);
-  flex: 1;
+  flex: 0 1 clamp(180px, 38vh, 420px);
   min-height: 180px;
   cursor: default;
   /* Horizontal drags are ours; vertical ones still scroll the page. */
@@ -367,7 +368,7 @@ body {
   left: 0;
   top: 0;
   z-index: 2;
-  padding: 8px 10px;
+  padding: 10px 12px;
   font-size: 12px;
   white-space: nowrap;
   color: var(--fg);
@@ -392,37 +393,35 @@ body {
 .burns-tip-head {
   display: flex;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 6px;
-  padding-bottom: 6px;
-  border-bottom: 1px solid var(--line);
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 8px;
+  color: var(--muted);
+}
+
+.burns-tip-head b {
+  font-weight: 500;
 }
 
 .burns-tip-total {
-  font-family: var(--mono);
-  font-size: 11px;
+  color: var(--fg);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
 }
 
 .burns-tip-row {
   display: grid;
-  grid-template-columns: 1fr auto 56px;
+  grid-template-columns: 1fr auto 48px;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   padding: 2px 0;
-  font-family: var(--mono);
-  font-size: 11px;
+  font-variant-numeric: tabular-nums;
 }
 
 .burns-tip-name {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-}
-
-.burns-tip-swatch {
-  width: 3px;
-  height: 14px;
-  border-radius: 2px;
+  gap: 8px;
 }
 
 .burns-tip-icon {
@@ -430,6 +429,14 @@ body {
   place-items: center;
   width: 14px;
   height: 14px;
+}
+
+.burns-tip-icon:empty::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c);
 }
 
 .burns-tip-cost {

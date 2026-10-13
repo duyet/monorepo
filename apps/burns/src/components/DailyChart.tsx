@@ -344,11 +344,10 @@ export function DailyChart({
               return (
                 <div className="burns-tip-row" key={s.key}>
                   <span className="burns-tip-name">
-                    <i
-                      className="burns-tip-swatch"
-                      style={{ background: s.color }}
-                    />
-                    <span className="burns-tip-icon">
+                    <span
+                      className="burns-tip-icon"
+                      style={{ "--c": s.color } as CSSProperties}
+                    >
                       <SourceIcon name={name} />
                     </span>
                     {name}
