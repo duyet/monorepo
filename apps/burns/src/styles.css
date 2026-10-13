@@ -505,6 +505,10 @@ body {
 
 /* Breakdown dialog. Open and close both fade and slide; the backdrop blurs. */
 .burns-dialog {
+  /* Tailwind's preflight zeroes margins; restore the UA centring. */
+  position: fixed;
+  inset: 0;
+  margin: auto;
   border: 0;
   padding: 0;
   overflow: hidden;
