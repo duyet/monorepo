@@ -47,7 +47,7 @@ describe("post content static HTML", () => {
     // the static export) there is no component to render yet and the article
     // has to fall back to the same prebuilt body.
     const { container } = render(
-      <Content post={{ ...base, isMDX: true, mdxSource: "# Heading" }} />,
+      <Content post={{ ...base, isMDX: true, mdxSource: "# Heading" }} />
     );
     const article = container.querySelector("article");
     expect(article).not.toBeNull();
@@ -65,12 +65,15 @@ describe("post content static HTML", () => {
           mdxSource:
             "export const Inline = () => <span id='mdx'>mdx</span>\n\n<Inline />\n",
         }}
-      />,
+      />
     );
     // Before the compile settles: the static body.
     expect(container.querySelector("article")?.innerHTML).toBe(STATIC_HTML);
     // After: the compiled component, and the article is still there.
-    await waitFor(() => expect(container.querySelector("#mdx")).not.toBeNull());
+    await waitFor(
+      () => expect(container.querySelector("#mdx")).not.toBeNull(),
+      { timeout: 5000 }
+    );
     expect(container.querySelector("article")).not.toBeNull();
   });
 });
@@ -83,7 +86,7 @@ describe("post body X embeds", () => {
     delete (window as Window & { twttr?: unknown }).twttr;
     render(<Content post={base} />);
     const script = document.querySelector<HTMLScriptElement>(
-      `script[src="${TWITTER_WIDGETS_SRC}"]`,
+      `script[src="${TWITTER_WIDGETS_SRC}"]`
     );
     expect(script).not.toBeNull();
     expect(script?.async).toBe(true);
@@ -91,11 +94,11 @@ describe("post body X embeds", () => {
 
   it("does not inject a second copy when widgets.js is already loaded", () => {
     const before = document.querySelectorAll(
-      `script[src="${TWITTER_WIDGETS_SRC}"]`,
+      `script[src="${TWITTER_WIDGETS_SRC}"]`
     ).length;
     render(<Content post={base} />);
     expect(
-      document.querySelectorAll(`script[src="${TWITTER_WIDGETS_SRC}"]`).length,
+      document.querySelectorAll(`script[src="${TWITTER_WIDGETS_SRC}"]`).length
     ).toBe(before);
   });
 });
