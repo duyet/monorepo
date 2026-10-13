@@ -28,7 +28,7 @@ const { path, usedImage } = await renderOgCard(
     title: "Burns",
     description:
       "Total Claude Code token consumption — input, output, cached — visualized.",
-    meta: "burns.duyet.net",
+    meta: "burn.duyet.net",
     siteName: "duyet.net",
   },
   outPath,

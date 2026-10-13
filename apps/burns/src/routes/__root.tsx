@@ -15,7 +15,7 @@ import {
   Scripts,
 } from "@tanstack/react-router";
 
-const SITE_URL = "https://burns.duyet.net";
+const SITE_URL = "https://burn.duyet.net";
 const SITE_TITLE = "Burns · Token usage";
 const SITE_DESCRIPTION = "Token usage across coding agents.";
 
