@@ -10,6 +10,7 @@ import { buildTree } from "@/lib/post-tree";
 import { childParams, postParams } from "@/lib/post-params";
 import { useEffect, useState } from "react";
 import { cn } from "@duyet/libs/utils";
+import { Discussion } from "./-discussion";
 
 export function PostFooter({
   post,
@@ -33,7 +34,9 @@ export function PostFooter({
   const showSubscribe = !subscribed && otherCount < 3;
   const count = otherCount + (showSubscribe ? 1 : 0);
 
-  if (count === 0) {
+  const hasDiscussion = Boolean(post.hackerNews || post.x);
+
+  if (count === 0 && !hasDiscussion) {
     return null;
   }
 
@@ -243,6 +246,7 @@ export function PostFooter({
           />
         )}
       </div>
+      <Discussion hackerNews={post.hackerNews} x={post.x} />
     </div>
   );
 }
