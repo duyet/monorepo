@@ -1,19 +1,31 @@
 import { Eyebrow, Reveal } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactNode } from "react";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
 
 const EFFECTIVE_DATE = "2026-08-22";
+
+const PRIVACY_TITLE = "Privacy Policy – duyet.net";
+const PRIVACY_DESCRIPTION =
+  "How duyet.net handles data: aggregate privacy-respecting analytics via Cloudflare, no advertising and no sale of personal data, and how to request deletion.";
 
 export const Route = createFileRoute("/privacy")({
   component: PrivacyPage,
   head: () => ({
     meta: [
-      { title: "Privacy Policy – duyet.net" },
+      { title: PRIVACY_TITLE },
       {
         name: "description",
-        content:
-          "How duyet.net handles data: aggregate privacy-respecting analytics via Cloudflare, no advertising and no sale of personal data, and how to request deletion.",
+        content: PRIVACY_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/privacy`,
+        title: PRIVACY_TITLE,
+        description: PRIVACY_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/privacy" }],
   }),

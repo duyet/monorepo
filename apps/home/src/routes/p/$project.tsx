@@ -1,5 +1,9 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { addUtmParams } from "../../../app/lib/utm";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../../lib/og";
+
+const FALLBACK_SUMMARY = "A Duyet Le project surface for data, AI, and developer tools.";
 
 type Product = {
   slug: string;
@@ -79,15 +83,20 @@ export const Route = createFileRoute("/p/$project")({
       (loaderData as { product?: Product } | undefined)?.product ??
       products.find((item) => item.slug === params.project);
 
+    const title = `${product?.name ?? "Project"} | Duyet Le`;
+    const description = product?.summary ?? FALLBACK_SUMMARY;
+
     return {
       meta: [
-        { title: `${product?.name ?? "Project"} | Duyet Le` },
-        {
-          name: "description",
-          content:
-            product?.summary ??
-            "A Duyet Le project surface for data, AI, and developer tools.",
-        },
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/p/${params.project}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+          imageAlt: SITE_OG_IMAGE_ALT,
+        }),
       ],
       links: [
         {

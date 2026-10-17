@@ -1,9 +1,14 @@
 import { Eyebrow } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
 
 const PERIOD = "Nov 2018 — Aug 2023";
 const TENURE = "4 yrs 10 mos";
+
+const FOSSIL_TITLE = "Fossil Group, Inc. — Duyet's chapter | duyet.net";
+const FOSSIL_DESCRIPTION = `My ${TENURE} at Fossil Group, Inc. (${PERIOD}): building the data platform from AWS collection to a Rust rewrite and ClickHouse, cutting costs 55%, and leading the team.`;
 
 interface Post {
   title: string;
@@ -93,11 +98,18 @@ export const Route = createFileRoute("/fossil")({
   component: FossilPage,
   head: () => ({
     meta: [
-      { title: "Fossil Group, Inc. — Duyet's chapter | duyet.net" },
+      { title: FOSSIL_TITLE },
       {
         name: "description",
-        content: `My ${TENURE} at Fossil Group, Inc. (${PERIOD}): building the data platform from AWS collection to a Rust rewrite and ClickHouse, cutting costs 55%, and leading the team.`,
+        content: FOSSIL_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/fossil`,
+        title: FOSSIL_TITLE,
+        description: FOSSIL_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/fossil" }],
   }),

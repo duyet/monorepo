@@ -27,6 +27,11 @@
 /art/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
 
+# Open Graph card — cached like /art because crawlers refetch it constantly.
+# Same TTL as /art so each path still gets exactly one Cache-Control.
+/og.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
 /screenshots/*
   Cache-Control: public, max-age=31536000, immutable
 

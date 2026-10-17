@@ -1,5 +1,11 @@
 import { Eyebrow, Reveal } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
+
+const CONTACT_TITLE = "Contact Duyet";
+const CONTACT_DESCRIPTION =
+  "How to reach Duyet Le — email, GitHub, X, LinkedIn, or the MCP send_message tool for AI agents. Open to data engineering work, collaboration, speaking, and feedback.";
 
 const CHANNELS: Array<{ label: string; href: string; desc: string }> = [
   {
@@ -28,12 +34,18 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
     meta: [
-      { title: "Contact Duyet" },
+      { title: CONTACT_TITLE },
       {
         name: "description",
-        content:
-          "How to reach Duyet Le — email, GitHub, X, LinkedIn, or the MCP send_message tool for AI agents. Open to data engineering work, collaboration, speaking, and feedback.",
+        content: CONTACT_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/contact`,
+        title: CONTACT_TITLE,
+        description: CONTACT_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/contact" }],
   }),

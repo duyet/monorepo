@@ -1,4 +1,5 @@
 import { Reveal } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import { Suspense } from "react";
 import rawNotes from "../../../blog/public/notes-data.json";
@@ -14,6 +15,16 @@ import {
   personJsonLd,
   websiteJsonLd,
 } from "../lib/jsonld";
+import {
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_TITLE,
+  SITE_URL,
+} from "../lib/og";
+
+/** The homepage sets its own description; its title is inherited from the root. */
+const HOME_DESCRIPTION =
+  "Duyet — Senior Data & AI Engineer. Agent workflows, data platforms, selected work, and writing.";
 
 export const Route = createFileRoute("/")({
   component: HomePage,
@@ -21,9 +32,15 @@ export const Route = createFileRoute("/")({
     meta: [
       {
         name: "description",
-        content:
-          "Duyet — Senior Data & AI Engineer. Agent workflows, data platforms, selected work, and writing.",
+        content: HOME_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/`,
+        title: SITE_TITLE,
+        description: HOME_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/" }],
     scripts: [

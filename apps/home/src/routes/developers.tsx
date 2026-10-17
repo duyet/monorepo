@@ -1,5 +1,11 @@
 import { Eyebrow, Reveal } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
+
+const DEVELOPERS_TITLE = "Duyet Developer Resources – API, MCP & Tools";
+const DEVELOPERS_DESCRIPTION =
+  "Public stats API, MCP server, and machine-readable indexes for duyet.net — everything developers and AI agents need to integrate with the site.";
 
 const API_ENDPOINTS: Array<{ method: string; path: string; desc: string }> = [
   {
@@ -71,12 +77,18 @@ export const Route = createFileRoute("/developers")({
   component: DevelopersPage,
   head: () => ({
     meta: [
-      { title: "Duyet Developer Resources – API, MCP & Tools" },
+      { title: DEVELOPERS_TITLE },
       {
         name: "description",
-        content:
-          "Public stats API, MCP server, and machine-readable indexes for duyet.net — everything developers and AI agents need to integrate with the site.",
+        content: DEVELOPERS_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/developers`,
+        title: DEVELOPERS_TITLE,
+        description: DEVELOPERS_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/developers" }],
   }),

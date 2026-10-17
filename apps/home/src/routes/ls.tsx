@@ -1,3 +1,4 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import {
   CATEGORY_MAP,
@@ -6,10 +7,29 @@ import {
 } from "../../app/config/categories";
 import { urls } from "../../app/config/urls";
 import UrlsList from "../components/UrlsList";
+import {
+  SITE_DESCRIPTION,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_TITLE,
+  SITE_URL,
+} from "../lib/og";
 
 export const Route = createFileRoute("/ls")({
   component: ListPage,
   head: () => ({
+    // /ls sets no title or description of its own, so both are inherited from
+    // the root route. Repeating them here lets this page carry its own
+    // `og:url` without changing what it renders.
+    meta: [
+      ...ogMeta({
+        url: `${SITE_URL}/ls`,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
+    ],
     links: [{ rel: "canonical", href: "https://duyet.net/ls" }],
   }),
 });

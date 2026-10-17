@@ -6,19 +6,31 @@ import {
   Eyebrow,
   Reveal,
 } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
+
+const BRAND_TITLE = "Brand – duyet.net";
+const BRAND_DESCRIPTION =
+  "duyet.net logo assets: SVG and PNG, light and dark marks, copyable URLs.";
 
 export const Route = createFileRoute("/brand")({
   component: BrandPage,
   head: () => ({
     meta: [
-      { title: "Brand – duyet.net" },
+      { title: BRAND_TITLE },
       {
         name: "description",
-        content:
-          "duyet.net logo assets: SVG and PNG, light and dark marks, copyable URLs.",
+        content: BRAND_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/brand`,
+        title: BRAND_TITLE,
+        description: BRAND_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/brand" }],
   }),

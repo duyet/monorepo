@@ -1,4 +1,5 @@
 import { Reveal } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   elsewhere,
@@ -14,8 +15,12 @@ import { VibeCodingBento } from "../components/about/VibeCodingBento";
 import { HeroStory } from "../components/HeroStory";
 import { tw } from "../lib/tw";
 import { SoftLabel } from "../components/SoftLabel";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
 
 const contentLastModified = "2026-09-13";
+
+const ABOUT_TITLE = "About Duyet | Senior Data & AI Engineer";
+const ABOUT_DESCRIPTION = `Senior Data & AI Engineer with ${experienceYears} of experience building scalable data infrastructure, AI/ML platforms, and distributed systems.`;
 
 const profilePageJsonLd = JSON.stringify({
   "@context": "https://schema.org",
@@ -75,11 +80,18 @@ export const Route = createFileRoute("/about")({
   component: AboutPage,
   head: () => ({
     meta: [
-      { title: "About Duyet | Senior Data & AI Engineer" },
+      { title: ABOUT_TITLE },
       {
         name: "description",
-        content: `Senior Data & AI Engineer with ${experienceYears} of experience building scalable data infrastructure, AI/ML platforms, and distributed systems.`,
+        content: ABOUT_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/about`,
+        title: ABOUT_TITLE,
+        description: ABOUT_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/about" }],
     scripts: [

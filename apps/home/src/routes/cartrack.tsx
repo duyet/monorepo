@@ -1,9 +1,14 @@
 import { Eyebrow } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import { addUtmParams } from "../../app/lib/utm";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
 
 const PERIOD = "Oct 2023 — Present";
 const TENURE = "2 yrs 9 mos";
+
+const CARTRACK_TITLE = "Cartrack — Duyet's chapter | duyet.net";
+const CARTRACK_DESCRIPTION = `My ${TENURE} at Cartrack (${PERIOD}): building the data platform with ClickHouse on Kubernetes, tuning Spark/Trino/Iceberg, and building advanced LangGraph AI agents.`;
 
 interface Post {
   title: string;
@@ -91,11 +96,18 @@ export const Route = createFileRoute("/cartrack")({
   component: CartrackPage,
   head: () => ({
     meta: [
-      { title: "Cartrack — Duyet's chapter | duyet.net" },
+      { title: CARTRACK_TITLE },
       {
         name: "description",
-        content: `My ${TENURE} at Cartrack (${PERIOD}): building the data platform with ClickHouse on Kubernetes, tuning Spark/Trino/Iceberg, and building advanced LangGraph AI agents.`,
+        content: CARTRACK_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/cartrack`,
+        title: CARTRACK_TITLE,
+        description: CARTRACK_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/cartrack" }],
   }),

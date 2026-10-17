@@ -6,6 +6,7 @@ import ThemeProvider, { THEME_BOOT_SCRIPT } from "@duyet/components/ThemeProvide
 import { duyetFaviconHeadLinks } from "@duyet/components/brand/duyet-logo";
 import { duyetFontHeadLinks } from "@duyet/components/brand/fonts";
 import { SiteHeader } from "@duyet/components/site-header/SiteHeader";
+import { ogMeta } from "@duyet/config/og";
 import { useEffect } from "react";
 import {
   createRootRoute,
@@ -15,6 +16,13 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { NotFound } from "../components/NotFound";
+import {
+  SITE_DESCRIPTION,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_TITLE,
+  SITE_URL,
+} from "../lib/og";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -22,12 +30,15 @@ export const Route = createRootRoute({
       { charSet: "UTF-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Duyet — building AI agents and data platforms" },
-      {
-        name: "description",
-        content:
-          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
-      },
+      { title: SITE_TITLE },
+      { name: "description", content: SITE_DESCRIPTION },
+      ...ogMeta({
+        url: `${SITE_URL}/`,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
       {
         name: "theme-color",
         content: "#ffffff",
@@ -41,26 +52,6 @@ export const Route = createRootRoute({
       {
         name: "color-scheme",
         content: "light dark",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "https://duyet.net/" },
-      {
-        property: "og:title",
-        content: "Duyet — building AI agents and data platforms",
-      },
-      {
-        property: "og:description",
-        content:
-          "I build AI agents and the data platforms that keep them honest — end-to-end, obsessing over the small details that make software feel right to use.",
-      },
-      {
-        property: "og:image",
-        content: "https://duyet.net/screenshots/art-1.png",
-      },
-      { name: "twitter:card", content: "summary_large_image" },
-      {
-        name: "twitter:image",
-        content: "https://duyet.net/screenshots/art-1.png",
       },
     ],
     links: [...duyetFontHeadLinks({ display: true }), ...duyetFaviconHeadLinks()],

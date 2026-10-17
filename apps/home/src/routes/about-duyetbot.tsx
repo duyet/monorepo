@@ -1,18 +1,30 @@
 import { Eyebrow, Reveal } from "@duyet/components";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChatSidebar } from "../components/duyetbot/ChatSidebar";
 import { ChatWindow } from "../components/duyetbot/ChatWindow";
+import { SITE_OG_IMAGE, SITE_OG_IMAGE_ALT, SITE_URL } from "../lib/og";
+
+const DUYETBOT_TITLE = "duyetbot — the agent managing this site";
+const DUYETBOT_DESCRIPTION =
+  "duyetbot is an autonomous agent that maintains, redesigns, and ships duyet.net. A bundle of self-built AI agent skills running on top of the Hermes agent runtime.";
 
 export const Route = createFileRoute("/about-duyetbot")({
   component: DuyetbotPage,
   head: () => ({
     meta: [
-      { title: "duyetbot — the agent managing this site" },
+      { title: DUYETBOT_TITLE },
       {
         name: "description",
-        content:
-          "duyetbot is an autonomous agent that maintains, redesigns, and ships duyet.net. A bundle of self-built AI agent skills running on top of the Hermes agent runtime.",
+        content: DUYETBOT_DESCRIPTION,
       },
+      ...ogMeta({
+        url: `${SITE_URL}/about-duyetbot`,
+        title: DUYETBOT_TITLE,
+        description: DUYETBOT_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: SITE_OG_IMAGE_ALT,
+      }),
     ],
     links: [{ rel: "canonical", href: "https://duyet.net/about-duyetbot" }],
   }),
