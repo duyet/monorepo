@@ -47,10 +47,10 @@ describe("@duyet/config", () => {
 
       expect(prop("og:url")).toBe("https://homelab.duyet.net");
       expect(prop("og:title")).toBe("Homelab Dashboard | duyet.net");
-      expect(prop("og:image")).toBe("https://homelab.duyet.net/og-image.svg");
+      expect(prop("og:image")).toBe("https://homelab.duyet.net/og-image.png");
       expect(prop("og:locale")).toBe("en_US");
       expect(named("twitter:card")).toBe("summary_large_image");
-      expect(named("twitter:creator")).toBe("@duyetdev");
+      expect(named("twitter:creator")).toBe("@_duyet");
 
       expect(
         ogHeadLinks(homelabConfig.metadata).map((link) => link.rel),

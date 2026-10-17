@@ -71,7 +71,7 @@ export const homelabConfig = {
       siteName: "duyet.net",
       images: [
         {
-          url: "https://homelab.duyet.net/og-image.svg",
+          url: "https://homelab.duyet.net/og-image.png",
           width: 1200,
           height: 630,
           alt: "Homelab Dashboard - MicroK8s Cluster Monitoring",
@@ -85,8 +85,8 @@ export const homelabConfig = {
       title: "Homelab Dashboard | duyet.net",
       description:
         "MicroK8s cluster monitoring - Real-time metrics and service status",
-      images: ["https://homelab.duyet.net/og-image.svg"],
-      creator: "@duyetdev",
+      images: ["https://homelab.duyet.net/og-image.png"],
+      creator: "@_duyet",
     },
     icons: {
       icon: "https://duyet.net/brand/logo.svg",

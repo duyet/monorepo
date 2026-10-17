@@ -93,7 +93,7 @@ describe("ogMetaFromConfig", () => {
         siteName: "duyet.net",
         images: [
           {
-            url: "https://homelab.duyet.net/og-image.svg",
+            url: "https://homelab.duyet.net/og-image.png",
             width: 1200,
             height: 630,
             alt: "Homelab Dashboard",
@@ -106,13 +106,13 @@ describe("ogMetaFromConfig", () => {
         card: "summary_large_image",
         title: "Homelab Dashboard | duyet.net",
         description: "MicroK8s cluster monitoring",
-        images: ["https://homelab.duyet.net/og-image.svg"],
+        images: ["https://homelab.duyet.net/og-image.png"],
         creator: "@_duyet",
       },
     });
     expect(prop(m, "og:url")).toBe("https://homelab.duyet.net");
     expect(prop(m, "og:title")).toBe("Homelab Dashboard | duyet.net");
-    expect(prop(m, "og:image")).toBe("https://homelab.duyet.net/og-image.svg");
+    expect(prop(m, "og:image")).toBe("https://homelab.duyet.net/og-image.png");
     expect(prop(m, "og:locale")).toBe("en_US");
     expect(name(m, "twitter:card")).toBe("summary_large_image");
     // the @ must be normalized, not doubled
@@ -341,8 +341,8 @@ describe("ogMeta shape matches the reference implementation", () => {
       title: "T",
       description: "D",
       image: "https://x-algo.duyet.net/og.jpg",
-      imageWidth: 1920,
-      imageHeight: 1080,
+      imageWidth: 1280,
+      imageHeight: 720,
       creator: "_duyet",
     });
     for (const key of [
@@ -352,6 +352,7 @@ describe("ogMeta shape matches the reference implementation", () => {
       "og:description",
       "og:url",
       "og:image",
+      "og:image:alt",
       "og:image:width",
       "og:image:height",
     ]) {
