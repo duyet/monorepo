@@ -9,6 +9,7 @@
     "check-types": "tsc --noEmit",
     "test": "vitest run",
     "lint": "biome check .",
+    "og:card": "tsx scripts/generate-og.ts",
     "format": "biome format .",
     "format:fix": "biome format --write .",
     "lint:fix": "biome check --write .",
