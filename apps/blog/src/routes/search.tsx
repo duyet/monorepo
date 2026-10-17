@@ -2,6 +2,7 @@ import type { CategoryCount, Post, TagCount } from "@duyet/interfaces";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { SearchClient } from "@/components/blog/search-client";
+import { buildListHead } from "@/lib/head";
 import { getTopLevelPosts } from "@/lib/posts";
 
 type SearchParams = {
@@ -20,15 +21,12 @@ export const Route = createFileRoute("/search")({
     from: typeof search.from === "string" ? search.from : undefined,
     to: typeof search.to === "string" ? search.to : undefined,
   }),
-  head: () => ({
-    meta: [
-      { title: "Search | Tôi là Duyệt" },
-      {
-        name: "description",
-        content: "Search blog posts by title, category, tags, and date range.",
-      },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "Search",
+      description: "Search blog posts by title, category, tags, and date range.",
+      path: "/search",
+    }),
   loader: async () => {
     const allPosts = await getTopLevelPosts();
     const categories: CategoryCount = allPosts.reduce((acc, post) => {

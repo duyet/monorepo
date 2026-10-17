@@ -19,10 +19,26 @@
  *
  * Import cost matters here: route modules import this, so it must stay
  * dependency-free. `@duyet/config/og` is already in the client bundle.
+ *
+ * `buildListHead` below covers the other half of the site — the index, tags,
+ * categories, archives, series, search, and every other listing. Those routes
+ * used to set only `{title}` + `{name: "description"}`, so they inherited the
+ * root's `og:url` and every list page unfurled as the homepage (`/tags` shipped
+ * `og:url = https://blog.duyet.net`), and most of them had no `rel=canonical`
+ * at all. They are not articles, so they get no JSON-LD and no markdown
+ * alternate — but they do get their own canonical, `og:url`, `og:title` and
+ * `og:description` pointing at the site-wide card.
  */
 
 import { ogHeadLinks, ogMeta } from "@duyet/config/og";
-import { OG_SITE_NAME, OG_TWITTER_CREATOR } from "./og";
+import {
+  ogAbsolute,
+  OG_INDEX_CARD,
+  OG_ORIGIN,
+  OG_SITE_DESCRIPTION,
+  OG_SITE_NAME,
+  OG_TWITTER_CREATOR,
+} from "./og";
 
 /** Author block shared by every JSON-LD blob on the site. */
 const AUTHOR = {
@@ -129,5 +145,65 @@ export function buildArticleHead(input: ArticleHeadInput): ArticleHead {
       { type: "application/ld+json", children: JSON.stringify(jsonLd) },
       ...scripts,
     ],
+  };
+}
+
+export type ListHeadInput = {
+  /** Page title, without any site-name suffix. */
+  title: string;
+  /**
+   * Meta description / OG description. Defaults to the site-level description,
+   * for the few surfaces that have no description of their own.
+   */
+  description?: string;
+  /**
+   * Site-relative path, no trailing slash: `/tags`, `/tag/rust`, `/series/coding-agent`.
+   * The homepage is `/`.
+   */
+  path: string;
+  /** Appended to `title` in `<title>`. */
+  titleSuffix?: string;
+};
+
+/**
+ * Build the `head()` for a non-article page (index, listings, standalone pages).
+ *
+ * `head()` results are merged across the matched route chain, and `meta` dedups
+ * by `property`/`name` with the deepest match winning — so restating the card
+ * here is what overrides the root's. `links` do NOT dedup, so every route that
+ * renders a page of its own must emit its own canonical here, and a route that
+ * is only a layout for a child (see `/series`) must emit none.
+ */
+export function buildListHead(input: ListHeadInput): ArticleHead {
+  const {
+    title,
+    description = OG_SITE_DESCRIPTION,
+    path,
+    titleSuffix = " | Tôi là Duyệt",
+  } = input;
+  // Trimmed rather than built with `ogAbsolute`, which normalizes `/` into
+  // `https://blog.duyet.net/` — the homepage's canonical has always been the
+  // bare origin, and a trailing slash there would be a redirect loop for anyone
+  // who treats the two as different URLs.
+  const url = `${OG_ORIGIN}${path}`.replace(/\/+$/, "");
+
+  return {
+    meta: [
+      { title: `${title}${titleSuffix}` },
+      { name: "description", content: description },
+      ...ogMeta({
+        url,
+        title,
+        description,
+        // Listings have no artwork of their own, so they point at the same
+        // site-wide card the root would have given them — the point of this
+        // builder is the URL and the text, not the image.
+        image: ogAbsolute(OG_INDEX_CARD),
+        siteName: OG_SITE_NAME,
+        creator: OG_TWITTER_CREATOR,
+      }),
+    ],
+    links: ogHeadLinks({ url }),
+    scripts: [],
   };
 }

@@ -3,11 +3,11 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { getAllCategories, getAllPosts } from "@/lib/posts";
+import { buildListHead } from "@/lib/head";
 
 export const Route = createFileRoute("/html-sitemap")({
-  head: () => ({
-    meta: [{ title: "HTML Sitemap | Tôi là Duyệt" }],
-  }),
+  head: () =>
+    buildListHead({ title: "HTML Sitemap", path: "/html-sitemap" }),
   loader: async () => {
     const [posts, categoriesMap] = await Promise.all([
       getAllPosts(),

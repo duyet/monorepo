@@ -19,6 +19,7 @@ import { ServiceWorkerRegister } from "@/components/ServiceWorkerRegister";
 import {
   ogAbsolute,
   OG_INDEX_CARD,
+  OG_SITE_DESCRIPTION,
   OG_SITE_NAME,
   OG_TWITTER_CREATOR,
 } from "@/lib/og";
@@ -62,8 +63,7 @@ function NotFoundComponent() {
 
 const SITE_URL = "https://blog.duyet.net";
 const SITE_TITLE = "Tôi là Duyệt";
-const SITE_DESCRIPTION =
-  "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.";
+const SITE_DESCRIPTION = OG_SITE_DESCRIPTION;
 
 export const Route = createRootRoute({
   head: () => ({

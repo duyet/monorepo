@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { buildArticleHead } from "../head";
+import type { ArticleHead } from "../head";
+import { buildArticleHead, buildListHead } from "../head";
 
 /**
  * The three blog surfaces (post page, child chapter, quick note) all build
@@ -16,15 +17,15 @@ const post = {
   image: "https://blog.duyet.net/og/2026-09-i-dont-read-code-anymore.png",
 };
 
-const content = (head: ReturnType<typeof buildArticleHead>, key: string) =>
+const content = (head: ArticleHead, key: string) =>
   head.meta.find((m) => m[key] !== undefined)?.[key] as string;
-const property = (head: ReturnType<typeof buildArticleHead>, p: string) =>
+const property = (head: ArticleHead, p: string) =>
   head.meta.find((m) => m.property === p)?.content as string;
-const named = (head: ReturnType<typeof buildArticleHead>, n: string) =>
+const named = (head: ArticleHead, n: string) =>
   head.meta.find((m) => m.name === n)?.content as string;
-const link = (head: ReturnType<typeof buildArticleHead>, rel: string) =>
+const link = (head: ArticleHead, rel: string) =>
   head.links.find((l) => l.rel === rel);
-const jsonLd = (head: ReturnType<typeof buildArticleHead>) =>
+const jsonLd = (head: ArticleHead) =>
   JSON.parse(head.scripts[0].children as string) as Record<string, unknown>;
 
 describe("buildArticleHead", () => {
@@ -119,5 +120,92 @@ describe("buildArticleHead", () => {
       src: "https://platform.twitter.com/widgets.js",
       async: true,
     });
+  });
+});
+
+/**
+ * The regression these guard: `/tags` shipped `og:url = https://blog.duyet.net`
+ * because the route set a `<title>` and a description and nothing else, so it
+ * inherited the root's whole card. Every list page now says which page it is.
+ */
+describe("buildListHead", () => {
+  const tags = buildListHead({
+    title: "Topics",
+    description: "Browse posts by topics and tags.",
+    path: "/tags",
+  });
+
+  it("points og:url at the page, not the site root", () => {
+    expect(property(tags, "og:url")).toBe("https://blog.duyet.net/tags");
+    expect(property(tags, "og:title")).toBe("Topics");
+    expect(property(tags, "og:description")).toBe(
+      "Browse posts by topics and tags.",
+    );
+    expect(named(tags, "twitter:title")).toBe("Topics");
+    expect(named(tags, "twitter:description")).toBe(
+      "Browse posts by topics and tags.",
+    );
+  });
+
+  it("emits a canonical in links, never in meta", () => {
+    expect(link(tags, "canonical")?.href).toBe("https://blog.duyet.net/tags");
+    // Two canonicals would be worse than none: `links` are concatenated across
+    // the matched chain with no dedup.
+    expect(tags.meta.some((m) => m.rel === "canonical")).toBe(false);
+  });
+
+  it("keeps the site-wide card, since listings have no artwork", () => {
+    expect(property(tags, "og:image")).toBe(
+      "https://blog.duyet.net/og/index.png",
+    );
+    expect(named(tags, "twitter:image")).toBe(
+      "https://blog.duyet.net/og/index.png",
+    );
+    expect(named(tags, "twitter:card")).toBe("summary_large_image");
+    // A listing is a hub, not an article — no BlogPosting JSON-LD.
+    expect(property(tags, "og:type")).toBe("website");
+    expect(property(tags, "og:site_name")).toBe("blog.duyet.net");
+  });
+
+  it("suffixes the document title but not the og:title", () => {
+    expect(content(tags, "title")).toBe("Topics | Tôi là Duyệt");
+    expect(property(tags, "og:title")).toBe("Topics");
+  });
+
+  it("honours a custom title suffix and keeps the homepage slashless", () => {
+    const home = buildListHead({
+      title: "Tôi là Duyệt",
+      path: "/",
+      titleSuffix: " | blog.duyet.net",
+    });
+    expect(content(home, "title")).toBe("Tôi là Duyệt | blog.duyet.net");
+    expect(link(home, "canonical")?.href).toBe("https://blog.duyet.net");
+    expect(property(home, "og:url")).toBe("https://blog.duyet.net");
+  });
+
+  it("falls back to the site description instead of emitting an empty one", () => {
+    const sitemap = buildListHead({ title: "HTML Sitemap", path: "/html-sitemap" });
+    expect(named(sitemap, "description")).not.toBe("");
+    expect(property(sitemap, "og:description")).toBe(
+      named(sitemap, "description"),
+    );
+  });
+
+  it("builds a per-page URL for dynamic routes", () => {
+    const head = buildListHead({
+      title: "Apache Airflow",
+      description: "Blog posts tagged with Apache Airflow.",
+      path: "/tag/apache-airflow",
+    });
+    expect(property(head, "og:url")).toBe(
+      "https://blog.duyet.net/tag/apache-airflow",
+    );
+    expect(link(head, "canonical")?.href).toBe(
+      "https://blog.duyet.net/tag/apache-airflow",
+    );
+  });
+
+  it("emits no JSON-LD and no scripts", () => {
+    expect(tags.scripts).toEqual([]);
   });
 });

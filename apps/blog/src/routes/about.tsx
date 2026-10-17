@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { buildListHead } from "@/lib/head";
 import { tw } from "@/lib/tw";
 import type { CSSProperties, ReactElement } from "react";
 import {
@@ -9,12 +10,12 @@ import {
 } from "@/components/icons";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About | Tôi là Duyệt" },
-      { name: "description", content: "About Duyet Le — Sr. Data Engineer." },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "About",
+      description: "About Duyet Le — Sr. Data Engineer.",
+      path: "/about",
+    }),
   component: About,
 });
 

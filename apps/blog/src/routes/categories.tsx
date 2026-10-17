@@ -2,16 +2,17 @@ import type { CategoryCount } from "@duyet/interfaces";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { PALETTE } from "@/lib/colors";
+import { buildListHead } from "@/lib/head";
 import { getAllCategories } from "@/lib/posts";
 import { getCategoryMetadata } from "@/lib/category-metadata";
 
 export const Route = createFileRoute("/categories")({
-  head: () => ({
-    meta: [
-      { title: "Categories | Tôi là Duyệt" },
-      { name: "description", content: "Browse posts by category." },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "Categories",
+      description: "Browse posts by category.",
+      path: "/categories",
+    }),
   loader: async () => {
     const categories = await getAllCategories();
     return { categories };

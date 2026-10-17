@@ -3,16 +3,17 @@ import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { ReactElement } from "react";
 import { yearColor } from "@/lib/colors";
+import { buildListHead } from "@/lib/head";
 import { getPostsByAllYear } from "@/lib/posts";
 import { postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/archives")({
-  head: () => ({
-    meta: [
-      { title: "Archives | Tôi là Duyệt" },
-      { name: "description", content: "All blog posts archived by year." },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "Archives",
+      description: "All blog posts archived by year.",
+      path: "/archives",
+    }),
   loader: async () => {
     const raw = await getPostsByAllYear();
     // Children are nested under their parent in Recent posts; keep the flat

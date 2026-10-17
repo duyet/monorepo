@@ -1,10 +1,20 @@
 import Container from "@duyet/components/Container";
 import type { Post } from "@duyet/interfaces";
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { buildListHead } from "@/lib/head";
 import { getAllPosts } from "@/lib/posts";
 import { tw } from "@/lib/tw";
 
 export const Route = createFileRoute("/feed")({
+  // An HTML page of the latest 10 posts — the syndication feed itself is the
+  // static /rss.xml, not this route — so it needs the same card as every other
+  // list page.
+  head: () =>
+    buildListHead({
+      title: "Feed",
+      description: "Latest posts from the blog.",
+      path: "/feed",
+    }),
   loader: async () => {
     const allPosts = await getAllPosts();
     const posts = allPosts.slice(0, 10);

@@ -3,16 +3,17 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { PALETTE } from "@/lib/colors";
+import { buildListHead } from "@/lib/head";
 import { getAllTags } from "@/lib/posts";
 import { getTagMetadata } from "@/lib/tag-metadata";
 
 export const Route = createFileRoute("/tags")({
-  head: () => ({
-    meta: [
-      { title: "Topics | Tôi là Duyệt" },
-      { name: "description", content: "Browse posts by topics and tags." },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "Topics",
+      description: "Browse posts by topics and tags.",
+      path: "/tags",
+    }),
   loader: async () => {
     const tags = await getAllTags();
     return { tags };

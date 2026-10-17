@@ -2,14 +2,17 @@ import type { Series } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
+import { buildListHead } from "@/lib/head";
 import { getAllSeries, getSeries } from "@/lib/posts";
 import { buildTree } from "@/lib/post-tree";
 import { childParams, postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/series/$slug")({
-  head: ({ params }) => ({
-    meta: [{ title: `${params.slug} Series | Tôi là Duyệt` }],
-  }),
+  head: ({ params }) =>
+    buildListHead({
+      title: `${params.slug} Series`,
+      path: `/series/${params.slug}`,
+    }),
   loader: async ({ params }) => {
     const [allSeries, series] = await Promise.all([
       getAllSeries(),

@@ -22,6 +22,17 @@ export const OG_ORIGIN = "https://blog.duyet.net";
 /** `og:site_name` for the blog (the root `duyet.net` default is too broad). */
 export const OG_SITE_NAME = "blog.duyet.net";
 
+/**
+ * Site-level description, shared by the app root and by every list surface
+ * that has no description of its own (`/html-sitemap`, `/series/$slug`).
+ *
+ * It lives here rather than as a literal in `__root.tsx` because those two
+ * would otherwise drift, and a drifted `og:description` on a list page is the
+ * exact bug the per-route `buildListHead` exists to prevent.
+ */
+export const OG_SITE_DESCRIPTION =
+  "Sr. Data Engineer. Rustacean at night. Technical blog on data engineering, distributed systems, and open source.";
+
 /** X handle, without the `@`. */
 export const OG_TWITTER_CREATOR = "_duyet";
 

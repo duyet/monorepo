@@ -3,6 +3,7 @@ import { dateFormat } from "@duyet/libs/date";
 import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
+import { buildListHead } from "@/lib/head";
 import { getAllTags, getPostsByTag } from "@/lib/posts";
 import { postParams } from "@/lib/post-params";
 import { slugToDisplay } from "@/lib/slug-display";
@@ -17,12 +18,11 @@ function findTagBySlug(tags: TagCount, slug: string): string | undefined {
 export const Route = createFileRoute("/tag/$tag")({
   head: ({ params }) => {
     const display = slugToDisplay(params.tag);
-    return {
-      meta: [
-        { title: `${display} | Tôi là Duyệt` },
-        { name: "description", content: `Blog posts tagged with ${display}.` },
-      ],
-    };
+    return buildListHead({
+      title: display,
+      description: `Blog posts tagged with ${display}.`,
+      path: `/tag/${params.tag}`,
+    });
   },
   loader: async ({ params }) => {
     const [all, tags] = await Promise.all([

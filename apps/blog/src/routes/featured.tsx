@@ -2,16 +2,17 @@ import type { Post } from "@duyet/interfaces";
 import { dateFormat } from "@duyet/libs/date";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
+import { buildListHead } from "@/lib/head";
 import { getPostsByAllYear } from "@/lib/posts";
 import { postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/featured")({
-  head: () => ({
-    meta: [
-      { title: "Featured Posts | Tôi là Duyệt" },
-      { name: "description", content: "Featured blog posts." },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "Featured Posts",
+      description: "Featured blog posts.",
+      path: "/featured",
+    }),
   loader: async () => {
     const raw = await getPostsByAllYear(true);
     // Children are nested under their parent; keep flat featured views to top-level.

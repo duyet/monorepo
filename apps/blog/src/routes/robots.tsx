@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { buildListHead } from "@/lib/head";
 
 export const Route = createFileRoute("/robots")({
-  head: () => ({
-    meta: [{ title: "Robots.txt | Tôi là Duyệt" }],
-  }),
+  // The crawler's file is the static /robots.txt; this route is the readable
+  // HTML page that explains it, so it is an indexable page like any other.
+  head: () => buildListHead({ title: "Robots.txt", path: "/robots" }),
   component: RobotsPage,
 });
 

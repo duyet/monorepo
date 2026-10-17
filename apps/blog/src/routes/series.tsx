@@ -6,15 +6,31 @@ import {
   useMatches,
 } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
+import { buildListHead } from "@/lib/head";
 import { getAllSeries } from "@/lib/posts";
 
+// `head({ matches })` narrows each `routeId` to this route's own id, so the
+// comparison is widened to `string` — the same match list the component reads
+// through `useMatches()`.
+const CHILD_ROUTE_ID = "/series/$slug" as string;
+
+function hasSeriesChild(matches: ReadonlyArray<{ routeId: string }>): boolean {
+  return matches.some((match) => match.routeId === CHILD_ROUTE_ID);
+}
+
 export const Route = createFileRoute("/series")({
-  head: () => ({
-    meta: [
-      { title: "Series | Tôi là Duyệt" },
-      { name: "description", content: "Blog post series." },
-    ],
-  }),
+  head: ({ matches }) => {
+    // `/series/$slug` renders through this route's <Outlet/>, so both heads
+    // land on one document — and `links` are concatenated with no dedup, which
+    // would give the child page two canonicals. Stand aside when a child is
+    // matched; it owns the card.
+    if (hasSeriesChild(matches)) return {};
+    return buildListHead({
+      title: "Series",
+      description: "Blog post series.",
+      path: "/series",
+    });
+  },
   loader: async () => {
     const seriesList = await getAllSeries();
     return { seriesList };
@@ -23,9 +39,7 @@ export const Route = createFileRoute("/series")({
 });
 
 function SeriesPage(): ReactElement {
-  const hasChild = useMatches().some(
-    (match) => match.routeId === "/series/$slug"
-  );
+  const hasChild = hasSeriesChild(useMatches());
   const { seriesList } = Route.useLoaderData() as { seriesList: Series[] };
   if (hasChild) return <Outlet />;
 

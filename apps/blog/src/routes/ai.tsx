@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { buildListHead } from "@/lib/head";
 
 export const Route = createFileRoute("/ai")({
-  head: () => ({
-    meta: [
-      { title: "AI | Tôi là Duyệt" },
-      { name: "description", content: "How I use AI." },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: "AI",
+      description: "How I use AI.",
+      path: "/ai",
+    }),
   component: AI,
 });
 

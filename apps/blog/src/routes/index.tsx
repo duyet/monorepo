@@ -6,6 +6,7 @@ import {
 } from "@/lib/posts";
 import { getShortforms } from "@/lib/shortforms";
 import type { Shortform } from "@/lib/shortforms";
+import { buildListHead } from "@/lib/head";
 import { FeaturedPost } from "@/components/home/FeaturedPost";
 import { PostList } from "@/components/home/PostList";
 import { NoteCard } from "@/components/blog/NoteCard";
@@ -26,20 +27,17 @@ const BLOG_INTRO =
 // Route & loader
 // ---------------------------------------------------------------------------
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      // ogMeta in the root already emits title/description/site_name for the
-      // site; the index restates them so the homepage unfurls as the blog
-      // itself rather than inheriting a bare `og:url` from the root.
-      { title: "Tôi là Duyệt | blog.duyet.net" },
-      { name: "description", content: BLOG_INTRO },
-    ],
-    links: [
-      // `links` are concatenated across matches with no dedup, so exactly one
-      // route in the tree may own the canonical.
-      { rel: "canonical", href: "https://blog.duyet.net" },
-    ],
-  }),
+  // Restates the whole card — canonical, og:url, og:title, og:description — so
+  // the homepage unfurls as itself rather than leaning on whatever the root
+  // happens to say. `meta` dedups with the deepest match winning; `links` does
+  // not, which is why the root deliberately ships no canonical.
+  head: () =>
+    buildListHead({
+      title: "Tôi là Duyệt",
+      description: BLOG_INTRO,
+      path: "/",
+      titleSuffix: " | blog.duyet.net",
+    }),
   loader: async () => {
     const [postsByYear, shortforms] = await Promise.all([
       getPostsByAllYear(),

@@ -3,14 +3,15 @@ import { createFileRoute, Link } from '@tanstack/react-router'
 import type { ReactElement } from 'react'
 import { getShortforms } from '@/lib/shortforms'
 import type { Shortform } from '@/lib/shortforms'
+import { buildListHead } from '@/lib/head'
 
 export const Route = createFileRoute('/notes')({
-  head: () => ({
-    meta: [
-      { title: 'Quick Notes | Tôi là Duyệt' },
-      { name: 'description', content: 'Short-form thoughts and updates.' },
-    ],
-  }),
+  head: () =>
+    buildListHead({
+      title: 'Quick Notes',
+      description: 'Short-form thoughts and updates.',
+      path: '/notes',
+    }),
   loader: () => {
     const shortforms = getShortforms()
     return { shortforms }

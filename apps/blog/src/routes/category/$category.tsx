@@ -4,21 +4,18 @@ import { getSlug } from "@duyet/libs/getSlug";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import type { CSSProperties, ReactElement } from "react";
 import { getCategoryMetadata } from "@/lib/category-metadata";
+import { buildListHead } from "@/lib/head";
 import { getAllCategories, getPostsByCategory } from "@/lib/posts";
 import { postParams } from "@/lib/post-params";
 
 export const Route = createFileRoute("/category/$category")({
   head: ({ params }) => {
     const { category } = params;
-    return {
-      meta: [
-        { title: `${category} | Tôi là Duyệt` },
-        {
-          name: "description",
-          content: `Blog posts in the ${category} category.`,
-        },
-      ],
-    };
+    return buildListHead({
+      title: category,
+      description: `Blog posts in the ${category} category.`,
+      path: `/category/${category}`,
+    });
   },
   loader: async ({ params }) => {
     const [all, categories] = await Promise.all([
