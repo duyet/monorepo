@@ -78,14 +78,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: node --experimental-strip-types scripts/sync-failure-summary.ts >> "$GITHUB_STEP_SUMMARY"
 
+  # The daily bake republishes code that already passed checks on its push, so
+  # an unrelated flaky test must not leave the data apps on yesterday.
   checks:
+    if: ${{ github.event_name != 'schedule' }}
     uses: ./.github/workflows/checks.yml
     secrets: inherit
 
   deploy:
     name: Deploy ${{ matrix.app }}
     needs: [detect-changes, checks]
-    if: ${{ needs.detect-changes.outputs.matrix != '{"include":[]}' }}
+    if: ${{ !cancelled() && needs.detect-changes.result == 'success' && (needs.checks.result == 'success' || needs.checks.result == 'skipped') && needs.detect-changes.outputs.matrix != '{"include":[]}' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
