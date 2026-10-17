@@ -12,5 +12,5 @@
   Cache-Control: public, max-age=31536000, immutable
 
 # Open Graph card (committed PNG, regenerated on card copy changes)
-/og-image.png
+/og.png
   Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000

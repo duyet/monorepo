@@ -1,5 +1,5 @@
 /**
- * Render the homelab Open Graph card to `public/og-image.png`.
+ * Render the homelab Open Graph card to `public/og.png`.
  *
  * Run with `pnpm run og:card` from `apps/homelab`. The output is committed, so
  * this is a maintenance script, not a build step — prerendered HTML can only
@@ -20,7 +20,7 @@ import { DARK_THEME, renderOgCard } from "@duyet/config/og-card";
 import { fileURLToPath } from "node:url";
 
 const outPath = fileURLToPath(
-  new URL("../public/og-image.png", import.meta.url),
+  new URL("../public/og.png", import.meta.url),
 );
 
 const { path, usedImage } = await renderOgCard(

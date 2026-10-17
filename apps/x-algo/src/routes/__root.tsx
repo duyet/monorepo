@@ -35,7 +35,7 @@ function NotFoundComponent() {
   );
 }
 
-const ogImage = `${SITE_URL}/og.jpg`;
+const ogImage = `${SITE_URL}/og.png`;
 
 export const Route = createRootRoute({
   head: () => ({
@@ -52,8 +52,8 @@ export const Route = createRootRoute({
       { property: "og:url", content: SITE_URL },
       { property: "og:image", content: ogImage },
       { property: "og:image:alt", content: SITE_TITLE },
-      { property: "og:image:width", content: "1280" },
-      { property: "og:image:height", content: "720" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: SITE_TITLE },
       { name: "twitter:description", content: SITE_DESCRIPTION },
