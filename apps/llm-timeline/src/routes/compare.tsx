@@ -1,3 +1,4 @@
+import { ogMeta } from "@duyet/config/og";
 import {
   createFileRoute,
   useNavigate,
@@ -27,12 +28,35 @@ import {
 } from "@/components/compare/compare-utils";
 import type { Model } from "@/lib/data";
 import { models } from "@/lib/data";
+import { ogImageUrl, SITE_TITLE, SITE_URL } from "@/lib/og";
 import { slugify } from "@/lib/utils";
+
+const DESCRIPTION = "Compare LLM models side-by-side";
 
 export const Route = createFileRoute("/compare")({
   validateSearch: (search: Record<string, unknown>) => ({
     models: (search.models as string | undefined) ?? "",
   }),
+  head: () => {
+    // No head() at all meant this page unfurled as the homepage. It has no
+    // copy of its own, so it keeps the site title — what needs fixing is
+    // `og:url`. Selection lives in the query string, so the canonical URL is
+    // the bare path. No card is generated for /compare, so it keeps the site
+    // card (and `twitter:card` stays "summary_large_image").
+    const canonicalUrl = `${SITE_URL}/compare`;
+    return {
+      meta: [
+        { title: SITE_TITLE },
+        { name: "description", content: DESCRIPTION },
+        ...ogMeta({
+          url: canonicalUrl,
+          title: SITE_TITLE,
+          description: DESCRIPTION,
+          image: ogImageUrl("index"),
+        }),
+      ],
+    };
+  },
   component: ComparePage,
 });
 
@@ -107,7 +131,7 @@ function ComparePage() {
   const hasComparison = sortedModels.length >= MIN_COMPARE;
 
   return (
-    <PageLayout description="Compare LLM models side-by-side">
+    <PageLayout description={DESCRIPTION}>
       <div className="space-y-6">
         <ModelSelector
           selectedModels={sortedModels}

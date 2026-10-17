@@ -16,6 +16,14 @@
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Generated OG cards: paths are stable and only change when scripts/generate-og.ts
+# does, so cache them like any other image asset. Pages joins Cache-Control from
+# every matching rule, so `!` detaches the /* default first — otherwise the
+# header reads "max-age=300, stale-while-revalidate=86400, max-age=2592000, ...".
+/og/*
+  ! Cache-Control
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
 # Generated model dataset (regenerated each build) — large, stable per deploy
 /data.json
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
