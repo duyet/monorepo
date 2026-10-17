@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { CloudflareView, fetchCloudflareData } from "@/app/blog/cloudflare";
 import { fetchPostHogData, PostHogView } from "@/app/blog/posthog";
 import type { PeriodDays } from "@/lib/periods";
@@ -24,15 +26,23 @@ export const Route = createFileRoute("/blog/")({
       posthog: posthog.status === "fulfilled" ? posthog.value : null,
     };
   },
-  head: () => ({
-    meta: [
-      { title: "Blog Insights" },
-      {
-        name: "description",
-        content: "Blog Insights data collected from Cloudflare and PostHog.",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "Blog Insights";
+    const description =
+      "Blog Insights data collected from Cloudflare and PostHog.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/blog`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: BlogPage,
 });
 

@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import type { LoaderData } from "@/components/overview/types";
 import {
   loadOverviewDataForStaticBuild,
@@ -24,16 +26,18 @@ export const Route = createFileRoute("/")({
     import.meta.env.SSR
       ? loadOverviewDataForStaticBuild()
       : fetchOverviewDataFromApi(),
-  head: () => ({
-    meta: [
-      { title: "@duyet Insights" },
-      {
-        name: "description",
-        content:
-          "Editorial dashboard for duyet.net across traffic, AI usage, coding activity, and content.",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "@duyet Insights";
+    const description =
+      "Editorial dashboard for duyet.net across traffic, AI usage, coding activity, and content.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({ url: SITE_URL, title, description, image: SITE_OG_IMAGE }),
+      ],
+    };
+  },
   component: IndexPage,
 });
 

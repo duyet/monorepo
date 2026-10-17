@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { CCUsageActivityView } from "@/app/ai/activity";
 import { CCUsageCostsView } from "@/app/ai/costs";
 import { CCUsageDailyTableView } from "@/app/ai/daily-table";
@@ -48,16 +50,23 @@ export const Route = createFileRoute("/ai/")({
       activityRaw: activityRaw.status === "fulfilled" ? activityRaw.value : [],
     };
   },
-  head: () => ({
-    meta: [
-      { title: "AI Usage Analytics" },
-      {
-        name: "description",
-        content:
-          "AI usage analytics, token consumption, and model insights from Claude Code",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "AI Usage Analytics";
+    const description =
+      "AI usage analytics, token consumption, and model insights from Claude Code";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/ai`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: AiPage,
 });
 

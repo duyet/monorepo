@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
 import { Cpu, Folder, Monitor, Terminal } from "lucide-react";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { WakaTimeActivityView } from "@/app/wakatime/activity";
 import { WakaTimeBestDayCard } from "@/app/wakatime/best-day";
 import { WakaTimeBreakdownView } from "@/app/wakatime/breakdown";
@@ -55,16 +57,23 @@ export const Route = createFileRoute("/wakatime/")({
       heatmap: heatmap.status === "fulfilled" ? heatmap.value : [],
     };
   },
-  head: () => ({
-    meta: [
-      { title: "WakaTime Coding Analytics @duyet" },
-      {
-        name: "description",
-        content:
-          "Programming activity, language statistics, editor & OS usage, projects, and coding insights from WakaTime",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "WakaTime Coding Analytics @duyet";
+    const description =
+      "Programming activity, language statistics, editor & OS usage, projects, and coding insights from WakaTime";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/wakatime`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: WakatimePage,
 });
 

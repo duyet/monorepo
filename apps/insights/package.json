@@ -18,6 +18,7 @@
     "dev": "vite dev --port 3013",
     "fmt": "pnpm run fix",
     "lint": "biome lint .",
+    "og:card": "tsx scripts/generate-og.ts",
     "start": "vite preview --port 3001",
     "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-insights",
     "cf:deploy": "dotenv -e ../../.env.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-insights --commit-dirty=true",

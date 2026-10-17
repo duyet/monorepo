@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
 import { Cpu, Folder, Monitor, Terminal } from "lucide-react";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { WakaTimeActivityView } from "@/app/wakatime/activity";
 import { WakaTimeBestDayCard } from "@/app/wakatime/best-day";
 import { WakaTimeBreakdownView } from "@/app/wakatime/breakdown";
@@ -54,18 +56,23 @@ export const Route = createFileRoute("/wakatime/$period")({
       languages: languages.status === "fulfilled" ? languages.value : [],
     };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const config = loaderData?.config;
     const isAllTime = config?.days === "all";
+    const title = `WakaTime Coding Analytics @duyet - ${config?.label ?? ""}`;
+    const description = isAllTime
+      ? "All-time programming activity and coding insights"
+      : `Programming activity for the last ${config?.label ?? ""}`;
     return {
       meta: [
-        { title: `WakaTime Coding Analytics @duyet - ${config?.label ?? ""}` },
-        {
-          name: "description",
-          content: isAllTime
-            ? "All-time programming activity and coding insights"
-            : `Programming activity for the last ${config?.label ?? ""}`,
-        },
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/wakatime/${params.period}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
       ],
     };
   },
@@ -116,7 +123,10 @@ function WakaTimePeriodPage() {
       </div>
 
       <div>
-        <InsightsSection title="Coding overview" description={overviewDescription}>
+        <InsightsSection
+          title="Coding overview"
+          description={overviewDescription}
+        >
           <WakaTimeMetricsView metrics={metrics} />
         </InsightsSection>
 
@@ -129,7 +139,10 @@ function WakaTimePeriodPage() {
           </InsightsSection>
         ) : null}
 
-        <InsightsSection title={activityTitle} description={activityDescription}>
+        <InsightsSection
+          title={activityTitle}
+          description={activityDescription}
+        >
           <WakaTimeActivityView
             codingActivity={activity}
             isAllTime={isAllTime}

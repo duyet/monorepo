@@ -18,5 +18,8 @@
 /wakatime-assets/*
   Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
 
+/og.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+
 /llms.txt
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400

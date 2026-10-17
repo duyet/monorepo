@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { getWakaTimeComparison } from "@/app/wakatime/wakatime-comparison-utils";
 import { ComparisonMetrics } from "@/components/comparison";
 import { getPeriodLabel } from "@/lib/comparison";
@@ -43,17 +45,24 @@ export const Route = createFileRoute("/compare/wakatime/$period1/$period2")({
       invalid: false,
     };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `WakaTime Comparison: ${loaderData?.config1?.label ?? ""} vs ${loaderData?.config2?.label ?? ""}`,
-      },
-      {
-        name: "description",
-        content: `Compare coding activity between ${loaderData?.config1?.label ?? ""} and ${loaderData?.config2?.label ?? ""}`,
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const label1 = loaderData?.config1?.label ?? "";
+    const label2 = loaderData?.config2?.label ?? "";
+    const title = `WakaTime Comparison: ${label1} vs ${label2}`;
+    const description = `Compare coding activity between ${label1} and ${label2}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/compare/wakatime/${params.period1}/${params.period2}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: WakaTimeComparisonPage,
 });
 

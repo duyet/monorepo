@@ -1,5 +1,7 @@
 import type { GithubRepo } from "@duyet/interfaces";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { fetchGithubStars, GithubActivityView } from "@/app/github/activity";
 import { GithubCard } from "@/app/github/card";
 import {
@@ -54,16 +56,23 @@ export const Route = createFileRoute("/github/")({
       stars: stars.status === "fulfilled" ? stars.value : ([] as GithubRepo[]),
     };
   },
-  head: () => ({
-    meta: [
-      { title: "GitHub Insights @duyet" },
-      {
-        name: "description",
-        content:
-          "GitHub repository analytics and development activity insights",
-      },
-    ],
-  }),
+  head: () => {
+    const title = "GitHub Insights @duyet";
+    const description =
+      "GitHub repository analytics and development activity insights";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/github`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: GithubPage,
 });
 

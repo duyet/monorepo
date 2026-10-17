@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import {
   formatCCost,
   formatCCTokens,
@@ -47,17 +49,24 @@ export const Route = createFileRoute("/compare/ai/$period1/$period2")({
       invalid: false,
     };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `AI Usage Comparison: ${loaderData?.config1?.label ?? ""} vs ${loaderData?.config2?.label ?? ""}`,
-      },
-      {
-        name: "description",
-        content: `Compare Claude Code usage between ${loaderData?.config1?.label ?? ""} and ${loaderData?.config2?.label ?? ""}`,
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const label1 = loaderData?.config1?.label ?? "";
+    const label2 = loaderData?.config2?.label ?? "";
+    const title = `AI Usage Comparison: ${label1} vs ${label2}`;
+    const description = `Compare Claude Code usage between ${label1} and ${label2}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/compare/ai/${params.period1}/${params.period2}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: AIComparisonPage,
 });
 

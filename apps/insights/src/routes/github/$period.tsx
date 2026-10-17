@@ -1,5 +1,7 @@
 import type { GithubRepo } from "@duyet/interfaces";
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { fetchGithubStars, GithubActivityView } from "@/app/github/activity";
 import { GithubCard } from "@/app/github/card";
 import {
@@ -60,18 +62,23 @@ export const Route = createFileRoute("/github/$period")({
       stars: stars.status === "fulfilled" ? stars.value : ([] as GithubRepo[]),
     };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const config = loaderData?.config;
     const isAllTime = config?.days === "all";
+    const title = `GitHub Insights @duyet - ${config?.label ?? ""}`;
+    const description = isAllTime
+      ? "All-time GitHub repository analytics and insights"
+      : `GitHub repository analytics for the last ${config?.label ?? ""}`;
     return {
       meta: [
-        { title: `GitHub Insights @duyet - ${config?.label ?? ""}` },
-        {
-          name: "description",
-          content: isAllTime
-            ? "All-time GitHub repository analytics and insights"
-            : `GitHub repository analytics for the last ${config?.label ?? ""}`,
-        },
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/github/${params.period}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
       ],
     };
   },

@@ -10,12 +10,19 @@ import {
   SiteFooter,
   SiteHeader,
 } from "@duyet/components";
+import { ogHeadLinks, ogMeta } from "@duyet/config/og";
 import {
   createRootRoute,
   HeadContent,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
+import {
+  SITE_DESCRIPTION,
+  SITE_OG_IMAGE,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/lib/site";
 
 function NotFoundComponent() {
   return (
@@ -42,10 +49,21 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Insights | duyet.net" },
-      { name: "description", content: "Insights for duyet.net" },
+      { title: `${SITE_TITLE} | duyet.net` },
+      { name: "description", content: SITE_DESCRIPTION },
+      ...ogMeta({
+        url: SITE_URL,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${SITE_TITLE} — ${SITE_DESCRIPTION}`,
+      }),
     ],
-    links: [...duyetFontHeadLinks(), ...duyetFaviconHeadLinks()],
+    links: [
+      ...duyetFontHeadLinks(),
+      ...ogHeadLinks({ url: SITE_URL }),
+      ...duyetFaviconHeadLinks(),
+    ],
   }),
   notFoundComponent: NotFoundComponent,
   component: RootComponent,

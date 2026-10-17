@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { CloudflareView, fetchCloudflareData } from "@/app/blog/cloudflare";
 import { fetchPostHogData, PostHogView } from "@/app/blog/posthog";
 import type { PeriodDays } from "@/lib/periods";
@@ -27,20 +29,26 @@ export const Route = createFileRoute("/blog/$period")({
       posthog: posthog.status === "fulfilled" ? posthog.value : null,
     };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `Blog Insights - ${loaderData?.config?.label ?? ""}`,
-      },
-      {
-        name: "description",
-        content:
-          loaderData?.config?.days === "all"
-            ? "All-time blog insights and analytics"
-            : `Blog insights for the last ${loaderData?.config?.label}`,
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const label = loaderData?.config?.label;
+    const title = `Blog Insights - ${label ?? ""}`;
+    const description =
+      loaderData?.config?.days === "all"
+        ? "All-time blog insights and analytics"
+        : `Blog insights for the last ${label}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/blog/${params.period}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: BlogPeriodPage,
 });
 

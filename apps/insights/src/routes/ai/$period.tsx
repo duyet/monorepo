@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ogMeta } from "@duyet/config/og";
+import { SITE_OG_IMAGE, SITE_URL } from "@/lib/site";
 import { CCUsageActivityView } from "@/app/ai/activity";
 import { CCUsageCostsView } from "@/app/ai/costs";
 import { CCUsageDailyTableView } from "@/app/ai/daily-table";
@@ -48,20 +50,26 @@ export const Route = createFileRoute("/ai/$period")({
       activityRaw: activityRaw.status === "fulfilled" ? activityRaw.value : [],
     };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `AI Usage Analytics - ${loaderData?.config?.label ?? ""}`,
-      },
-      {
-        name: "description",
-        content:
-          loaderData?.config?.days === "all"
-            ? "All-time AI usage analytics and insights"
-            : `AI usage analytics for the last ${loaderData?.config?.label}`,
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const label = loaderData?.config?.label;
+    const title = `AI Usage Analytics - ${label ?? ""}`;
+    const description =
+      loaderData?.config?.days === "all"
+        ? "All-time AI usage analytics and insights"
+        : `AI usage analytics for the last ${label}`;
+    return {
+      meta: [
+        { title },
+        { name: "description", content: description },
+        ...ogMeta({
+          url: `${SITE_URL}/ai/${params.period}`,
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+        }),
+      ],
+    };
+  },
   component: AiPeriodPage,
 });
 
