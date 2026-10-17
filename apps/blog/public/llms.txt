@@ -25,7 +25,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ## Recent Posts
 
-### [Herdr](https://blog.duyet.net/2026/10/herdr)
+### [herdr](https://blog.duyet.net/2026/10/herdr)
 - **Date**: 2026-10-04
 - **Category**: AI
 - **Tags**: Ai, Agents, Herdr
@@ -170,7 +170,7 @@ Articles span from 2015 to 2026, documenting the evolution of modern data engine
 
 ### 2026 (24 posts)
 
-- [Herdr](https://blog.duyet.net/2026/10/herdr) - 2026-10-04
+- [herdr](https://blog.duyet.net/2026/10/herdr) - 2026-10-04
 - [I don't read code anymore](https://blog.duyet.net/2026/09/i-dont-read-code-anymore) - 2026-09-26
 - [Grok Bot](https://blog.duyet.net/2026/08/grok-bot) - 2026-08-19
 - [I am building anyrouter.dev](https://blog.duyet.net/2026/07/anyrouter) - 2026-07-19
