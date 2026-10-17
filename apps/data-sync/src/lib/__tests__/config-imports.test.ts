@@ -63,7 +63,14 @@ function runThroughTsx(source: string): string {
 
 let probeCounter = 0;
 
-describe("@duyet/config import shape", () => {
+/**
+ * Every test here starts `pnpm exec tsx` as a child process and waits for it.
+ * That cold start alone can exceed vitest's 5s default on CI, where turbo runs
+ * other suites alongside this one, so the default timed these out.
+ */
+const TSX_TIMEOUT_MS = 30_000;
+
+describe("@duyet/config import shape", { timeout: TSX_TIMEOUT_MS }, () => {
   test("a static named import from the barrel does NOT work under tsx", () => {
     // This is the trap, asserted so the reason the subpath is used is recorded
     // and stays true. If `@duyet/config` ever gains `"type": "module"` or a real
@@ -118,7 +125,7 @@ describe("@duyet/config import shape", () => {
   });
 });
 
-describe("the CLI entrypoint", () => {
+describe("the CLI entrypoint", { timeout: TSX_TIMEOUT_MS }, () => {
   test("starts, which is what the SyntaxError prevented", () => {
     // `src/index.ts` dispatches on argv[2]. An unknown command reaches the
     // "Unknown command" path *after* the whole module graph has loaded and
