@@ -1,3 +1,4 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
 import type { ReactElement } from "react";
@@ -8,6 +9,7 @@ import {
 } from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
 import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { SITE_DESCRIPTION, SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
 import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/m/$slug")({
@@ -21,8 +23,12 @@ export const Route = createFileRoute("/m/$slug")({
     const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
     return { note, html, linked, localGraph };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const note = loaderData?.note;
+    const title = note?.title ?? "Memory Note";
+    // `description` is empty on notes without one; an empty og:description
+    // unfurls as a bare card, so fall back to the site description.
+    const description = note?.description || SITE_DESCRIPTION;
     return {
       meta: [
         {
@@ -33,6 +39,16 @@ export const Route = createFileRoute("/m/$slug")({
         ...(note?.description
           ? [{ name: "description", content: note.description }]
           : []),
+        // Overrides the root's og:* tags; the card itself is shared, so only
+        // the identity tags change.
+        ...ogMeta({
+          url: siteUrl(`/m/${params.slug}`),
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+          type: "article",
+          imageAlt: title,
+        }),
       ],
     };
   },

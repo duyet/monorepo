@@ -1,3 +1,4 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { BookOpen, Brain } from "lucide-react";
 import type { MemoryType } from "../../../lib/content";
@@ -8,6 +9,10 @@ import {
   getAllMemoryTypes,
   getMemoryByType,
 } from "../../../lib/content";
+import { SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
+
+const MEMORY_TITLE = "Memory";
+const MEMORY_DESCRIPTION = "Browse all memory notes grouped by type.";
 
 export const Route = createFileRoute("/m/")({
   loader: () => {
@@ -19,11 +24,15 @@ export const Route = createFileRoute("/m/")({
   },
   head: () => ({
     meta: [
-      { title: "Memory | Knowledge Base | duyet.net" },
-      {
-        name: "description",
-        content: "Browse all memory notes grouped by type.",
-      },
+      { title: `${MEMORY_TITLE} | Knowledge Base | duyet.net` },
+      { name: "description", content: MEMORY_DESCRIPTION },
+      ...ogMeta({
+        url: siteUrl("/m"),
+        title: `${MEMORY_TITLE} | Knowledge Base`,
+        description: MEMORY_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${MEMORY_TITLE} | Knowledge Base`,
+      }),
     ],
   }),
   component: MemoryIndexPage,

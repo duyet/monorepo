@@ -1,6 +1,12 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute } from "@tanstack/react-router";
 import { getReadmeContent } from "../../lib/content";
 import { markdownToHtml } from "../../lib/markdown";
+import { SITE_OG_IMAGE, siteUrl } from "../../lib/site";
+
+const ABOUT_TITLE = "About";
+const ABOUT_DESCRIPTION =
+  "How this knowledge base is built — the shared-brain protocol behind kb.duyet.net.";
 
 export const Route = createFileRoute("/about")({
   loader: async () => {
@@ -9,12 +15,15 @@ export const Route = createFileRoute("/about")({
   },
   head: () => ({
     meta: [
-      { title: "About — Knowledge Base | duyet.net" },
-      {
-        name: "description",
-        content:
-          "How this knowledge base is built — the shared-brain protocol behind kb.duyet.net.",
-      },
+      { title: `${ABOUT_TITLE} — Knowledge Base | duyet.net` },
+      { name: "description", content: ABOUT_DESCRIPTION },
+      ...ogMeta({
+        url: siteUrl("/about"),
+        title: `${ABOUT_TITLE} — Knowledge Base`,
+        description: ABOUT_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${ABOUT_TITLE} — Knowledge Base`,
+      }),
     ],
   }),
   component: AboutPage,

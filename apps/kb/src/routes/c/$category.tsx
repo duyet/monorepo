@@ -1,6 +1,8 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Tag } from "lucide-react";
 import { getAllCategories, getArticlesByCategory } from "../../../lib/content";
+import { SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
 
 export const Route = createFileRoute("/c/$category")({
   loader: ({ params }) => {
@@ -12,17 +14,26 @@ export const Route = createFileRoute("/c/$category")({
     }
     return { category, articles };
   },
-  head: ({ loaderData }) => ({
-    meta: [
-      {
-        title: `${loaderData?.category ?? "Category"} | Knowledge Base | duyet.net`,
-      },
-      {
-        name: "description",
-        content: `Articles in the ${loaderData?.category} category.`,
-      },
-    ],
-  }),
+  head: ({ loaderData, params }) => {
+    const category = loaderData?.category ?? params.category;
+    const title = `${category} | Knowledge Base`;
+    const description = `Articles in the ${category} category of the duyet.net knowledge base.`;
+    return {
+      meta: [
+        { title: `${category} | Knowledge Base | duyet.net` },
+        { name: "description", content: description },
+        // Overrides the root's og:* tags; the card itself is shared, so only
+        // the identity tags change.
+        ...ogMeta({
+          url: siteUrl(`/c/${category}`),
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+          imageAlt: title,
+        }),
+      ],
+    };
+  },
   component: CategoryPage,
 });
 

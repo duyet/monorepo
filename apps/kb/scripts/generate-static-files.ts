@@ -14,9 +14,9 @@
  * - public/graph-data.json    (nodes + edges for the knowledge graph)
  *
  * This script is self-contained — it does NOT import lib/content.ts so
- * the runtime loader can stay Vite-only (import.meta.glob). The two lib/ imports
- * it does have (`graph-types.ts`, `wikilinks.ts`) carry zero runtime code or
- * `node:*` dependencies, so they evaluate identically under plain Node.
+ * the runtime loader can stay Vite-only (import.meta.glob). The lib/ imports
+ * it does have (`graph-types.ts`, `wikilinks.ts`, `site.ts`) carry zero runtime
+ * code or `node:*` dependencies, so they evaluate identically under plain Node.
  */
 
 import {
@@ -30,6 +30,7 @@ import { basename, extname, join } from "node:path";
 import matter from "gray-matter";
 import { kbSlugify } from "@duyet/libs/slugify";
 import type { GraphEdge, GraphNode } from "../lib/graph-types";
+import { SITE_URL } from "../lib/site";
 import { extractWikilinks, normalizeRelatedRefs } from "../lib/wikilinks";
 
 const SCRIPT_DIR = import.meta.dirname!;
@@ -41,7 +42,9 @@ const PUBLIC_DIR = join(APP_DIR, "public");
 const PUBLIC_K_DIR = join(PUBLIC_DIR, "k");
 const PUBLIC_M_DIR = join(PUBLIC_DIR, "m");
 const PUBLIC_D_DIR = join(PUBLIC_DIR, "d");
-const SITE_URL = "https://kb.duyet.net";
+// SITE_URL comes from lib/site.ts — the same constant the OG tags and the
+// committed public/og.png card reference, so the sitemap cannot advertise a
+// different host than the unfurls point at.
 
 mkdirSync(PUBLIC_DIR, { recursive: true });
 mkdirSync(PUBLIC_K_DIR, { recursive: true });

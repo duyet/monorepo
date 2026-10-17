@@ -1,13 +1,19 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { getAllArticles, getAllInbox, getAllMemory } from "../../lib/content";
 import { buildSearchIndex } from "../../lib/search-index";
 import type { SearchKind } from "../../lib/search";
+import { SITE_OG_IMAGE, siteUrl } from "../../lib/site";
 import { KbSearch } from "../components/KbSearch";
 
 type SearchParams = {
   q?: string;
   kind?: SearchKind;
 };
+
+const SEARCH_TITLE = "Search";
+const SEARCH_DESCRIPTION =
+  "Search memory notes, articles, and daily inbox on kb.duyet.net.";
 
 export const Route = createFileRoute("/search")({
   validateSearch: (search: Record<string, unknown>): SearchParams => ({
@@ -29,12 +35,15 @@ export const Route = createFileRoute("/search")({
   },
   head: () => ({
     meta: [
-      { title: "Search | Knowledge Base | duyet.net" },
-      {
-        name: "description",
-        content:
-          "Search memory notes, articles, and daily inbox on kb.duyet.net.",
-      },
+      { title: `${SEARCH_TITLE} | Knowledge Base | duyet.net` },
+      { name: "description", content: SEARCH_DESCRIPTION },
+      ...ogMeta({
+        url: siteUrl("/search"),
+        title: `${SEARCH_TITLE} | Knowledge Base`,
+        description: SEARCH_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${SEARCH_TITLE} | Knowledge Base`,
+      }),
     ],
   }),
   component: SearchPage,

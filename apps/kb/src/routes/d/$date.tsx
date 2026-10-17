@@ -1,9 +1,11 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink } from "lucide-react";
 import type { ReactElement } from "react";
 import { getInboxBySlug, resolveWikilinkHref } from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
 import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
 import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/d/$date")({
@@ -16,15 +18,30 @@ export const Route = createFileRoute("/d/$date")({
     const localGraph = extractLocalGraph(buildKbGraph(), note.slug, 2);
     return { note, html, localGraph };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const note = loaderData?.note;
+    // Inbox notes carry no summary field, so the description is derived from the
+    // date they are filed under rather than invented copy.
+    const title = note ? note.title || note.date : "Daily Note";
     return {
       meta: [
         {
+          // `title` is derived above, so the document title and og:title agree
+          // even when an inbox note has no heading.
           title: note
-            ? `${note.title} | Daily | Knowledge Base | duyet.net`
+            ? `${title} | Daily | Knowledge Base | duyet.net`
             : "Daily Note | Knowledge Base | duyet.net",
         },
+        // Overrides the root's og:* tags; the card itself is shared, so only
+        // the identity tags change.
+        ...ogMeta({
+          url: siteUrl(`/d/${params.date}`),
+          title,
+          description: `Daily inbox note for ${note?.date ?? params.date} on the duyet.net knowledge base.`,
+          image: SITE_OG_IMAGE,
+          type: "article",
+          imageAlt: title,
+        }),
       ],
     };
   },

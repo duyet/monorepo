@@ -9,6 +9,7 @@ import {
 } from "@duyet/components";
 import Analytics from "@duyet/components/Analytics";
 import ThemeProvider from "@duyet/components/ThemeProvider";
+import { ogMeta } from "@duyet/config/og";
 import {
   createRootRoute,
   HeadContent,
@@ -18,6 +19,12 @@ import {
   useRouterState,
 } from "@tanstack/react-router";
 import { useEffect } from "react";
+import {
+  SITE_DESCRIPTION,
+  SITE_OG_IMAGE,
+  SITE_TITLE,
+  SITE_URL,
+} from "../../lib/site";
 
 function NotFoundComponent() {
   return (
@@ -39,12 +46,18 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1.0" },
       { name: "robots", content: "follow, index" },
-      { title: "Knowledge Base | duyet.net" },
-      {
-        name: "description",
-        content:
-          "Documentation and knowledge base for duyet.net — apps, architecture, and references.",
-      },
+      { title: `${SITE_TITLE} | duyet.net` },
+      { name: "description", content: SITE_DESCRIPTION },
+      // The site-wide card, written by `scripts/generate-og.ts`. `meta` dedups
+      // by property/name with the deepest match winning, so per-route `ogMeta()`
+      // overrides just the tags it passes (notably og:url/og:title).
+      ...ogMeta({
+        url: SITE_URL,
+        title: SITE_TITLE,
+        description: SITE_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${SITE_TITLE} — ${SITE_DESCRIPTION}`,
+      }),
       {
         name: "theme-color",
         content: "#ffffff",

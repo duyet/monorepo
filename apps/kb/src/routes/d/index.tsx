@@ -1,7 +1,12 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { CalendarDays } from "lucide-react";
 import type { ReactElement } from "react";
 import { getAllInbox } from "../../../lib/content";
+import { SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
+
+const DAILY_TITLE = "Daily";
+const DAILY_DESCRIPTION = "Daily inbox notes, newest first.";
 
 export const Route = createFileRoute("/d/")({
   loader: () => {
@@ -12,11 +17,15 @@ export const Route = createFileRoute("/d/")({
   },
   head: () => ({
     meta: [
-      { title: "Daily | Knowledge Base | duyet.net" },
-      {
-        name: "description",
-        content: "Daily inbox notes, newest first.",
-      },
+      { title: `${DAILY_TITLE} | Knowledge Base | duyet.net` },
+      { name: "description", content: DAILY_DESCRIPTION },
+      ...ogMeta({
+        url: siteUrl("/d"),
+        title: `${DAILY_TITLE} | Knowledge Base`,
+        description: DAILY_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${DAILY_TITLE} | Knowledge Base`,
+      }),
     ],
   }),
   component: DailyIndexPage,

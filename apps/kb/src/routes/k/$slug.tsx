@@ -1,3 +1,4 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { ArrowLeft, ExternalLink, Tag } from "lucide-react";
 import type { ReactElement } from "react";
@@ -8,6 +9,7 @@ import {
 } from "../../../lib/content";
 import { buildKbGraph } from "../../../lib/graph";
 import { markdownToHtml, preprocessObsidian } from "../../../lib/markdown";
+import { SITE_DESCRIPTION, SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
 import { extractLocalGraph, LocalGraph } from "../../components/LocalGraph";
 
 export const Route = createFileRoute("/k/$slug")({
@@ -21,8 +23,13 @@ export const Route = createFileRoute("/k/$slug")({
     const localGraph = extractLocalGraph(buildKbGraph(), params.slug, 2);
     return { article, html, linked, localGraph };
   },
-  head: ({ loaderData }) => {
+  head: ({ loaderData, params }) => {
     const article = loaderData?.article;
+    const title = article?.title ?? "Article";
+    // `summary` is typed as a string but is empty on articles with no summary,
+    // and an empty og:description unfurls as a bare card — fall back to the site
+    // description so every article has copy.
+    const description = article?.summary || SITE_DESCRIPTION;
     return {
       meta: [
         {
@@ -33,15 +40,16 @@ export const Route = createFileRoute("/k/$slug")({
         ...(article?.summary
           ? [{ name: "description", content: article.summary }]
           : []),
-        ...(article
-          ? [
-              { property: "og:title", content: article.title },
-              { property: "og:type", content: "article" },
-              ...(article.summary
-                ? [{ property: "og:description", content: article.summary }]
-                : []),
-            ]
-          : []),
+        // Overrides the root's og:* tags; the card itself is shared, so only
+        // the identity tags change.
+        ...ogMeta({
+          url: siteUrl(`/k/${params.slug}`),
+          title,
+          description,
+          image: SITE_OG_IMAGE,
+          type: "article",
+          imageAlt: title,
+        }),
       ],
     };
   },

@@ -1,6 +1,12 @@
+import { ogMeta } from "@duyet/config/og";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { FolderOpen } from "lucide-react";
 import { getAllCategories, getArticlesByCategory } from "../../../lib/content";
+import { SITE_OG_IMAGE, siteUrl } from "../../../lib/site";
+
+const CATEGORIES_TITLE = "Categories";
+const CATEGORIES_DESCRIPTION =
+  "Articles on the duyet.net knowledge base, grouped by category.";
 
 export const Route = createFileRoute("/c/")({
   loader: () => {
@@ -13,7 +19,19 @@ export const Route = createFileRoute("/c/")({
     };
   },
   head: () => ({
-    meta: [{ title: "Categories | Knowledge Base | duyet.net" }],
+    meta: [
+      { title: `${CATEGORIES_TITLE} | Knowledge Base | duyet.net` },
+      // The route had no <meta name="description">; OG needs one or the card
+      // unfurls bare, so this is added rather than left inherited.
+      { name: "description", content: CATEGORIES_DESCRIPTION },
+      ...ogMeta({
+        url: siteUrl("/c"),
+        title: `${CATEGORIES_TITLE} | Knowledge Base`,
+        description: CATEGORIES_DESCRIPTION,
+        image: SITE_OG_IMAGE,
+        imageAlt: `${CATEGORIES_TITLE} | Knowledge Base`,
+      }),
+    ],
   }),
   component: CategoriesPage,
 });

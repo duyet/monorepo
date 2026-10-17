@@ -28,6 +28,13 @@
   Cache-Control: public, max-age=0, must-revalidate
   X-Content-Type-Options: nosniff
 
+# OG card. Committed (rewritten only when site copy changes by `pnpm run
+# og:card`), so the URL in every og:image resolves right after deploy. Long
+# cache, same rule as apps/photos — not the default max-age=0 the HTML needs.
+/og.png
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=2592000
+  X-Content-Type-Options: nosniff
+
 # Raw markdown endpoints
 /*.md
   Content-Type: text/plain; charset=utf-8
