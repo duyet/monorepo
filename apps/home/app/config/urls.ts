@@ -37,7 +37,7 @@ export const urls: Urls = {
     desc: "Stamp",
   },
   "/burn": {
-    target: "https://burns.duyet.net",
+    target: "https://burn.duyet.net",
     desc: "Token burn counter",
   },
   "/claw": {
