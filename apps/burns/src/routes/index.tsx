@@ -8,6 +8,7 @@ import { TextTabs } from "../components/TextTabs";
 import { ThemeTabs } from "../components/ThemeTabs";
 import { readPublicJson } from "../lib/read-public-json";
 import { fmtCompactTokens, fmtCost } from "../lib/sources";
+import { pickInsight } from "../lib/insights";
 import type { TokenData } from "../lib/types";
 import {
   buildSeries,
@@ -47,6 +48,7 @@ function Page(): JSX.Element {
   const days = useMemo(() => toDays(data.daily), [data.daily]);
   const range = RANGES.find((r) => r.key === rangeKey) ?? RANGES[0];
   const { last, prior } = weekTrend(days);
+  const insight = pickInsight(data);
 
   return (
     <div className="burns-page">
@@ -76,6 +78,7 @@ function Page(): JSX.Element {
           selected={filter}
           onSelect={setFilter}
         />
+        {insight && <p className="burns-insight">{insight}</p>}
       </section>
 
       <div className="burns-controls">

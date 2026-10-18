@@ -40,4 +40,6 @@ export interface TokenData {
   /** All-time per-agent usage for logo hover tooltips. */
   source_totals: SourceTotal[];
   daily: DailyEntry[];
+  /** Optional LLM-generated insight note override. */
+  insight?: string;
 }

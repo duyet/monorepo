@@ -170,6 +170,15 @@ body {
   font-size: 13px;
 }
 
+.burns-insight {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  opacity: 0.85;
+}
+
 .burns-agents {
   display: flex;
   flex-wrap: wrap;
