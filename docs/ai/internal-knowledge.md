@@ -7,6 +7,7 @@ GitHub repo metadata (description + topics) must match the current stack. When m
 ## Working Rules
 
 - Read `CLAUDE.md` and this file before making non-trivial changes.
+- **`main` requires signed commits, and that gate is not a status check**: it never turns a check red, so a PR blocked by an unusable signature looks identical in the PR list to one blocked by a failing check, and `gh pr view` reports only `mergeable_state=blocked`. Check the head in one command — `gh api repos/duyet/monorepo/commits/<sha> --jq .commit.verification`, where `verified` must be `true` (`unknown_key` means signed with a key GitHub does not know, `unsigned` means no signature at all). Use key `B27227A26F2C9907` and confirm locally with `git commit --show-signature` / `git log --show-signature -1` before pushing; when `user.signingkey` may not be in effect, pass it explicitly as `-SB27227A26F2C9907` (attached, no space — `-S <keyid>` makes git read the key id as a pathspec), and `--no-verify` skips hooks only, so it never caused a bad signature.
 - Use semantic commit messages. Prefer a scope from `.commitlintrc.js` when one exists.
 - Keep changes surgical. Do not reformat or refactor unrelated code.
 - Preserve existing UX and public routes unless the request explicitly changes them.
