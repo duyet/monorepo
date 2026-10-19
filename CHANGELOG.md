@@ -1,5 +1,37 @@
 # Changelog
 
+## [0.1.11](https://github.com/duyet/monorepo/compare/v0.1.10...v0.1.11) (2026-10-19)
+
+
+### ✨ Features
+
+* **blog:** show Hacker News comments in post footer ([6f08069](https://github.com/duyet/monorepo/commit/6f08069843d3b4b9319d55bc4cdc27816cf9e919))
+* **burns:** add Claude-Code-style LLM-extensible insight note to hero ([560024a](https://github.com/duyet/monorepo/commit/560024aeec724ce227fdfccdddb142d5ae13cda6))
+* **burns:** clean OG card and burn.duyet.net canonical domain ([c3eef6a](https://github.com/duyet/monorepo/commit/c3eef6a075c9ca972ba89532115b94e1ec214a32))
+* **burns:** redesign as a minimal one-screen page ([bf36cef](https://github.com/duyet/monorepo/commit/bf36cefadf485a3053e61432c9ca7ddb18f8ec5c))
+* **og:** cover all kb routes with full OG tags and a committed site card ([0ad0f9d](https://github.com/duyet/monorepo/commit/0ad0f9d441eee549400b3d8c84a9c32b210f9494))
+* **og:** give agent-assistant a complete OG set and a committed site card ([799bb86](https://github.com/duyet/monorepo/commit/799bb86ce9f246ccd3cc78bde1d7dc4a2a593621))
+* **og:** give insights a complete OG set and a committed site card ([9af8d4a](https://github.com/duyet/monorepo/commit/9af8d4a8b7b13bf0feca2383b1a9a21e833f3cd0))
+* **og:** migrate home to ogMeta with a 1200x630 card and per-page og:url ([2c3a5c3](https://github.com/duyet/monorepo/commit/2c3a5c3b8210970c13c1f4b7e98e134585b7712e))
+
+
+### 🐛 Bug Fixes
+
+* **agent-assistant:** export ThreadStateDO from the Worker entrypoint ([c17cdea](https://github.com/duyet/monorepo/commit/c17cdea9cf19934d5a8a26bb4e49e273d5307557))
+* **burns:** centre the breakdown dialog ([b42439c](https://github.com/duyet/monorepo/commit/b42439cce96d749d7f54648f98f189a486c60d74))
+* **config:** point homelab OG at the committed og-image.png and real creator handle ([79f827a](https://github.com/duyet/monorepo/commit/79f827ab1d0c11bafc6d46ef807a544888ae5024))
+* **home:** point /burn redirect and proxy at the canonical burn.duyet.net ([dafe9bd](https://github.com/duyet/monorepo/commit/dafe9bd681ee465664cde37daa37331394189a24))
+* **og:** declare x-algo card at its real 1280x720 size and add image alt ([5aab55e](https://github.com/duyet/monorepo/commit/5aab55ed3a8acdce5405754b099d8a6caa09b297))
+* **og:** page-specific og:url and canonical for every blog list route ([874ec82](https://github.com/duyet/monorepo/commit/874ec82b3c28f0c56e80ee2dd1acc82745ff27db))
+* **og:** per-route og:url for llm-timeline static routes and prerender license pages ([ac4d2d8](https://github.com/duyet/monorepo/commit/ac4d2d86c6e94e8059cf480a608666eb15fa8ebb))
+* **og:** standardize committed OG cards to og.png 1200x630 across homelab and x-algo ([0595bbb](https://github.com/duyet/monorepo/commit/0595bbb2f0fee96c451cddb970295bd7231d3eac))
+* **photos:** prerender the year routes so crawlers see per-year OG tags ([50c9d62](https://github.com/duyet/monorepo/commit/50c9d62b33a70bd93a846100bcabec19643e92c9))
+
+
+### ♻️ Refactoring
+
+* **config:** keep only .env.example and .env.local ([e62474e](https://github.com/duyet/monorepo/commit/e62474e43ea97147f88fffd5606d868499e3cb1b))
+
 ## [0.1.10](https://github.com/duyet/monorepo/compare/v0.1.9...v0.1.10) (2026-10-12)
 
 
