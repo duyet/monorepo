@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite dev --port 3004",
     "build": "vite build && vite build --config vite.config.server.ts",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsrs --noEmit",
     "test": "vitest run",
     "lint": "biome check .",
     "og:card": "tsx scripts/generate-og.ts",

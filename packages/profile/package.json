@@ -10,8 +10,8 @@
     "./duyet": "./src/duyet.profile.ts"
   },
   "scripts": {
-    "lint": "tsc --noEmit",
-    "check-types": "tsc --noEmit",
+    "lint": "tsrs --noEmit",
+    "check-types": "tsrs --noEmit",
     "test": "vitest run"
   },
   "dependencies": {

@@ -12,7 +12,7 @@
     "fmt": "pnpm run fix",
     "lint": "biome lint .",
     "start": "vite preview --port 3003",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsrs --noEmit",
     "deploy": "pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-photos",
     "cf:deploy": "dotenv -e ../../.env.local -- pnpm run build && pnpm dlx wrangler pages deploy dist/client --project-name=duyet-photos --commit-dirty=true",
     "cf:deploy:prod": "../../scripts/cf-deploy-prod.sh photos duyet-photos",

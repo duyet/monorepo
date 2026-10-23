@@ -11,7 +11,7 @@
     "build": "esbuild src/index.ts --bundle --outdir=dist --platform=browser --format=esm",
     "openapi:mirror": "tsx scripts/openapi-mirror.ts",
     "start": "node dist/index.js",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsrs --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
     "lint": "biome lint .",

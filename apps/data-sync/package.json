@@ -20,7 +20,7 @@
     "cleanup": "tsx src/commands/cleanup.ts",
     "cleanup:dry-run": "tsx src/commands/cleanup.ts --dry-run",
     "test": "vitest run",
-    "check-types": "tsc --noEmit"
+    "check-types": "tsrs --noEmit"
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",

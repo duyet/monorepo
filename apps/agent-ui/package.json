@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "vite build && tsx ../../scripts/patch-html-for-cloudflare.ts",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsrs --noEmit",
     "dev": "vite dev --port 3008",
     "fmt": "pnpm run fix",
     "lint": "biome lint .",

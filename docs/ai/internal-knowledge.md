@@ -116,6 +116,7 @@ When the user asks for Tailscale / tailnet / remote access to a local Vite app:
 - `packages/config`: shared app, API, and UI config.
 - `packages/tailwind-config`: shared Tailwind config.
 - `packages/tsconfig`: shared TypeScript config.
+- Type checking runs through `tsrs --noEmit` (Rust port of the TS 7 checker, pinned exactly in the root `package.json`). `typescript` stays installed because Vite, vitest, and editors load its JS API.
 - `packages/profile` and `packages/urls`: shared profile and URL metadata.
 
 ## Deployment Notes

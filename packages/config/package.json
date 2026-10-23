@@ -16,7 +16,7 @@
   },
   "scripts": {
     "lint": "biome lint .",
-    "check-types": "tsc --noEmit",
+    "check-types": "tsrs --noEmit",
     "test": "vitest run"
   },
   "devDependencies": {

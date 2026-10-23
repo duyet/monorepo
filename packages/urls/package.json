@@ -15,8 +15,8 @@
   },
   "scripts": {
     "test": "vitest run",
-    "lint": "tsc --noEmit",
-    "check-types": "tsc --noEmit"
+    "lint": "tsrs --noEmit",
+    "check-types": "tsrs --noEmit"
   },
   "dependencies": {
     "@duyet/libs": "*",
