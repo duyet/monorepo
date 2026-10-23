@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.12](https://github.com/duyet/monorepo/compare/v0.1.11...v0.1.12) (2026-10-23)
+
+
+### ✨ Features
+
+* **blog:** add pstack shortform note ([8ae5657](https://github.com/duyet/monorepo/commit/8ae56577cafda33d5a4687e425a85bc31b0ac704))
+
 ## [0.1.11](https://github.com/duyet/monorepo/compare/v0.1.10...v0.1.11) (2026-10-19)
 
 
