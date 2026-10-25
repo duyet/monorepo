@@ -1,3 +1,5 @@
+import { BUILT_AT, formatBuiltTime } from "../lib/utils";
+
 export function ProjectsPageHeader({ count }: { count: number }) {
   return (
     <header className="max-w-3xl">
@@ -12,6 +14,9 @@ export function ProjectsPageHeader({ count }: { count: number }) {
       <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground">
         Products, tools, and open source — most of it live on a subdomain or a
         GitHub repo.
+      </p>
+      <p className="mt-4 font-mono text-xs text-muted-foreground">
+        {`Built ${formatBuiltTime(BUILT_AT)}`}
       </p>
     </header>
   );

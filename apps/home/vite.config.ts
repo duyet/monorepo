@@ -4,6 +4,12 @@ import viteReact from "@vitejs/plugin-react";
 import { defineConfig } from "vite";
 
 export default defineConfig({
+  // Build timestamp for the projects page: the catalogue is hand-committed, so
+  // the page labels this as build time ("Built <time>"), never as a data
+  // snapshot. Same mechanism as apps/ai-percentage's VITE_SNAPSHOT_AT.
+  define: {
+    "import.meta.env.VITE_BUILT_AT": JSON.stringify(new Date().toISOString()),
+  },
   server: {
     port: 3001,
     strictPort: true,
