@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.12](https://github.com/duyet/monorepo/compare/v0.1.11...v0.1.12) (2026-10-26)
+
+
+### ✨ Features
+
+* **blog:** add pstack shortform note ([8ae5657](https://github.com/duyet/monorepo/commit/8ae56577cafda33d5a4687e425a85bc31b0ac704))
+* **home:** show the built-at time on the projects page ([#1819](https://github.com/duyet/monorepo/issues/1819)) ([388e9ac](https://github.com/duyet/monorepo/commit/388e9ace11c3e09ed7ff6f7fdd1d5c9079187236))
+
 ## [0.1.11](https://github.com/duyet/monorepo/compare/v0.1.10...v0.1.11) (2026-10-19)
 
 
