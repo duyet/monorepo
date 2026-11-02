@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/duyet/monorepo/compare/duyet-v0.1.2...duyet-v0.1.3) (2026-11-02)
+
+
+### Bug Fixes
+
+* **deps:** update rust crate zip to v9 [security] ([#1826](https://github.com/duyet/monorepo/issues/1826)) ([3d6f05a](https://github.com/duyet/monorepo/commit/3d6f05a9cc047b3c9094a5113de05943e1847456))
+
 ## [0.1.2](https://github.com/duyet/monorepo/compare/duyet-v0.1.1...duyet-v0.1.2) (2026-10-19)
 
 
