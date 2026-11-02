@@ -31,7 +31,7 @@ sha2 = "0.11"
 tar = "0.4"
 toml = "1"
 url = "2"
-zip = { version = "2", default-features = false, features = ["deflate"] }
+zip = { version = "9", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
 minisign = "0.10"
