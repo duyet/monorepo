@@ -310,6 +310,7 @@ fn apply_release(
         return Ok(());
     }
     let staging = install_dir.join("staging");
+    let _ = fs::remove_dir_all(&staging);
     fs::create_dir_all(&staging).map_err(|source| CliError::Io {
         path: staging.clone(),
         source,
@@ -319,7 +320,10 @@ fn apply_release(
         path: archive_path.clone(),
         source,
     })?;
-    let unpacked = unpack_archive(&archive, name, &staging)?;
+    let unpacked = unpack_archive(&archive, name, &staging).map_err(|err| {
+        let _ = fs::remove_dir_all(&staging);
+        err
+    })?;
     swap_binaries(install_dir, &unpacked)?;
     let _ = fs::remove_dir_all(&staging);
     write_versions(install_dir, version, VERSION, channel)?;
