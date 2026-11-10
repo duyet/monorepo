@@ -377,7 +377,14 @@ fn unpack_zip(bytes: &[u8], dest: &Path) -> Result<PathBuf, CliError> {
         let mut file = archive
             .by_index(i)
             .map_err(|err| CliError::Internal(format!("zip: {err}")))?;
-        let out = dest.join(file.name());
+        // Reject absolute paths and `..` traversal (zip-slip) instead of
+        // joining the raw archive name onto `dest`.
+        let out = dest.join(file.enclosed_name().ok_or_else(|| {
+            CliError::Internal(format!(
+                "zip: refusing unsafe entry path: {}",
+                String::from_utf8_lossy(file.name_raw())
+            ))
+        })?);
         if file.is_dir() {
             fs::create_dir_all(&out).map_err(|source| CliError::Io {
                 path: out,
