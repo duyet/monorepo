@@ -309,9 +309,15 @@ fn apply_release(
     if ctx.globals.dry_run {
         return Ok(());
     }
-    let staging = install_dir.join("staging");
-    let _ = fs::remove_dir_all(&staging);
-    fs::create_dir_all(&staging).map_err(|source| CliError::Io {
+    let staging = install_dir.join(format!(
+        ".staging-{}-{}",
+        std::process::id(),
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map(|d| d.as_nanos())
+            .unwrap_or(0)
+    ));
+    fs::create_dir(&staging).map_err(|source| CliError::Io {
         path: staging.clone(),
         source,
     })?;
