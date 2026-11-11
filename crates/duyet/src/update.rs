@@ -309,18 +309,31 @@ fn apply_release(
     if ctx.globals.dry_run {
         return Ok(());
     }
-    let staging = install_dir.join("staging");
-    fs::create_dir_all(&staging).map_err(|source| CliError::Io {
+    let staging = install_dir.join(format!(
+        ".staging-{}-{}",
+        std::process::id(),
+        SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .map(|d| d.as_nanos())
+            .unwrap_or(0)
+    ));
+    fs::create_dir(&staging).map_err(|source| CliError::Io {
         path: staging.clone(),
         source,
     })?;
+    let cleanup_staging = |err: CliError| -> CliError {
+        let _ = fs::remove_dir_all(&staging);
+        err
+    };
     let archive_path = staging.join(name);
-    fs::write(&archive_path, &archive).map_err(|source| CliError::Io {
-        path: archive_path.clone(),
-        source,
+    fs::write(&archive_path, &archive).map_err(|source| {
+        cleanup_staging(CliError::Io {
+            path: archive_path.clone(),
+            source,
+        })
     })?;
-    let unpacked = unpack_archive(&archive, name, &staging)?;
-    swap_binaries(install_dir, &unpacked)?;
+    let unpacked = unpack_archive(&archive, name, &staging).map_err(cleanup_staging)?;
+    swap_binaries(install_dir, &unpacked).map_err(cleanup_staging)?;
     let _ = fs::remove_dir_all(&staging);
     write_versions(install_dir, version, VERSION, channel)?;
     Ok(())
