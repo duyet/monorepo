@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.3](https://github.com/duyet/monorepo/compare/duyet-v0.1.2...duyet-v0.1.3) (2026-11-13)
+
+
+### Bug Fixes
+
+* **crate:** clear stale update staging before unpack ([#1831](https://github.com/duyet/monorepo/issues/1831)) ([5a779c1](https://github.com/duyet/monorepo/commit/5a779c141ccf097512f02c4d4149f2dd20f26df1))
+* **crate:** unpack zip v9 archives ([#1830](https://github.com/duyet/monorepo/issues/1830)) ([0933342](https://github.com/duyet/monorepo/commit/0933342c414d0d4cb0b286fba75a3005a47e2018))
+* **deps:** update rust crate zip to v9 [security] ([#1826](https://github.com/duyet/monorepo/issues/1826)) ([3d6f05a](https://github.com/duyet/monorepo/commit/3d6f05a9cc047b3c9094a5113de05943e1847456))
+
 ## [0.1.2](https://github.com/duyet/monorepo/compare/duyet-v0.1.1...duyet-v0.1.2) (2026-10-19)
 
 
