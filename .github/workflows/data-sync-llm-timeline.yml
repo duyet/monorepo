@@ -36,7 +36,7 @@ jobs:
       # and action pins as checks.yml; kept in step because the sync script runs
       # directly through tsx, not through turbo, so no cache split is needed.
       - name: Setup Rust toolchain (wasm32 + native)
-        uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        uses: dtolnay/rust-toolchain@39008827e6b4319a349e9a42dfc90579dd25f1ca # stable
         with:
           targets: wasm32-unknown-unknown
 
