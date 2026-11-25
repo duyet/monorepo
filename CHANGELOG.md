@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.12](https://github.com/duyet/monorepo/compare/v0.1.11...v0.1.12) (2026-11-25)
+
+
+### ✨ Features
+
+* **blog:** add pstack shortform note ([8ae5657](https://github.com/duyet/monorepo/commit/8ae56577cafda33d5a4687e425a85bc31b0ac704))
+* **home:** show the built-at time on the projects page ([#1819](https://github.com/duyet/monorepo/issues/1819)) ([388e9ac](https://github.com/duyet/monorepo/commit/388e9ace11c3e09ed7ff6f7fdd1d5c9079187236))
+
+
+### 🐛 Bug Fixes
+
+* **burns:** count each daily row once across direct and hub copies ([#1836](https://github.com/duyet/monorepo/issues/1836)) ([2772437](https://github.com/duyet/monorepo/commit/277243738adc6310a69d21aef4721ec67f316783))
+* **deps:** update rust crate zip to v9 [security] ([#1826](https://github.com/duyet/monorepo/issues/1826)) ([3d6f05a](https://github.com/duyet/monorepo/commit/3d6f05a9cc047b3c9094a5113de05943e1847456))
+
 ## [0.1.11](https://github.com/duyet/monorepo/compare/v0.1.10...v0.1.11) (2026-10-19)
 
 
