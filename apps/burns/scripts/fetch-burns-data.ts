@@ -3,6 +3,7 @@
 import { Database } from "duckdb-async";
 import { existsSync, mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
+import { withDedupedDaily } from "../src/lib/dedupe";
 import { requiresFreshBurnsData } from "../src/lib/freshness";
 import { normalizeSource } from "../src/lib/sources";
 
@@ -57,7 +58,7 @@ async function main() {
   };
 
   console.log("Fetching totals...");
-  const totalsRows = await db.all(`
+  const totalsRows = await db.all(withDedupedDaily(`
     SELECT
       COALESCE(SUM(input_tokens), 0)          as input_tokens,
       COALESCE(SUM(output_tokens), 0)         as output_tokens,
@@ -65,14 +66,13 @@ async function main() {
       COALESCE(SUM(cache_read_tokens), 0)     as cache_read_tokens,
       COALESCE(SUM(total_tokens), 0)          as total_tokens,
       COALESCE(SUM(cost), 0)                  as total_cost
-    FROM ccusage_events
-    WHERE record_type = 'daily'
-  `);
+    FROM deduped_daily
+  `));
 
   const totals = totalsRows[0];
 
   console.log("Fetching daily breakdown...");
-  const dailyRows = await db.all(`
+  const dailyRows = await db.all(withDedupedDaily(`
     SELECT
       date,
       COALESCE(SUM(input_tokens), 0)          as input_tokens,
@@ -81,11 +81,10 @@ async function main() {
       COALESCE(SUM(cache_read_tokens), 0)     as cache_read_tokens,
       COALESCE(SUM(total_tokens), 0)          as total_tokens,
       COALESCE(SUM(cost), 0)                  as cost
-    FROM ccusage_events
-    WHERE record_type = 'daily'
+    FROM deduped_daily
     GROUP BY date
     ORDER BY date DESC
-  `);
+  `));
 
   const firstDate = dailyRows.length > 0
     ? formatDate(dailyRows[dailyRows.length - 1].date)
@@ -95,18 +94,17 @@ async function main() {
     : null;
 
   console.log("Fetching per-agent breakdown per day...");
-  const sourceRows = await db.all(`
+  const sourceRows = await db.all(withDedupedDaily(`
     SELECT
       date,
       source,
       model_name,
       COALESCE(SUM(total_tokens), 0) as total_tokens,
       COALESCE(SUM(cost), 0)         as cost
-    FROM ccusage_events
-    WHERE record_type = 'daily'
+    FROM deduped_daily
     GROUP BY date, source, model_name
     ORDER BY date DESC
-  `);
+  `));
 
   const byDateMaps = new Map<string, Map<string, SourceAgg>>();
   const allTime = new Map<string, SourceAgg>();
